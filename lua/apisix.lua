@@ -275,6 +275,130 @@ function _M.http_access_phase()
         return ngx.exec("@grpc_pass")
     end
 
+    if route.value.proxy_cache then
+        return ngx.exec("@proxy_cache")
+    end
+
+    if route.value.service_id then
+        local service = service_fetch(route.value.service_id)
+        if not service then
+            core.log.error("failed to fetch service configuration by ",
+                           "id: ", route.value.service_id)
+            return core.response.exit(404)
+        end
+
+        local changed
+        route, changed = plugin.merge_service_route(service, route)
+        api_ctx.matched_route = route
+
+        if changed then
+            api_ctx.conf_type = "route&service"
+            api_ctx.conf_version = route.modifiedIndex .. "&"
+                                   .. service.modifiedIndex
+            api_ctx.conf_id = route.value.id .. "&"
+                              .. service.value.id
+        else
+            api_ctx.conf_type = "service"
+            api_ctx.conf_version = service.modifiedIndex
+            api_ctx.conf_id = service.value.id
+        end
+    else
+        api_ctx.conf_type = "route"
+        api_ctx.conf_version = route.modifiedIndex
+        api_ctx.conf_id = route.value.id
+    end
+
+    local enable_websocket
+    local up_id = route.value.upstream_id
+    if up_id then
+        local upstreams_etcd = core.config.fetch_created_obj("/upstreams")
+        if upstreams_etcd then
+            local upstream = upstreams_etcd:get(tostring(up_id))
+            if upstream.has_domain then
+                parsed_domain(upstream, api_ctx.conf_version,
+                              parse_domain_in_up, upstream)
+            end
+
+            if upstream.value.enable_websocket then
+                enable_websocket = true
+            end
+        end
+
+    else
+        if route.has_domain then
+            route = parsed_domain(route, api_ctx.conf_version,
+                                  parse_domain_in_route, route)
+        end
+
+        if route.value.upstream and route.value.upstream.enable_websocket then
+            enable_websocket = true
+        end
+    end
+
+    if enable_websocket then
+        api_ctx.var.upstream_upgrade    = api_ctx.var.http_upgrade
+        api_ctx.var.upstream_connection = api_ctx.var.http_connection
+    end
+
+    local plugins = core.tablepool.fetch("plugins", 32, 0)
+    api_ctx.plugins = plugin.filter(route, plugins)
+
+    run_plugin("rewrite", plugins, api_ctx)
+    if api_ctx.consumer then
+        local changed
+        route, changed = plugin.merge_consumer_route(route, api_ctx.consumer)
+        if changed then
+            core.table.clear(api_ctx.plugins)
+            api_ctx.plugins = plugin.filter(route, api_ctx.plugins)
+        end
+    end
+    run_plugin("access", plugins, api_ctx)
+end
+
+
+function _M.http_cache_access_phase()
+    local ngx_ctx = ngx.ctx
+    local api_ctx = ngx_ctx.api_ctx
+
+    if not api_ctx then
+        api_ctx = core.tablepool.fetch("api_ctx", 0, 32)
+        ngx_ctx.api_ctx = api_ctx
+    end
+
+    core.ctx.set_vars_meta(api_ctx)
+
+    -- load and run global rule
+    if router.global_rules and router.global_rules.values
+       and #router.global_rules.values > 0 then
+        local plugins = core.tablepool.fetch("plugins", 32, 0)
+        for _, global_rule in ipairs(router.global_rules.values) do
+            api_ctx.conf_type = "global_rule"
+            api_ctx.conf_version = global_rule.modifiedIndex
+            api_ctx.conf_id = global_rule.value.id
+
+            core.table.clear(plugins)
+            api_ctx.plugins = plugin.filter(global_rule, plugins)
+            run_plugin("rewrite", plugins, api_ctx)
+            run_plugin("access", plugins, api_ctx)
+        end
+
+        core.tablepool.release("plugins", plugins)
+        api_ctx.plugins = nil
+        api_ctx.conf_type = nil
+        api_ctx.conf_version = nil
+        api_ctx.conf_id = nil
+    end
+
+    router.router_http.match(api_ctx)
+
+    core.log.info("matched route: ",
+                  core.json.delay_encode(api_ctx.matched_route, true))
+
+    local route = api_ctx.matched_route
+    if not route then
+        return core.response.exit(404, {error_msg = "failed to match any routes"})
+    end
+
     if route.value.service_id then
         local service = service_fetch(route.value.service_id)
         if not service then
