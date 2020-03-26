@@ -136,6 +136,9 @@ install:
 	$(INSTALL) -d $(INST_LUADIR)/apisix/plugins
 	$(INSTALL) lua/apisix/plugins/*.lua $(INST_LUADIR)/apisix/plugins/
 
+	$(INSTALL) -d $(INST_LUADIR)/apisix/utils
+	$(INSTALL) lua/apisix/utils/*.lua $(INST_LUADIR)/apisix/utils/
+
 	$(INSTALL) -d $(INST_LUADIR)/apisix/plugins/grpc-transcode
 	$(INSTALL) lua/apisix/plugins/grpc-transcode/*.lua $(INST_LUADIR)/apisix/plugins/grpc-transcode/
 
