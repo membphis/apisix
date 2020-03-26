@@ -118,9 +118,7 @@ install:
 	$(INSTALL) conf/cert/apisix.* /usr/local/apisix/conf/cert/
 
 	$(INSTALL) -d $(INST_LUADIR)/apisix/
-	$(INSTALL) lua/*.lua $(INST_LUADIR)/apisix/
-
-	$(INSTALL) -d $(INST_LUADIR)/apisix/
+	$(INSTALL) lua/*.lua $(INST_LUADIR)/
 	$(INSTALL) lua/apisix/*.lua $(INST_LUADIR)/apisix/
 
 	$(INSTALL) -d $(INST_LUADIR)/apisix/admin
