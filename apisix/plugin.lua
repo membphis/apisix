@@ -227,9 +227,10 @@ function _M.api_routes()
                                 fetch_api_routes)
 end
 
-
-function _M.filter(user_route, plugins)
+    local phases = {"rewrite", "access", "header_filter", "body_filter", "log"}
+function _M.filter(user_route, plugins, plugins_enabled_phase)
     plugins = plugins or core.table.new(#local_plugins * 2, 0)
+
     local user_plugin_conf = user_route.value.plugins
     if user_plugin_conf == nil or
        core.table.nkeys(user_plugin_conf) == 0 then
@@ -246,10 +247,16 @@ function _M.filter(user_route, plugins)
         if type(plugin_conf) == "table" and not plugin_conf.disable then
             core.table.insert(plugins, plugin_obj)
             core.table.insert(plugins, plugin_conf)
+
+            for _, phase in ipairs(phases) do
+                if not plugins_enabled_phase[phase] and plugin_obj[phase] then
+                    plugins_enabled_phase[phase] = true
+                end
+            end
         end
     end
 
-    if local_conf.apisix.enable_debug then
+    if local_conf and local_conf.apisix.enable_debug then
         local t = {}
         for i = 1, #plugins, 2 do
             core.table.insert(t, plugins[i].name)
