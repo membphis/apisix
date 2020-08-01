@@ -34,6 +34,7 @@ local _M = {
     concat  = table.concat,
     clone   = require("table.clone"),
     isarray = require("table.isarray"),
+    empty_tab = {},
 }
 
 
