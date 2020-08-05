@@ -350,6 +350,7 @@ function _M.http_access_phase()
         return ngx.exec("@grpc_pass")
     end
 
+    local enable_websocket = route.value.enable_websocket
     if route.value.service_id then
         local service = service_fetch(route.value.service_id)
         if not service then
@@ -373,13 +374,16 @@ function _M.http_access_phase()
             api_ctx.conf_version = service.modifiedIndex
             api_ctx.conf_id = service.value.id
         end
+
+        if enable_websocket == nil then
+            enable_websocket = service.value.enable_websocket
+        end
     else
         api_ctx.conf_type = "route"
         api_ctx.conf_version = route.modifiedIndex
         api_ctx.conf_id = route.value.id
     end
 
-    local enable_websocket
     local up_id = route.value.upstream_id
     if up_id then
         local upstreams = core.config.fetch_created_obj("/upstreams")
@@ -416,10 +420,6 @@ function _M.http_access_phase()
                 end
 
             end
-
-            if upstream.value.enable_websocket then
-                enable_websocket = true
-            end
         end
 
     else
@@ -441,10 +441,6 @@ function _M.http_access_phase()
                 lru_resolved_domain(route, api_ctx.conf_version,
                                 return_direct, route)
             end
-        end
-
-        if route.value.upstream and route.value.upstream.enable_websocket then
-            enable_websocket = true
         end
     end
 

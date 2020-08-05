@@ -328,10 +328,6 @@ local upstream_schema = {
             description = "the key of chash for dynamic load balancing",
             type = "string",
         },
-        enable_websocket = {
-            description = "enable websocket for request",
-            type        = "boolean"
-        },
         name = {type = "string", maxLength = 50},
         desc = {type = "string", maxLength = 256},
         service_name = {type = "string", maxLength = 50},
@@ -431,6 +427,10 @@ _M.route = {
         upstream_id = id_schema,
         service_protocol = {
             enum = {"grpc", "http"}
+        },
+        enable_websocket = {
+            description = "enable websocket for request",
+            type        = "boolean"
         },
         id = id_schema,
     },

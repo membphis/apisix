@@ -62,7 +62,7 @@ A/B testing, canary release, blue-green deployment, limit rate, defense against 
 
 - **Full dynamic**
     - [Hot Updates And Hot Plugins](doc/plugins.md): Continuously updates its configurations and plugins without restarts!
-    - [Proxy Rewrite](doc/plugins/proxy-rewrite.md): Support rewrite the `host`, `uri`, `schema`, `enable_websocket`, `headers` of the request before send to upstream.
+    - [Proxy Rewrite](doc/plugins/proxy-rewrite.md): Support rewrite the `host`, `uri`, `schema`, `headers` of the request before send to upstream.
     - [Response Rewrite](doc/plugins/response-rewrite.md): Set customized response status code, body and header to the client.
     - [Serverless](doc/plugins/serverless.md): Invoke functions in each phase in APISIX.
     - Dynamic Load Balancing: Round-robin load balancing with weight.
