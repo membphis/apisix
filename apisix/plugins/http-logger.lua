@@ -179,10 +179,17 @@ function _M.log(conf, ctx)
         end
         local matched_route = ctx.matched_route and ctx.matched_route.value
 
-        entry.service_id = matched_route.service_id
-        entry.route_id = matched_route.id
+        if matched_route then
+            entry.service_id = matched_route.service_id
+            entry.route_id = matched_route.id
+        end
+
     else
         entry = log_util.get_full_log(ngx, conf)
+    end
+
+    if not entry.route_id then
+        entry.route_id = "no-matched"
     end
 
     if not entry.route_id then
@@ -191,7 +198,6 @@ function _M.log(conf, ctx)
     end
 
     local log_buffer = buffers[entry.route_id]
-
     if log_buffer then
         log_buffer:push(entry)
         return
