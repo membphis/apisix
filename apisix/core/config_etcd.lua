@@ -416,16 +416,20 @@ local function _automatic_fetch(premature, self)
         return
     end
 
-    local etcd_cli, _, err = etcd.new(self.etcd_conf)
-    if not etcd_cli then
-        error("failed to start a etcd instance: " .. err)
-    end
-    self.etcd_cli = etcd_cli
-
     local i = 0
     while not exiting() and self.running and i <= 32 do
         i = i + 1
+
         local ok, err = xpcall(function()
+            if not self.etcd_cli then
+                local etcd_cli, err = etcd.new(self.etcd_conf)
+                if not etcd_cli then
+                    error("failed to create etcd instance for key ["
+                          .. self.key .. "]: " .. (err or "unknown"))
+                end
+                self.etcd_cli = etcd_cli
+            end
+
             local ok, err = sync_data(self)
             if err then
                 if err ~= "timeout" and err ~= "Key not found"
@@ -446,6 +450,7 @@ local function _automatic_fetch(premature, self)
             elseif not ok then
                 ngx_sleep(0.05)
             end
+
         end, debug.traceback)
 
         if not ok then
@@ -507,7 +512,7 @@ function _M.new(key, opts)
         ngx_timer_at(0, _automatic_fetch, obj)
 
     else
-        local etcd_cli, _, err = etcd.new(etcd_conf)
+        local etcd_cli, err = etcd.new(etcd_conf)
         if not etcd_cli then
             return nil, "failed to start a etcd instance: " .. err
         end
