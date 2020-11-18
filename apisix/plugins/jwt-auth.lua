@@ -33,6 +33,12 @@ local pcall = pcall
 local lrucache = core.lrucache.new({
     type = "plugin",
 })
+local lrucache_jwt = core.lrucache.new({
+    type = "plugin",
+})
+local lrucache_jwt_verify = core.lrucache.new({
+    type = "plugin",
+})
 
 local schema = {
     type = "object",
@@ -129,7 +135,7 @@ end
 
 
 local function fetch_jwt_token(ctx)
-    local token = core.request.header(ctx, "authorization")
+    local token = ctx.var.http_authorization -- core.request.header(ctx, "authorization")
     if token then
         local prefix = sub_str(token, 1, 7)
         if prefix == 'Bearer ' or prefix == 'bearer ' then
@@ -231,7 +237,7 @@ function _M.rewrite(conf, ctx)
         return 401, {message = "Missing JWT token in request"}
     end
 
-    local jwt_obj = jwt:load_jwt(jwt_token)
+    local jwt_obj = lrucache_jwt(jwt_token, nil, jwt.load_jwt, jwt, jwt_token)
     core.log.info("jwt object: ", core.json.delay_encode(jwt_obj))
     if not jwt_obj.valid then
         return 401, {message = jwt_obj.reason}
@@ -257,7 +263,7 @@ function _M.rewrite(conf, ctx)
     core.log.info("consumer: ", core.json.delay_encode(consumer))
 
     local _, auth_secret = algorithm_handler(consumer)
-    jwt_obj = jwt:verify_jwt_obj(auth_secret, jwt_obj)
+    jwt_obj = lrucache_jwt_verify(jwt_obj, nil, jwt.verify_jwt_obj, jwt, auth_secret, jwt_obj)
     core.log.info("jwt object: ", core.json.delay_encode(jwt_obj))
 
     if not jwt_obj.verified then
