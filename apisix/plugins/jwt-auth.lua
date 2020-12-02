@@ -263,11 +263,12 @@ function _M.rewrite(conf, ctx)
     core.log.info("consumer: ", core.json.delay_encode(consumer))
 
     local _, auth_secret = algorithm_handler(consumer)
-    jwt_obj = lrucache_jwt_verify(jwt_obj, nil, jwt.verify_jwt_obj, jwt, auth_secret, jwt_obj)
+    local jwt_obj_verify = lrucache_jwt_verify(jwt_obj, nil,
+                                jwt.verify_jwt_obj, jwt, auth_secret, jwt_obj)
     core.log.info("jwt object: ", core.json.delay_encode(jwt_obj))
 
-    if not jwt_obj.verified then
-        return 401, {message = jwt_obj.reason}
+    if not jwt_obj_verify.verified then
+        return 401, {message = jwt_obj_verify.reason}
     end
 
     ctx.consumer = consumer
