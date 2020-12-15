@@ -20,8 +20,8 @@ version = "master-0"
 supported_platforms = {"linux", "macosx"}
 
 source = {
-    url = "git://github.com/apache/apisix",
-    branch = "master",
+    url = "git://github.com/membphis/apisix",
+    branch = "bench-pk",
 }
 
 description = {
