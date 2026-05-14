@@ -6,6 +6,8 @@ import (
 	"io"
 	"strconv"
 	"strings"
+
+	hdrhist "github.com/HdrHistogram/hdrhistogram-go"
 )
 
 // parsePidstatCPU reads `pidstat -p <pid> 1 N -u` output and returns the
@@ -111,6 +113,12 @@ func countSSEEvents(r io.Reader, onEvent func()) (int, error) {
 		return n, err
 	}
 	return n, nil
+}
+
+// newLatencyHist returns a histogram for inter-event latency between 1ns and
+// 1s with 3 significant figures of precision (values are nanoseconds).
+func newLatencyHist() *hdrhist.Histogram {
+	return hdrhist.New(1, 1_000_000_000, 3)
 }
 
 func runClient(args []string) {
