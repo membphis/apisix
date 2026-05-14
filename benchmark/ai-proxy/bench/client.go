@@ -176,6 +176,7 @@ func runClient(args []string) {
 	}
 	defer f.Close()
 	cw := csv.NewWriter(f)
+	defer cw.Flush()
 	_ = cw.Write([]string{
 		"concurrency", "duration_s", "total_tokens", "total_t_per_s",
 		"apisix_cpu_pct", "server_cpu_pct", "client_cpu_pct",
@@ -276,8 +277,13 @@ func runLevel(url string, c, apisixPID, serverPID int, warmup, dur time.Duration
 	var totalTokens int64
 	merged := newLatencyHist()
 	for _, l := range locals {
-		totalTokens += atomic.LoadInt64(&l.tokens)
+		totalTokens += l.tokens
 		merged.Merge(l.hist)
+	}
+
+	if totalTokens < 1000 {
+		fmt.Fprintf(os.Stderr, "WARN c=%d only %d tokens during %s; upstream or route may be broken\n",
+			c, totalTokens, dur)
 	}
 
 	apisix := <-apisixCh
@@ -325,7 +331,7 @@ func readSSEStream(r io.Reader, l *local, measuring *int64) {
 		if atomic.LoadInt64(measuring) != 1 {
 			return
 		}
-		atomic.AddInt64(&l.tokens, 1)
+		l.tokens++ // safe: only this goroutine writes; runLevel reads after wg.Wait()
 		now := time.Now()
 		if !last.IsZero() {
 			_ = l.hist.RecordValue(now.Sub(last).Nanoseconds())
@@ -347,8 +353,8 @@ func pidstatCPU(pid, seconds int) float64 {
 		fmt.Fprintf(os.Stderr, "pidstat parse pid=%d: %v\n", pid, err)
 		return -1
 	}
-	if samples < 2 {
-		fmt.Fprintf(os.Stderr, "pidstat pid=%d: only %d samples\n", pid, samples)
+	if samples < 20 {
+		fmt.Fprintf(os.Stderr, "WARN pidstat pid=%d: only %d samples (<20 may be unreliable)\n", pid, samples)
 	}
 	return mean
 }
