@@ -83,3 +83,47 @@ if ! grep -q '^bench-server: pid=' "$SERVER_LOG"; then
   exit 1
 fi
 echo "    bench server pid=$SERVER_PID"
+
+# --- Step: write APISIX config ----------------------------------------------
+echo "==> installing APISIX config"
+cp "$BENCH_DIR/conf/config.yaml.tpl" conf/config.yaml
+
+# --- Step: start APISIX ------------------------------------------------------
+echo "==> starting APISIX"
+make init
+make run
+
+# --- Step: locate the worker and pin it to APISIX_CORE ----------------------
+echo "==> waiting for APISIX worker to come up"
+for _ in $(seq 1 30); do
+  WORKER_PID="$(pgrep -f 'nginx: worker process' | head -1 || true)"
+  [ -n "$WORKER_PID" ] && break
+  sleep 1
+done
+if [ -z "$WORKER_PID" ]; then
+  echo "APISIX worker did not start within 30s" >&2
+  exit 1
+fi
+echo "    APISIX worker pid=$WORKER_PID"
+sudo taskset -cp "$APISIX_CORE" "$WORKER_PID"
+taskset -cp "$WORKER_PID"
+
+# --- Step: register the ai-proxy route --------------------------------------
+echo "==> registering ai-proxy route"
+ADMIN_KEY="edd1c9f034335f136f87ad84b625c8f1"
+curl -sS -o /dev/null -w "    admin route response: %{http_code}\n" \
+  -H "X-API-KEY: $ADMIN_KEY" -X PUT \
+  http://127.0.0.1:9180/apisix/admin/routes/1 \
+  -d '{
+    "uri": "/v1/chat/completions",
+    "plugins": {
+      "ai-proxy": {
+        "provider": "openai",
+        "auth": { "header": { "Authorization": "Bearer sk-bench" } },
+        "override": { "endpoint": "http://127.0.0.1:1981/v1/chat/completions" }
+      }
+    }
+  }'
+
+# Wait a beat for the route to be picked up.
+sleep 1
