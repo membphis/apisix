@@ -2,9 +2,14 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"math"
+	"net/http/httptest"
 	"strings"
+	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 )
 
 // Sample matches the `pidstat -p <pid> 1 N -u` output format on Linux
@@ -57,5 +62,29 @@ func TestCountSSEEvents(t *testing.T) {
 	}
 	if count != 2 {
 		t.Fatalf("count = %d, want 2 (DONE and comments excluded)", count)
+	}
+}
+
+func TestStreamWorkerCountsAgainstFakeServer(t *testing.T) {
+	srv := httptest.NewServer(newChatHandler(" hello"))
+	defer srv.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 600*time.Millisecond)
+	defer cancel()
+
+	l := &local{hist: newLatencyHist()}
+	measuring := int64(1)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		streamWorker(ctx, srv.URL+"/v1/chat/completions",
+			`{"stream":true}`, l, &measuring)
+	}()
+	wg.Wait()
+
+	got := atomic.LoadInt64(&l.tokens)
+	if got < 100 {
+		t.Fatalf("expected ≥ 100 events in 600ms, got %d", got)
 	}
 }
