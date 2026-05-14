@@ -379,3 +379,47 @@ asked):
 - ai-proxy-multi
 - Anthropic→OpenAI converter path
 - Other providers (anthropic, bedrock, vertex, etc.)
+
+## Measured Result (2026-05-14)
+
+| | |
+|---|---|
+| CPU model | Intel Xeon Processor (Skylake, IBRS) (VM) |
+| Kernel | 7.0.0-14-generic |
+| APISIX | `apache/apisix:dev` (master plugin tree, ai-providers/ + ai-protocols/ + ai-transport/) |
+| APISIX mode | standalone (yaml-loaded routes, no etcd) |
+| Worker config | `worker_processes: 1`, pinned to CPU 0 via `taskset -c 0` |
+| Plugins active | `ai-proxy` only; access log off |
+| Topology | APISIX core 0; bench server core 1; bench client cores 2-3 |
+| Window | 60 s per level, 5 s warmup |
+
+**Single-core ceiling: ≈ 19,500 tokens/s** (at concurrency 1, with APISIX at 99.9% CPU).
+**At high concurrency (64 streams): ≈ 14,100 tokens/s**, APISIX still at 100% CPU.
+
+Full sweep (`benchmark/ai-proxy/result/bench-result.csv`):
+
+| concurrency | tokens/s | apisix_cpu | server_cpu | client_cpu | p50 µs | p99 µs |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1  | 19,480 | 99.9% | 7.2% | 64.1% |    40 |    211 |
+| 2  | 18,702 | 99.9% | 6.5% | 68.8% |    94 |    343 |
+| 4  | 18,480 | 99.9% | 6.1% | 69.3% |   193 |    765 |
+| 8  | 18,272 | 99.9% | 6.3% | 69.2% |   391 |  1,736 |
+| 16 | 17,204 | 99.9% | 5.5% | 69.2% |   817 |  4,493 |
+| 32 | 14,382 | 99.9% | 5.0% | 66.8% | 1,995 |  9,814 |
+| 64 | 14,136 | 100.0% | 4.2% | 65.6% | 4,214 | 11,321 |
+
+### Interpretation
+
+- APISIX CPU pinned at 99.9–100% across every level — APISIX is the bottleneck throughout, so the numbers are a genuine single-core ceiling, not a load-side artifact.
+- Throughput peaks at concurrency 1 (one persistent SSE stream blasting events) and degrades monotonically as concurrency rises. The decline is per-stream coroutine scheduling overhead in OpenResty: each extra in-flight stream costs Lua context-switches per chunk on top of the cjson decode hot path.
+- Inter-event p99 latency widens with concurrency (211 µs → 11.3 ms at c=64) but the worker never drops below 99.9% CPU — i.e. the worker is busy, not stalled.
+- `client_cpu_pct` (64–69%) sits above the 60% warning threshold from §6; on this 4-CPU VM the client genuinely competes for CPU with itself, but APISIX is still the hard ceiling. A wider client allocation would not raise APISIX throughput — APISIX is already saturated.
+- Earlier analytical estimate from conversation: ~20K t/s ceiling, ~12–15K t/s sustainable. Measurement: 19.5K peak, 14K under load. Within 5% of prediction.
+
+### Reproducing
+
+```bash
+APISIX_CORE=0 SERVER_CORES=1 CLIENT_CORES=2-3 bash benchmark/ai-proxy/run.sh
+```
+
+Requires: docker (with `apache/apisix:dev` image), Go 1.21+, `taskset`, `pidstat`, passwordless sudo, ports 9080 / 9180 / 1981 free on host.
