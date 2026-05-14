@@ -127,3 +127,51 @@ curl -sS -o /dev/null -w "    admin route response: %{http_code}\n" \
 
 # Wait a beat for the route to be picked up.
 sleep 1
+
+# --- Step: run the client concurrency sweep ---------------------------------
+echo "==> starting client sweep (concurrency=$CONCURRENCY)"
+taskset -c "$CLIENT_CORES" "$BENCH_BIN" client \
+  --apisix-url http://127.0.0.1:9080/v1/chat/completions \
+  --apisix-pid "$WORKER_PID" \
+  --server-pid "$SERVER_PID" \
+  --concurrency "$CONCURRENCY" \
+  --warmup "${WARMUP}s" \
+  --duration "${DURATION}s" \
+  --cool 5s \
+  --gomaxprocs 5 \
+  --out "$CSV"
+
+# --- Step: sanity check the CSV ---------------------------------------------
+echo "==> sanity checks"
+python3 - "$CSV" <<'PY' || { echo "    sanity check failed"; exit 1; }
+import csv, sys
+rows = list(csv.DictReader(open(sys.argv[1])))
+if not rows:
+    print("no rows in CSV", file=sys.stderr); sys.exit(1)
+
+# 1. peak row apisix_cpu_pct >= 90
+peak = max(rows, key=lambda r: float(r["total_t_per_s"]))
+cpu = float(peak["apisix_cpu_pct"])
+print(f"peak: concurrency={peak['concurrency']} t/s={peak['total_t_per_s']} cpu={cpu}")
+if cpu < 90:
+    print(f"    WARN: APISIX CPU at peak is {cpu}%, not saturated", file=sys.stderr)
+
+# 2. server/client cpu < 60 across rows
+for r in rows:
+    s, c = float(r["server_cpu_pct"]), float(r["client_cpu_pct"])
+    if s >= 60 or c >= 60:
+        print(f"    WARN: load-side near saturation: server={s}% client={c}%", file=sys.stderr)
+
+# 3. throughput non-strictly monotonic up to peak
+tps = [float(r["total_t_per_s"]) for r in rows]
+peak_idx = tps.index(max(tps))
+prev = 0.0
+for i, v in enumerate(tps[:peak_idx+1]):
+    if v + 1e-6 < prev:
+        print(f"    WARN: t/s dropped before peak at row {i}", file=sys.stderr)
+        break
+    prev = v
+print("    sanity checks complete")
+PY
+
+echo "==> done. CSV: $CSV"
