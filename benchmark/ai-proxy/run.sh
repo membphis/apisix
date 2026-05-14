@@ -104,9 +104,13 @@ docker run -d \
   apache/apisix:dev > /dev/null
 
 # --- Step: wait for the worker, then pin to APISIX_CORE ---------------------
+# Use `docker top` to find the worker — it only lists processes belonging to
+# this container, so a host-side system nginx cannot pollute the result.
+# With --pid host, the PID reported by docker top equals the host PID and is
+# directly usable for taskset -cp and pidstat -p.
 echo "==> waiting for APISIX worker"
 for _ in $(seq 1 30); do
-  WORKER_PID="$(pgrep -f 'nginx: worker process' | head -1 || true)"
+  WORKER_PID="$(docker top "$APISIX_CONTAINER" 2>/dev/null | awk '/nginx: worker process/{print $2; exit}' || true)"
   [ -n "$WORKER_PID" ] && break
   sleep 1
 done
