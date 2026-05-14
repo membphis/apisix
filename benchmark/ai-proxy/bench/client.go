@@ -87,6 +87,32 @@ func isTimeOfDay(s string) bool {
 	return true
 }
 
+// countSSEEvents reads an SSE stream line-by-line and returns the number of
+// `data: …` events received, excluding `data: [DONE]` sentinel. onEvent is
+// called once per counted event (used to record inter-event latency); pass
+// a no-op when latency tracking is not needed.
+func countSSEEvents(r io.Reader, onEvent func()) (int, error) {
+	sc := bufio.NewScanner(r)
+	// SSE lines can theoretically be long; bump buffer.
+	sc.Buffer(make([]byte, 0, 8*1024), 1<<20)
+	n := 0
+	for sc.Scan() {
+		line := sc.Text()
+		if !strings.HasPrefix(line, "data: ") {
+			continue
+		}
+		if line == "data: [DONE]" {
+			continue
+		}
+		n++
+		onEvent()
+	}
+	if err := sc.Err(); err != nil {
+		return n, err
+	}
+	return n, nil
+}
+
 func runClient(args []string) {
 	panic("not implemented")
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"math"
 	"strings"
 	"testing"
@@ -36,5 +37,25 @@ func TestParsePidstatCPUNoSamples(t *testing.T) {
 	_, _, err := parsePidstatCPU(strings.NewReader("Linux header only\n\n"))
 	if err == nil {
 		t.Fatalf("expected error for empty pidstat output, got nil")
+	}
+}
+
+func TestCountSSEEvents(t *testing.T) {
+	in := bytes.NewBufferString(strings.Join([]string{
+		`data: {"id":"a"}`,
+		``,
+		`data: {"id":"b"}`,
+		``,
+		`data: [DONE]`,
+		``,
+		`: keepalive`,
+		``,
+	}, "\n"))
+	count, err := countSSEEvents(in, func() {})
+	if err != nil {
+		t.Fatalf("countSSEEvents: %v", err)
+	}
+	if count != 2 {
+		t.Fatalf("count = %d, want 2 (DONE and comments excluded)", count)
 	}
 }
