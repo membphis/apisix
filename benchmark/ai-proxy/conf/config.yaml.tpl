@@ -1,26 +1,20 @@
 # APISIX config for ai-proxy single-CPU streaming benchmark.
-# Mounted into the apache/apisix:dev container at run time by run.sh.
-# Hand-edit this file (not a copy) and rerun run.sh.
+# Standalone mode: routes come from conf/apisix.yaml (no etcd, no admin API).
+# Mounted read-only into the apache/apisix:dev container by run.sh.
 
 deployment:
-  role: traditional
-  role_traditional:
-    config_provider: etcd
-  etcd:
-    host:
-      - http://127.0.0.1:2379
-  admin:
-    admin_key:
-      - name: admin
-        key: edd1c9f034335f136f87ad84b625c8f1
-        role: admin
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
 
 nginx_config:
   worker_processes: 1
   error_log_level: warn
+  http:
+    enable_access_log: false
 
-# prometheus must be listed so its lua_shared_dict is generated;
-# ai-proxy requires it internally.
 plugins:
   - ai-proxy
+  # prometheus must be listed so its lua_shared_dict is generated;
+  # ai-proxy requires it internally.
   - prometheus
