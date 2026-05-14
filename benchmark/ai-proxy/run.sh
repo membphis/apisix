@@ -48,3 +48,38 @@ trap cleanup INT TERM EXIT
 
 # Cache sudo creds so `taskset -cp` doesn't prompt mid-run.
 sudo -v
+
+# --- Step: build bench binary -----------------------------------------------
+echo "==> building bench binary"
+(cd "$BENCH_DIR/bench" && go build -o "$ROOT/$BENCH_BIN" .)
+
+# --- Step: record environment -----------------------------------------------
+{
+  echo "date: $(date -Is)"
+  echo "git_sha: $(git rev-parse HEAD)"
+  echo "kernel: $(uname -r)"
+  echo "cpu_model: $(awk -F: '/model name/{print $2; exit}' /proc/cpuinfo | sed 's/^ //')"
+  echo "go: $(go version)"
+  echo "concurrency: $CONCURRENCY"
+  echo "warmup_s: $WARMUP"
+  echo "duration_s: $DURATION"
+  echo "apisix_core: $APISIX_CORE"
+  echo "server_cores: $SERVER_CORES"
+  echo "client_cores: $CLIENT_CORES"
+} > "$ENV_FILE"
+
+# --- Step: start fake OpenAI upstream ---------------------------------------
+echo "==> starting bench server on cores $SERVER_CORES"
+taskset -c "$SERVER_CORES" "$BENCH_BIN" server --listen :1981 --gomaxprocs 2 \
+  > "$SERVER_LOG" 2>&1 &
+SERVER_PID=$!
+# Wait until the server prints its startup banner (means the listener is up).
+for _ in $(seq 1 30); do
+  if grep -q '^bench-server: pid=' "$SERVER_LOG"; then break; fi
+  sleep 0.1
+done
+if ! grep -q '^bench-server: pid=' "$SERVER_LOG"; then
+  echo "bench server failed to start; see $SERVER_LOG" >&2
+  exit 1
+fi
+echo "    bench server pid=$SERVER_PID"
