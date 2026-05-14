@@ -1,11 +1,14 @@
 # APISIX config for ai-proxy single-CPU streaming benchmark.
-# Run-time copy of this file is placed at conf/config.yaml by run.sh.
-# Hand-edit this file (not the copy) and rerun run.sh.
+# Mounted into the apache/apisix:dev container at run time by run.sh.
+# Hand-edit this file (not a copy) and rerun run.sh.
 
 deployment:
   role: traditional
   role_traditional:
-    config_provider: yaml
+    config_provider: etcd
+  etcd:
+    host:
+      - http://127.0.0.1:2379
   admin:
     admin_key:
       - name: admin
@@ -15,8 +18,9 @@ deployment:
 nginx_config:
   worker_processes: 1
   error_log_level: warn
-  http:
-    access_log: 'off'
 
+# prometheus must be listed so its lua_shared_dict is generated;
+# ai-proxy requires it internally.
 plugins:
   - ai-proxy
+  - prometheus

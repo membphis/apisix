@@ -31,23 +31,23 @@ WORKER_PID=""
 
 cleanup() {
   set +e
-  if [ -n "${WORKER_PID:-}" ]; then
-    : # nothing to do for the worker beyond `make stop`
-  fi
   if [ -n "${SERVER_PID:-}" ]; then
     kill "$SERVER_PID" 2>/dev/null
   fi
-  make stop 2>/dev/null
-  sudo killall pidstat 2>/dev/null
-  # Snapshot APISIX error log if present.
-  if [ -f logs/error.log ]; then
-    cp logs/error.log "$ERR_COPY" 2>/dev/null || true
+  # Snapshot APISIX error log from inside the container before tearing it down.
+  if docker ps -q -f name=apisix-bench > /dev/null 2>&1 && \
+     [ -n "$(docker ps -q -f name=apisix-bench)" ]; then
+    docker exec apisix-bench cat /usr/local/apisix/logs/error.log > "$ERR_COPY" 2>/dev/null || true
   fi
+  docker rm -f apisix-bench 2>/dev/null
+  docker rm -f apisix-etcd 2>/dev/null
+  sudo killall pidstat 2>/dev/null
 }
 trap cleanup INT TERM EXIT
 
-# Cache sudo creds so `taskset -cp` doesn't prompt mid-run.
-sudo -v
+# Validate sudo access so `taskset -cp` doesn't prompt mid-run.
+# (Caller should run `sudo -v` in their shell first to prime the credential cache.)
+sudo -n true || { echo "sudo access required (run 'sudo -v' first)" >&2; exit 1; }
 
 # --- Step: build bench binary -----------------------------------------------
 echo "==> building bench binary"
@@ -84,29 +84,73 @@ if ! grep -q '^bench-server: pid=' "$SERVER_LOG"; then
 fi
 echo "    bench server pid=$SERVER_PID"
 
-# --- Step: write APISIX config ----------------------------------------------
-echo "==> installing APISIX config"
-cp "$BENCH_DIR/conf/config.yaml.tpl" conf/config.yaml
-
-# --- Step: start APISIX ------------------------------------------------------
-echo "==> starting APISIX"
-make init
-make run
-
-# --- Step: locate the worker and pin it to APISIX_CORE ----------------------
-echo "==> waiting for APISIX worker to come up"
+# --- Step: start etcd (required by APISIX) ----------------------------------
+echo "==> starting etcd in docker"
+ETCD_CONTAINER="apisix-etcd"
+docker rm -f "$ETCD_CONTAINER" 2>/dev/null || true
+docker run -d \
+  --name "$ETCD_CONTAINER" \
+  --network host \
+  -e ALLOW_NONE_AUTHENTICATION=yes \
+  bitnamilegacy/etcd:3.5.11 > /dev/null
+# Wait for etcd to be ready.
 for _ in $(seq 1 30); do
-  WORKER_PID="$(pgrep -f 'nginx: worker process' | head -1 || true)"
+  curl -s --max-time 1 http://127.0.0.1:2379/version -o /dev/null && break
+  sleep 1
+done
+
+# --- Step: start APISIX in docker -------------------------------------------
+echo "==> starting APISIX (apache/apisix:dev) in docker"
+APISIX_CONTAINER="apisix-bench"
+docker rm -f "$APISIX_CONTAINER" 2>/dev/null || true
+# --network host: data plane on host's :9080, admin on :9180
+# --pid host: container's processes are visible to host pgrep + taskset
+# Config is mounted read-only over the image's default config.
+docker run -d \
+  --name "$APISIX_CONTAINER" \
+  --network host \
+  --pid host \
+  -v "$ROOT/$BENCH_DIR/conf/config.yaml.tpl:/usr/local/apisix/conf/config.yaml:ro" \
+  apache/apisix:dev > /dev/null
+
+# --- Step: wait for APISIX master, then find and pin its worker -------------
+echo "==> waiting for APISIX worker"
+APISIX_MASTER_PID=""
+# The APISIX openresty master is the parent of the worker processes.
+for _ in $(seq 1 30); do
+  APISIX_MASTER_PID="$(pgrep -f '/usr/local/openresty/bin/openresty' | head -1 || true)"
+  [ -n "$APISIX_MASTER_PID" ] && break
+  sleep 1
+done
+if [ -z "$APISIX_MASTER_PID" ]; then
+  echo "APISIX openresty master did not start within 30s; recent container logs:" >&2
+  docker logs --tail 40 "$APISIX_CONTAINER" 2>&1 >&2
+  exit 1
+fi
+# Find a worker whose parent is the APISIX master.
+for _ in $(seq 1 30); do
+  WORKER_PID="$(pgrep -P "$APISIX_MASTER_PID" | head -1 || true)"
   [ -n "$WORKER_PID" ] && break
   sleep 1
 done
 if [ -z "$WORKER_PID" ]; then
-  echo "APISIX worker did not start within 30s" >&2
+  echo "APISIX worker did not start within 30s; recent container logs:" >&2
+  docker logs --tail 40 "$APISIX_CONTAINER" 2>&1 >&2
   exit 1
 fi
 echo "    APISIX worker pid=$WORKER_PID"
 sudo taskset -cp "$APISIX_CORE" "$WORKER_PID"
 taskset -cp "$WORKER_PID"
+
+# Wait for admin API on :9180 to be reachable before registering the route.
+for _ in $(seq 1 30); do
+  if curl -s --max-time 1 http://127.0.0.1:9180/apisix/admin/routes \
+       -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" \
+       -o /dev/null -w '%{http_code}' 2>/dev/null | grep -q '^2'; then
+    break
+  fi
+  sleep 1
+done
 
 # --- Step: register the ai-proxy route --------------------------------------
 echo "==> registering ai-proxy route"
