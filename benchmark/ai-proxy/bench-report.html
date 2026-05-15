@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>APISIX ai-proxy Single-CPU Streaming Throughput</title>
+<style>
+  :root {
+    --fg: #1d2129;
+    --muted: #586069;
+    --accent: #c9332b;
+    --accent2: #2b6cb0;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --border: #e1e4e8;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 24px 64px;
+    font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+  }
+  main {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  h1 small {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+  h2 {
+    margin: 32px 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .headline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 20px 0 8px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .stat .label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stat .value {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .sub {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    padding: 9px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: #f6f8fa;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  th:first-child, td:first-child { text-align: left; }
+  tr:last-child td { border-bottom: 0; }
+  tr.peak td { background: #fff8f4; font-weight: 600; }
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  @media (max-width: 720px) { .charts { grid-template-columns: 1fr; } }
+  .chart {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .chart h3 {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  svg { width: 100%; height: auto; }
+  .axis { fill: var(--muted); font: 11px var(--mono); }
+  .tick { stroke: #e1e4e8; stroke-width: 1; }
+  .grid { stroke: #f0f2f4; stroke-width: 1; }
+  .line { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .line2 { fill: none; stroke: var(--accent2); stroke-width: 2; }
+  .dot { fill: var(--accent); }
+  .dot2 { fill: var(--accent2); }
+  .note {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .note ul { padding-left: 18px; margin: 6px 0; }
+  .meta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font: 12px/1.7 var(--mono);
+    color: var(--muted);
+  }
+  .meta b { color: var(--fg); font-weight: 600; }
+  code { font-family: var(--mono); font-size: 12.5px; background: #f3f4f6; padding: 1px 5px; border-radius: 3px; }
+  pre code { background: transparent; padding: 0; display: block; }
+  pre {
+    background: #f6f8fa;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    overflow-x: auto;
+    font-size: 12.5px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>
+    APISIX ai-proxy 单 CPU 流式吞吐基准
+    <small>OpenAI passthrough · worker_processes = 1 · 2026-05-14</small>
+  </h1>
+
+  <div class="headline">
+    <div class="stat">
+      <div class="label">峰值吞吐</div>
+      <div class="value">19,480</div>
+      <div class="sub">tokens / s（concurrency = 1, CPU 99.9%）</div>
+    </div>
+    <div class="stat">
+      <div class="label">高并发吞吐</div>
+      <div class="value">14,136</div>
+      <div class="sub">tokens / s（concurrency = 64, CPU 100%）</div>
+    </div>
+    <div class="stat">
+      <div class="label">瓶颈位置</div>
+      <div class="value">APISIX worker</div>
+      <div class="sub">CPU 全程 99.9–100%，载入端无饱和</div>
+    </div>
+    <div class="stat">
+      <div class="label">单事件 Lua 开销</div>
+      <div class="value">≈ 50 µs</div>
+      <div class="sub">cjson decode 主导（推算）</div>
+    </div>
+  </div>
+
+  <h2>并发扫描</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>concurrency</th>
+        <th>tokens / s</th>
+        <th>APISIX CPU</th>
+        <th>server CPU</th>
+        <th>client CPU</th>
+        <th>p50 µs</th>
+        <th>p99 µs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="peak"><td>1</td><td>19,480</td><td>99.9%</td><td>7.2%</td><td>64.1%</td><td>40</td><td>211</td></tr>
+      <tr><td>2</td><td>18,702</td><td>99.9%</td><td>6.5%</td><td>68.8%</td><td>94</td><td>343</td></tr>
+      <tr><td>4</td><td>18,480</td><td>99.9%</td><td>6.1%</td><td>69.3%</td><td>193</td><td>765</td></tr>
+      <tr><td>8</td><td>18,272</td><td>99.9%</td><td>6.3%</td><td>69.2%</td><td>391</td><td>1,736</td></tr>
+      <tr><td>16</td><td>17,204</td><td>99.9%</td><td>5.5%</td><td>69.2%</td><td>817</td><td>4,493</td></tr>
+      <tr><td>32</td><td>14,382</td><td>99.9%</td><td>5.0%</td><td>66.8%</td><td>1,995</td><td>9,814</td></tr>
+      <tr><td>64</td><td>14,136</td><td>100.0%</td><td>4.2%</td><td>65.6%</td><td>4,214</td><td>11,321</td></tr>
+    </tbody>
+  </table>
+
+  <h2>趋势</h2>
+  <div class="charts">
+
+    <!-- Throughput chart -->
+    <div class="chart">
+      <h3>吞吐 vs 并发（线性 Y · log₂ X）</h3>
+      <svg viewBox="0 0 420 240" preserveAspectRatio="xMidYMid meet" aria-label="throughput chart">
+        <!-- grid -->
+        <line class="grid" x1="48" y1="40"  x2="400" y2="40"/>
+        <line class="grid" x1="48" y1="80"  x2="400" y2="80"/>
+        <line class="grid" x1="48" y1="120" x2="400" y2="120"/>
+        <line class="grid" x1="48" y1="160" x2="400" y2="160"/>
+        <line class="grid" x1="48" y1="200" x2="400" y2="200"/>
+
+        <!-- axes -->
+        <line class="tick" x1="48" y1="200" x2="400" y2="200"/>
+        <line class="tick" x1="48" y1="40"  x2="48"  y2="200"/>
+
+        <!-- y labels (tokens/s; scale 0..22000) -->
+        <text class="axis" x="42" y="44"  text-anchor="end">22k</text>
+        <text class="axis" x="42" y="84"  text-anchor="end">18k</text>
+        <text class="axis" x="42" y="124" text-anchor="end">14k</text>
+        <text class="axis" x="42" y="164" text-anchor="end">10k</text>
+        <text class="axis" x="42" y="204" text-anchor="end">6k</text>
+
+        <!--
+          y mapping (linear): 6000..22000 -> 200..40
+          y(t) = 200 - (t-6000)/16000 * 160
+          x mapping (log2 of concurrency 1..64): step = 352/6 ≈ 58.67
+          x(c) = 48 + log2(c)*58.67
+          Points (c, t):
+            (1,  19480) -> x= 48.0, y= 65.2
+            (2,  18702) -> x=106.7, y= 73.0
+            (4,  18480) -> x=165.3, y= 75.2
+            (8,  18272) -> x=224.0, y= 77.3
+            (16, 17204) -> x=282.7, y= 88.0
+            (32, 14382) -> x=341.3, y=116.2
+            (64, 14136) -> x=400.0, y=118.6
+        -->
+        <polyline class="line" points="
+          48.0,65.2
+          106.7,73.0
+          165.3,75.2
+          224.0,77.3
+          282.7,88.0
+          341.3,116.2
+          400.0,118.6"/>
+        <circle class="dot" cx="48.0"  cy="65.2"  r="3"/>
+        <circle class="dot" cx="106.7" cy="73.0"  r="3"/>
+        <circle class="dot" cx="165.3" cy="75.2"  r="3"/>
+        <circle class="dot" cx="224.0" cy="77.3"  r="3"/>
+        <circle class="dot" cx="282.7" cy="88.0"  r="3"/>
+        <circle class="dot" cx="341.3" cy="116.2" r="3"/>
+        <circle class="dot" cx="400.0" cy="118.6" r="3"/>
+
+        <!-- x labels -->
+        <text class="axis" x="48.0"  y="216" text-anchor="middle">1</text>
+        <text class="axis" x="106.7" y="216" text-anchor="middle">2</text>
+        <text class="axis" x="165.3" y="216" text-anchor="middle">4</text>
+        <text class="axis" x="224.0" y="216" text-anchor="middle">8</text>
+        <text class="axis" x="282.7" y="216" text-anchor="middle">16</text>
+        <text class="axis" x="341.3" y="216" text-anchor="middle">32</text>
+        <text class="axis" x="400.0" y="216" text-anchor="middle">64</text>
+        <text class="axis" x="224.0" y="232" text-anchor="middle">concurrency</text>
+      </svg>
+    </div>
+
+    <!-- p99 latency chart -->
+    <div class="chart">
+      <h3>p99 inter-event 延迟 vs 并发（log₁₀ Y · log₂ X）</h3>
+      <svg viewBox="0 0 420 240" preserveAspectRatio="xMidYMid meet" aria-label="latency chart">
+        <!-- grid -->
+        <line class="grid" x1="48" y1="40"  x2="400" y2="40"/>
+        <line class="grid" x1="48" y1="80"  x2="400" y2="80"/>
+        <line class="grid" x1="48" y1="120" x2="400" y2="120"/>
+        <line class="grid" x1="48" y1="160" x2="400" y2="160"/>
+        <line class="grid" x1="48" y1="200" x2="400" y2="200"/>
+
+        <line class="tick" x1="48" y1="200" x2="400" y2="200"/>
+        <line class="tick" x1="48" y1="40"  x2="48"  y2="200"/>
+
+        <!-- y log10: 100 µs .. 100 ms = 10^2 .. 10^5
+             y(v) = 200 - (log10(v)-2)/3 * 160
+             100   -> 200
+             1000  -> 200 - 1/3*160 = 146.7
+             10000 -> 200 - 2/3*160 = 93.3
+             100000-> 40 -->
+        <text class="axis" x="42" y="44"  text-anchor="end">100 ms</text>
+        <text class="axis" x="42" y="97"  text-anchor="end">10 ms</text>
+        <text class="axis" x="42" y="150" text-anchor="end">1 ms</text>
+        <text class="axis" x="42" y="204" text-anchor="end">100 µs</text>
+
+        <!--
+          p99 values: 211, 343, 765, 1736, 4493, 9814, 11321 µs
+          y(v) = 200 - (log10(v)-2)/3 * 160
+          211   -> 200 - (2.3243-2)/3*160 = 200 - 17.30 = 182.70
+          343   -> 200 - (2.5353-2)/3*160 = 200 - 28.55 = 171.45
+          765   -> 200 - (2.8837-2)/3*160 = 200 - 47.13 = 152.87
+          1736  -> 200 - (3.2395-2)/3*160 = 200 - 66.10 = 133.90
+          4493  -> 200 - (3.6526-2)/3*160 = 200 - 88.14 = 111.86
+          9814  -> 200 - (3.9919-2)/3*160 = 200 - 106.23= 93.77
+          11321 -> 200 - (4.0539-2)/3*160 = 200 - 109.55= 90.45
+        -->
+        <polyline class="line2" points="
+          48.0,182.70
+          106.7,171.45
+          165.3,152.87
+          224.0,133.90
+          282.7,111.86
+          341.3,93.77
+          400.0,90.45"/>
+        <circle class="dot2" cx="48.0"  cy="182.70" r="3"/>
+        <circle class="dot2" cx="106.7" cy="171.45" r="3"/>
+        <circle class="dot2" cx="165.3" cy="152.87" r="3"/>
+        <circle class="dot2" cx="224.0" cy="133.90" r="3"/>
+        <circle class="dot2" cx="282.7" cy="111.86" r="3"/>
+        <circle class="dot2" cx="341.3" cy="93.77"  r="3"/>
+        <circle class="dot2" cx="400.0" cy="90.45"  r="3"/>
+
+        <text class="axis" x="48.0"  y="216" text-anchor="middle">1</text>
+        <text class="axis" x="106.7" y="216" text-anchor="middle">2</text>
+        <text class="axis" x="165.3" y="216" text-anchor="middle">4</text>
+        <text class="axis" x="224.0" y="216" text-anchor="middle">8</text>
+        <text class="axis" x="282.7" y="216" text-anchor="middle">16</text>
+        <text class="axis" x="341.3" y="216" text-anchor="middle">32</text>
+        <text class="axis" x="400.0" y="216" text-anchor="middle">64</text>
+        <text class="axis" x="224.0" y="232" text-anchor="middle">concurrency</text>
+      </svg>
+    </div>
+
+  </div>
+
+  <h2>解读</h2>
+  <div class="note">
+    <ul>
+      <li>APISIX worker 全程 99.9–100% CPU，<b>瓶颈在 APISIX 自己</b>，不是 fake 上游也不是压测端。所以这就是 ai-proxy OpenAI passthrough 在单核上能达到的真实天花板。</li>
+      <li>吞吐随并发<b>单调下降</b>：每多一条流，OpenResty 就要多做一轮协程调度，叠在每事件 ~50 µs 的 cjson decode 热路径上。低并发时几乎没有调度成本，所以单流反而最快。</li>
+      <li>p99 单事件延迟从 211 µs 张到 11.3 ms，但 worker 没掉离 99.9% CPU——意味着 worker 一直在干活，不是被等待卡住。延迟变大是事件排队的结果，不是处理停摆。</li>
+      <li>client CPU 64–69% 略高于 §6 的 60% 警戒（4 核机上 client 在 2 核范围内有竞争），但既然 APISIX 已经 100% 饱和，再给 client 更多核也不会让 APISIX 跑得更快——这条数据可信。</li>
+      <li>事前估算："~20K 上限 / 12–15K 持续"。实测 19.5K 峰值 / 14K 高并发，命中。</li>
+    </ul>
+  </div>
+
+  <h2>环境</h2>
+  <div class="meta">
+    <div><b>CPU</b>: Intel Xeon Processor (Skylake, IBRS), 4 cores (VM)</div>
+    <div><b>Kernel</b>: 7.0.0-14-generic</div>
+    <div><b>Date</b>: 2026-05-14T09:28Z</div>
+    <div><b>APISIX</b>: <code>apache/apisix:dev</code> (master ai-proxy 树：ai-providers + ai-protocols + ai-transport)</div>
+    <div><b>APISIX mode</b>: standalone (yaml-loaded routes，no etcd)</div>
+    <div><b>Worker</b>: <code>worker_processes: 1</code>, pinned to CPU 0 (<code>taskset -c 0</code>)</div>
+    <div><b>Plugins</b>: ai-proxy only；access log off</div>
+    <div><b>Topology</b>: APISIX → core 0; bench server → core 1; bench client → cores 2-3</div>
+    <div><b>Window</b>: 60s per level, 5s warmup, 5s cool</div>
+    <div><b>Source</b>: branch <code>worktree-bench-ai-proxy-stream-throughput</code>, commit <code>a2346903</code></div>
+  </div>
+
+  <h2>重现</h2>
+  <pre><code>APISIX_CORE=0 SERVER_CORES=1 CLIENT_CORES=2-3 bash benchmark/ai-proxy/run.sh</code></pre>
+  <div class="note">依赖：docker（已拉 <code>apache/apisix:dev</code>）、Go 1.21+、<code>taskset</code>、<code>pidstat</code>、passwordless sudo、主机端口 9080 / 9180 / 1981 空闲。</div>
+
+</main>
+</body>
+</html>
