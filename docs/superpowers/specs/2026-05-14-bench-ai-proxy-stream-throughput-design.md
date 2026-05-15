@@ -192,35 +192,43 @@ concurrency,duration_s,total_tokens,total_t_per_s,apisix_cpu_pct,server_cpu_pct,
 
 ## §4 APISIX configuration
 
-**`conf/config.yaml` overrides** (written by harness from a template):
+**`conf/config.yaml` overrides** (mounted from `conf/config.yaml.tpl` by run.sh):
 
 ```yaml
 deployment:
-  role: traditional
-  role_traditional:
+  role: data_plane
+  role_data_plane:
     config_provider: yaml
 
 nginx_config:
   worker_processes: 1
   error_log_level: warn
   http:
-    access_log: 'off'
+    enable_access_log: false
 
 plugins:
   - ai-proxy
+  - prometheus
 ```
 
-Notes:
+Notes (updated after implementation):
 
-- `proxy-mirror`, `proxy-cache`, `prometheus` are excluded from the plugin
-  list. Existing `benchmark/run.sh` uses `sed` to comment them in
-  `config-default.yaml`; we instead write a minimal explicit list to avoid
-  depending on the upstream default ordering.
-- **Fallback**: if APISIX startup fails because some plugin required for
-  routing is missing from the explicit list, switch to the sed-based
-  exclusion approach (copy `config-default.yaml`, comment out only
-  `proxy-mirror`, `proxy-cache`, `prometheus`). Document which path was
-  used in `env.txt`.
+- `role: data_plane` (not `role: traditional`). With `role: traditional` +
+  `config_provider: yaml`, `apisix.enable_admin: true` (default) keeps the
+  admin API alive and `config_yaml.lua` skips file-based route loading —
+  `apisix.yaml` is ignored. `role: data_plane` is the actual "standalone"
+  mode the docker entrypoint uses for `APISIX_STAND_ALONE=true`.
+- `enable_access_log: false` is the supported key; `access_log: 'off'`
+  generates malformed nginx (`access_log off main;`).
+- `prometheus` is in the plugin list **as a transitive dependency**, not
+  because we measure with it. `ai-proxy/base.lua` and `ai-proxy.lua` call
+  `prometheus.exporter.inc/dec_llm_active_connections` per request; if the
+  prometheus plugin isn't registered, the `prometheus-metrics` shdict isn't
+  declared and the call fails at runtime. We register it but don't attach
+  it to any route or global_rule, so the prometheus access/log phases never
+  fire — only the two shdict inc/dec calls (which are part of ai-proxy's
+  intrinsic cost) end up in the measurement.
+- `proxy-mirror` and `proxy-cache` are excluded by not listing them.
 - Access log disabled at the http block level.
 - `options` (model_options) is intentionally omitted — the client already
   sets `model` in the request body, and adding `options` would just

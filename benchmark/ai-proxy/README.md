@@ -147,16 +147,26 @@ HTML 版（含柱状/折线图）：[`benchmark/ai-proxy/bench-report.html`](./b
 
 ```yaml
 deployment:
-  role: traditional
-  role_traditional:
-    config_provider: yaml          # 不连 etcd
+  role: data_plane                 # data_plane + yaml = standalone（不连 etcd、无 admin API）
+  role_data_plane:
+    config_provider: yaml
 nginx_config:
   worker_processes: 1              # 关键：单 worker
   http:
     enable_access_log: false       # 关 access log 减干扰
 plugins:
-  - ai-proxy                       # 只启用 ai-proxy
+  - ai-proxy
+  - prometheus                     # 必须：ai-proxy 内部 require 了 prometheus.exporter
+                                   # （inc/dec_llm_active_connections）。不挂任何路由，
+                                   # 仅为让 prometheus-metrics shdict 被生成。
 ```
+
+> 关于 prometheus：`role: traditional` 下加 `config_provider: yaml` 不会真正进入 standalone
+> ——`apisix.enable_admin: true`（默认 true）会让 `config_yaml.lua` 跳过文件路由加载；必须
+> 用 `role: data_plane`。同时，`ai-proxy` 在请求生命周期里调用 `prometheus.exporter` 的活动
+> 连接计数函数，如果 prometheus 插件没注册，shdict 不会被声明，运行时报错。把它列在 `plugins:`
+> 里但不放进任何 route/global\_rule，prometheus 的 access/log 阶段不会触发——只有那两个
+> shdict inc/dec 调用作为 ai-proxy 自身成本被计入，这是设计内的。
 
 `conf/apisix.yaml.tpl`：
 
@@ -274,7 +284,8 @@ benchmark/ai-proxy/
 - 协议转换（Anthropic ↔ OpenAI 等 converter 路径）
 - `ai-proxy-multi`、`ai-rag` 等同族插件
 - 其他 provider（anthropic / bedrock / vertex-ai / gemini）
-- 与其他插件（rate-limit / prometheus / waf）组合的吞吐
+- 与其他插件（rate-limit / waf 等）组合的吞吐
+  （prometheus 虽列在 `plugins:` 里，但没挂到任何 route，不在数据路径上——见上文配置说明）
 - 大上下文长输出对 `contents` 累加 `table.concat` 的 O(n²) 影响
 - TLS 上游（HTTPS 到 LLM provider 的握手 / TCP 开销）
 
