@@ -1,0 +1,151 @@
+556ee1a9a000-556ee1ae8000 r--p 00000000 00:1b 1740952                    /usr/local/openresty/nginx/sbin/nginx
+556ee1ae8000-556ee1c5c000 r-xp 0004e000 00:1b 1740952                    /usr/local/openresty/nginx/sbin/nginx
+556ee1c5c000-556ee1ccc000 r--p 001c2000 00:1b 1740952                    /usr/local/openresty/nginx/sbin/nginx
+556ee1ccc000-556ee1ccf000 r--p 00231000 00:1b 1740952                    /usr/local/openresty/nginx/sbin/nginx
+556ee1ccf000-556ee1cf5000 rw-p 00234000 00:1b 1740952                    /usr/local/openresty/nginx/sbin/nginx
+556ee1cf5000-556ee1dcf000 rw-p 00000000 00:00 0 
+556f03169000-556f0334d000 rw-p 00000000 00:00 0                          [heap]
+556f0334d000-556f033b2000 rw-p 00000000 00:00 0                          [heap]
+7fc2e367c000-7fc2e37dc000 rw-p 00000000 00:00 0 
+7fc2e37dc000-7fc2e37dd000 r--p 00000000 00:1b 977921                     /tmp/apisix-cpu-sampler.so
+7fc2e37dd000-7fc2e37de000 r-xp 00001000 00:1b 977921                     /tmp/apisix-cpu-sampler.so
+7fc2e37de000-7fc2e37df000 r--p 00002000 00:1b 977921                     /tmp/apisix-cpu-sampler.so
+7fc2e37df000-7fc2e37e0000 r--p 00002000 00:1b 977921                     /tmp/apisix-cpu-sampler.so
+7fc2e37e0000-7fc2e37e1000 rw-p 00003000 00:1b 977921                     /tmp/apisix-cpu-sampler.so
+7fc2e37e1000-7fc2e39a7000 rw-p 00000000 00:00 0 
+7fc2e39a7000-7fc2e39b7000 rwxp 00000000 00:00 0 
+7fc2e39b7000-7fc2e3a37000 rw-p 00000000 00:00 0 
+7fc2e3a37000-7fc2e3a3a000 r--p 00000000 00:1b 1738542                    /usr/local/apisix/deps/lib/lua/5.1/pb.so
+7fc2e3a3a000-7fc2e3a46000 r-xp 00003000 00:1b 1738542                    /usr/local/apisix/deps/lib/lua/5.1/pb.so
+7fc2e3a46000-7fc2e3a4a000 r--p 0000f000 00:1b 1738542                    /usr/local/apisix/deps/lib/lua/5.1/pb.so
+7fc2e3a4a000-7fc2e3a4b000 r--p 00012000 00:1b 1738542                    /usr/local/apisix/deps/lib/lua/5.1/pb.so
+7fc2e3a4b000-7fc2e3a4c000 rw-p 00013000 00:1b 1738542                    /usr/local/apisix/deps/lib/lua/5.1/pb.so
+7fc2e3a4c000-7fc2e3a6c000 rw-p 00000000 00:00 0 
+7fc2e3a6c000-7fc2e3a6d000 ---p 00000000 00:00 0 
+7fc2e3a6d000-7fc2e426d000 rw-p 00000000 00:00 0 
+7fc2e426d000-7fc2e46f7000 rw-p 00000000 00:00 0 
+7fc2e46f7000-7fc2e4717000 rw-p 00000000 00:00 0 
+7fc2e4717000-7fc2e4719000 r--p 00000000 00:1b 1740823                    /usr/local/openresty/lualib/cjson.so
+7fc2e4719000-7fc2e471d000 r-xp 00002000 00:1b 1740823                    /usr/local/openresty/lualib/cjson.so
+7fc2e471d000-7fc2e471f000 r--p 00006000 00:1b 1740823                    /usr/local/openresty/lualib/cjson.so
+7fc2e471f000-7fc2e4720000 r--p 00007000 00:1b 1740823                    /usr/local/openresty/lualib/cjson.so
+7fc2e4720000-7fc2e4721000 rw-p 00008000 00:1b 1740823                    /usr/local/openresty/lualib/cjson.so
+7fc2e4721000-7fc2ec721000 rw-s 00000000 00:01 19053                      /dev/zero (deleted)
+7fc2ec721000-7fc2ed121000 rw-s 00000000 00:01 19052                      /dev/zero (deleted)
+7fc2ed121000-7fc2edb21000 rw-s 00000000 00:01 19051                      /dev/zero (deleted)
+7fc2edb21000-7fc2ee521000 rw-s 00000000 00:01 19050                      /dev/zero (deleted)
+7fc2ee521000-7fc2eef21000 rw-s 00000000 00:01 19049                      /dev/zero (deleted)
+7fc2eef21000-7fc2ef921000 rw-s 00000000 00:01 19048                      /dev/zero (deleted)
+7fc2ef921000-7fc2f0321000 rw-s 00000000 00:01 19047                      /dev/zero (deleted)
+7fc2f0321000-7fc2f0d21000 rw-s 00000000 00:01 19046                      /dev/zero (deleted)
+7fc2f0d21000-7fc2f1721000 rw-s 00000000 00:01 19045                      /dev/zero (deleted)
+7fc2f1721000-7fc2f2121000 rw-s 00000000 00:01 19044                      /dev/zero (deleted)
+7fc2f2121000-7fc2f2b21000 rw-s 00000000 00:01 19043                      /dev/zero (deleted)
+7fc2f2b21000-7fc2f3521000 rw-s 00000000 00:01 19042                      /dev/zero (deleted)
+7fc2f3521000-7fc2f7521000 rw-s 00000000 00:01 19041                      /dev/zero (deleted)
+7fc2f7521000-7fc2f7f21000 rw-s 00000000 00:01 19040                      /dev/zero (deleted)
+7fc2f7f21000-7fc2f7f24000 r--p 00000000 00:1b 975181                     /lib/x86_64-linux-gnu/libnss_files-2.31.so
+7fc2f7f24000-7fc2f7f2b000 r-xp 00003000 00:1b 975181                     /lib/x86_64-linux-gnu/libnss_files-2.31.so
+7fc2f7f2b000-7fc2f7f2d000 r--p 0000a000 00:1b 975181                     /lib/x86_64-linux-gnu/libnss_files-2.31.so
+7fc2f7f2d000-7fc2f7f2e000 r--p 0000b000 00:1b 975181                     /lib/x86_64-linux-gnu/libnss_files-2.31.so
+7fc2f7f2e000-7fc2f7f2f000 rw-p 0000c000 00:1b 975181                     /lib/x86_64-linux-gnu/libnss_files-2.31.so
+7fc2f7f2f000-7fc2f7fb5000 rw-p 00000000 00:00 0 
+7fc2f7fb5000-7fc2f7fbe000 r--p 00000000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f7fbe000-7fc2f7fe9000 r-xp 00009000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f7fe9000-7fc2f8000000 r--p 00034000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f8000000-7fc2f8001000 ---p 0004b000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f8001000-7fc2f8003000 r--p 0004b000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f8003000-7fc2f8004000 rw-p 0004d000 00:1b 977081                     /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so
+7fc2f8004000-7fc2f802c000 rw-p 00000000 00:00 0 
+7fc2f802c000-7fc2f802e000 r--p 00000000 00:1b 975202                     /lib/x86_64-linux-gnu/librt-2.31.so
+7fc2f802e000-7fc2f8032000 r-xp 00002000 00:1b 975202                     /lib/x86_64-linux-gnu/librt-2.31.so
+7fc2f8032000-7fc2f8034000 r--p 00006000 00:1b 975202                     /lib/x86_64-linux-gnu/librt-2.31.so
+7fc2f8034000-7fc2f8035000 r--p 00007000 00:1b 975202                     /lib/x86_64-linux-gnu/librt-2.31.so
+7fc2f8035000-7fc2f8036000 rw-p 00008000 00:1b 975202                     /lib/x86_64-linux-gnu/librt-2.31.so
+7fc2f8036000-7fc2f8043000 r--p 00000000 00:1b 975166                     /lib/x86_64-linux-gnu/libm-2.31.so
+7fc2f8043000-7fc2f80dd000 r-xp 0000d000 00:1b 975166                     /lib/x86_64-linux-gnu/libm-2.31.so
+7fc2f80dd000-7fc2f8178000 r--p 000a7000 00:1b 975166                     /lib/x86_64-linux-gnu/libm-2.31.so
+7fc2f8178000-7fc2f8179000 r--p 00141000 00:1b 975166                     /lib/x86_64-linux-gnu/libm-2.31.so
+7fc2f8179000-7fc2f817a000 rw-p 00142000 00:1b 975166                     /lib/x86_64-linux-gnu/libm-2.31.so
+7fc2f817a000-7fc2f819c000 r--p 00000000 00:1b 975141                     /lib/x86_64-linux-gnu/libc-2.31.so
+7fc2f819c000-7fc2f82f5000 r-xp 00022000 00:1b 975141                     /lib/x86_64-linux-gnu/libc-2.31.so
+7fc2f82f5000-7fc2f8344000 r--p 0017b000 00:1b 975141                     /lib/x86_64-linux-gnu/libc-2.31.so
+7fc2f8344000-7fc2f8348000 r--p 001c9000 00:1b 975141                     /lib/x86_64-linux-gnu/libc-2.31.so
+7fc2f8348000-7fc2f834a000 rw-p 001cd000 00:1b 975141                     /lib/x86_64-linux-gnu/libc-2.31.so
+7fc2f834a000-7fc2f8350000 rw-p 00000000 00:00 0 
+7fc2f8350000-7fc2f8353000 r--p 00000000 00:1b 975157                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fc2f8353000-7fc2f8364000 r-xp 00003000 00:1b 975157                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fc2f8364000-7fc2f8368000 r--p 00014000 00:1b 975157                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fc2f8368000-7fc2f8369000 r--p 00017000 00:1b 975157                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fc2f8369000-7fc2f836a000 rw-p 00018000 00:1b 975157                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fc2f836a000-7fc2f836d000 r--p 00000000 00:1b 1748524                    /usr/local/openresty/zlib/lib/libz.so.1.3.1
+7fc2f836d000-7fc2f837f000 r-xp 00003000 00:1b 1748524                    /usr/local/openresty/zlib/lib/libz.so.1.3.1
+7fc2f837f000-7fc2f8386000 r--p 00015000 00:1b 1748524                    /usr/local/openresty/zlib/lib/libz.so.1.3.1
+7fc2f8386000-7fc2f8387000 r--p 0001b000 00:1b 1748524                    /usr/local/openresty/zlib/lib/libz.so.1.3.1
+7fc2f8387000-7fc2f8388000 rw-p 0001c000 00:1b 1748524                    /usr/local/openresty/zlib/lib/libz.so.1.3.1
+7fc2f8388000-7fc2f844b000 r--p 00000000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f844b000-7fc2f8780000 r-xp 000c3000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f8780000-7fc2f889c000 r--p 003f8000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f889c000-7fc2f889d000 ---p 00514000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f889d000-7fc2f8902000 r--p 00514000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f8902000-7fc2f8905000 rw-p 00579000 00:1b 1741112                    /usr/local/openresty/openssl3/lib/libcrypto.so.3
+7fc2f8905000-7fc2f8908000 rw-p 00000000 00:00 0 
+7fc2f8908000-7fc2f892b000 r--p 00000000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f892b000-7fc2f89c9000 r-xp 00023000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f89c9000-7fc2f89fc000 r--p 000c1000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f89fc000-7fc2f89fd000 ---p 000f4000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f89fd000-7fc2f8a07000 r--p 000f4000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f8a07000-7fc2f8a0d000 rw-p 000fe000 00:1b 1741115                    /usr/local/openresty/openssl3/lib/libssl.so.3
+7fc2f8a0d000-7fc2f8a0f000 r--p 00000000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a0f000-7fc2f8a65000 r-xp 00002000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a65000-7fc2f8a83000 r--p 00058000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a83000-7fc2f8a84000 ---p 00076000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a84000-7fc2f8a85000 r--p 00076000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a85000-7fc2f8a86000 rw-p 00077000 00:1b 1748225                    /usr/local/openresty/pcre/lib/libpcre.so.1.2.13
+7fc2f8a86000-7fc2f9350000 r-xp 00000000 00:1b 1748515                    /usr/local/openresty/wasmtime-c-api/lib/libwasmtime.so
+7fc2f9350000-7fc2f9550000 ---p 008ca000 00:1b 1748515                    /usr/local/openresty/wasmtime-c-api/lib/libwasmtime.so
+7fc2f9550000-7fc2f959c000 r--p 008ca000 00:1b 1748515                    /usr/local/openresty/wasmtime-c-api/lib/libwasmtime.so
+7fc2f959c000-7fc2f959e000 rw-p 00916000 00:1b 1748515                    /usr/local/openresty/wasmtime-c-api/lib/libwasmtime.so
+7fc2f959e000-7fc2f95a1000 rw-p 00000000 00:00 0 
+7fc2f95a1000-7fc2f9637000 r--p 00000000 00:1b 1737385                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+7fc2f9637000-7fc2f9713000 r-xp 00096000 00:1b 1737385                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+7fc2f9713000-7fc2f975d000 r--p 00172000 00:1b 1737385                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+7fc2f975d000-7fc2f9768000 r--p 001bb000 00:1b 1737385                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+7fc2f9768000-7fc2f976b000 rw-p 001c6000 00:1b 1737385                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+7fc2f976b000-7fc2f976e000 rw-p 00000000 00:00 0 
+7fc2f976e000-7fc2f9777000 r--p 00000000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f9777000-7fc2f97e2000 r-xp 00009000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f97e2000-7fc2f97fb000 r--p 00074000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f97fb000-7fc2f97fc000 ---p 0008d000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f97fc000-7fc2f97fe000 r--p 0008d000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f97fe000-7fc2f97ff000 rw-p 0008f000 00:1b 1740790                    /usr/local/openresty/luajit/lib/libluajit-5.1.so.2.1.ROLLING
+7fc2f97ff000-7fc2f9801000 r--p 00000000 00:1b 975148                     /lib/x86_64-linux-gnu/libcrypt.so.1.1.0
+7fc2f9801000-7fc2f9816000 r-xp 00002000 00:1b 975148                     /lib/x86_64-linux-gnu/libcrypt.so.1.1.0
+7fc2f9816000-7fc2f9830000 r--p 00017000 00:1b 975148                     /lib/x86_64-linux-gnu/libcrypt.so.1.1.0
+7fc2f9830000-7fc2f9831000 r--p 00030000 00:1b 975148                     /lib/x86_64-linux-gnu/libcrypt.so.1.1.0
+7fc2f9831000-7fc2f9832000 rw-p 00031000 00:1b 975148                     /lib/x86_64-linux-gnu/libcrypt.so.1.1.0
+7fc2f9832000-7fc2f983a000 rw-p 00000000 00:00 0 
+7fc2f983a000-7fc2f9840000 r--p 00000000 00:1b 975196                     /lib/x86_64-linux-gnu/libpthread-2.31.so
+7fc2f9840000-7fc2f9850000 r-xp 00006000 00:1b 975196                     /lib/x86_64-linux-gnu/libpthread-2.31.so
+7fc2f9850000-7fc2f9856000 r--p 00016000 00:1b 975196                     /lib/x86_64-linux-gnu/libpthread-2.31.so
+7fc2f9856000-7fc2f9857000 r--p 0001b000 00:1b 975196                     /lib/x86_64-linux-gnu/libpthread-2.31.so
+7fc2f9857000-7fc2f9858000 rw-p 0001c000 00:1b 975196                     /lib/x86_64-linux-gnu/libpthread-2.31.so
+7fc2f9858000-7fc2f985c000 rw-p 00000000 00:00 0 
+7fc2f985c000-7fc2f985d000 r--p 00000000 00:1b 975149                     /lib/x86_64-linux-gnu/libdl-2.31.so
+7fc2f985d000-7fc2f985f000 r-xp 00001000 00:1b 975149                     /lib/x86_64-linux-gnu/libdl-2.31.so
+7fc2f985f000-7fc2f9860000 r--p 00003000 00:1b 975149                     /lib/x86_64-linux-gnu/libdl-2.31.so
+7fc2f9860000-7fc2f9861000 r--p 00003000 00:1b 975149                     /lib/x86_64-linux-gnu/libdl-2.31.so
+7fc2f9861000-7fc2f9862000 rw-p 00004000 00:1b 975149                     /lib/x86_64-linux-gnu/libdl-2.31.so
+7fc2f9866000-7fc2f9868000 rw-p 00000000 00:00 0 
+7fc2f9868000-7fc2f986c000 r--p 00000000 00:00 0                          [vvar]
+7fc2f986c000-7fc2f986e000 r--p 00000000 00:00 0                          [vvar_vclock]
+7fc2f986e000-7fc2f9870000 r-xp 00000000 00:00 0                          [vdso]
+7fc2f9870000-7fc2f9871000 r--p 00000000 00:1b 975129                     /lib/x86_64-linux-gnu/ld-2.31.so
+7fc2f9871000-7fc2f9891000 r-xp 00001000 00:1b 975129                     /lib/x86_64-linux-gnu/ld-2.31.so
+7fc2f9891000-7fc2f9899000 r--p 00021000 00:1b 975129                     /lib/x86_64-linux-gnu/ld-2.31.so
+7fc2f9899000-7fc2f989a000 rw-s 00000000 00:01 19054                      /dev/zero (deleted)
+7fc2f989a000-7fc2f989b000 r--p 00029000 00:1b 975129                     /lib/x86_64-linux-gnu/ld-2.31.so
+7fc2f989b000-7fc2f989c000 rw-p 0002a000 00:1b 975129                     /lib/x86_64-linux-gnu/ld-2.31.so
+7fc2f989c000-7fc2f989d000 rw-p 00000000 00:00 0 
+7fc30a760000-7fc30a780000 r-xp 00000000 00:00 0 
+7fffa1235000-7fffa1256000 rw-p 00000000 00:00 0                          [stack]

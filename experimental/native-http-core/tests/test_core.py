@@ -111,6 +111,8 @@ def main():
                     "pre_function": "function(conf, ctx) ctx.pre = (ctx.pre or 0) + 1 end"}}}},
             {"id": "host", "uri": "/host", "host": "a.example", "methods": ["POST"],
                 "remote_addr": "127.0.0.0/8", "plugins": {"route": {"tag": "host"}}},
+            {"id": "rate-observer", "uri": "/rate-observer",
+             "plugins": {"route": {"rate_observer": True}}},
             {"id": "sdk", "uri": "/sdk", "plugins": {"route": {
                 "sdk": True, "json": True, "body": '{"answer":42}'}}},
             {"id": "filter", "uri": "/filtered", "priority": 200,
@@ -221,6 +223,7 @@ pid logs/nginx.pid;
 error_log logs/error.log info;
 events { worker_connections 1024; }
 http {
+    __CORE_DIRECTIVES__
     lua_package_path "__PREFIX__/lua/?.lua;/usr/local/apisix/deps/share/lua/5.1/?.lua;/usr/local/apisix/deps/share/lua/5.1/?/init.lua;;";
     lua_package_cpath "/usr/local/apisix/deps/lib64/lua/5.1/?.so;/usr/local/apisix/deps/lib/lua/5.1/?.so;;";
     variables_hash_bucket_size 128;
@@ -349,6 +352,7 @@ http {
     server {
         listen 127.0.0.1:18880;
         location / {
+            add_header X-Core-Rate $rate_limiting_info always;
             access_by_lua_block { require("apisix.native.runtime").run("access") }
             header_filter_by_lua_block { require("apisix.native.runtime").run("header_filter") }
             body_filter_by_lua_block { require("apisix.native.runtime").run("body_filter") }
@@ -362,7 +366,8 @@ http {
         }
     }
 }
-'''.replace("__PREFIX__", str(PREFIX))
+'''.replace("__PREFIX__", str(PREFIX)).replace("__CORE_DIRECTIVES__", os.environ.get("APISIX_CORE_DIRECTIVES",
+    "apisix_core_lazy_rate_json on;" if os.environ.get("APISIX_CORE_LAZY_RATE_JSON") == "1" else ""))
     (PREFIX / "nginx.conf").write_text(nginx_conf)
     subprocess.run([NGINX, "-p", str(PREFIX), "-c", "nginx.conf", "-t"], env=NGINX_ENV, check=True)
     subprocess.run([NGINX, "-p", str(PREFIX), "-c", "nginx.conf"], env=NGINX_ENV, check=True)
@@ -567,6 +572,16 @@ http {
                                   body='{"answer":42}')
         assert status == 200 and json.loads(body)["id"] == "sdk", (status, body)
         checks += 1
+        for shape in ("basic", "fixed"):
+            status, headers, body = request("/rate-observer?shape=" + shape)
+            assert status == 200, (status, body)
+            info = json.loads(headers["X-Core-Rate"])
+            assert info["rate_limiting_key"] == "observer" and info["rate_limiting_remaining"] == 7, info
+            if shape == "fixed":
+                assert info["current_window"]["count"] == 3, info
+            else:
+                assert "current_window" not in info, info
+            checks += 1
         with concurrent.futures.ThreadPoolExecutor(max_workers=16) as executor:
             results = list(executor.map(lambda _: request("/exact"), range(64)))
         assert all(status == 200 and json.loads(body)["trace"] == expected

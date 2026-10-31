@@ -41,6 +41,38 @@ function M.cached_index(callback)
     end
 end
 
+-- Optional framework cooperation: replay only a C-published raw cache entry.
+-- The runtime dirty bit is read through its existing traceable FFI wrapper;
+-- native code still owns cache creation, refresh, and mutation handling.
+function M.cached_headers(callback)
+    local changed = require("resty.apisix.request").is_request_header_set
+    return function(ctx)
+        if type(ctx) == "table" then
+            local headers = rawget(ctx, "headers")
+            if type(headers) == "table" and not changed() then return headers end
+        end
+        return callback(ctx)
+    end
+end
+
+function M.cached_header(callback)
+    local changed = require("resty.apisix.request").is_request_header_set
+    return function(ctx, name)
+        if type(ctx) == "table" then
+            local headers = rawget(ctx, "headers")
+            if type(headers) == "table" then
+                -- A miss may invoke a user metatable. Leave it to the original
+                -- path so probing the cache cannot run that getter twice.
+                local value = rawget(headers, name)
+                if value ~= nil and not changed() then
+                    return type(value) == "table" and value[1] or value
+                end
+            end
+        end
+        return callback(ctx, name)
+    end
+end
+
 local function run_step(callback, ...)
     if callback == nil then return ... end
     return run_step(engine.step(pcall(callback, ...)))
@@ -59,8 +91,9 @@ function M.run(phase)
 end
 
 function M.balance()
-    local retry, code, body = engine.balance_enter()
+    local retry, code, body = engine.balance_start()
     if code ~= nil then return emit(code, body) end
+    if retry == nil then return end
     if retry then M.run("before_proxy") end
     return emit(engine.balance_finish())
 end

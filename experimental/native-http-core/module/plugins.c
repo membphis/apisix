@@ -45,6 +45,7 @@ ac_plan_has_phase(ac_plan_t *plan, ac_phase_e phase)
 {
     ac_call_t *calls = plan->calls.elts;
     ngx_uint_t i;
+    if (plan->indexed) return plan->phase_calls[phase].nelts != 0;
     for (i = 0; i < plan->calls.nelts; i++) {
         if (calls[i].plugin->callbacks[phase] != LUA_REFNIL
             && calls[i].plugin->callbacks[phase] != LUA_NOREF) return 1;
@@ -61,7 +62,10 @@ ac_compile_plan(lua_State *L, ac_main_conf_t *main, ac_plan_t *plan,
     const char *name, *source;
     size_t length;
     int meta;
+    ngx_uint_t phase, i;
+    ac_call_t **slot;
     plugins = ac_abs(L, plugins);
+    plan->indexed = 0;
     if (ngx_array_init(&plan->calls, pool, 4, sizeof(ac_call_t)) != NGX_OK) {
         luaL_error(L, "native plugin plan allocation failed");
     }
@@ -135,6 +139,24 @@ ac_compile_plan(lua_State *L, ac_main_conf_t *main, ac_plan_t *plan,
         lua_pop(L, 3);
     }
     ngx_qsort(plan->calls.elts, plan->calls.nelts, sizeof(ac_call_t), ac_compare_calls);
+    if (main->phase_index == 1) {
+        /* Only remove callbacks absent for this phase. Priority, filters,
+         * prefer_route and consumer-rewrite decisions remain request-time. */
+        for (phase = 0; phase < AC_PHASES; phase++) {
+            if (ngx_array_init(&plan->phase_calls[phase], pool, 1,
+                               sizeof(ac_call_t *)) != NGX_OK)
+                luaL_error(L, "native phase index allocation failed");
+            call = plan->calls.elts;
+            for (i = 0; i < plan->calls.nelts; i++) {
+                if (call[i].plugin->callbacks[phase] == LUA_REFNIL
+                    || call[i].plugin->callbacks[phase] == LUA_NOREF) continue;
+                slot = ngx_array_push(&plan->phase_calls[phase]);
+                if (!slot) luaL_error(L, "native phase call allocation failed");
+                *slot = &call[i];
+            }
+        }
+        plan->indexed = 1;
+    }
 }
 
 void
@@ -399,6 +421,10 @@ ac_enabled(lua_State *L, ac_request_t *ctx, ac_call_t *call)
             if (matches[i].call == call) return matches[i].matched;
         }
         allowed = ac_expr_eval(L, call->expression, ctx);
+        if (ctx->meta_matches.elts == NULL
+            && ngx_array_init(&ctx->meta_matches, ctx->request->pool, 4,
+                              sizeof(ac_meta_match_t)) != NGX_OK)
+            luaL_error(L, "plugin filter match allocation failed");
         match = ngx_array_push(&ctx->meta_matches);
         if (!match) luaL_error(L, "plugin filter match allocation failed");
         match->call = call; match->matched = allowed;
@@ -523,6 +549,18 @@ ac_return_call(lua_State *L, ac_request_t *ctx, ac_call_t *call, int function_re
     ctx->active = call;
     ctx->active_pre = is_pre;
     ctx->callback_pending = 1;
+    if (ctx->main->phase_context == 1) {
+        /* A stack-local table handle is safe across these same synchronous
+         * writes; never retain a Lua stack index across plugin execution. */
+        int table;
+        ac_push(L, ctx->table_ref); table = lua_gettop(L);
+        ac_route_context_at(L, ctx, ctx->stage % 2 == 0, table);
+        if (!is_pre) ac_set_string(L, table, "_plugin_name", call->plugin->name);
+        ac_push(L, function_ref);
+        ac_push(L, call->conf_ref);
+        lua_pushvalue(L, table);
+        return 3;
+    }
     ac_route_context(L, ctx, ctx->stage % 2 == 0);
     ac_push(L, ctx->table_ref);
     if (!is_pre) {
@@ -541,6 +579,7 @@ ac_next(lua_State *L)
     ac_request_t *ctx = ac_request(L);
     ac_plan_t *plan;
     ac_call_t *calls, *call;
+    ngx_uint_t count;
     if (!ctx->phase_entered) {
         if (ctx->phase == AC_BEFORE_PROXY && ac_upstream_enabled(ctx)) {
             int count = ac_upstream_next(L, ctx);
@@ -590,8 +629,11 @@ ac_next(lua_State *L)
             continue;
         }
         calls = plan->calls.elts;
-        while (ctx->cursor < plan->calls.nelts) {
-            call = &calls[ctx->cursor++];
+        count = plan->indexed ? plan->phase_calls[ctx->phase].nelts : plan->calls.nelts;
+        while (ctx->cursor < count) {
+            call = plan->indexed
+                ? ((ac_call_t **) plan->phase_calls[ctx->phase].elts)[ctx->cursor++]
+                : &calls[ctx->cursor++];
             if (call->plugin->callbacks[ctx->phase] == LUA_REFNIL
                 || (ctx->consumer_rewrite && (!call->consumer_only || call->plugin->auth))
                 || (ctx->stage % 2 == 0 && ac_route_overrides(L, ctx, call))
@@ -650,8 +692,13 @@ ac_complete(lua_State *L)
     ac_push(L, ctx->table_ref);
     lua_pushnil(L);
     lua_setfield(L, -2, "_plugin_name");
-    lua_pop(L, 1);
-    ac_route_context(L, ctx, 0);
+    if (ctx->main->phase_context == 1) {
+        ac_route_context_at(L, ctx, 0, -1);
+        lua_pop(L, 1);
+    } else {
+        lua_pop(L, 1);
+        ac_route_context(L, ctx, 0);
+    }
     if (ctx->phase <= AC_BEFORE_PROXY
         && ((count >= 2 && lua_toboolean(L, 2)) || (count >= 3 && lua_toboolean(L, 3)))) {
         lua_Number status = luaL_checknumber(L, 2);

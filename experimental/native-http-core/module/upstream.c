@@ -16,6 +16,16 @@ extern int ngx_http_lua_ffi_balancer_set_timeouts(ngx_http_request_t *r,
     long connect_timeout, long send_timeout, long read_timeout, char **error);
 extern int ngx_http_lua_ffi_balancer_recreate_request(ngx_http_request_t *r, char **error);
 
+/* Immutable node description, allocated with the configuration generation.
+ * Snapshot ownership pins its strings/address bytes until request cleanup. */
+typedef struct {
+    ngx_str_t ip;
+    ngx_str_t scheme;
+    ngx_str_t sockaddr;
+    in_port_t port;
+    ngx_uint_t pool_key;
+} ac_peer_plan_t;
+
 typedef struct ac_node_s {
     ngx_addr_t address;
     ngx_str_t host;
@@ -28,6 +38,7 @@ typedef struct ac_node_s {
     ngx_msec_t checked;
     double ewma;
     struct ac_node_s *origin;
+    ac_peer_plan_t *peer_plan;
 } ac_node_t;
 
 struct ac_upstream_s {
@@ -103,6 +114,50 @@ ac_timeout(lua_State *L, int table, const char *field, ngx_msec_t fallback)
 }
 
 static void
+ac_peer_plan_compile(lua_State *L, ac_main_conf_t *main, ac_upstream_t *upstream,
+    ac_node_t *node)
+{
+    ac_peer_plan_t *plan;
+    u_char ip[NGX_SOCKADDR_STRLEN], pool[NGX_SOCKADDR_STRLEN + 64], *end;
+    size_t length;
+    /* DNS has no resolved address at configuration time. Runtime upstream.set
+     * disables this experiment in its scratch configuration as well. */
+    if (main->balancer_peer_plan != 1 || !node->address.sockaddr
+        || !node->address.socklen) return;
+    length = ngx_sock_ntop(node->address.sockaddr, node->address.socklen,
+                          ip, sizeof(ip), 0);
+    if (!length) return;
+    plan = ngx_pcalloc(main->pool, sizeof(*plan));
+    if (!plan) { luaL_error(L, "native peer plan allocation failed"); return; }
+    plan->ip.data = ngx_pnalloc(main->pool, length);
+    plan->sockaddr.data = ngx_pnalloc(main->pool, node->address.socklen);
+    if (!plan->ip.data || !plan->sockaddr.data) {
+        luaL_error(L, "native peer plan bytes allocation failed"); return;
+    }
+    ngx_memcpy(plan->ip.data, ip, length); plan->ip.len = length;
+    ngx_memcpy(plan->sockaddr.data, node->address.sockaddr, node->address.socklen);
+    plan->sockaddr.len = node->address.socklen;
+    plan->scheme = upstream->scheme;
+    plan->port = node->port;
+    /* Preserve the existing pool bytes/hash exactly; the live scheme is
+     * checked again in balance_finish after every before_proxy callback. */
+    end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &plan->scheme,
+                       length, ip, (ngx_uint_t) plan->port);
+    plan->pool_key = ngx_crc32_long(pool, end - pool);
+    node->peer_plan = plan;
+}
+
+static ngx_flag_t
+ac_peer_plan_address_matches(ac_node_t *node)
+{
+    ac_peer_plan_t *plan = node->peer_plan;
+    return plan && node->address.sockaddr && plan->port == node->port
+        && plan->sockaddr.len == node->address.socklen
+        && ngx_memcmp(plan->sockaddr.data, node->address.sockaddr,
+                      plan->sockaddr.len) == 0;
+}
+
+static void
 ac_add_node(lua_State *L, ac_main_conf_t *main, ac_upstream_t *upstream,
     ngx_str_t host, in_port_t port, ngx_int_t weight, ngx_int_t priority)
 {
@@ -126,6 +181,7 @@ ac_add_node(lua_State *L, ac_main_conf_t *main, ac_upstream_t *upstream,
     if (!parsed.naddrs) upstream->domain = 1;
     else node->address = parsed.addrs[0];
     node->address.name = endpoint;
+    ac_peer_plan_compile(L, main, upstream, node);
 }
 
 static ac_upstream_t *
@@ -279,9 +335,11 @@ ac_upstream_prepare(lua_State *L, ac_request_t *ctx)
         ngx_peer_connection_t pc; ngx_memzero(&pc, sizeof(pc));
         if (ac_peer_get(&pc, peer, L) != NGX_OK) { lua_pushinteger(L, 502); return 1; }
     }
-    ac_var_assign(L, ctx, "upstream_uri", ctx->upstream_uri, 1);
-    ac_var_assign(L, ctx, "upstream_scheme", ctx->upstream_scheme, 1);
-    ac_var_assign(L, ctx, "upstream_host", ctx->upstream_host, 1);
+    int cache = ac_var_batch_begin(L, ctx);
+    ac_var_batch_assign(L, ctx, cache, "upstream_uri", ctx->upstream_uri, 1);
+    ac_var_batch_assign(L, ctx, cache, "upstream_scheme", ctx->upstream_scheme, 1);
+    ac_var_batch_assign(L, ctx, cache, "upstream_host", ctx->upstream_host, 1);
+    ac_var_batch_end(L, cache);
     return 0;
 }
 
@@ -508,8 +566,16 @@ ac_peer_get(ngx_peer_connection_t *pc, void *data, lua_State *L)
     }
     ac_push(L, peer->ctx->table_ref);
     u_char ip[NGX_SOCKADDR_STRLEN];
-    size_t length = ngx_sock_ntop(selected->address.sockaddr, selected->address.socklen, ip, sizeof(ip), 0);
-    lua_pushlstring(L, (char *) ip, length); lua_setfield(L, -2, "balancer_ip");
+    ngx_str_t address;
+    if (peer->ctx->main->balancer_peer_plan == 1
+        && ac_peer_plan_address_matches(selected)) {
+        address = selected->peer_plan->ip;
+    } else {
+        address.data = ip;
+        address.len = ngx_sock_ntop(selected->address.sockaddr, selected->address.socklen,
+                                   ip, sizeof(ip), 0);
+    }
+    lua_pushlstring(L, (char *) address.data, address.len); lua_setfield(L, -2, "balancer_ip");
     lua_pushinteger(L, selected->port); lua_setfield(L, -2, "balancer_port");
     ac_set_string(L, -1, "upstream_unresolved_host", selected->host);
     lua_pop(L, 1);
@@ -563,7 +629,9 @@ ac_var_get(ngx_http_request_t *r, ngx_http_variable_value_t *value, uintptr_t da
     ngx_str_t result;
     result.data = NULL; result.len = 0;
     if (ctx) {
-        if (data == 0) result = ctx->upstream_scheme;
+        if (data == ctx->main->rate_variable_slot && ctx->rate_snapshot) {
+            if (ac_rate_materialize(ctx, &result) != NGX_OK) return NGX_ERROR;
+        } else if (data == 0) result = ctx->upstream_scheme;
         else if (data == 1) result = ctx->upstream_host;
         else if (data == 2) result = ctx->upstream_uri;
         else result = ctx->native_variables[data];
@@ -593,10 +661,49 @@ ac_var_set(ngx_http_request_t *r, ngx_http_variable_value_t *value, uintptr_t da
     ac_request_t *ctx = ngx_http_get_module_ctx(r, ngx_http_apisix_core_module);
     ngx_str_t *dest;
     if (!ctx) return;
+    /* A direct ngx.var/NGINX assignment supersedes a deferred snapshot. */
+    if (data == ctx->main->rate_variable_slot) ctx->rate_snapshot = NULL;
     dest = data == 0 ? &ctx->upstream_scheme : data == 1 ? &ctx->upstream_host
         : data == 2 ? &ctx->upstream_uri : &ctx->native_variables[data];
     dest->data = value->data; dest->len = value->len;
     ctx->native_variable_set |= (uint64_t) 1 << data;
+}
+
+/* Only our setter consumes vv synchronously and retains data rather than vv.
+ * Preserve the final NGINX handler/flags check; foreign variables use ngx_lua.
+ * Do not create variable indices or alter the existing slot-cache semantics. */
+ngx_int_t
+ac_native_var_write_fast(ngx_http_request_t *r, const char *name, ngx_str_t value)
+{
+    ngx_http_core_main_conf_t *cmcf;
+    ngx_http_variable_t *variable;
+    ngx_http_variable_value_t vv;
+    size_t length, i;
+    u_char *copy;
+    if (!r || r->connection->fd == (ngx_socket_t) -1) return NGX_DECLINED;
+    length = ngx_strlen(name);
+    for (i = 0; i < length; i++) {
+        if ((u_char) name[i] != ngx_tolower((u_char) name[i])) return NGX_DECLINED;
+    }
+    cmcf = ngx_http_get_module_main_conf(r, ngx_http_core_module);
+    variable = ngx_hash_find(&cmcf->variables_hash,
+                            ngx_hash_key((u_char *) name, length), (u_char *) name, length);
+    if (!variable || variable->set_handler != ac_var_set
+        || !(variable->flags & NGX_HTTP_VAR_CHANGEABLE)) return NGX_DECLINED;
+    ngx_memzero(&vv, sizeof(vv));
+    if (!value.data) {
+        vv.not_found = 1;
+    } else {
+        copy = (u_char *) "";
+        if (value.len) {
+            copy = ngx_pnalloc(r->pool, value.len);
+            if (!copy) return NGX_ERROR;
+            ngx_memcpy(copy, value.data, value.len);
+        }
+        vv.valid = 1; vv.data = copy; vv.len = value.len;
+    }
+    ac_var_set(r, &vv, variable->data);
+    return NGX_OK;
 }
 
 ngx_int_t
@@ -605,12 +712,18 @@ ac_upstream_variables(ngx_conf_t *cf)
     ngx_http_variable_t *variable;
     ngx_uint_t i;
     ngx_str_t name;
+    ac_main_conf_t *main = ngx_http_conf_get_module_main_conf(cf, ngx_http_apisix_core_module);
     if (sizeof(ac_native_vars) / sizeof(ac_native_vars[0]) > 64) return NGX_ERROR;
     for (i = 0; i < sizeof(ac_native_vars) / sizeof(ac_native_vars[0]); i++) {
         name.data = (u_char *) ac_native_vars[i].name; name.len = ngx_strlen(name.data);
         variable = ngx_http_add_variable(cf, &name, NGX_HTTP_VAR_CHANGEABLE | NGX_HTTP_VAR_NOCACHEABLE);
         if (!variable) return NGX_ERROR;
         variable->get_handler = ac_var_get; variable->set_handler = ac_var_set; variable->data = i;
+        if (ngx_strcmp(name.data, "rate_limiting_info") == 0) {
+            main->rate_variable_slot = i;
+            main->rate_variable_index = ngx_http_get_variable_index(cf, &name);
+            if (main->rate_variable_index == NGX_ERROR) return NGX_ERROR;
+        }
     }
     return NGX_OK;
 }
@@ -625,6 +738,9 @@ ac_upstream_set(lua_State *L)
     luaL_checktype(L, 4, LUA_TTABLE);
     ac_upstream_cleanup(L, ctx);
     scratch.pool = ctx->request->pool;
+    /* A dynamically installed request-owned upstream keeps the old path;
+     * descriptors are only worthwhile for configuration-owned static peers. */
+    scratch.balancer_peer_plan = 0;
     lua_pushnil(L);
     ctx->upstream = ac_compile_upstream(L, &scratch, 4, -1);
     ctx->upstream_owned = 1;
@@ -650,10 +766,9 @@ ac_upstream_cleanup(lua_State *L, ac_request_t *ctx)
     }
 }
 
-int
-ac_balance_enter(lua_State *L)
+static int
+ac_balance_enter_ctx(lua_State *L, ac_request_t *ctx)
 {
-    ac_request_t *ctx = ac_request(L);
     ac_peer_t *peer = ctx->native_peer;
     ngx_peer_connection_t pc;
     if (!peer) { lua_pushboolean(L, 0); lua_pushinteger(L, 502); return 2; }
@@ -670,15 +785,18 @@ ac_balance_enter(lua_State *L)
     lua_pushboolean(L, ctx->balance_attempts > 0); return 1;
 }
 
-int
-ac_balance_finish(lua_State *L)
+static int
+ac_balance_finish_ctx(lua_State *L, ac_request_t *ctx)
 {
-    ac_request_t *ctx = ac_request(L);
     ac_peer_t *peer = ctx->native_peer;
-    ngx_uint_t retries;
+    ngx_uint_t retries, pool_key;
     u_char ip[NGX_SOCKADDR_STRLEN];
     u_char pool[NGX_SOCKADDR_STRLEN + 64], *end;
-    size_t length;
+#if (NGX_HAVE_INET6)
+    u_char peer_address[NGX_SOCKADDR_STRLEN + 2];
+#endif
+    ngx_str_t address;
+    ac_peer_plan_t *plan;
     char *error = NULL;
     if (!peer || !peer->selected) { lua_pushinteger(L, 502); return 1; }
     if (!ctx->balance_attempts) {
@@ -696,12 +814,34 @@ ac_balance_finish(lua_State *L)
         if (ngx_http_lua_ffi_balancer_recreate_request(ctx->request, &error) != NGX_OK)
             return luaL_error(L, "failed to recreate proxy request: %s", error ? error : "unknown error");
     }
-    length = ngx_sock_ntop(peer->selected->address.sockaddr, peer->selected->address.socklen, ip, sizeof(ip), 0);
-    end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &ctx->upstream_scheme, length, ip,
-                       (ngx_uint_t) peer->selected->port);
+    plan = peer->selected->peer_plan;
+    if (ctx->main->balancer_peer_plan == 1
+        && ac_peer_plan_address_matches(peer->selected)
+        && ctx->upstream_scheme.len == plan->scheme.len
+        && (!plan->scheme.len || ngx_memcmp(ctx->upstream_scheme.data,
+                                           plan->scheme.data, plan->scheme.len) == 0)) {
+        address = plan->ip;
+        pool_key = plan->pool_key;
+    } else {
+        address.data = ip;
+        address.len = ngx_sock_ntop(peer->selected->address.sockaddr,
+                                   peer->selected->address.socklen, ip, sizeof(ip), 0);
+        end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &ctx->upstream_scheme,
+                           address.len, ip, (ngx_uint_t) peer->selected->port);
+        pool_key = ngx_crc32_long(pool, end - pool);
+    }
     if (!peer->upstream->keepalive_size) return luaL_error(L, "native keepalive pool size must be positive");
-    if (ngx_http_lua_ffi_balancer_set_current_peer(ctx->request, ip, length, peer->selected->port,
-                ngx_crc32_long(pool, end - pool), (unsigned int) peer->upstream->keepalive_size, &error) != NGX_OK)
+#if (NGX_HAVE_INET6)
+    /* The runtime parses a URL-style address and requires IPv6 brackets even
+     * with a separate port argument. Keep balancer_ip and pool-key bytes raw. */
+    if (peer->selected->address.sockaddr->sa_family == AF_INET6) {
+        end = ngx_snprintf(peer_address, sizeof(peer_address), "[%V]", &address);
+        address.data = peer_address;
+        address.len = end - peer_address;
+    }
+#endif
+    if (ngx_http_lua_ffi_balancer_set_current_peer(ctx->request, address.data, address.len, peer->selected->port,
+                pool_key, (unsigned int) peer->upstream->keepalive_size, &error) != NGX_OK)
         return luaL_error(L, "failed to set native current peer: %s", error ? error : "unknown error");
     if (ngx_http_lua_ffi_balancer_enable_keepalive(ctx->request,
                 (unsigned long) (peer->upstream->keepalive_idle * 1000),
@@ -709,6 +849,36 @@ ac_balance_finish(lua_State *L)
         return luaL_error(L, "failed to enable native keepalive: %s", error ? error : "unknown error");
     ctx->balance_attempts++;
     return 0;
+}
+
+int
+ac_balance_enter(lua_State *L)
+{
+    return ac_balance_enter_ctx(L, ac_request(L));
+}
+
+int
+ac_balance_finish(lua_State *L)
+{
+    return ac_balance_finish_ctx(L, ac_request(L));
+}
+
+/* First-attempt before_proxy callbacks have already run in access. Fuse only
+ * the empty Lua transport between entering and configuring that first peer.
+ * A retry still returns to Lua for before_proxy before recreating the request.
+ * nil means finalized; false/true retain the unfused initial/retry protocol. */
+int
+ac_balance_start(lua_State *L)
+{
+    ac_request_t *ctx = ac_request(L);
+    int count = ac_balance_enter_ctx(L, ctx);
+    if (!ctx->main->fused_balancer || count != 1 || lua_toboolean(L, -1))
+        return count;
+    lua_settop(L, 0);
+    count = ac_balance_finish_ctx(L, ctx);
+    lua_pushnil(L);
+    if (count) lua_insert(L, -(count + 1));
+    return count + 1;
 }
 
 ngx_flag_t

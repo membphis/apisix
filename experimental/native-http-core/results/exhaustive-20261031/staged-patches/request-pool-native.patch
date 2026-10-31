@@ -1,0 +1,648 @@
+--- a/experimental/native-http-core/module/engine.h
++++ b/experimental/native-http-core/module/engine.h
+@@ -30,6 +30,7 @@
+ } ac_phase_e;
+ 
+ typedef struct ac_expr_s ac_expr_t;
++typedef struct ac_table_pool_s ac_table_pool_t;
+ typedef struct ac_rate_snapshot_s ac_rate_snapshot_t;
+ 
+ typedef struct {
+@@ -148,6 +149,10 @@
+     ngx_flag_t lazy_route_opts;
+     ngx_flag_t route_candidates;
+     ngx_flag_t request_pool;
++    ngx_flag_t request_pool_native;
++    ac_table_pool_t *request_pool_state;
++    ngx_flag_t matched_pool;
++    ac_table_pool_t *matched_pool_state;
+     ngx_flag_t lazy_meta_matches;
+     ngx_flag_t phase_index;
+     ngx_flag_t phase_context;
+@@ -188,6 +193,7 @@
+     ac_path_t *path;
+     int table_ref;
+     int match_opts_ref;
++    int matched_ref;
+     ngx_array_t candidates;
+     ngx_uint_t candidate_cursor;
+     ac_phase_e phase;
+@@ -233,6 +239,7 @@
+ extern ngx_module_t ngx_http_apisix_core_module;
+ extern const char *ac_phase_names[AC_PHASES];
+ 
++int ac_table_pool_fetch(lua_State *L, ac_main_conf_t *main, ac_table_pool_t *pool, int nrec);
+ int ac_abs(lua_State *L, int index);
+ int ac_ref(lua_State *L, int index);
+ void ac_push(lua_State *L, int ref);
+--- a/experimental/native-http-core/module/module.c
++++ b/experimental/native-http-core/module/module.c
+@@ -17,6 +17,14 @@
+ #include "engine.h"
+ #include <stdio.h>
+ 
++/* Cycle-owned; generations share this pointer, never a copy of count/refs. */
++struct ac_table_pool_s {
++    lua_State *vm;
++    ngx_uint_t count;
++    ngx_uint_t releases;
++    int refs[200];
++};
++
+ const char *ac_phase_names[AC_PHASES] = {
+     "rewrite", "access", "before_proxy", "header_filter",
+     "body_filter", "delayed_body_filter", "log"
+@@ -41,6 +49,10 @@
+      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, lazy_route_opts), NULL},
+     {ngx_string("apisix_core_route_candidates"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, route_candidates), NULL},
++    {ngx_string("apisix_core_matched_pool"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
++     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, matched_pool), NULL},
++    {ngx_string("apisix_core_request_pool_native"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
++     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, request_pool_native), NULL},
+     {ngx_string("apisix_core_request_pool"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, request_pool), NULL},
+     {ngx_string("apisix_core_lazy_meta_matches"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+@@ -177,6 +189,61 @@
+                                                ngx_http_apisix_core_module);
+ }
+ 
++int
++ac_table_pool_fetch(lua_State *L, ac_main_conf_t *main, ac_table_pool_t *pool, int nrec)
++{
++    if (pool) {
++        if (!pool->vm) pool->vm = main->vm;
++        if (pool->vm == main->vm && pool->count)
++            return pool->refs[--pool->count];
++    }
++    lua_createtable(L, 0, nrec);
++    return luaL_ref(L, LUA_REGISTRYINDEX);
++}
++
++/* Reuse registry ownership as well as the table. The existing table.clear
++ * primitive remains a protected call: no private LuaJIT ABI or slow Lua-next
++ * clear loop. Read the current loaded function instead of caching a potentially
++ * replaced function forever. A missing helper simply falls back to GC. */
++static ngx_flag_t
++ac_table_pool_return(ac_request_t *ctx, ac_table_pool_t *pool, int ref, const char *name)
++{
++    lua_State *L = ctx->main->vm;
++    ngx_uint_t i;
++    ngx_flag_t retained = 0;
++    int top = lua_gettop(L);
++    if (!pool || pool->vm != L || ref < 0) return 0;
++    ac_push(L, ref);
++    if (lua_getmetatable(L, -1)) goto done;
++    lua_pushliteral(L, "_LOADED"); lua_rawget(L, LUA_REGISTRYINDEX);
++    if (!lua_istable(L, -1)) goto done;
++    lua_pushliteral(L, "table.clear"); lua_rawget(L, -2); lua_remove(L, -2);
++    if (!lua_isfunction(L, -1)) goto done;
++    /* Match installed tablepool: every 20000 releases discard the old pool
++     * and this object without clearing it; full pools also discard unchanged. */
++    if (++pool->releases >= 20000) {
++        for (i = 0; i < pool->count; i++)
++            luaL_unref(L, LUA_REGISTRYINDEX, pool->refs[i]);
++        pool->count = 0;
++        pool->releases = 0;
++        goto done;
++    }
++    if (pool->count == 200) goto done;
++    lua_insert(L, top + 1);  /* clear, table */
++    if (lua_pcall(L, 1, 0, 0) != 0) {
++        const char *error = lua_tostring(L, -1);
++        ngx_log_error(NGX_LOG_ERR, ctx->request->connection->log, 0,
++                      "native registry %s pool clear failed: %s", name,
++                      error ? error : "non-string Lua error");
++        goto done;
++    }
++    pool->refs[pool->count++] = ref;
++    retained = 1;
++done:
++    lua_settop(L, top);
++    return retained;
++}
++
+ static void
+ ac_cleanup(void *data)
+ {
+@@ -195,10 +262,28 @@
+             luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->route->value_ref);
+             luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->route->wrapper_ref);
+         }
++        /* Match stable Lua's nested-record-before-api_ctx release order. If a
++         * plugin replaced curr_req_matched, its old alias remains GC-owned. */
++        if (ctx->main->matched_pool == 1 && ctx->log_done && ctx->matched_ref >= 0) {
++            lua_State *L = ctx->main->vm;
++            ngx_flag_t same;
++            ac_push(L, ctx->table_ref);
++            lua_pushliteral(L, "curr_req_matched"); lua_rawget(L, -2);
++            ac_push(L, ctx->matched_ref);
++            same = lua_rawequal(L, -1, -2);
++            lua_pop(L, 3);
++            if (same && ac_table_pool_return(ctx, ctx->main->matched_pool_state,
++                                            ctx->matched_ref, "matched"))
++                ctx->matched_ref = LUA_NOREF;
++        }
+         /* Recycle only the Lua table, after all request-owned native cleanup.
+          * A suspended/in-flight request cannot enter this pool. Abnormal exits
+          * without completed log cleanup retain the existing GC-only path. */
+-        if (ctx->main->request_pool == 1 && ctx->log_done) {
++        if (ctx->main->request_pool_native == 1 && ctx->log_done) {
++            if (ac_table_pool_return(ctx, ctx->main->request_pool_state,
++                                     ctx->table_ref, "api_ctx"))
++                ctx->table_ref = LUA_NOREF;
++        } else if (ctx->main->request_pool == 1 && ctx->log_done) {
+             lua_State *L = ctx->main->vm;
+             int top = lua_gettop(L);
+             /* fetch loaded this dependency during construction. Do not invoke
+@@ -223,6 +308,7 @@
+         }
+         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->table_ref);
+         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->match_opts_ref);
++        luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->matched_ref);
+         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->span_ref);
+         ac_snapshot_release(ctx->main->vm, ctx);
+     }
+@@ -260,19 +346,25 @@
+     ac_snapshot_acquire(ctx);
+     ctx->phase = AC_PHASES;
+     ctx->match_opts_ref = LUA_NOREF;
++    ctx->matched_ref = LUA_NOREF;
+     ctx->span_ref = LUA_NOREF;
+-    if (ctx->main->request_pool == 1) {
+-        ac_require(L, "tablepool");
+-        lua_getfield(L, -1, "fetch");
+-        lua_pushliteral(L, "native_api_ctx");
+-        lua_pushinteger(L, 0);
+-        lua_pushinteger(L, 32);
+-        lua_call(L, 3, 1);
+-        lua_remove(L, -2);
++    if (ctx->main->request_pool_native == 1) {
++        ctx->table_ref = ac_table_pool_fetch(L, ctx->main,
++                                            ctx->main->request_pool_state, 32);
+     } else {
+-        lua_createtable(L, 0, 32);
+-    }
+-    ctx->table_ref = luaL_ref(L, LUA_REGISTRYINDEX);
++        if (ctx->main->request_pool == 1) {
++            ac_require(L, "tablepool");
++            lua_getfield(L, -1, "fetch");
++            lua_pushliteral(L, "native_api_ctx");
++            lua_pushinteger(L, 0);
++            lua_pushinteger(L, 32);
++            lua_call(L, 3, 1);
++            lua_remove(L, -2);
++        } else {
++            lua_createtable(L, 0, 32);
++        }
++        ctx->table_ref = luaL_ref(L, LUA_REGISTRYINDEX);
++    }
+     lua_getglobal(L, "ngx");
+     lua_getfield(L, -1, "ctx");
+     ac_push(L, ctx->table_ref);
+@@ -434,6 +526,9 @@
+ {
+     ac_main_conf_t *main = ngx_pcalloc(cf->pool, sizeof(*main));
+     if (main != NULL) {
++        main->request_pool_state = ngx_pcalloc(cf->pool, sizeof(ac_table_pool_t));
++        main->matched_pool_state = ngx_pcalloc(cf->pool, sizeof(ac_table_pool_t));
++        if (!main->request_pool_state || !main->matched_pool_state) return NULL;
+         main->pool = cf->pool;
+         main->native_filters = NGX_CONF_UNSET;
+         main->lazy_rate_json = NGX_CONF_UNSET;
+@@ -445,6 +540,8 @@
+         main->lazy_route_opts = NGX_CONF_UNSET;
+         main->route_candidates = NGX_CONF_UNSET;
+         main->request_pool = NGX_CONF_UNSET;
++        main->request_pool_native = NGX_CONF_UNSET;
++        main->matched_pool = NGX_CONF_UNSET;
+         main->lazy_meta_matches = NGX_CONF_UNSET;
+         main->phase_index = NGX_CONF_UNSET;
+         main->phase_context = NGX_CONF_UNSET;
+@@ -478,6 +575,8 @@
+     if (main->lazy_route_opts == NGX_CONF_UNSET) main->lazy_route_opts = 0;
+     if (main->route_candidates == NGX_CONF_UNSET) main->route_candidates = 0;
+     if (main->request_pool == NGX_CONF_UNSET) main->request_pool = 0;
++    if (main->request_pool_native == NGX_CONF_UNSET) main->request_pool_native = 0;
++    if (main->matched_pool == NGX_CONF_UNSET) main->matched_pool = 0;
+     if (main->lazy_meta_matches == NGX_CONF_UNSET) main->lazy_meta_matches = 0;
+     if (main->phase_index == NGX_CONF_UNSET) main->phase_index = 0;
+     if (main->phase_context == NGX_CONF_UNSET) main->phase_context = 0;
+--- a/experimental/native-http-core/module/routes.c
++++ b/experimental/native-http-core/module/routes.c
+@@ -658,10 +658,23 @@
+     ctx->early_status = route->resolve_status;
+     ac_push(L, ctx->table_ref);
+     table = lua_gettop(L);
++    /* A previous accepted route may still have plugin-held aliases. Do not
++     * return that record to the free pool during the same live request. */
++    if (ctx->matched_ref >= 0) {
++        luaL_unref(L, LUA_REGISTRYINDEX, ctx->matched_ref);
++        ctx->matched_ref = LUA_NOREF;
++    }
+     if (ctx->match_opts_ref == LUA_NOREF) {
+-        /* No Lua filter can observe the options object. The matched object is
+-         * still a distinct table per request and remains plugin-visible. */
+-        lua_createtable(L, 0, 3 + path->names.nelts);
++        /* Requires lazy_route_opts and no observable filter options. Stable
++         * Lua already pools matched_route_record after log; active requests
++         * still have distinct matched tables. Filter-owned records stay put. */
++        if (ctx->main->matched_pool == 1) {
++            ctx->matched_ref = ac_table_pool_fetch(L, ctx->main,
++                ctx->main->matched_pool_state, 3 + path->names.nelts);
++            ac_push(L, ctx->matched_ref);
++        } else {
++            lua_createtable(L, 0, 3 + path->names.nelts);
++        }
+     } else {
+         ac_push(L, ctx->match_opts_ref);
+         lua_getfield(L, -1, "matched");
+--- a/experimental/native-http-core/tests/test_request_pool.py
++++ b/experimental/native-http-core/tests/test_request_pool.py
+@@ -1,7 +1,9 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: Apache-2.0
+ """Exercise API-context reuse against Lua lifecycle, including concurrent yields."""
++import argparse
+ from concurrent.futures import ThreadPoolExecutor
++import http.client
+ import os
+ from pathlib import Path
+ import socket
+@@ -11,7 +13,9 @@
+ import test_demo as demo
+ 
+ 
+-def check(mode):
++def check(mode, native_pool=False, extended=False):
++    os.environ["APISIX_CORE_DIRECTIVES"] = ("apisix_core_request_pool on; " +
++        ("apisix_core_request_pool_native on;" if native_pool else ""))
+     demo.prepare(mode)
+     demo.stop()
+     config = demo.ROOT / "conf/nginx.conf"
+@@ -24,29 +28,84 @@
+         local seen = setmetatable({}, {__mode="k"})
+         local active = setmetatable({}, {__mode="k"})
+         local pool_name = "__POOL__"
++        local native_pool = __NATIVE_POOL__
++        local clear_pool
++        local discarded = {}
++        if native_pool then
++            local clear = require("table.clear")
++            clear_pool = function(value)
++                if rawget(value, "pool_probe") then
++                    assert(not active[value], "live/yielding api_ctx returned to pool")
++                    if value.pool_probe.clear_error then
++                        error("REQUEST_POOL_EXPECTED_CLEAR_ERROR")
++                    end
++                    ngx.log(ngx.WARN, "REQUEST_POOL_RELEASE")
++                end
++                return clear(value)
++            end
++            package.loaded["table.clear"] = clear_pool
++            local core_ctx = require("apisix.core.ctx")
++            local release_vars = core_ctx.release_vars
++            core_ctx.release_vars = function(ctx)
++                release_vars(ctx)
++                if ctx.pool_probe and ctx.pool_probe.clear_missing then
++                    package.loaded["table.clear"] = nil
++                end
++            end
++        end
+         tablepool.fetch = function(name, ...)
+             local value = fetch(name, ...)
+-            if name == pool_name then
++            if not native_pool and name == pool_name then
+                 assert(next(value) == nil, "pooled api_ctx retained request data")
+-                if seen[value] then ngx.log(ngx.WARN, "REQUEST_POOL_REUSE") end
+-                seen[value] = true
+             end
+             return value
+         end
+         tablepool.release = function(name, value, ...)
+-            if name == pool_name then
++            if not native_pool and name == pool_name then
+                 assert(not active[value], "live/yielding api_ctx returned to pool")
+                 ngx.log(ngx.WARN, "REQUEST_POOL_RELEASE")
+             end
+             return release(name, value, ...)
+         end
++        local protected_ctx
+         local plugin = require("apisix.plugins.prometheus")
+         local original_log = plugin.log
+         plugin.rewrite = function(conf, ctx)
++            if native_pool then
++                package.loaded["table.clear"] = clear_pool
++                for _, value in ipairs(discarded) do
++                    assert(value ~= ctx and value.pool_probe,
++                           "failed clear context was recycled")
++                end
++            end
+             assert(not active[ctx] and ctx.pool_probe == nil, "request alias or stale marker")
++            if protected_ctx then
++                assert(protected_ctx ~= ctx and getmetatable(protected_ctx)
++                       and protected_ctx.pool_sentinel, "metatable-bearing api_ctx was recycled")
++            end
++            local reused = seen[ctx]
++            if reused then
++                ngx.log(ngx.WARN, "REQUEST_POOL_REUSE")
++            elseif ngx.var.arg_rotate then
++                ngx.log(ngx.WARN, "REQUEST_POOL_ROTATION_NEW")
++            end
++            seen[ctx] = true
+             local token = ngx.var.arg_token or ngx.var.request_uri
+             active[ctx] = token
+-            ctx.pool_probe = {token=token}
++            ctx.pool_probe = {token=token, clear_error=ngx.var.arg_clear_error,
++                              clear_missing=ngx.var.arg_clear_missing}
++            if ngx.var.arg_gate then
++                local shared = ngx.shared.pool_test
++                local gate = ngx.var.arg_gate
++                shared:incr("ready-" .. gate, 1, 0)
++                if reused then shared:incr("reused-" .. gate, 1, 0) end
++                local deadline = ngx.now() + 4
++                while (shared:get("ready-" .. gate) or 0) < 220 do
++                    assert(ngx.now() < deadline, "pool capacity gate timed out")
++                    ngx.sleep(0.001)
++                end
++                ngx.header["X-Pool-Capacity-Reused"] = shared:get("reused-" .. gate) or 0
++            end
+             local hold = tonumber(ngx.var.arg_hold)
+             if hold then ngx.sleep(hold) end
+             assert(ctx == ngx.ctx.api_ctx and ctx.ngx_ctx == ngx.ctx)
+@@ -60,10 +119,19 @@
+                 assert(ctx.pool_probe and ctx.pool_probe.token == value)
+                 active[ctx] = nil
+             end
++            if native_pool and (ngx.var.arg_clear_error or ngx.var.arg_clear_missing) then
++                discarded[#discarded + 1] = ctx
++            end
++            if ngx.var.arg_meta then
++                protected_ctx = ctx
++                setmetatable(ctx, {__index={pool_sentinel=true}})
++            end
+             return original_log(conf, ctx)
+         end
+-'''.replace("__POOL__", "native_api_ctx" if mode == "native" else "api_ctx")
++'''.replace("__POOL__", "native_api_ctx" if mode == "native" else "api_ctx")\
++       .replace("__NATIVE_POOL__", "true" if native_pool else "false")
+     assert text.count(marker) == 1
++    text = text.replace("http {", "http {\nlua_shared_dict pool_test 1m;", 1)
+     config.write_text(text.replace(marker, observer + marker))
+     subprocess.run([demo.NGINX, "-p", str(demo.ROOT), "-c", "conf/nginx.conf"],
+                    env=demo.NGINX_ENV, check=True)
+@@ -76,6 +144,14 @@
+         assert demo.request(f"/plain/pool?token=serial-{n}")[0] == 200
+     assert demo.request("/plain/pool?token=expected-error&fail=1")[0] == 500
+     assert demo.request("/plain/pool?token=after-error")[0] == 200
++    if mode == "native":
++        assert demo.request("/plain/pool?token=metatable&meta=1")[0] == 200
++        assert demo.request("/plain/pool?token=after-metatable")[0] == 200
++    if native_pool:
++        assert demo.request("/plain/pool?token=clear-missing&clear_missing=1")[0] == 200
++        assert demo.request("/plain/pool?token=after-clear-missing")[0] == 200
++        assert demo.request("/plain/pool?token=clear-error&clear_error=1")[0] == 200
++        assert demo.request("/plain/pool?token=after-clear-error")[0] == 200
+     # The aborted coroutine owns its table until NGINX completes request cleanup.
+     client = socket.create_connection(("127.0.0.1", 9080))
+     client.sendall(b"GET /plain/pool?token=aborted&hold=0.05 HTTP/1.1\r\nHost: localhost\r\n\r\n")
+@@ -83,27 +159,63 @@
+     for n in range(8):
+         assert demo.request(f"/plain/pool?token=after-abort-{n}&hold=0.002")[0] == 200
+     time.sleep(0.1)
++    if native_pool and extended:
++        # Two waves hold >200 contexts alive. Exactly 200 from the first wave
++        # may be borrowed in the second; excess releases must be discarded.
++        for wave in (1, 2):
++            with ThreadPoolExecutor(max_workers=220) as pool:
++                replies = list(pool.map(lambda n: demo.request(
++                    f"/plain/pool?token=capacity-{wave}-{n}&gate={wave}"), range(220)))
++            assert [reply[0] for reply in replies] == [200] * 220, replies
++            if wave == 2:
++                assert all(reply[1]["X-Pool-Capacity-Reused"] == "200"
++                           for reply in replies), replies
++        # Cross the exact installed tablepool's 20,000-release retirement rule.
++        connection = http.client.HTTPConnection("127.0.0.1", 9080, timeout=5)
++        try:
++            for n in range(20010):
++                connection.request("GET", f"/plain/pool?token=rotation-{n}&rotate=1")
++                response = connection.getresponse()
++                response.read()
++                assert response.status == 200, (n, response.status)
++        finally:
++            connection.close()
++        time.sleep(0.1)
+     text = (demo.ROOT / "logs/error.log").read_text()
+     assert text.count("REQUEST_POOL_REUSE") >= 10, text
+     assert text.count("REQUEST_POOL_RELEASE") >= 90, text
++    if native_pool and extended:
++        assert "REQUEST_POOL_ROTATION_NEW" in text, "pool did not retire after 20,000 releases"
+     for failure in ("pooled api_ctx retained", "live/yielding api_ctx", "request alias or stale",
+-                    "context changed while", "native api_ctx pool release failed"):
++                    "context changed while", "native api_ctx pool release failed",
++                    "pool capacity gate timed out", "metatable-bearing api_ctx was recycled",
++                    "failed clear context was recycled"):
+         assert failure not in text, text
+     # Error sample is intentional. All other error/alert blocks must be absent.
+     for line in text.splitlines():
+         if "[error]" in line or "[alert]" in line:
+-            assert "REQUEST_POOL_EXPECTED_ERROR" in line or "client prematurely closed" in line, line
+-    print(f"PASS {mode}: bounded API-context reuse, 64 concurrent yields, clean fields, "
++            assert ("REQUEST_POOL_EXPECTED_ERROR" in line
++                    or "REQUEST_POOL_EXPECTED_CLEAR_ERROR" in line
++                    or "client prematurely closed" in line), line
++    if native_pool:
++        assert text.count("native registry api_ctx pool clear failed:") == 1, text
++    print(f"PASS {mode} native_pool={native_pool} extended={extended}: "
++          "bounded API-context reuse, 64 concurrent yields, clean fields, "
+           "error/abort recovery and no live-table release", flush=True)
+     demo.stop()
+ 
+ 
+ def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--extended", action="store_true",
++                        help="also exercise native capacity200 and 20,000-release retirement")
++    args = parser.parse_args()
+     previous = os.environ.get("APISIX_CORE_DIRECTIVES", "")
+     os.environ["APISIX_CORE_DIRECTIVES"] = "apisix_core_request_pool on;"
+     try:
+-        for mode in ("lua", "native"):
+-            check(mode)
++        check("lua")
++        check("native")
++        check("native", native_pool=True, extended=args.extended)
+     finally:
+         demo.stop()
+         if previous:
+--- /dev/null
++++ b/experimental/native-http-core/tests/test_matched_pool.py
+@@ -0,0 +1,168 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: Apache-2.0
++"""Exercise opt-in matched-record pooling without changing filter-owned records."""
++from concurrent.futures import ThreadPoolExecutor
++import json
++import os
++from pathlib import Path
++import subprocess
++import time
++
++import test_demo as demo
++
++
++FILTER = r'''function(vars, opts, ctx, match_opts)
++    assert(opts == match_opts and vars == ctx.var)
++    ctx.filter_matched = opts.matched
++    opts.matched.filter_probe = vars.arg_token
++    ngx.sleep(0.001)
++    assert(ctx.filter_matched == opts.matched, "filter identity changed while yielding")
++    return vars.arg_allow == "yes"
++end'''
++
++
++OBSERVER = r'''
++        local pool_enabled = __ENABLED__
++        local clear = require("table.clear")
++        local seen = setmetatable({}, {__mode="k"})
++        local active = setmetatable({}, {__mode="k"})
++        local protected, detached
++        package.loaded["table.clear"] = function(value)
++            if rawget(value, "matched_pool_probe") then
++                assert(not active[value], "live matched record returned to pool")
++                ngx.log(ngx.WARN, "MATCHED_POOL_RELEASE")
++            end
++            return clear(value)
++        end
++        local plugin = require("apisix.plugins.prometheus")
++        local original_log = plugin.log
++        plugin.rewrite = function(conf, ctx)
++            local matched = ctx.curr_req_matched
++            local token = ngx.var.arg_token or ngx.var.request_uri
++            assert(type(matched) == "table" and not active[matched], "matched in-flight alias")
++            assert(not matched.matched_pool_probe, "matched retained previous request data")
++            if protected then
++                assert(protected ~= matched and getmetatable(protected)
++                       and protected.sentinel, "metatable matched record recycled")
++            end
++            if detached then
++                assert(detached ~= matched and detached.matched_pool_probe,
++                       "replaced matched record recycled")
++            end
++            if ctx.filter_matched then
++                assert(matched == ctx.filter_matched and matched.filter_probe == token,
++                       "filter matched record identity or fields changed")
++            else
++                assert(matched.filter_probe == nil, "filter state leaked into plain record")
++                if seen[matched] then
++                    assert(pool_enabled, "matched reused with pool off")
++                    ngx.log(ngx.WARN, "MATCHED_POOL_REUSE")
++                end
++                seen[matched] = true
++            end
++            assert(matched._method == ngx.req.get_method())
++            if ctx.route_id == "plain" then
++                assert(matched.item == nil and matched._host == nil,
++                       "capture or host leaked into plain record")
++            elseif ctx.route_id == "param" then
++                assert(matched.item == ngx.var.arg_expect, "wrong parameter capture")
++            end
++            active[matched] = token
++            matched.matched_pool_probe = token
++            local hold = tonumber(ngx.var.arg_hold)
++            if hold then ngx.sleep(hold) end
++            assert(ctx.curr_req_matched == matched and active[matched] == token
++                   and matched.matched_pool_probe == token, "matched changed while yielding")
++            ngx.header["X-Matched-Pool-Route"] = ctx.route_id
++            if ngx.var.arg_fail then error("MATCHED_POOL_EXPECTED_ERROR") end
++        end
++        plugin.log = function(conf, ctx)
++            local matched = ctx.curr_req_matched
++            if active[matched] then
++                assert(matched.matched_pool_probe == active[matched])
++                active[matched] = nil
++            end
++            if ngx.var.arg_meta then
++                protected = matched
++                setmetatable(matched, {__index={sentinel=true}})
++            elseif ngx.var.arg_replace then
++                detached = matched
++                ctx.curr_req_matched = {replacement=true}
++            end
++            return original_log(conf, ctx)
++        end
++'''
++
++
++def run(enabled, api_pool=False):
++    os.environ["APISIX_CORE_DIRECTIVES"] = (
++        "apisix_core_lazy_route_opts on; apisix_core_matched_pool "
++        + ("on;" if enabled else "off;")
++        + (" apisix_core_request_pool_native on;" if api_pool else ""))
++    fixture = Path("/tmp/native-matched-pool-fixture.json")
++    routes = [
++        {"id": "plain", "uri": "/plain/*"},
++        {"id": "param", "uri": "/param/:item"},
++        {"id": "filter", "uri": "/filtered", "priority": 100, "filter_func": FILTER},
++        {"id": "fallback", "uri": "/filtered"},
++    ]
++    for route in routes:
++        route["plugins"] = {"prometheus": {}}
++    fixture.write_text(json.dumps({"upstream": "127.0.0.1:1980", "routes": routes,
++                                   "router": "radixtree_uri_with_parameter",
++                                   "consumers": [], "global_rules": []}))
++    demo.prepare("native", fixture=fixture)
++    demo.stop()
++    path = demo.ROOT / "conf/nginx.conf"
++    text = path.read_text()
++    marker = 'require("apisix.native.engine").init_worker()'
++    assert text.count(marker) == 1
++    observer = OBSERVER.replace("__ENABLED__", "true" if enabled else "false")
++    path.write_text(text.replace(marker, observer + marker))
++    subprocess.run([demo.NGINX, "-p", str(demo.ROOT), "-c", "conf/nginx.conf"],
++                   env=demo.NGINX_ENV, check=True)
++    demo.ready("/missing", expected=404)
++    for index in range(12):
++        assert demo.request(f"/param/value-{index}?expect=value-{index}&token=param-{index}")[0] == 200
++        assert demo.request(f"/plain/clean?token=plain-{index}")[0] == 200
++    with ThreadPoolExecutor(max_workers=16) as pool:
++        replies = list(pool.map(lambda n: demo.request(
++            f"/plain/concurrent?token=parallel-{n}&hold=0.005")[0], range(64)))
++    assert replies == [200] * 64, replies
++    for index in range(8):
++        for allow, expected in (("yes", "filter"), ("no", "fallback")):
++            response = demo.request(f"/filtered?allow={allow}&token=filter-{index}-{allow}&hold=0.002")
++            assert response[0] == 200 and response[1]["X-Matched-Pool-Route"] == expected, response
++    assert demo.request("/plain/error?token=error&fail=1")[0] == 500
++    assert demo.request("/plain/recovery?token=recovery")[0] == 200
++    assert demo.request("/plain/meta?token=meta&meta=1")[0] == 200
++    assert demo.request("/plain/after-meta?token=after-meta")[0] == 200
++    assert demo.request("/plain/replace?token=replace&replace=1")[0] == 200
++    assert demo.request("/plain/after-replace?token=after-replace")[0] == 200
++    time.sleep(0.05)
++    text = (demo.ROOT / "logs/error.log").read_text()
++    if enabled:
++        assert text.count("MATCHED_POOL_REUSE") >= 20, text
++        assert text.count("MATCHED_POOL_RELEASE") >= 80, text
++    else:
++        assert "MATCHED_POOL_REUSE" not in text and "MATCHED_POOL_RELEASE" not in text, text
++    for line in text.splitlines():
++        if "[error]" in line or "[alert]" in line:
++            assert "MATCHED_POOL_EXPECTED_ERROR" in line, line
++    demo.stop()
++    print(f"PASS matched_pool={enabled} api_pool={api_pool}: clean captures, concurrent yields, filter identity, "
++          "error recovery, metatable and replacement aliases", flush=True)
++
++
++if __name__ == "__main__":
++    previous = os.environ.get("APISIX_CORE_DIRECTIVES")
++    try:
++        run(False)
++        run(True)
++        run(True, api_pool=True)
++    finally:
++        demo.stop()
++        if previous is None:
++            os.environ.pop("APISIX_CORE_DIRECTIVES", None)
++        else:
++            os.environ["APISIX_CORE_DIRECTIVES"] = previous

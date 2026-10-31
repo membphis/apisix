@@ -67,9 +67,11 @@ def main():
                "observed_error_rate": 0, "enabled_plugins": environment["enabled_plugins"]}
     (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     direction = "三轮 C 吞吐均高于原版。" if summary["all_c_samples_faster"] else "各轮方向见表，不能宣称三轮均有提升。"
+    version = ('版本边界：[PROVENANCE.md](PROVENANCE.md)。本复测固定于历史 C 核心，完整冻结工作树为 `a3770f02`；不用于验证分支后续候选优化。\n\n'
+               if (directory / 'PROVENANCE.md').is_file() else '')
     report = f'''# limit-count：三轮独立配对复测
 
-日期：{environment['started_utc']}。{direction}
+{version}日期：{environment['started_utc']}。{direction}
 三轮原版平均 {qps['lua']:,.2f} QPS，C 平均 {qps['native']:,.2f} QPS，均值之比提升 **{overall:.2f}%**。
 每轮提升范围 {min(changes):.2f}%–{max(changes):.2f}%；原一次样本为 {reference_delta:.2f}%，本轮均值之比相差 {overall - reference_delta:+.2f} 个百分点。
 

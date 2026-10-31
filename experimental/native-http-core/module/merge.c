@@ -260,18 +260,17 @@ ac_resolve_route(lua_State *L, ac_main_conf_t *main, ac_route_t *route, int wrap
 }
 
 void
-ac_route_context(lua_State *L, ac_request_t *ctx, ngx_flag_t global)
+ac_route_context_at(lua_State *L, ac_request_t *ctx, ngx_flag_t global, int table)
 {
     static const char *names[] = {"conf_type", "conf_id", "conf_version", "route_name", "service_id", "service_name"};
     ngx_uint_t i;
-    int table, route, service;
-    ac_push(L, ctx->table_ref);
-    table = lua_gettop(L);
+    int route, service;
+    table = ac_abs(L, table);
     if (!global && ctx->metadata) {
         for (i = 0; i < ctx->metadata->count; i++) {
             ac_push(L, ctx->metadata->fields[i]); lua_setfield(L, table, names[i]);
         }
-        lua_pop(L, 1); return;
+        return;
     }
     if (global) {
         lua_pushliteral(L, "global_rule"); lua_setfield(L, table, "conf_type");
@@ -347,6 +346,13 @@ ac_route_context(lua_State *L, ac_request_t *ctx, ngx_flag_t global)
         }
         ctx->metadata = metadata;
     }
+}
+
+void
+ac_route_context(lua_State *L, ac_request_t *ctx, ngx_flag_t global)
+{
+    ac_push(L, ctx->table_ref);
+    ac_route_context_at(L, ctx, global, -1);
     lua_pop(L, 1);
 }
 

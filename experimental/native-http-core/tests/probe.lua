@@ -58,6 +58,15 @@ function M.new(name, priority, prefer)
             ngx.sleep(conf.hold)
         end
         if phase == "rewrite" and conf.fail then error("probe failure") end
+        if phase == "rewrite" and conf.rate_observer then
+            local detail = ngx.var.arg_shape ~= "basic" and {
+                window_type = "fixed", window_size = 60, decision = "allowed",
+                now = 117.2, window_end = 120.125, count = 3, created = false,
+            } or nil
+            require("apisix.core.utils").set_var_rate_limiting_info(ctx, "observer", 10, 7, 3, detail)
+            if detail then detail.count = 999 end
+            -- No Lua read: the first observer is NGINX add_header's indexed variable.
+        end
         if phase == "rewrite" and conf.sdk then
             local request = require("apisix.core.request")
             local tracer = require("apisix.tracer")
@@ -126,6 +135,43 @@ function M.new(name, priority, prefer)
                 assert(require("apisix.core.table").deep_eq(decode(reference.var.rate_limiting_info),
                                                            decode(vars.rate_limiting_info)))
             end
+            local decode = require("apisix.core.json").decode
+            -- The stable plugin uses the basic shape without detail.
+            utils.set_var_rate_limiting_info(ctx, key, 10, "7", 3)
+            local plain = decode(ngx.var.rate_limiting_info)
+            assert(plain.rate_limiting_key == key and plain.rate_limiting_remaining == 7)
+            assert(plain.window_type == nil and plain.current_window == nil)
+            assert(vars.rate_limiting_info == ngx.var.rate_limiting_info)
+            -- Snapshot input by value; mutation after the API call cannot affect it.
+            detail.count = 11
+            utils.set_var_rate_limiting_info(ctx, key, 10, 6, 3, detail)
+            detail.count = 999
+            collectgarbage("collect")
+            assert(decode(ngx.var.rate_limiting_info).current_window.count == 11)
+            -- A direct NGINX assignment before the first read cancels pending JSON.
+            utils.set_var_rate_limiting_info(ctx, key, 10, 5, 3, detail)
+            ngx.var.rate_limiting_info = "explicit"
+            assert(ngx.var.rate_limiting_info == "explicit" and vars.rate_limiting_info == "explicit")
+            utils.set_var_rate_limiting_info(ctx, key, 10, 4, 3, detail)
+            vars.rate_limiting_info = false
+            assert(vars.rate_limiting_info == false and ngx.var.rate_limiting_info == "false")
+            utils.set_var_rate_limiting_info(ctx, key, 10, 3, 3, detail)
+            ngx.var.rate_limiting_info = nil
+            assert(ngx.var.rate_limiting_info == nil and vars.rate_limiting_info == nil)
+            -- Direct NGINX writes keep an already-published core.ctx cache unchanged.
+            utils.set_var_rate_limiting_info(ctx, key, 10, 3, 3)
+            local cached_info = vars.rate_limiting_info
+            ngx.var.rate_limiting_info = "external-after-cache"
+            assert(vars.rate_limiting_info == cached_info)
+            assert(ngx.var.rate_limiting_info == "external-after-cache")
+            -- Multiple unread updates, a long key, and generic fallback invalidate both views.
+            utils.set_var_rate_limiting_info(ctx, "superseded", 10, 2, 3, detail)
+            local long_key = string.rep(key, 400)
+            utils.set_var_rate_limiting_info(ctx, long_key, 10, 1, 3)
+            assert(decode(ngx.var.rate_limiting_info).rate_limiting_key == long_key)
+            detail.cost = 0.5
+            utils.set_var_rate_limiting_info(ctx, key, 10, 0, 3, detail)
+            assert(decode(vars.rate_limiting_info).cost == 0.5)
             vars.rate_limiting_info = saved_info
             local cached = require("native_cache_probe")("shared", 1, function()
                 ngx.sleep(0.001)

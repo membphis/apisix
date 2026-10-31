@@ -17,6 +17,104 @@
 #include "engine.h"
 #include <math.h>
 
+/* Diagnostic build only. The normal binary has no timers, counters or branch
+ * checks from this block. These are thread-CPU intervals, not profiler self
+ * times: Lua filter callbacks run outside the measured regions. */
+#ifdef AC_ROUTE_PROFILE
+#include <stdio.h>
+#include <time.h>
+
+enum {
+    AC_RP_COLLECT_SORT, AC_RP_OPTIONS, AC_RP_ELIGIBILITY_EXPR,
+    AC_RP_PATH_MATCH, AC_RP_ACCEPT_CONTEXT, AC_RP_SCOPES
+};
+static const char *ac_route_profile_names[] = {
+    "collect_sort", "options", "eligibility_expr", "path_match", "accept_context"
+};
+static struct { uint64_t calls, raw_ns; } ac_route_profile_scopes[AC_RP_SCOPES];
+static uint64_t ac_route_profile_started, ac_route_profile_empty_ns,
+    ac_route_profile_pair_ns;
+static ngx_flag_t ac_route_profile_active;
+
+static uint64_t
+ac_route_profile_clock(void)
+{
+    struct timespec now;
+    if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &now) != 0) return 0;
+    return (uint64_t) now.tv_sec * 1000000000ULL + (uint64_t) now.tv_nsec;
+}
+
+static void
+ac_route_profile_record(ngx_uint_t scope, uint64_t started)
+{
+    uint64_t ended;
+    if (!started || !ac_route_profile_active) return;
+    ended = ac_route_profile_clock();
+    if (ended < started) return;
+    ac_route_profile_scopes[scope].calls++;
+    ac_route_profile_scopes[scope].raw_ns += ended - started;
+}
+
+int
+ac_route_profile_start(void)
+{
+    uint64_t began, before, after, empty = 0;
+    ngx_uint_t i;
+    if (ac_route_profile_active) return -1;
+    began = ac_route_profile_clock();
+    if (!began) return -1;
+    for (i = 0; i < 10000; i++) {
+        before = ac_route_profile_clock();
+        after = ac_route_profile_clock();
+        if (!before || after < before) return -1;
+        empty += after - before;
+    }
+    ac_route_profile_pair_ns = (ac_route_profile_clock() - began) / 10000;
+    ac_route_profile_empty_ns = empty / 10000;
+    ngx_memzero(ac_route_profile_scopes, sizeof(ac_route_profile_scopes));
+    ac_route_profile_started = ac_route_profile_clock();
+    ac_route_profile_active = 1;
+    return 0;
+}
+
+int
+ac_route_profile_stop(const char *path)
+{
+    uint64_t ended = ac_route_profile_clock(), correction;
+    ngx_uint_t i;
+    FILE *file;
+    if (!ac_route_profile_active || ended < ac_route_profile_started) return -1;
+    ac_route_profile_active = 0;
+    file = fopen(path, "w");
+    if (!file) return -1;
+    fprintf(file, "{\"thread_cpu_ns\":%llu,\"calibration_iterations\":10000,"
+            "\"empty_interval_mean_ns\":%llu,\"clock_pair_loop_mean_ns\":%llu,\"scopes\":{",
+            (unsigned long long) (ended - ac_route_profile_started),
+            (unsigned long long) ac_route_profile_empty_ns,
+            (unsigned long long) ac_route_profile_pair_ns);
+    for (i = 0; i < AC_RP_SCOPES; i++) {
+        correction = ac_route_profile_scopes[i].calls * ac_route_profile_empty_ns;
+        fprintf(file, "%s\"%s\":{\"calls\":%llu,\"raw_ns\":%llu,\"empty_corrected_ns\":%llu}",
+                i ? "," : "", ac_route_profile_names[i],
+                (unsigned long long) ac_route_profile_scopes[i].calls,
+                (unsigned long long) ac_route_profile_scopes[i].raw_ns,
+                (unsigned long long) (ac_route_profile_scopes[i].raw_ns > correction
+                    ? ac_route_profile_scopes[i].raw_ns - correction : 0));
+    }
+    fprintf(file, "},\"note\":\"Diagnostic instrumentation changes CPU cost. "
+            "Calibration subtraction is approximate; compare a normal build. "
+            "collect_sort includes pool allocation; eligibility_expr may call custom Lua getters; "
+            "options and accept_context include Lua ABI work. Filter callbacks are excluded.\"}\n");
+    return fclose(file) == 0 ? 0 : -1;
+}
+
+#define AC_ROUTE_BEGIN(name) uint64_t name = ac_route_profile_active ? ac_route_profile_clock() : 0
+#define AC_ROUTE_END(name, scope) ac_route_profile_record(scope, name)
+#else
+#define AC_ROUTE_BEGIN(name) do { } while (0)
+#define AC_ROUTE_END(name, scope) do { } while (0)
+#endif
+
 struct ac_radix_node_s {
     ngx_str_t edge;
     ac_radix_node_t *child;
@@ -457,6 +555,11 @@ ac_collect_candidates(lua_State *L, ac_request_t *ctx, ac_radix_node_t *node)
         host.data = NULL;
         rank = ac_host_rank(ctx->main, entries[i].route, r, &host);
         if (rank < 0) continue;
+        if (ctx->main->route_candidates == 1 && ctx->candidates.elts == NULL
+            && ngx_array_init(&ctx->candidates, r->pool, 1,
+                              sizeof(ac_candidate_t)) != NGX_OK) {
+            luaL_error(L, "request route candidate allocation failed");
+        }
         entry = ngx_array_push(&ctx->candidates);
         if (entry == NULL) luaL_error(L, "request route candidate allocation failed");
         *entry = entries[i];
@@ -470,13 +573,20 @@ ac_match_start(lua_State *L, ac_request_t *ctx)
 {
     ac_radix_node_t *node = ctx->main->route_index, *child;
     ngx_str_t key = ctx->routing_uri;
-    ngx_uint_t offset = 0;
+    ac_candidate_t *candidates;
+    ngx_uint_t offset = 0, i;
+    ngx_flag_t need_opts = ctx->main->lazy_route_opts != 1;
     int opts, table;
     ctx->route = NULL;
     ctx->candidate_cursor = 0;
     ctx->routing = 1;
-    if (ngx_array_init(&ctx->candidates, ctx->request->pool, 4,
-                       sizeof(ac_candidate_t)) != NGX_OK) {
+    AC_ROUTE_BEGIN(collect_started);
+    if (ctx->main->route_candidates == 1) {
+        /* No allocation for misses; the common single candidate needs one
+         * slot. ngx_array_push retains its normal growth path after that. */
+        ngx_memzero(&ctx->candidates, sizeof(ctx->candidates));
+    } else if (ngx_array_init(&ctx->candidates, ctx->request->pool, 4,
+                              sizeof(ac_candidate_t)) != NGX_OK) {
         luaL_error(L, "request route candidates allocation failed");
     }
     ac_collect_candidates(L, ctx, node);
@@ -490,9 +600,31 @@ ac_match_start(lua_State *L, ac_request_t *ctx)
         node = child;
         ac_collect_candidates(L, ctx, node);
     }
-    ngx_qsort(ctx->candidates.elts, ctx->candidates.nelts, sizeof(ac_candidate_t), ac_candidate_order);
+    if (ctx->main->route_candidates != 1 || ctx->candidates.nelts > 1)
+        ngx_qsort(ctx->candidates.elts, ctx->candidates.nelts, sizeof(ac_candidate_t), ac_candidate_order);
+    AC_ROUTE_END(collect_started, AC_RP_COLLECT_SORT);
+    AC_ROUTE_BEGIN(options_started);
+    if (!need_opts) {
+        candidates = ctx->candidates.elts;
+        for (i = 0; i < ctx->candidates.nelts; i++) {
+            if (candidates[i].route->filter_ref != LUA_NOREF) {
+                need_opts = 1;
+                break;
+            }
+        }
+    }
     ac_push(L, ctx->table_ref);
     table = lua_gettop(L);
+    if (!need_opts) {
+        /* This read is observable even without a filter: custom getters may
+         * have side effects and default lookup publishes a cached value. Keep
+         * its original point before route-expression evaluation. */
+        lua_getfield(L, table, "var");
+        lua_getfield(L, -1, "remote_addr");
+        lua_pop(L, 3);
+        AC_ROUTE_END(options_started, AC_RP_OPTIONS);
+        return;
+    }
     lua_newtable(L);
     opts = lua_gettop(L);
     ac_set_string(L, opts, "method", ctx->request->method_name);
@@ -507,6 +639,7 @@ ac_match_start(lua_State *L, ac_request_t *ctx)
     lua_setfield(L, opts, "matched");
     ctx->match_opts_ref = ac_ref(L, opts);
     lua_pop(L, 2);
+    AC_ROUTE_END(options_started, AC_RP_OPTIONS);
 }
 
 static void
@@ -516,7 +649,8 @@ ac_accept_route(lua_State *L, ac_request_t *ctx, ac_candidate_t *candidate, int 
     ac_path_t *path = candidate->path;
     ngx_str_t *names = path->names.elts;
     ngx_uint_t k;
-    int table, opts, matched;
+    int table, matched, top = lua_gettop(L);
+    AC_ROUTE_BEGIN(accept_started);
     ctx->path = path;
     ctx->route = route;
     ctx->metadata = route->metadata;
@@ -524,9 +658,27 @@ ac_accept_route(lua_State *L, ac_request_t *ctx, ac_candidate_t *candidate, int 
     ctx->early_status = route->resolve_status;
     ac_push(L, ctx->table_ref);
     table = lua_gettop(L);
-    ac_push(L, ctx->match_opts_ref);
-    opts = lua_gettop(L);
-    lua_getfield(L, opts, "matched");
+    /* A previous accepted route may still have plugin-held aliases. Do not
+     * return that record to the free pool during the same live request. */
+    if (ctx->matched_ref >= 0) {
+        luaL_unref(L, LUA_REGISTRYINDEX, ctx->matched_ref);
+        ctx->matched_ref = LUA_NOREF;
+    }
+    if (ctx->match_opts_ref == LUA_NOREF) {
+        /* Requires lazy_route_opts and no observable filter options. Stable
+         * Lua already pools matched_route_record after log; active requests
+         * still have distinct matched tables. Filter-owned records stay put. */
+        if (ctx->main->matched_pool == 1) {
+            ctx->matched_ref = ac_table_pool_fetch(L, ctx->main,
+                ctx->main->matched_pool_state, 3 + path->names.nelts);
+            ac_push(L, ctx->matched_ref);
+        } else {
+            lua_createtable(L, 0, 3 + path->names.nelts);
+        }
+    } else {
+        ac_push(L, ctx->match_opts_ref);
+        lua_getfield(L, -1, "matched");
+    }
     matched = lua_gettop(L);
     ac_set_string(L, matched, "_path", path->source);
     if (route->hosts.nelts) ac_set_string(L, matched, "_host", candidate->host);
@@ -547,18 +699,23 @@ ac_accept_route(lua_State *L, ac_request_t *ctx, ac_candidate_t *candidate, int 
     ac_push(L, route->value_ref);
     lua_getfield(L, -1, "id");
     lua_setfield(L, table, "route_id");
-    lua_pop(L, 4);
+    lua_settop(L, top);
     ac_route_context(L, ctx, 0);
     ac_http_match_finish(L, ctx);
+    AC_ROUTE_END(accept_started, AC_RP_ACCEPT_CONTEXT);
 }
 
 void
 ac_match_complete(lua_State *L, ac_request_t *ctx, ngx_flag_t accepted)
 {
     int *captures = NULL;
+    ngx_flag_t matched;
     ac_candidate_t *candidates = ctx->candidates.elts;
     ac_candidate_t *candidate = &candidates[ctx->candidate_cursor - 1];
-    if (accepted && ac_path_matches(candidate->path, ctx, &captures)) {
+    AC_ROUTE_BEGIN(path_started);
+    matched = accepted && ac_path_matches(candidate->path, ctx, &captures);
+    AC_ROUTE_END(path_started, AC_RP_PATH_MATCH);
+    if (matched) {
         ac_accept_route(L, ctx, candidate, captures);
     }
 }
@@ -570,15 +727,26 @@ ac_match_next(lua_State *L, ac_request_t *ctx)
     ac_route_t *route;
     int opts;
     while (ctx->candidate_cursor < ctx->candidates.nelts) {
+        AC_ROUTE_BEGIN(eligibility_started);
         candidate = &candidates[ctx->candidate_cursor++];
         route = candidate->route;
-        if (route->methods && !(route->methods & ctx->request->method)) continue;
-        if (route->cidrs.nelts && ngx_cidr_match(ctx->request->connection->sockaddr, &route->cidrs) != NGX_OK) continue;
+        if (route->methods && !(route->methods & ctx->request->method)) {
+            AC_ROUTE_END(eligibility_started, AC_RP_ELIGIBILITY_EXPR);
+            continue;
+        }
+        if (route->cidrs.nelts && ngx_cidr_match(ctx->request->connection->sockaddr, &route->cidrs) != NGX_OK) {
+            AC_ROUTE_END(eligibility_started, AC_RP_ELIGIBILITY_EXPR);
+            continue;
+        }
         if (route->vars_ref != LUA_REFNIL && route->vars_ref != LUA_NOREF) {
             ngx_flag_t matches;
             matches = ac_expr_eval(L, route->expression, ctx);
-            if (!matches) continue;
+            if (!matches) {
+                AC_ROUTE_END(eligibility_started, AC_RP_ELIGIBILITY_EXPR);
+                continue;
+            }
         }
+        AC_ROUTE_END(eligibility_started, AC_RP_ELIGIBILITY_EXPR);
         if (route->filter_ref != LUA_NOREF) {
             ac_push(L, ctx->match_opts_ref);
             opts = lua_gettop(L);

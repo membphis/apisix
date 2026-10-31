@@ -1,2 +1,6 @@
-results/
+results/*
+!results/single-20261031/
+!results/single-20261031/module.so
+!results/exhaustive-20261031/
+!results/exhaustive-20261031/**/*.so
 __pycache__/

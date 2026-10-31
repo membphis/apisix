@@ -30,6 +30,8 @@ typedef enum {
 } ac_phase_e;
 
 typedef struct ac_expr_s ac_expr_t;
+typedef struct ac_table_pool_s ac_table_pool_t;
+typedef struct ac_rate_snapshot_s ac_rate_snapshot_t;
 
 typedef struct {
     ngx_str_t name;
@@ -53,6 +55,8 @@ typedef struct { ac_call_t *call; ngx_flag_t matched; } ac_meta_match_t;
 
 typedef struct {
     ngx_array_t calls;
+    ngx_array_t phase_calls[AC_PHASES];
+    ngx_flag_t indexed;
 } ac_plan_t;
 
 typedef struct ac_upstream_s ac_upstream_t;
@@ -133,6 +137,31 @@ typedef struct {
     uint32_t config_crc;
     ngx_uint_t config_version;
     ngx_flag_t native_filters;
+    ngx_flag_t lazy_rate_json;
+    ngx_int_t rate_variable_index;
+    ngx_uint_t rate_variable_slot;
+    ngx_flag_t log_var_plan;
+    ngx_int_t log_var_indexes[5];
+    ngx_uint_t log_var_hashes[5];
+    ngx_flag_t fused_balancer;
+    ngx_flag_t batch_vars;
+    ngx_flag_t http_var_plan;
+    ngx_flag_t lazy_route_opts;
+    ngx_flag_t route_candidates;
+    ngx_flag_t request_pool;
+    ngx_flag_t request_pool_native;
+    ac_table_pool_t *request_pool_state;
+    ngx_flag_t matched_pool;
+    ac_table_pool_t *matched_pool_state;
+    ngx_flag_t balancer_peer_plan;
+    ngx_flag_t lazy_meta_matches;
+    ngx_flag_t phase_index;
+    ngx_flag_t phase_context;
+    ngx_flag_t request_header_flags;
+    ngx_flag_t header_scratch;
+    ngx_flag_t plain_uri;
+    ngx_flag_t sdk_cache_replay;
+    ngx_flag_t native_var_writes;
     ac_generation_t *generation;
     ac_generation_t *building;
     ac_generation_t *retired;
@@ -165,6 +194,7 @@ typedef struct {
     ac_path_t *path;
     int table_ref;
     int match_opts_ref;
+    int matched_ref;
     ngx_array_t candidates;
     ngx_uint_t candidate_cursor;
     ac_phase_e phase;
@@ -191,6 +221,7 @@ typedef struct {
     ngx_str_t normalized_uri;
     unsigned upstream_owned:1;
     ngx_str_t native_variables[64];
+    ac_rate_snapshot_t *rate_snapshot;
     ngx_array_t meta_matches;
     uint64_t native_variable_set;
     ngx_uint_t dns_cursor;
@@ -209,6 +240,7 @@ typedef struct {
 extern ngx_module_t ngx_http_apisix_core_module;
 extern const char *ac_phase_names[AC_PHASES];
 
+int ac_table_pool_fetch(lua_State *L, ac_main_conf_t *main, ac_table_pool_t *pool, int nrec);
 int ac_abs(lua_State *L, int index);
 int ac_ref(lua_State *L, int index);
 void ac_push(lua_State *L, int ref);
@@ -256,6 +288,12 @@ void ac_ngx(lua_State *L, const char *table, const char *field);
 ngx_int_t ac_merge_register(ngx_conf_t *cf);
 void ac_resolve_route(lua_State *L, ac_main_conf_t *main, ac_route_t *route, int wrapper);
 void ac_route_context(lua_State *L, ac_request_t *ctx, ngx_flag_t global);
+void ac_route_context_at(lua_State *L, ac_request_t *ctx, ngx_flag_t global, int table);
+int ac_var_batch_begin(lua_State *L, ac_request_t *ctx);
+ngx_int_t ac_native_var_write_fast(ngx_http_request_t *r, const char *name, ngx_str_t value);
+void ac_var_batch_assign(lua_State *L, ac_request_t *ctx, int cache, const char *name,
+    ngx_str_t value, ngx_flag_t write_through);
+void ac_var_batch_end(lua_State *L, int cache);
 void ac_prepare_route_metadata(lua_State *L, ac_main_conf_t *main, ac_route_t *route);
 ngx_int_t ac_response_register(ngx_conf_t *cf);
 ngx_int_t ac_consumer_register(ngx_conf_t *cf);
@@ -274,6 +312,8 @@ void ac_trace_finish_all(lua_State *L, ac_request_t *ctx, ngx_uint_t code);
 void ac_resolver_worker(lua_State *L);
 void ac_resolver_utils(lua_State *L, int module);
 ngx_int_t ac_upstream_variables(ngx_conf_t *cf);
+ngx_int_t ac_request_variables(ngx_conf_t *cf);
+ngx_int_t ac_rate_materialize(ac_request_t *ctx, ngx_str_t *result);
 void ac_upstream_compile(lua_State *L, ac_main_conf_t *main, ac_route_t *route);
 int ac_upstream_prepare(lua_State *L, ac_request_t *ctx);
 void ac_upstream_log(lua_State *L, ac_request_t *ctx);
@@ -284,6 +324,7 @@ int ac_upstream_next(lua_State *L, ac_request_t *ctx);
 void ac_upstream_resolved(lua_State *L, ac_request_t *ctx);
 int ac_balance_enter(lua_State *L);
 int ac_balance_finish(lua_State *L);
+int ac_balance_start(lua_State *L);
 void ac_consumer_prepare(lua_State *L, ac_main_conf_t *main);
 int ac_consumer_merge(lua_State *L, ac_request_t *ctx);
 void ac_sdk_context(lua_State *L, ac_request_t *ctx);

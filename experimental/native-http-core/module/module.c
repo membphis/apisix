@@ -17,6 +17,14 @@
 #include "engine.h"
 #include <stdio.h>
 
+/* Cycle-owned; generations share this pointer, never a copy of count/refs. */
+struct ac_table_pool_s {
+    lua_State *vm;
+    ngx_uint_t count;
+    ngx_uint_t releases;
+    int refs[200];
+};
+
 const char *ac_phase_names[AC_PHASES] = {
     "rewrite", "access", "before_proxy", "header_filter",
     "body_filter", "delayed_body_filter", "log"
@@ -29,6 +37,44 @@ static void *ac_create_location(ngx_conf_t *cf);
 static char *ac_merge_location(ngx_conf_t *cf, void *parent, void *child);
 
 static ngx_command_t ac_commands[] = {
+    {ngx_string("apisix_core_balancer_peer_plan"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, balancer_peer_plan), NULL},
+    {ngx_string("apisix_core_sdk_cache_replay"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, sdk_cache_replay), NULL},
+    {ngx_string("apisix_core_native_var_writes"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_var_writes), NULL},
+    {ngx_string("apisix_core_batch_vars"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, batch_vars), NULL},
+    {ngx_string("apisix_core_http_var_plan"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, http_var_plan), NULL},
+    {ngx_string("apisix_core_lazy_route_opts"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, lazy_route_opts), NULL},
+    {ngx_string("apisix_core_route_candidates"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, route_candidates), NULL},
+    {ngx_string("apisix_core_matched_pool"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, matched_pool), NULL},
+    {ngx_string("apisix_core_request_pool_native"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, request_pool_native), NULL},
+    {ngx_string("apisix_core_request_pool"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, request_pool), NULL},
+    {ngx_string("apisix_core_lazy_meta_matches"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, lazy_meta_matches), NULL},
+    {ngx_string("apisix_core_phase_index"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, phase_index), NULL},
+    {ngx_string("apisix_core_phase_context"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, phase_context), NULL},
+    {ngx_string("apisix_core_request_header_flags"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, request_header_flags), NULL},
+    {ngx_string("apisix_core_header_scratch"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, header_scratch), NULL},
+    {ngx_string("apisix_core_plain_uri"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, plain_uri), NULL},
+    {ngx_string("apisix_core_fused_balancer"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, fused_balancer), NULL},
+    {ngx_string("apisix_core_lazy_rate_json"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, lazy_rate_json), NULL},
+    {ngx_string("apisix_core_log_var_plan"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, log_var_plan), NULL},
     {ngx_string("apisix_core_native_filters"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_filters), NULL},
     {ngx_string("apisix_core_proxy"), NGX_HTTP_MAIN_CONF | NGX_HTTP_SRV_CONF | NGX_HTTP_LOC_CONF | NGX_CONF_FLAG,
@@ -145,6 +191,61 @@ ac_main(void)
                                                ngx_http_apisix_core_module);
 }
 
+int
+ac_table_pool_fetch(lua_State *L, ac_main_conf_t *main, ac_table_pool_t *pool, int nrec)
+{
+    if (pool) {
+        if (!pool->vm) pool->vm = main->vm;
+        if (pool->vm == main->vm && pool->count)
+            return pool->refs[--pool->count];
+    }
+    lua_createtable(L, 0, nrec);
+    return luaL_ref(L, LUA_REGISTRYINDEX);
+}
+
+/* Reuse registry ownership as well as the table. The existing table.clear
+ * primitive remains a protected call: no private LuaJIT ABI or slow Lua-next
+ * clear loop. Read the current loaded function instead of caching a potentially
+ * replaced function forever. A missing helper simply falls back to GC. */
+static ngx_flag_t
+ac_table_pool_return(ac_request_t *ctx, ac_table_pool_t *pool, int ref, const char *name)
+{
+    lua_State *L = ctx->main->vm;
+    ngx_uint_t i;
+    ngx_flag_t retained = 0;
+    int top = lua_gettop(L);
+    if (!pool || pool->vm != L || ref < 0) return 0;
+    ac_push(L, ref);
+    if (lua_getmetatable(L, -1)) goto done;
+    lua_pushliteral(L, "_LOADED"); lua_rawget(L, LUA_REGISTRYINDEX);
+    if (!lua_istable(L, -1)) goto done;
+    lua_pushliteral(L, "table.clear"); lua_rawget(L, -2); lua_remove(L, -2);
+    if (!lua_isfunction(L, -1)) goto done;
+    /* Match installed tablepool: every 20000 releases discard the old pool
+     * and this object without clearing it; full pools also discard unchanged. */
+    if (++pool->releases >= 20000) {
+        for (i = 0; i < pool->count; i++)
+            luaL_unref(L, LUA_REGISTRYINDEX, pool->refs[i]);
+        pool->count = 0;
+        pool->releases = 0;
+        goto done;
+    }
+    if (pool->count == 200) goto done;
+    lua_insert(L, top + 1);  /* clear, table */
+    if (lua_pcall(L, 1, 0, 0) != 0) {
+        const char *error = lua_tostring(L, -1);
+        ngx_log_error(NGX_LOG_ERR, ctx->request->connection->log, 0,
+                      "native registry %s pool clear failed: %s", name,
+                      error ? error : "non-string Lua error");
+        goto done;
+    }
+    pool->refs[pool->count++] = ref;
+    retained = 1;
+done:
+    lua_settop(L, top);
+    return retained;
+}
+
 static void
 ac_cleanup(void *data)
 {
@@ -163,8 +264,53 @@ ac_cleanup(void *data)
             luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->route->value_ref);
             luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->route->wrapper_ref);
         }
+        /* Match stable Lua's nested-record-before-api_ctx release order. If a
+         * plugin replaced curr_req_matched, its old alias remains GC-owned. */
+        if (ctx->main->matched_pool == 1 && ctx->log_done && ctx->matched_ref >= 0) {
+            lua_State *L = ctx->main->vm;
+            ngx_flag_t same;
+            ac_push(L, ctx->table_ref);
+            lua_pushliteral(L, "curr_req_matched"); lua_rawget(L, -2);
+            ac_push(L, ctx->matched_ref);
+            same = lua_rawequal(L, -1, -2);
+            lua_pop(L, 3);
+            if (same && ac_table_pool_return(ctx, ctx->main->matched_pool_state,
+                                            ctx->matched_ref, "matched"))
+                ctx->matched_ref = LUA_NOREF;
+        }
+        /* Recycle only the Lua table, after all request-owned native cleanup.
+         * A suspended/in-flight request cannot enter this pool. Abnormal exits
+         * without completed log cleanup retain the existing GC-only path. */
+        if (ctx->main->request_pool_native == 1 && ctx->log_done) {
+            if (ac_table_pool_return(ctx, ctx->main->request_pool_state,
+                                     ctx->table_ref, "api_ctx"))
+                ctx->table_ref = LUA_NOREF;
+        } else if (ctx->main->request_pool == 1 && ctx->log_done) {
+            lua_State *L = ctx->main->vm;
+            int top = lua_gettop(L);
+            /* fetch loaded this dependency during construction. Do not invoke
+             * require from an unprotected NGINX pool cleanup handler. */
+            lua_getfield(L, LUA_REGISTRYINDEX, "_LOADED");
+            lua_getfield(L, -1, "tablepool");
+            if (lua_istable(L, -1)) {
+                lua_getfield(L, -1, "release");
+                lua_pushliteral(L, "native_api_ctx");
+                ac_push(L, ctx->table_ref);
+                /* Plugin-supplied metatables are not our reusable shape. */
+                if (!lua_getmetatable(L, -1)) {
+                    if (lua_pcall(L, 2, 0, 0) != 0) {
+                        const char *error = lua_tostring(L, -1);
+                        ngx_log_error(NGX_LOG_ERR, ctx->request->connection->log, 0,
+                                      "native api_ctx pool release failed: %s",
+                                      error ? error : "non-string Lua error");
+                    }
+                }
+            }
+            lua_settop(L, top);
+        }
         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->table_ref);
         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->match_opts_ref);
+        luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->matched_ref);
         luaL_unref(ctx->main->vm, LUA_REGISTRYINDEX, ctx->span_ref);
         ac_snapshot_release(ctx->main->vm, ctx);
     }
@@ -191,19 +337,36 @@ ac_request(lua_State *L)
         luaL_error(L, "native core request allocation failed");
     }
     ctx->request = request;
-    if (ngx_array_init(&ctx->meta_matches, request->pool, 4, sizeof(ac_meta_match_t)) != NGX_OK) {
+    ctx->main = ac_main();
+    if (ctx->main->lazy_meta_matches != 1
+        && ngx_array_init(&ctx->meta_matches, request->pool, 4, sizeof(ac_meta_match_t)) != NGX_OK) {
         luaL_error(L, "native plugin filter cache allocation failed");
     }
-    ctx->main = ac_main();
     if (!ctx->main->compiled) {
         luaL_error(L, "native core has not been initialized");
     }
     ac_snapshot_acquire(ctx);
     ctx->phase = AC_PHASES;
     ctx->match_opts_ref = LUA_NOREF;
+    ctx->matched_ref = LUA_NOREF;
     ctx->span_ref = LUA_NOREF;
-    lua_createtable(L, 0, 32);
-    ctx->table_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+    if (ctx->main->request_pool_native == 1) {
+        ctx->table_ref = ac_table_pool_fetch(L, ctx->main,
+                                            ctx->main->request_pool_state, 32);
+    } else {
+        if (ctx->main->request_pool == 1) {
+            ac_require(L, "tablepool");
+            lua_getfield(L, -1, "fetch");
+            lua_pushliteral(L, "native_api_ctx");
+            lua_pushinteger(L, 0);
+            lua_pushinteger(L, 32);
+            lua_call(L, 3, 1);
+            lua_remove(L, -2);
+        } else {
+            lua_createtable(L, 0, 32);
+        }
+        ctx->table_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+    }
     lua_getglobal(L, "ngx");
     lua_getfield(L, -1, "ctx");
     ac_push(L, ctx->table_ref);
@@ -302,7 +465,8 @@ ac_open(lua_State *L)
         {"complete", ac_complete}, {"leave", ac_leave},
         {"start_phase", ac_phase_start}, {"step", ac_phase_step},
         {"encode", ac_encode}, {"render", ac_render},
-        {"balance_enter", ac_balance_enter}, {"balance_finish", ac_balance_finish}, {NULL, NULL}
+        {"balance_enter", ac_balance_enter}, {"balance_finish", ac_balance_finish},
+        {"balance_start", ac_balance_start}, {NULL, NULL}
     };
     lua_newtable(L);
     luaL_register(L, NULL, functions);
@@ -364,8 +528,31 @@ ac_create_main(ngx_conf_t *cf)
 {
     ac_main_conf_t *main = ngx_pcalloc(cf->pool, sizeof(*main));
     if (main != NULL) {
+        main->request_pool_state = ngx_pcalloc(cf->pool, sizeof(ac_table_pool_t));
+        main->matched_pool_state = ngx_pcalloc(cf->pool, sizeof(ac_table_pool_t));
+        if (!main->request_pool_state || !main->matched_pool_state) return NULL;
         main->pool = cf->pool;
         main->native_filters = NGX_CONF_UNSET;
+        main->lazy_rate_json = NGX_CONF_UNSET;
+        main->rate_variable_index = NGX_ERROR;
+        main->log_var_plan = NGX_CONF_UNSET;
+        main->fused_balancer = NGX_CONF_UNSET;
+        main->batch_vars = NGX_CONF_UNSET;
+        main->http_var_plan = NGX_CONF_UNSET;
+        main->lazy_route_opts = NGX_CONF_UNSET;
+        main->route_candidates = NGX_CONF_UNSET;
+        main->request_pool = NGX_CONF_UNSET;
+        main->request_pool_native = NGX_CONF_UNSET;
+        main->matched_pool = NGX_CONF_UNSET;
+        main->balancer_peer_plan = NGX_CONF_UNSET;
+        main->lazy_meta_matches = NGX_CONF_UNSET;
+        main->phase_index = NGX_CONF_UNSET;
+        main->phase_context = NGX_CONF_UNSET;
+        main->request_header_flags = NGX_CONF_UNSET;
+        main->header_scratch = NGX_CONF_UNSET;
+        main->plain_uri = NGX_CONF_UNSET;
+        main->sdk_cache_replay = NGX_CONF_UNSET;
+        main->native_var_writes = NGX_CONF_UNSET;
         main->resources_ref = LUA_NOREF;
         main->store_ref = LUA_NOREF;
         main->local_ref = LUA_NOREF;
@@ -384,9 +571,28 @@ ac_create_main(ngx_conf_t *cf)
 static ngx_int_t
 ac_register(ngx_conf_t *cf)
 {
+    ac_main_conf_t *main = ngx_http_conf_get_module_main_conf(cf, ngx_http_apisix_core_module);
+    if (main->fused_balancer == NGX_CONF_UNSET) main->fused_balancer = 0;
+    if (main->batch_vars == NGX_CONF_UNSET) main->batch_vars = 0;
+    if (main->http_var_plan == NGX_CONF_UNSET) main->http_var_plan = 0;
+    if (main->lazy_route_opts == NGX_CONF_UNSET) main->lazy_route_opts = 0;
+    if (main->route_candidates == NGX_CONF_UNSET) main->route_candidates = 0;
+    if (main->request_pool == NGX_CONF_UNSET) main->request_pool = 0;
+    if (main->request_pool_native == NGX_CONF_UNSET) main->request_pool_native = 0;
+    if (main->matched_pool == NGX_CONF_UNSET) main->matched_pool = 0;
+    if (main->balancer_peer_plan == NGX_CONF_UNSET) main->balancer_peer_plan = 0;
+    if (main->lazy_meta_matches == NGX_CONF_UNSET) main->lazy_meta_matches = 0;
+    if (main->phase_index == NGX_CONF_UNSET) main->phase_index = 0;
+    if (main->phase_context == NGX_CONF_UNSET) main->phase_context = 0;
+    if (main->request_header_flags == NGX_CONF_UNSET) main->request_header_flags = 0;
+    if (main->header_scratch == NGX_CONF_UNSET) main->header_scratch = 0;
+    if (main->plain_uri == NGX_CONF_UNSET) main->plain_uri = 0;
+    if (main->sdk_cache_replay == NGX_CONF_UNSET) main->sdk_cache_replay = 0;
+    if (main->native_var_writes == NGX_CONF_UNSET) main->native_var_writes = 0;
     if (ngx_http_lua_add_package_preload(cf, "apisix.native.engine", ac_open) != NGX_OK) {
         return NGX_ERROR;
     }
+    if (ac_request_variables(cf) != NGX_OK) return NGX_ERROR;
     if (ac_http_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_helpers_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_script_register(cf) != NGX_OK) return NGX_ERROR;

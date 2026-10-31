@@ -1,5 +1,101 @@
 # Native standalone HTTP core demo
 
+> Latest research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
+> with [the previous single-plugin report](EXPERIMENTS_20261031.md) preserved.
+> The comparison uses unchanged stable APISIX 3.19.0 plugin sources, one route plugin
+> at a time (Prometheus, key-auth or local limit-count), and excludes `ai` on both sides.
+> All pressure samples remain 60 seconds. Module ASan/UBSan, extended pool lifecycle
+> and stable-source single-plugin checks have completed. [Two final paired rounds](EXHAUSTIVE_20261031.md#最终两轮稳定lua配对)
+> show mean-QPS gains of 7.80% for Prometheus, 3.97% for key-auth and 6.81% for local
+> limit-count, below the 30%–40% target. Two rounds establish neither statistical
+> significance nor an absolute limit. Combination/allocation/JIT diagnostics and the URI-policy check have completed;
+> raw evidence, limitations and the retained negative results are in the report.
+
+## Latest sweep reproduction
+
+The current candidate set contains the first 13 runtime switches, three additions
+(`request_pool_native`, `matched_pool`, `balancer_peer_plan`), and the O3,
+O3-lto and O3-lto-local build variants. All new switches default to off. The latest
+report records shared SDK/IPv6 correctness fixes separately from optimization
+results, along with request-lifetime alias, SDK wrapper replacement and
+stable-release URI-policy compatibility boundaries.
+
+Run [tools/sweep.py](tools/sweep.py) **inside the prepared test container**, with
+this checkout mounted at `/src` and the pinned stable checkout at `/stable`.
+Use a new `APISIX_CORE_SWEEP_OUT` directory for each independent reproduction;
+existing log labels, benchmark directories and final selection files are rejected
+rather than overwritten. Record the selection rule before inspecting the new
+screening results; the [archived rule](results/exhaustive-20261031/selection-rule.json)
+and [selection implementation](tools/finalize_run.py) specify this run's thresholds.
+A new machine or sample set can select a different configuration.
+
+```sh
+export APISIX_CORE_SWEEP_OUT="/tmp/apisix-exhaustive-repro-$(date -u +%Y%m%dT%H%M%SZ)"
+python3 /src/experimental/native-http-core/tools/sweep.py verify
+python3 /src/experimental/native-http-core/tools/sweep.py sanitize
+python3 /src/experimental/native-http-core/tools/sweep.py screen
+python3 /src/experimental/native-http-core/tools/sweep.py extras
+python3 /src/experimental/native-http-core/tools/sweep.py compilers
+python3 /src/experimental/native-http-core/tools/sweep.py linkage
+python3 /src/experimental/native-http-core/tools/finalize_run.py
+```
+
+`screen` runs the first 13 switches with surrounding Native controls. `extras`
+runs the three additional switches, keeping `lazy_route_opts` enabled on both
+sides of the `matched_pool` comparison. `compilers` runs O3 and O3-lto, then
+restores O2 and measures their shared control. `linkage` runs O3-lto-local
+(`-O3 -flto -fno-semantic-interposition`), checks the six core configurations and
+stable single-plugin contract, then restores O2 and measures its own control.
+
+[finalize_run.py](tools/finalize_run.py) reads those results, saves
+`selection-final.json` without overwriting an existing decision, rebuilds and
+archives the selected module, and runs core, branch legacy-demo and stable
+single-plugin checks. It then runs all three Lua/Native plugin pairs twice,
+reversing mode order in the second round. Finally it invokes `diagnostics` for
+surrounding controls and the selected combination, allocation/JIT/trace/function
+profiles, restores the selected build, and runs the URI-policy difference check.
+Those are workflow steps, not a claim that every step in the current run has
+already finished; check the latest report for completed evidence.
+
+For a manually chosen configuration instead of the automatic final stage, use
+`sweep.py final --label <new-label> --directives '<exact directives>'` twice with
+the same directives and distinct labels, adding `--reverse` to the second call.
+Never run correctness checks or rebuilds concurrently with throughput samples.
+
+This reruns the method on the current source. The historical first-13 screen
+has its own archived source/runtime/module snapshot and must remain unchanged.
+Copy new evidence out of the container before removing it. Validation evidence,
+retained failures and completed measurement results are maintained in the
+[latest report](EXHAUSTIVE_20261031.md#三项追加实验与兼容性修复).
+
+## Previous follow-up and historical setup (preserved)
+
+The 2026-10-31 follow-up uses **three isolated route plugins** (Prometheus,
+key-auth, local limit-count), with `ai` excluded from both allowlists. Both
+implementations load unchanged APISIX **3.19.0 release** sources, pinned in
+[stable-baseline.json](stable-baseline.json), on the same historical runtime.
+See [the new experiment report](EXPERIMENTS_20261031.md) and
+[new evidence](results/single-20261031/). The older global-Prometheus results
+below remain historical evidence, not results for this revised comparison.
+
+The three experimental directives default to **off**:
+`apisix_core_log_var_plan`, `apisix_core_lazy_rate_json`, and
+`apisix_core_fused_balancer`. Set `APISIX_CORE_DIRECTIVES` to HTTP main directives
+when running `dev.py` or `run.py bench`; emitted configurations record them.
+The release checkout must be at `../apisix-stable`, at the pinned commit.
+After building and verifying as below:
+
+```sh
+APISIX_CORE_DIRECTIVES='apisix_core_lazy_rate_json on;' \
+  python3 experimental/native-http-core/tools/run.py bench --suite single
+```
+
+Each sample remains five seconds warmup plus 60 seconds pressure. The runner
+alternates Lua/native order across scenarios and writes a new timestamped
+directory, refusing to overwrite evidence. Only the Prometheus scenario scrapes
+metrics. `tools/report.py` still reports the **historical** matrix; use the new
+directory's `results.json` and `environment.json` for these samples.
+
 This implements the core mechanisms needed by the standalone HTTP demo in an
 NGINX C module while calling unchanged Lua plugins. The current agreed scope is
 key-auth and local limit-count on prefix routes, with Prometheus globally.
@@ -20,7 +116,11 @@ key-auth or AI plugins. Paired throughput changes were +11.44%, +11.72% and
 +13.32%; the ratio of mean QPS was +12.16%. The native binary was unchanged.
 `tools/recheck_limit.py` reuses the original sampler and alternates run order;
 `tools/report_limit_recheck.py` validates and summarizes its independent archive.
-Run the recheck inside the existing demo container with a fresh output path:
+For this historical recheck, first use a separate checkout at
+`a3770f02b3adc2c295e993b8234da3e49f26864c`; its source and helpers match the
+recorded binary. The branch now also contains later candidate code. See the
+[version boundary](results/limit-recheck-20261031T0617Z/PROVENANCE.md).
+Run the recheck inside the matching demo container with a fresh output path:
 
 ```sh
 docker exec apisix-native-demo python3 /src/experimental/native-http-core/tools/recheck_limit.py \

@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "native",
+    "prefix": "metrics",
+    "duration_seconds": 60,
+    "suite": "single",
+    "variant": "var-on",
+    "plugin": "prometheus",
+    "cgroup_cpu_delta": {
+      "usage_usec": 82512372,
+      "user_usec": 41584609,
+      "system_usec": 40927762,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 83033720,
+      "user_usec": 41771261,
+      "system_usec": 41262460,
+      "nice_usec": 0,
+      "nr_periods": 602,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.38732765999998,
+    "requests": 1219505,
+    "qps": 20323.72,
+    "workers": [
+      28454
+    ],
+    "worker_cpu_seconds": 59.91,
+    "worker_cpu_us_per_request": 49.12648984629009,
+    "rss_start_bytes": 20566016,
+    "rss_end_bytes": 20766720,
+    "rss_peak_bytes": 20856832,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1476.0,
+      "p95": 2130.0,
+      "p99": 2619.0
+    },
+    "error_rate": 0
+  }
+]
