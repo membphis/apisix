@@ -5,6 +5,12 @@
 源码基线：`b31e828c6f6b588ae954bf69c8432c08fb73bb7e`（APISIX 3.19.0 源码）。
 这里的 V4 是本次研究分支的命名，不是官方发布版本声明。
 
+最新补充：用户随后要求严格移除双方 key-auth/AI 插件并复测三轮 limit-count。
+[独立复测报告](results/limit-recheck-20261031T0617Z/REPORT.md)记录逐轮 +11.44%、+11.72%、+13.32%，三轮均值之比 +12.16%，
+CPU/请求合计口径下降 10.84%，六个一分钟样本错误率为 0。相同 C 二进制，没有新增性能优化。
+原轮的 `/limit/*` 本来也没有执行 key-auth，此次另外从启用列表、其他路由和消费者中移除它；保留四个 URI 模式，其他路由插件为空。
+这是对“约 11% 量级”的支持，不代表固定 11.1% 或绝对 QPS 可以逐次精确重复。下文原八样本和历史数据保留。
+
 ## 先读什么
 
 1. 本文：任务上下文、尝试记录、证据强度、后续假设。
@@ -220,7 +226,11 @@ python3 experimental/native-http-core/tools/report.py
 默认 dev.py 是完整可运行回归入口；先构建 README 指定的镜像，不能假设仓库自带 OpenResty/wrk。
 测量会覆盖 `results/` 的当前轮文件；提交新优化前应先完整归档当前轮，保留源码/二进制/环境一致性。
 本次没有因为整理文档而重跑压力矩阵：模块、插件、测试和测量 harness 的字节与最终已验证版本一致。
+之后用户明确要求的三轮复测已另行完成；为严格限制插件，`demo.prepare` 新增可选 `enabled_plugins` 参数，默认行为不变。
+新 `recheck_limit.py` 复用原 `benchmark.sample`，每样本前核对配置并探测认证关闭、限流计数；`report_limit_recheck.py` 校验六份配置一致并汇总。
+复测只改变配置/测量工具，模块与插件源码保持不变。原采样脚本的无效 apikey 请求头保留以保持报文一致，它不启用 key-auth。
 运行中的 demo 已恢复 native：HTTP 9080、全局 Prometheus 9091，演示限流为每窗口 5 次。
+三轮复测后恢复的是严格无 key-auth/AI 的 native 配置，限流为 5/60 秒；普通 `tools/run.py start native` 仍加载原四场景示例。
 
 原工作区 `/workspace/apisix` 的 master 保持干净；研究工作区 `/workspace/apisix-native-demo` 使用本分支。
 这两个绝对路径是本次环境的信息，不是其他机器运行脚本的必需目录。

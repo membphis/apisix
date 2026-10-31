@@ -1,0 +1,28 @@
+{
+  "rounds": 3,
+  "sample_seconds": 60,
+  "paired_qps_changes_percent": [
+    11.43893055631251,
+    11.723179635246893,
+    13.315868601917158
+  ],
+  "qps_mean": {
+    "lua": 14168.903333333334,
+    "native": 15891.533333333333
+  },
+  "ratio_of_mean_qps_change_percent": 12.15782167097852,
+  "mean_paired_change_percent": 12.159326264492186,
+  "pooled_cpu_us_per_request": {
+    "lua": 70.49947022499856,
+    "native": 62.85639186204939
+  },
+  "pooled_cpu_change_percent": -10.841327372470088,
+  "original_change_percent": 11.104984463381772,
+  "difference_from_original_percentage_points": 1.0528372075967471,
+  "all_c_samples_faster": true,
+  "observed_error_rate": 0,
+  "enabled_plugins": [
+    "prometheus",
+    "limit-count"
+  ]
+}

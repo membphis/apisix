@@ -1,0 +1,43 @@
+{
+  "upstream": "127.0.0.1:1980",
+  "global_rules": [
+    {
+      "id": "metrics",
+      "plugins": {
+        "prometheus": {}
+      }
+    }
+  ],
+  "consumers": [],
+  "routes": [
+    {
+      "id": "plain",
+      "uri": "/plain/*",
+      "plugins": {}
+    },
+    {
+      "id": "auth",
+      "uri": "/auth/*",
+      "plugins": {}
+    },
+    {
+      "id": "limit",
+      "uri": "/limit/*",
+      "plugins": {
+        "limit-count": {
+          "count": 5,
+          "time_window": 60,
+          "key_type": "constant",
+          "key": "demo",
+          "policy": "local",
+          "rejected_code": 429
+        }
+      }
+    },
+    {
+      "id": "combined",
+      "uri": "/combined/*",
+      "plugins": {}
+    }
+  ]
+}

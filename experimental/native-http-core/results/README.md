@@ -9,6 +9,7 @@
 | `*-nginx.conf`、`*-resources.json`、`*.txt` | 各样本实际配置与原始 wrk 输出 |
 | `verification-optimized.log`、`verification-sanitizers.log` | 最终源码的完整可运行本地回归与模块内存检查 |
 | `benchmark-final.log` | 最终八样本的 runner 输出 |
+| `limit-recheck-20261031T0617Z/` | 用户要求的三轮无 key-auth/无 AI 限流复测；六个一分钟样本、实际配置、汇总与报告 |
 | `before-optimization/` | 初始完整 C 场景，仍有显著负收益；含旧轮 LuaJIT 采样 |
 | `before-native-access/` | 桥接/合并缓存后的负收益；含当时模块与 PC/LuaJIT 剖析 |
 | `before-native-filters/` | 直接 C API、状态转换和元数据缓存后的完整矩阵；含源码快照与模块 |

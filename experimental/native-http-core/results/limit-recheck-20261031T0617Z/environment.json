@@ -1,0 +1,50 @@
+{
+  "started_utc": "2026-10-31T06:17:44.042705+00:00",
+  "source_commit": "cd0fb07a1c5970ebcb6e0e3c073639c8e8c256a0",
+  "kernel": "Linux-6.18.57-x86_64-with-glibc2.31",
+  "available_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "cpu_model": [
+    "model name\t: AMD EPYC 9V74 80-Core Processor"
+  ],
+  "runtime": "nginx version: openresty/1.27.1.2\nbuilt by gcc 10.2.1 20210110 (Debian 10.2.1-6) \nbuilt with OpenSSL 3.4.1 11 Feb 2025\nTLS SNI support enabled\nconfigure arguments: --prefix=/usr/local/openresty/nginx --with-cc-opt='-O2 -DAPISIX_RUNTIME_VER=1.3.2 -DNGX_LUA_ABORT_AT_PANIC -I/usr/local/openresty/zlib/include -I/usr/local/openresty/pcre/include -I/usr/local/openresty/openssl3/include' --add-module=../ngx_devel_kit-0.3.3 --add-module=../echo-nginx-module-0.63 --add-module=../xss-nginx-module-0.06 --add-module=../ngx_coolkit-0.2 --add-module=../set-misc-nginx-module-0.33 --add-module=../form-input-nginx-module-0.12 --add-module=../encrypted-session-nginx-module-0.09 --add-module=../srcache-nginx-module-0.33 --add-module=../ngx_lua-0.10.28 --add-module=../ngx_lua_upstream-0.07 --add-module=../headers-more-nginx-module-0.37 --add-module=../array-var-nginx-module-0.06 --add-module=../memc-nginx-module-0.20 --add-module=../redis2-nginx-module-0.15 --add-module=../redis-nginx-module-0.3.9 --add-module=../ngx_stream_lua-0.0.16 --with-ld-opt='-Wl,-rpath,/usr/local/openresty/luajit/lib -Wl,-rpath,/usr/local/openresty/wasmtime-c-api/lib -L/usr/local/openresty/zlib/lib -L/usr/local/openresty/pcre/lib -L/usr/local/openresty/openssl3/lib -Wl,-rpath,/usr/local/openresty/zlib/lib:/usr/local/openresty/pcre/lib:/usr/local/openresty/openssl3/lib' --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../mod_dubbo-1.0.2 --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../ngx_multi_upstream_module-1.3.2 --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../apisix-nginx-module-1.19.2 --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../apisix-nginx-module-1.19.2/src/stream --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../apisix-nginx-module-1.19.2/src/meta --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../wasm-nginx-module-0.7.0 --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../lua-var-nginx-module-v0.5.3 --add-module=/tmp/tmp.qoDwRwlWdX/openresty-1.27.1.2/../lua-resty-events-0.2.0 --with-poll_module --with-pcre-jit --with-stream --with-stream_ssl_module --with-stream_ssl_preread_module --with-http_v2_module --with-http_v3_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-http_stub_status_module --with-http_realip_module --with-http_addition_module --with-http_auth_request_module --with-http_secure_link_module --with-http_random_index_module --with-http_gzip_static_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-threads --with-compat --with-stream --with-http_ssl_module\n",
+  "enabled_plugins": [
+    "prometheus",
+    "limit-count"
+  ],
+  "module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "reference_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "sampler_sha256": "163781dd999b4cedcfa8e39b53168ab28042328e7a9be4baf2d26b3ef4475b8f",
+  "recheck_sha256": "df5f1589492c423f23b5514693286ad942419a26a2f4d03a7becad82a5d737a7",
+  "demo_sha256": "94e18e87ac2406d0baf0319036b133476279920845acc79f04fc9024af1c0d7f",
+  "lua_bridge_sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e",
+  "plugin_sha256": {
+    "prometheus": "9ef0a912086b2764f8b468a26150e77e65564c32f3521ed200ba01e663c12b50",
+    "limit-count": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+  },
+  "sample_seconds": 60,
+  "warmup_seconds": 5,
+  "orders": [
+    [
+      "lua",
+      "native"
+    ],
+    [
+      "native",
+      "lua"
+    ],
+    [
+      "lua",
+      "native"
+    ]
+  ],
+  "reference_limit_qps": {
+    "lua": 14671.79,
+    "native": 16301.09
+  }
+}

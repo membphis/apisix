@@ -14,6 +14,24 @@ positive and negative measurements, verification logs, profiles and available
 historical source/binary snapshots. Rebuilding from source is the supported
 way to run on another environment.
 
+The user's subsequent [three-pair limit-count recheck](results/limit-recheck-20261031T0617Z/REPORT.md)
+uses only `prometheus` and `limit-count` in both plugin enable lists, with no
+key-auth or AI plugins. Paired throughput changes were +11.44%, +11.72% and
++13.32%; the ratio of mean QPS was +12.16%. The native binary was unchanged.
+`tools/recheck_limit.py` reuses the original sampler and alternates run order;
+`tools/report_limit_recheck.py` validates and summarizes its independent archive.
+Run the recheck inside the existing demo container with a fresh output path:
+
+```sh
+docker exec apisix-native-demo python3 /src/experimental/native-http-core/tools/recheck_limit.py \
+  --source-commit "$(git rev-parse HEAD)" --output /tmp/limit-recheck-new
+docker cp apisix-native-demo:/tmp/limit-recheck-new experimental/native-http-core/results/limit-recheck-new
+python3 experimental/native-http-core/tools/report_limit_recheck.py experimental/native-http-core/results/limit-recheck-new
+```
+
+It verifies that the module and native sources still match the original recorded
+binary; a new implementation needs its own explicitly recorded reference.
+
 The implementation is separate from the earlier small partial experiment.
 Its measurements are not evidence for this implementation.
 

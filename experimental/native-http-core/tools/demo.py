@@ -96,7 +96,8 @@ print(require("cjson.safe").encode(value))
 
 
 def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
-            upstream_address=None, gateway_cpu=None, upstream_cpu=None, native_filters=True):
+            upstream_address=None, gateway_cpu=None, upstream_cpu=None, native_filters=True,
+            enabled_plugins=None):
     assert mode in ("lua", "native"), mode
     stop()
     # Retire only the earlier prototype processes in this dedicated demo container.
@@ -123,7 +124,7 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
                    "enable_http2": False, "enable_admin": False, "ssl": {"enable": False},
                    "extra_lua_path": str(ROOT / "native_lua/?.lua") + ";" + str(ROOT / "?.lua")},
         "deployment": {"role": "data_plane", "role_data_plane": {"config_provider": "json"}},
-        "plugins": ["prometheus", "key-auth", "limit-count"],
+        "plugins": list(enabled_plugins) if enabled_plugins is not None else ["prometheus", "key-auth", "limit-count"],
         "plugin_attr": {"prometheus": {"enable_export_server": True,
                          "export_addr": {"ip": "0.0.0.0", "port": 9091}, "refresh_interval": 1}},
         "nginx_config": {"worker_processes": workers, "error_log_level": "warn",

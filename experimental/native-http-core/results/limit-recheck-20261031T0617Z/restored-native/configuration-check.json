@@ -1,0 +1,25 @@
+{
+  "enabled_plugins": [
+    "prometheus",
+    "limit-count"
+  ],
+  "global_plugins": [
+    "prometheus"
+  ],
+  "measured_route_plugins": [
+    "limit-count"
+  ],
+  "key_auth_enabled": false,
+  "ai_plugins_enabled": [],
+  "consumers": 0,
+  "limit": {
+    "count": 5,
+    "time_window": 60,
+    "key_type": "constant",
+    "key": "demo",
+    "policy": "local",
+    "rejected_code": 429
+  },
+  "original_uri_patterns_retained": true,
+  "unused_original_apikey_request_header_retained": true
+}

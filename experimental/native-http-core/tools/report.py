@@ -66,6 +66,8 @@ def main():
 
 __FINDING__
 
+__RECHECK__
+
 ## 验收范围
 
 按用户最后确认，只实现并验收本次场景使用的核心机制：standalone HTTP、C 请求阶段/路由/上下文/插件计划、
@@ -198,6 +200,17 @@ __NATIVE_HISTORY__
         finding += '**本轮未证实 C 改写能提高吞吐或降低 CPU 成本，不能宣称已达到性能提升目标。**'
     elif min(qps_changes) < 0:
         finding += '**本轮收益随场景变化，尚不能宣称全面领先原版。**'
+    recheck_note = ''
+    rechecks = sorted(RESULTS.glob('limit-recheck-*/summary.json'))
+    if rechecks:
+        recheck = json.loads(rechecks[-1].read_text())
+        assert recheck['rounds'] == 3 and recheck['enabled_plugins'] == ['prometheus', 'limit-count']
+        link = str(rechecks[-1].parent.relative_to(HERE) / 'REPORT.md')
+        changes = '、'.join(f'{value:+.2f}%' for value in recheck['paired_qps_changes_percent'])
+        recheck_note = (f'补充：[用户要求的三轮限流复测]({link})已独立归档。\n'
+                        f'双方仅启用全局 Prometheus 和路由 limit-count，无 key-auth/AI；逐轮提升 {changes}，'
+                        f'均值之比 {recheck["ratio_of_mean_qps_change_percent"]:+.2f}%。\n'
+                        '该补充使用相同 C 二进制，未覆盖下文原八样本记录。')
     history = '当前结果目录未包含首轮归档，仅展示本次八个样本。'
     if previous is not None:
         history = '''首轮 C 实现虽通过功能检查，但吞吐低于原版。该轮八个一分钟样本完整保存在
@@ -207,6 +220,7 @@ __NATIVE_HISTORY__
 | --- | ---: | ---: | ---: | ---: |
 ''' + '\n'.join(initial)
     for key, value in {"__DATE__": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "__FINDING__": finding,
+                       "__RECHECK__": recheck_note,
                        "__THROUGHPUT__": "\n".join(throughput), "__LATENCY__": "\n".join(latency),
                        "__HISTORY__": history,
                        "__NATIVE_HISTORY__": ('上一轮报告中的 C 吞吐仍低 10.3%–21.0%；完整矩阵和二进制保存在\n'
