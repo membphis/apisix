@@ -7,9 +7,10 @@
 
 上一阶段代码及正负测量已提交：`634b6b6093751041e85b0bf5b8b27e752a9a8682`；
 完整归档检查点为`b839232031a3797a1ddcee9b20f8a81f4ef0bf72`，含原始日志及输出空白属性，
-历史证据字节未改变。原分支及
+历史证据字节未改变。阶段源码已推送原分支，完整归档固定在
 [`apisix-next-v4-llm-core-v1`](https://github.com/membphis/apisix/tree/apisix-next-v4-llm-core-v1)
-均已推送。本专项在 `apisix-next-v4-llm-native-plugins-v2` 继续。
+分支。本专项在 `apisix-next-v4-llm-native-plugins-v2` 继续，基于该固定检查点。
+原分支期间另有并发限流研究提交，本专项未覆盖或混入它们；两条研究历史分别保留。
 
 四条路径使用相同 APISIX 3.19.0 插件/配置源码和共同固定的历史运行时，业务路由只启用
 key-auth，AI 及 Prometheus 不加载。所有 Native 路径均使用 O3 和上一轮选中的六项设置。
