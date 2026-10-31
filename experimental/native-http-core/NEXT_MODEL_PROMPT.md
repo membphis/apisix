@@ -1,5 +1,9 @@
 # 交给下一个模型的提示词
 
+> V1已冻结。下一会话请使用[新的独立视角提示词](V1_NEXT_SESSION_PROMPT.md)，
+> 并先读[V1里程碑](V1_MILESTONE.md)与[讨论记录](V1_DISCUSSION_RECORD.md)。
+> 下文保留为历史提示词；其中直接在原临时分支继续优化的指令不用于V1冻结分支。
+
 > 最新研究请先读 [16项候选、证据与研究边界](EXHAUSTIVE_20261031.md)；
 > [上一轮单插件报告](EXPERIMENTS_20261031.md) 与本文历史正文继续保留，不改写旧结果。
 > 当前口径是稳定版 APISIX 3.19.0、路由独立启用 Prometheus / key-auth / local limit-count，双方排除 `ai`；每个压力样本仍为60秒。

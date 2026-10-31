@@ -1,0 +1,3488 @@
+{
+  "recorded_utc": "2026-10-31T10:57:56.796624+00:00",
+  "milestone": "V1 technical research; final architecture undecided",
+  "frozen_branch": "apisix-next-v4-llm-v1",
+  "original_branch": "apisix-next-v4-llm",
+  "audited_implementation_commit": "3e63b632ca33b805d42fb839738cf8120aa11ead",
+  "original_branch_retained_at": "3e63b632ca33b805d42fb839738cf8120aa11ead",
+  "source_baseline": "b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "inventory_scope": "File entries describe the audited 3e63b632 commit. Closing milestone documentation is added in the V1 descendant commit; its final SHA is delivered separately. Core code is unchanged by closeout.",
+  "main_module": {
+    "file_count": 28,
+    "c_file_count": 24,
+    "c_line_count": 10348,
+    "runtime_line_count": 101,
+    "matches_final_candidate_source": true,
+    "runtime_matches_final_candidate": true
+  },
+  "original_worktree_clean": true,
+  "original_apisix_tree_matches_source_baseline": true,
+  "untracked_module_sources": [],
+  "source_and_support_file_count": 108,
+  "source_and_support_files": [
+    {
+      "path": "experimental/native-http-core/.gitattributes",
+      "git_blob": "5cda793bb359e5b56adcb5d6ad33c8459d2fba0f",
+      "bytes": 151,
+      "sha256": "daec5b05d9ba464b59fbb461ae0fd5ed2b7efb7bf1133cec0f6f1dd508e4333b"
+    },
+    {
+      "path": "experimental/native-http-core/.gitignore",
+      "git_blob": "e27b56607e7ad96b23387b2309997213ed784267",
+      "bytes": 151,
+      "sha256": "4410c92c8b8ff93faddda15fed738cdc9f84c6c51d9fb6607f26117d404233c0"
+    },
+    {
+      "path": "experimental/native-http-core/DESIGN_CONTEXT.md",
+      "git_blob": "fd629470c657e8862bad3e3e3320763d7a894892",
+      "bytes": 10256,
+      "sha256": "3c6451ab8e57c385175682105d4c4dfe16671b2c38b9cb5609498a7ec7c0a1e9"
+    },
+    {
+      "path": "experimental/native-http-core/Dockerfile",
+      "git_blob": "7fa21ad96c3618a181f7476e78e23579b12c61f0",
+      "bytes": 1600,
+      "sha256": "0534ed27f24e2a5eacf4a01549580f80a6aed8a0fade15d71202671ad10bfd83"
+    },
+    {
+      "path": "experimental/native-http-core/EXHAUSTIVE_20261031.md",
+      "git_blob": "45aa1f4e704437d6e7f83c254f2769ee4ea83186",
+      "bytes": 55403,
+      "sha256": "f578725ca944e6f97f338011a739207f080222b2d7b6edf655f5b887fa30cb0f"
+    },
+    {
+      "path": "experimental/native-http-core/EXPERIMENTS_20261031.md",
+      "git_blob": "8e9519eef9a2587b9e435058011d8e2335df0469",
+      "bytes": 19125,
+      "sha256": "1cc749e603f3ff7104511b5f0e2383007cf1c5addcca89ed4ceb0f12f6d76257"
+    },
+    {
+      "path": "experimental/native-http-core/HANDOFF_TEMP.md",
+      "git_blob": "da00c589ffeae251d1890c9c3f257c0617b0295b",
+      "bytes": 26942,
+      "sha256": "8b6ffa5a76a96de371cb532bfe5b0694dc4fc74d2474bcf21217ce09fba38f6d"
+    },
+    {
+      "path": "experimental/native-http-core/NEXT_MODEL_PROMPT.md",
+      "git_blob": "39abd0d798713773b048e912dd81497bac1e1e38",
+      "bytes": 9419,
+      "sha256": "dfaac59d88a409a3425e157e551aed1b33223e6fc0a84c1d3a3a6e3068209d2e"
+    },
+    {
+      "path": "experimental/native-http-core/README.md",
+      "git_blob": "885f4768a3588800a53e53746d0df5147ef290e3",
+      "bytes": 19439,
+      "sha256": "e097d995b969c5e1b947c7ea72797a2c2420cf748e8e42585598bf127dc80826"
+    },
+    {
+      "path": "experimental/native-http-core/RESULTS.md",
+      "git_blob": "4627848515d916bfbfea86a144098c3bafd03174",
+      "bytes": 12489,
+      "sha256": "3b912bc8231333b86c1d353180db9ec501b84a6929e99ed11fb683f46bb860b0"
+    },
+    {
+      "path": "experimental/native-http-core/SCENARIOS.md",
+      "git_blob": "b5e7f2e15dbbbc239fd025821970905d5ec8a65c",
+      "bytes": 6739,
+      "sha256": "d92b4cc76542fd87047c5bab1d7376ee7fe7d1bfce4d8238659d5a0c2906c88e"
+    },
+    {
+      "path": "experimental/native-http-core/example.json",
+      "git_blob": "038ed3166fb1409f0371a92581c0ad80ee484285",
+      "bytes": 890,
+      "sha256": "c2aaf2bbe317005c8426bcba2158dc6e5d864f1c462987d3ea418bae357038e2"
+    },
+    {
+      "path": "experimental/native-http-core/module/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/module/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/module/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/module/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/module/engine.h",
+      "git_blob": "89fd7e1daf342105e4a74e35784f6d72e4ca17e6",
+      "bytes": 12958,
+      "sha256": "f0acbf76b9204601930a8cdce1f900cd49b6d8fd80650d12196ad7cd01322379"
+    },
+    {
+      "path": "experimental/native-http-core/module/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/module/http.c",
+      "git_blob": "f7673d67ed8b658234eb604726ade29f881d2c46",
+      "bytes": 17009,
+      "sha256": "7f0239f2fc41fa9e86d91a6bb493f14e54d0b613cccdaf5be67036f030a3b9b0"
+    },
+    {
+      "path": "experimental/native-http-core/module/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/module/merge.c",
+      "git_blob": "b824293783915faf8b3a7dc486b51b457a9911c4",
+      "bytes": 13472,
+      "sha256": "82a73d145b055974779e25da5dbacf06fb4dab54091ad8223d2548ba75a0eb55"
+    },
+    {
+      "path": "experimental/native-http-core/module/module.c",
+      "git_blob": "fe0c60e169e4cfcacb2e51ef99f72d62aab919ae",
+      "bytes": 24832,
+      "sha256": "1b6015ce5a7fcdf7b117bc3e3cd5cd98322df6cdb823e3d175ed99edc38756fa"
+    },
+    {
+      "path": "experimental/native-http-core/module/native_phases.c",
+      "git_blob": "ec7c090f0e30f1f9d5ec5411466d641dd0f9975f",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "experimental/native-http-core/module/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/module/plugins.c",
+      "git_blob": "c6aaa6725a61f1556eaf192bc99c3b78f1ab707e",
+      "bytes": 27818,
+      "sha256": "e66e3e4225e8f27a5af212c04e7c7dcfadccf9d98c46d9e6e61846fc6b678774"
+    },
+    {
+      "path": "experimental/native-http-core/module/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/module/request.c",
+      "git_blob": "f4b664794f99caab1f50362a75b72bb6393d750a",
+      "bytes": 40034,
+      "sha256": "4c4873fbc46a2e83af1741c8bd6ecc6da368dca6e3716556c993020ff0cf8171"
+    },
+    {
+      "path": "experimental/native-http-core/module/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/module/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/module/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/module/routes.c",
+      "git_blob": "519d3acec738da33290106a42c383347b9359036",
+      "bytes": 30104,
+      "sha256": "9e9279ff7a3a8de43f74915741b02c2ba5ec8d67b1c8128a8abe64245c90d409"
+    },
+    {
+      "path": "experimental/native-http-core/module/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/module/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/module/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/module/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/module/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/module/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/module/upstream.c",
+      "git_blob": "b20af4a176ae90a78e80ec5699c285db623cde25",
+      "bytes": 42519,
+      "sha256": "eebd29349a8e2098f8ab3d23e8d08137e65ee80edd68bf13d7e31ebdaf166ab4"
+    },
+    {
+      "path": "experimental/native-http-core/module/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/module/utils.c",
+      "git_blob": "3695228d846512c95d40de4accacdc0cb9d1b4b4",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "experimental/native-http-core/runtime.lua",
+      "git_blob": "0cee629cf606ef1072ccdf1b4868a0b60eb26132",
+      "bytes": 3685,
+      "sha256": "7402e0fbe6294796e82550add0e2e0e978b7773271e526f9387961f80b3b4a41"
+    },
+    {
+      "path": "experimental/native-http-core/stable-baseline.json",
+      "git_blob": "887689b7f3a532f16fad410d90cf85efd93f3180",
+      "bytes": 868,
+      "sha256": "350013675e9850f92838a13da121a34e8d368de4473993a1e2254f684fb8cf26"
+    },
+    {
+      "path": "experimental/native-http-core/tests/check_uri_policy.py",
+      "git_blob": "e6e1c5b6a5413470190ff501beacb01d5674fa29",
+      "bytes": 1331,
+      "sha256": "b1ae4940682eb13f174d84dc2255ae17c34587fc58e4edfa7b5790f6c9be6f0b"
+    },
+    {
+      "path": "experimental/native-http-core/tests/expressions.py",
+      "git_blob": "e433efa663c9633c358bcdccbc6df50462a511f8",
+      "bytes": 1206,
+      "sha256": "b1553bd77c9a3f3a2a32d5d5cd9ceab99e147f4b5f6692824f7daeeb46d9e200"
+    },
+    {
+      "path": "experimental/native-http-core/tests/probe.lua",
+      "git_blob": "a52b5b727d7f0f1a299ce44805377fb4fd8d71ab",
+      "bytes": 16359,
+      "sha256": "8a49222501e120e4924338ef783a8337fd09ee76d53b48c42930f16003e7f335"
+    },
+    {
+      "path": "experimental/native-http-core/tests/sdk.lua",
+      "git_blob": "307dc60b1e3c3a4999788011e2178351dea9a166",
+      "bytes": 9888,
+      "sha256": "e152ef8a66aa5c0f6e96506ccce67208c7b7b03eb593285e36c9f26d8c629c9e"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_allocator.c",
+      "git_blob": "b2de7ab2c692da7fa59a2b88d930ba4f588c617d",
+      "bytes": 7180,
+      "sha256": "82f59b9b90e268844b93cac3393af0821a8eb90261b4fc1bbc8561588b122917"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_core.py",
+      "git_blob": "779e898b3ede303acf1d834eda5369bf13662590",
+      "bytes": 40256,
+      "sha256": "30f462c66f27d4cd2c79425d79b7220a3de9235e13b8d266ac912413ca3369e8"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_demo.py",
+      "git_blob": "74d61c16f394365d63e0f15dd2b13f6f3ddcba3a",
+      "bytes": 12193,
+      "sha256": "c29ff693a251266f09f637f4109ae0c3f8e7b3afacc9542a1e6ea849f908130b"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_header_fast.py",
+      "git_blob": "7a659aad911baadf59dcc29e96787ecb1df950e6",
+      "bytes": 6745,
+      "sha256": "37f4bb1cdc1633b2c154f33c0c4ec1e52daf6bde0fc416bb6bb911cbc8dec4c7"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_http_plans.py",
+      "git_blob": "912962ef32da1b6ef6e51adcfeb340cddd13b5b4",
+      "bytes": 5281,
+      "sha256": "7e786ef5944e892c296285492eae07e54a09240edb290d5f1adb50c7a4b7afc5"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_log_var_plan.py",
+      "git_blob": "9fb8d45e196af9c77e5c085cfa997bb00ac5071a",
+      "bytes": 4883,
+      "sha256": "ae3c33998e300bc58c9016713b73c060d77b0ecb067b4b403f584a5823d9da0b"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_matched_pool.py",
+      "git_blob": "1a8b50a6c7a8fa48ad8acbb0feb641f811095c03",
+      "bytes": 7691,
+      "sha256": "8c85732ec9e2f6ad6b8ef091c9aa154ddb372b36ac20951165bf56cb159f9712"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_peer_plan.py",
+      "git_blob": "a54b1ba5c9eb6de8716a993cacd8eaaf8c9ad49e",
+      "bytes": 12888,
+      "sha256": "3573680926fe8e6dd7a0d31564483585cd53e704be0a779090b6fbc1431a64d5"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_phase_context.py",
+      "git_blob": "4587eda73c527f9c898ed6f167c92e8e8c5e58f5",
+      "bytes": 4070,
+      "sha256": "54e8aa338c7290ae8aae9222b88ac141cbd69b9e77d9324ae30aa75fa8c76d49"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_request_pool.py",
+      "git_blob": "bcffe44292ed4eba04b19e6e0455acdd1526a47f",
+      "bytes": 10787,
+      "sha256": "538c866ba7c620ca8f3d0757a9cfc684c085f4a71fb8256e314c9e3a22703cb9"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_route_allocations.py",
+      "git_blob": "bc65d1b7fe7fac71a4333c6a54fef66af84ed3a3",
+      "bytes": 5113,
+      "sha256": "e90bfd68fc856b49030f1683448a79a451769573482484a7fcabe868eef62a14"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_sdk_false.py",
+      "git_blob": "d443c28103279b4e7ed48bfa0c00694b137ce33e",
+      "bytes": 10745,
+      "sha256": "e91c846276943214677a84e1687d3c983e1136ccf4f865025198ede7300eea1f"
+    },
+    {
+      "path": "experimental/native-http-core/tests/test_single.py",
+      "git_blob": "103e358739164f4fadb2d6b0c930299180ed4981",
+      "bytes": 3981,
+      "sha256": "7bd469a7cfba85f0662ba6638607d09a5fff54dc295a5bd307b5e3d8c6214f7e"
+    },
+    {
+      "path": "experimental/native-http-core/tools/allocator_sampler.c",
+      "git_blob": "ad36327763d0a848fb89524f89fc49c2c6cc1aa2",
+      "bytes": 9683,
+      "sha256": "36fb1577609ca504598748e5979a59b85a6ee36f8bd6082fd2b72da40294322e"
+    },
+    {
+      "path": "experimental/native-http-core/tools/analyze_sweep.py",
+      "git_blob": "b3e701e2c9766f1b6b6b33485b50e8b973ea1573",
+      "bytes": 3771,
+      "sha256": "8f90e9c69c4660aae348b4cb94f802878eac640529a8f92a0078b102f5d7d82d"
+    },
+    {
+      "path": "experimental/native-http-core/tools/bench.lua",
+      "git_blob": "fa31c768ccd7fb5ecff3be0987fa5002904f1015",
+      "bytes": 1043,
+      "sha256": "9a911df30d23a4c9afefc8b31b1f7d935e381852f4650028e5f3598401dd7291"
+    },
+    {
+      "path": "experimental/native-http-core/tools/benchmark.py",
+      "git_blob": "b7a14aace1ebfe2f42c703390437285df6559a0c",
+      "bytes": 11883,
+      "sha256": "feaef227411c25effc62570a1f3efcbf56c079288c27080b9c84f9d1540a4edf"
+    },
+    {
+      "path": "experimental/native-http-core/tools/check_allocator.py",
+      "git_blob": "6dcb9fba86cb02a9a751e5c8eea9bf7100c99e88",
+      "bytes": 1195,
+      "sha256": "ec24ce27e6978e0612df227d2189d962b62813a4fd3e512f46f6568e8f15ee3a"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/README.md",
+      "git_blob": "8dbdf22d65536aaf895e8cc2b9ebd8e334d9487d",
+      "bytes": 4707,
+      "sha256": "c08c9626c442526eb07ab2520e9edfa32573dc0c4507cf3bd48f6b130f207c93"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/analyze.py",
+      "git_blob": "de2e742890b59698b0184736d16b5f51c3b0ebef",
+      "bytes": 12012,
+      "sha256": "a7e2657040b9f4acf6b19291da76f4800e3ffe73411db75ffd9afa6e21269065"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/calibrate.lua",
+      "git_blob": "12bbc4a64b00ab4732712eaf6b03096dcce9e2ac",
+      "bytes": 1196,
+      "sha256": "ee0545c21bfcae5cdba6b8e76d18b6aaa190f3881560da4e716e1ae0776a6e52"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/hooks.lua",
+      "git_blob": "b50c0c9fcad8bb381cec750b8dadc666d0a932c6",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/run.py",
+      "git_blob": "bbf4aa0ad0bf10fff64f560f34f5742ad2bded88",
+      "bytes": 10299,
+      "sha256": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a"
+    },
+    {
+      "path": "experimental/native-http-core/tools/core_cost/sampler.c",
+      "git_blob": "27f91fe06fa77e3029d4beebb687ebb065d39a9c",
+      "bytes": 10765,
+      "sha256": "9dde553151e87a13eee5169b29df58403e50b30131bd9c7a60e7cd08b080a7dd"
+    },
+    {
+      "path": "experimental/native-http-core/tools/cpu_sampler.c",
+      "git_blob": "b2d161606cdb3e64578b34d9a482d0ea745ea7c0",
+      "bytes": 1973,
+      "sha256": "faaa57732a429bfe921e8fd43a7d70d3d5fdab9b0d5ced73d7e2953cbd09894e"
+    },
+    {
+      "path": "experimental/native-http-core/tools/demo.py",
+      "git_blob": "c7b9c70206bcdc51a9d3a6216b971f7b502763f1",
+      "bytes": 11958,
+      "sha256": "64110ac47322c1afbbebc7673e5a41539f5009191eab47522a0090ef461f2cbe"
+    },
+    {
+      "path": "experimental/native-http-core/tools/dev.py",
+      "git_blob": "d1967cd12512ca017ae5c575145a4fd500ffc8b8",
+      "bytes": 2274,
+      "sha256": "704b9f2b20904c6d105cf31a4837dc6e1be6882b4afbefae68efcc42cd3abdde"
+    },
+    {
+      "path": "experimental/native-http-core/tools/finalize_run.py",
+      "git_blob": "068b55a306b597be4c55d9e5e4f7fbcee6e16fee",
+      "bytes": 3257,
+      "sha256": "ad5646588696f17ff453848027aefc2723ce9c5e170adbb13e3928136a981456"
+    },
+    {
+      "path": "experimental/native-http-core/tools/function_sampler.c",
+      "git_blob": "ad19b26711906e680436788a594508ac1e52a81d",
+      "bytes": 2822,
+      "sha256": "fe68d6a8599312d218667213c729d6b56a0a89d9933db1572330319f3c3638cb"
+    },
+    {
+      "path": "experimental/native-http-core/tools/generate_data.py",
+      "git_blob": "c6de9edc173524279f0fe5643c6107b7a8a17383",
+      "bytes": 1267,
+      "sha256": "44b4553dda75d44d9a6f84dedcbd285ffd8359525010a9dc9cd2d33837b1a69a"
+    },
+    {
+      "path": "experimental/native-http-core/tools/profile.py",
+      "git_blob": "e5318df15ae9a6258bf44dcb207b827aa4d7b23f",
+      "bytes": 15413,
+      "sha256": "e0984788a4c9588170c6d20228827a626bc3f21b4f109d8f167ee7d538437c61"
+    },
+    {
+      "path": "experimental/native-http-core/tools/rebuild.py",
+      "git_blob": "a3ccaeca955f04097b57dd1caea86959aabc2a59",
+      "bytes": 3793,
+      "sha256": "e8ce2edb5d2c06eaa5bf2e605ada0da8ffc4a616491443a82b68b7799f9299a1"
+    },
+    {
+      "path": "experimental/native-http-core/tools/recheck_limit.py",
+      "git_blob": "0b94ee6513425662d4e4b79e24498cdc910f9bb6",
+      "bytes": 7130,
+      "sha256": "df5f1589492c423f23b5514693286ad942419a26a2f4d03a7becad82a5d737a7"
+    },
+    {
+      "path": "experimental/native-http-core/tools/recheck_limit_only_v6.py",
+      "git_blob": "3d346d376087efa42737a10b96c05ec0c4814583",
+      "bytes": 8041,
+      "sha256": "fe05bec4d1e9ddcc1a0dbeb99f13ef3805e11929ae49dbdc881d79b47b15975a"
+    },
+    {
+      "path": "experimental/native-http-core/tools/report.py",
+      "git_blob": "0e09b9d62e2b8e4f01a31f9ac2d76a0c34e0353e",
+      "bytes": 16021,
+      "sha256": "9ad42773e74459a77c2ccee380f25fc36078086485ad30f847ae08a10e662c4a"
+    },
+    {
+      "path": "experimental/native-http-core/tools/report_limit_only_v6.py",
+      "git_blob": "2cb39e47548fa9248029cd45112913f837002df3",
+      "bytes": 7333,
+      "sha256": "22810ff26fd424783230636f44cb9d5da01f67ae42ae04731ca155872b82df68"
+    },
+    {
+      "path": "experimental/native-http-core/tools/report_limit_recheck.py",
+      "git_blob": "f950b007f893e8ccb3bb2f31cb43d5e83043f4e7",
+      "bytes": 7625,
+      "sha256": "a32b00da0d4e4be59d184903d6eda9b16f8d5600bce609787538110396d03867"
+    },
+    {
+      "path": "experimental/native-http-core/tools/run.py",
+      "git_blob": "e01396d558ae29b63bc6db5b700314153b6e5893",
+      "bytes": 5576,
+      "sha256": "f41da12528f93edb5ecf659b446af85ec5659a23ed7459571576ec384d5cf0ae"
+    },
+    {
+      "path": "experimental/native-http-core/tools/schema_graph.lua",
+      "git_blob": "d5a808332e929557713cd7393387cfea2b18cc4c",
+      "bytes": 1542,
+      "sha256": "ddf9a2471df8aae4c1b62d3f7b87b3695061e4b94952c3c86e907b2cbd6eef23"
+    },
+    {
+      "path": "experimental/native-http-core/tools/subtraction/README.md",
+      "git_blob": "23a4da35ccf4ae4b5e4871eba0766fa90c1aa3bd",
+      "bytes": 6716,
+      "sha256": "97f0602603b8b1b5dcf73af50631872de4a3b443eb940304e7a156e57e803f4f"
+    },
+    {
+      "path": "experimental/native-http-core/tools/subtraction/analysis-plan.json",
+      "git_blob": "e2e28623791e467643439a4011bd9622e6cfcefa",
+      "bytes": 2004,
+      "sha256": "2d408d439da421de45604fac6d26e903439fc19c9805d1d4e8917d909ebcd6d2"
+    },
+    {
+      "path": "experimental/native-http-core/tools/subtraction/analyze.py",
+      "git_blob": "5aa8b56993ddd12e865b95364997df712856675f",
+      "bytes": 15784,
+      "sha256": "fcdb5eda241cf0b24cc115f610bafda34ba33fd6c6b87d89746de98129242a7e"
+    },
+    {
+      "path": "experimental/native-http-core/tools/subtraction/run.py",
+      "git_blob": "c195ea255799f5fe3056b79672728dc6e2b6a7a4",
+      "bytes": 13867,
+      "sha256": "8a2e7b0b920a80db3660930438d966722dce966401cc4a7d349450b87ebf7a41"
+    },
+    {
+      "path": "experimental/native-http-core/tools/subtraction/verify.py",
+      "git_blob": "464ebd00ba1b66ae4ba2e6bef9808de9f52be301",
+      "bytes": 6620,
+      "sha256": "cff54b9c1bca2210bb19c9228f30d626bd7879e175d0b46917086d98992197cf"
+    },
+    {
+      "path": "experimental/native-http-core/tools/sweep.py",
+      "git_blob": "191bf211c09e4d80a92ab2c98de80e5874d625fc",
+      "bytes": 8678,
+      "sha256": "9a00032131bdfd6a1e8eee401277f98f53d47e169406ca02f4083f579d8d23dd"
+    },
+    {
+      "path": "experimental/native-standalone/.dockerignore",
+      "git_blob": "7372aed0f859d269b6c6a468c626446fdc1bf4cb",
+      "bytes": 20,
+      "sha256": "d528d274275683113196a774bb2c4fb7596698620eb01904887229bee372423a"
+    },
+    {
+      "path": "experimental/native-standalone/.gitignore",
+      "git_blob": "b45f55965f50c43afac65ff257774856c4d1d31c",
+      "bytes": 22,
+      "sha256": "3eee86435e69d845524717fcb550f3e64eaa113da652f0603e41d1f5170bfcbd"
+    },
+    {
+      "path": "experimental/native-standalone/CORE_API_INVENTORY.json",
+      "git_blob": "1260971b8240ca15a51d703931371f7bb374386e",
+      "bytes": 27099,
+      "sha256": "cac9200f22d653881bd16d1a655291d21724671c9b533adf1cdf0a6a3f71389d"
+    },
+    {
+      "path": "experimental/native-standalone/COVERAGE.md",
+      "git_blob": "9361979503fb26cb8fd3c0a24aabcedf7a2b444f",
+      "bytes": 8616,
+      "sha256": "1f4970aff2ebeb7ac6e727a24c98effcff1f395c2db42889e8b4ded96f5e8b59"
+    },
+    {
+      "path": "experimental/native-standalone/Dockerfile",
+      "git_blob": "72afd5bec0862b1887e8a0cbbca19d29ee773b0a",
+      "bytes": 4767,
+      "sha256": "007bb8155c2272e37077ebb1dbf3992f58adfa4a8d5c7879e8d6c5e41bae5561"
+    },
+    {
+      "path": "experimental/native-standalone/README.md",
+      "git_blob": "865473e7b88ff0d26157ad174b17b42c862d328d",
+      "bytes": 5539,
+      "sha256": "03401a78e64c0d38906e4a9e59aab5f9d0a3cb65028a87698e16e35ba58b2481"
+    },
+    {
+      "path": "experimental/native-standalone/RESULTS.md",
+      "git_blob": "a3ab6ef363121c56459c8ab507d27f0cc8f3e0db",
+      "bytes": 9818,
+      "sha256": "3a0cc7e4ad4209d3ecf9b5c526a2779feffbab7e51648a2e0d60a128edbf1cd9"
+    },
+    {
+      "path": "experimental/native-standalone/bench.lua",
+      "git_blob": "fa31c768ccd7fb5ecff3be0987fa5002904f1015",
+      "bytes": 1043,
+      "sha256": "9a911df30d23a4c9afefc8b31b1f7d935e381852f4650028e5f3598401dd7291"
+    },
+    {
+      "path": "experimental/native-standalone/benchmark.py",
+      "git_blob": "da0c2215ae5b1523bfed5cda17c305c0e048a92b",
+      "bytes": 6350,
+      "sha256": "47823ad15d757d74248e8d975efce6a1443a5ea2ac29ca742eb12951b77ca4f0"
+    },
+    {
+      "path": "experimental/native-standalone/example.json",
+      "git_blob": "038ed3166fb1409f0371a92581c0ad80ee484285",
+      "bytes": 890,
+      "sha256": "c2aaf2bbe317005c8426bcba2158dc6e5d864f1c462987d3ea418bae357038e2"
+    },
+    {
+      "path": "experimental/native-standalone/module/config",
+      "git_blob": "202d57d7e439927812ef836a961f1dbde90ecb71",
+      "bytes": 1177,
+      "sha256": "cc35a869e0b62ebf9449aa469808cf3ec3e2d0e3eecbc999fbe05c79495d6ffd"
+    },
+    {
+      "path": "experimental/native-standalone/module/ngx_http_apisix_native_module.c",
+      "git_blob": "eb1efd6454a68f5f13b5e9c617e0f875200c8707",
+      "bytes": 8742,
+      "sha256": "d61cf8daf0c65a842eb7a395feccbf8a45d2855b794ec5fa47d0fc69043e2e5f"
+    },
+    {
+      "path": "experimental/native-standalone/native_demo.lua",
+      "git_blob": "7a4fd64be55d52f4bef41d76a89249a2fe407de4",
+      "bytes": 3901,
+      "sha256": "fa0effd1e49a234d6745d2e62bd19323a053546ea676aeb74de6c7f0875456de"
+    },
+    {
+      "path": "experimental/native-standalone/prepare.py",
+      "git_blob": "eeb7b3c4e571f6383446f38e0639792118b11e02",
+      "bytes": 11824,
+      "sha256": "53a31a646fdfaf8161fa7e4da638a66360025cf9ae405319dc3a011673934458"
+    },
+    {
+      "path": "experimental/native-standalone/run.sh",
+      "git_blob": "c3de68513a610a30567a413539eb6993780a2cf5",
+      "bytes": 2326,
+      "sha256": "6d90e2f0ef3d86989adf257e7be78804d981563fe740b6d769c5c4e8a2c0b937"
+    },
+    {
+      "path": "experimental/native-standalone/test_demo.py",
+      "git_blob": "d25124cc814a7760366fb339dbb924786d50f46c",
+      "bytes": 8854,
+      "sha256": "0cccaf171e7f3a9adc778f693a09c044d3876cc848ac508f6416555c27241dc9"
+    }
+  ],
+  "archived_source_and_patch_file_count": 281,
+  "archived_source_and_patch_files": [
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/engine.h",
+      "git_blob": "3dab162469c3ddce391aa71cfb6ca1fd52c0cab1",
+      "bytes": 11187,
+      "sha256": "5b75f0f4d7b50855b9e603e99095b6f0bacedd456e417504f827b996ce1ddf08"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/http.c",
+      "git_blob": "47f7af029d0d991923fbd0f533ed395d54420d6d",
+      "bytes": 13243,
+      "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/merge.c",
+      "git_blob": "7a0b2013ee089aaec1963d7d822a9feee3e0122f",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/module.c",
+      "git_blob": "ad63590a878f704cce388af38d728a8545c2f20f",
+      "bytes": 13171,
+      "sha256": "2870a1b3f75f4049873368b9da284ea319934bcc5ec46c4e6926b4aec82c3d30"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/native_phases.c",
+      "git_blob": "ec7c090f0e30f1f9d5ec5411466d641dd0f9975f",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/plugins.c",
+      "git_blob": "9f9e02806c723ecc6f66503ecc0917494c5c899e",
+      "bytes": 25389,
+      "sha256": "3e1116139dea4ce07f06c58a934ee3e699063a880d688e6a8e3632043e30377b"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/request.c",
+      "git_blob": "e36d88c29cdc0878831586e7c2842ac85d9f9493",
+      "bytes": 31341,
+      "sha256": "5c40ec3cd32295e5f32437f247d428efbb5764257d5e19e353d783469b17778b"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/routes.c",
+      "git_blob": "dd7409724255761ad22cb2a4ce16d6eb44066df8",
+      "bytes": 22996,
+      "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/upstream.c",
+      "git_blob": "4a3613b71fdf5c771e2ea68a336f3d8947141b1d",
+      "bytes": 35425,
+      "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/module/utils.c",
+      "git_blob": "6366daf30a8be5041de3c615e05c50d14ef527cd",
+      "bytes": 25566,
+      "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-log-prefetch/source/runtime.lua",
+      "git_blob": "c7adea8a7019383dbc06d22559b4b7675ded6d34",
+      "bytes": 2358,
+      "sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/config",
+      "git_blob": "f1ad0b628976bf18e5ce5c33d642b89a4ae8f2fb",
+      "bytes": 1508,
+      "sha256": "c4a09f0a15fcf56b006a9c015fccba2be9f7febd052eb4f4482a9cc2b581baba"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/engine.h",
+      "git_blob": "937c40b99bdeaec147acb72329dbb88211155265",
+      "bytes": 10765,
+      "sha256": "162c2e1a3819730bd397c5af8e70a023a12770ddc29d57a30a87d0a6c6bdc9b8"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/http.c",
+      "git_blob": "b9b31fbf2a18ec637140b679f04d8ab75847382a",
+      "bytes": 12932,
+      "sha256": "abd771f71cae2666be98ee54b51f70d18a0456fd11fd94190b58cb684fadbc03"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/merge.c",
+      "git_blob": "7a0b2013ee089aaec1963d7d822a9feee3e0122f",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/module.c",
+      "git_blob": "791bc418cc07285b360d18fced3fd469e829d2a4",
+      "bytes": 12868,
+      "sha256": "e59ba7cf3ad3a61be449879a2210d125364f28f50e3d0992636e4653ef509f46"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/plugins.c",
+      "git_blob": "c280b4f8d805f773e8e934653407cb78f3bf9415",
+      "bytes": 24648,
+      "sha256": "8d86822da949234974ad0c11a2fed76b934734f52f776e706274ca804078ba00"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/request.c",
+      "git_blob": "1fb271db30669450afc0d81e5a2f8a168af6f258",
+      "bytes": 31079,
+      "sha256": "2d7cdf8e1cdc4dcb0e4571db442fbee3ded777a1fa6446d57d2cb9852003e0ca"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/routes.c",
+      "git_blob": "5735d837895c947fd2baefd8a53a72417010aea7",
+      "bytes": 22744,
+      "sha256": "bc9ce2542df5939d7214baafcbf07a54ac936f70f3b2d55eaeaf10fb66e3f9db"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/tracing.c",
+      "git_blob": "325882a65a7619fc986f3b797f204d1a6c454f85",
+      "bytes": 11140,
+      "sha256": "2398550793b6908bd4b114ad2b9823729adfe0e648af10d2007d8c7fb6ba7e38"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/upstream.c",
+      "git_blob": "4a3613b71fdf5c771e2ea68a336f3d8947141b1d",
+      "bytes": 35425,
+      "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/module/utils.c",
+      "git_blob": "1b5fc199afbfbed4545eef0f40393cc336be1981",
+      "bytes": 18684,
+      "sha256": "bbdddc15aba62051466ced64ab45761330924fe9e8686b20a6f0271bb16ad17e"
+    },
+    {
+      "path": "experimental/native-http-core/results/before-native-filters/source/runtime.lua",
+      "git_blob": "c7adea8a7019383dbc06d22559b4b7675ded6d34",
+      "bytes": 2358,
+      "sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/engine.h",
+      "git_blob": "da69688aa0ec1a28900b854f65950c708abad425",
+      "bytes": 11247,
+      "sha256": "30f6575bc10edee3d1178a8c88edf1206e4949f7ffa29067f3f99f3f10752bee"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/http.c",
+      "git_blob": "47f7af029d0d991923fbd0f533ed395d54420d6d",
+      "bytes": 13243,
+      "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/merge.c",
+      "git_blob": "7a0b2013ee089aaec1963d7d822a9feee3e0122f",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/module.c",
+      "git_blob": "d6c8ff9ab6228ef351389393a7440b955ee6ba67",
+      "bytes": 13433,
+      "sha256": "48f740b33f7a586e9dfb472844ad28d06e1629b0d230476b71bed19c2f05d7fc"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/native_phases.c",
+      "git_blob": "9a5d10b3e3f4cfd27664513f58f4c4215215c19e",
+      "bytes": 3609,
+      "sha256": "8026f4d16238bc3bf281f1fa7b0f8b322b4782700b1abb0184aaa3589cc456d0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/plugins.c",
+      "git_blob": "a2ebc887ca85f846b01c0c08c9acb0cf62974f66",
+      "bytes": 25614,
+      "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/request.c",
+      "git_blob": "38f34f2c62f6612ec1d77df94927a4272c303427",
+      "bytes": 32747,
+      "sha256": "21231321a5f1aa36ad5b66b20321ae3411a23df564fb1a12f839b243f2a6741b"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/routes.c",
+      "git_blob": "dd7409724255761ad22cb2a4ce16d6eb44066df8",
+      "bytes": 22996,
+      "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream.c",
+      "git_blob": "4a3613b71fdf5c771e2ea68a336f3d8947141b1d",
+      "bytes": 35425,
+      "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/utils.c",
+      "git_blob": "6366daf30a8be5041de3c615e05c50d14ef527cd",
+      "bytes": 25566,
+      "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core-cost-load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core-cost-run.py",
+      "git_blob": "6e9a5b5030c87c2d1a7a8f151f772586526fd860",
+      "bytes": 9311,
+      "sha256": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core_cost_hooks.lua",
+      "git_blob": "b50c0c9fcad8bb381cec750b8dadc666d0a932c6",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-calibrate.lua",
+      "git_blob": "12bbc4a64b00ab4732712eaf6b03096dcce9e2ac",
+      "bytes": 1196,
+      "sha256": "ee0545c21bfcae5cdba6b8e76d18b6aaa190f3881560da4e716e1ae0776a6e52"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-run.py",
+      "git_blob": "bbf4aa0ad0bf10fff64f560f34f5742ad2bded88",
+      "bytes": 10299,
+      "sha256": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core_cost_hooks.lua",
+      "git_blob": "b50c0c9fcad8bb381cec750b8dadc666d0a932c6",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/calibrate.lua",
+      "git_blob": "0919307b102fcb3942b7fd9259ff30719be02884",
+      "bytes": 1182,
+      "sha256": "c5255cbabf6600142f17c38f65c7e4bbcb30b138fa55448196d801edc9300788"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/hooks.lua",
+      "git_blob": "b50c0c9fcad8bb381cec750b8dadc666d0a932c6",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/run.py",
+      "git_blob": "6e9a5b5030c87c2d1a7a8f151f772586526fd860",
+      "bytes": 9311,
+      "sha256": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/sampler.c",
+      "git_blob": "32e26928ec3b60a93d76a33fde7737104c0a6cbe",
+      "bytes": 10367,
+      "sha256": "05303352c571ab07687249de459199d105960cbf1296de72352aee99a59e5a8a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/analyze.py",
+      "git_blob": "de2e742890b59698b0184736d16b5f51c3b0ebef",
+      "bytes": 12012,
+      "sha256": "a7e2657040b9f4acf6b19291da76f4800e3ffe73411db75ffd9afa6e21269065"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/calibrate.lua",
+      "git_blob": "12bbc4a64b00ab4732712eaf6b03096dcce9e2ac",
+      "bytes": 1196,
+      "sha256": "ee0545c21bfcae5cdba6b8e76d18b6aaa190f3881560da4e716e1ae0776a6e52"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/hooks.lua",
+      "git_blob": "b50c0c9fcad8bb381cec750b8dadc666d0a932c6",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/run.py",
+      "git_blob": "bbf4aa0ad0bf10fff64f560f34f5742ad2bded88",
+      "bytes": 10299,
+      "sha256": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/sampler.c",
+      "git_blob": "27f91fe06fa77e3029d4beebb687ebb065d39a9c",
+      "bytes": 10765,
+      "sha256": "9dde553151e87a13eee5169b29df58403e50b30131bd9c7a60e7cd08b080a7dd"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/engine.h",
+      "git_blob": "89fd7e1daf342105e4a74e35784f6d72e4ca17e6",
+      "bytes": 12958,
+      "sha256": "f0acbf76b9204601930a8cdce1f900cd49b6d8fd80650d12196ad7cd01322379"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/http.c",
+      "git_blob": "f7673d67ed8b658234eb604726ade29f881d2c46",
+      "bytes": 17009,
+      "sha256": "7f0239f2fc41fa9e86d91a6bb493f14e54d0b613cccdaf5be67036f030a3b9b0"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/merge.c",
+      "git_blob": "b824293783915faf8b3a7dc486b51b457a9911c4",
+      "bytes": 13472,
+      "sha256": "82a73d145b055974779e25da5dbacf06fb4dab54091ad8223d2548ba75a0eb55"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/module.c",
+      "git_blob": "fe0c60e169e4cfcacb2e51ef99f72d62aab919ae",
+      "bytes": 24832,
+      "sha256": "1b6015ce5a7fcdf7b117bc3e3cd5cd98322df6cdb823e3d175ed99edc38756fa"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/native_phases.c",
+      "git_blob": "ec7c090f0e30f1f9d5ec5411466d641dd0f9975f",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/plugins.c",
+      "git_blob": "c6aaa6725a61f1556eaf192bc99c3b78f1ab707e",
+      "bytes": 27818,
+      "sha256": "e66e3e4225e8f27a5af212c04e7c7dcfadccf9d98c46d9e6e61846fc6b678774"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/request.c",
+      "git_blob": "f4b664794f99caab1f50362a75b72bb6393d750a",
+      "bytes": 40034,
+      "sha256": "4c4873fbc46a2e83af1741c8bd6ecc6da368dca6e3716556c993020ff0cf8171"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/routes.c",
+      "git_blob": "519d3acec738da33290106a42c383347b9359036",
+      "bytes": 30104,
+      "sha256": "9e9279ff7a3a8de43f74915741b02c2ba5ec8d67b1c8128a8abe64245c90d409"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/upstream.c",
+      "git_blob": "b20af4a176ae90a78e80ec5699c285db623cde25",
+      "bytes": 42519,
+      "sha256": "eebd29349a8e2098f8ab3d23e8d08137e65ee80edd68bf13d7e31ebdaf166ab4"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/utils.c",
+      "git_blob": "3695228d846512c95d40de4accacdc0cb9d1b4b4",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/candidate-runtime.lua",
+      "git_blob": "0cee629cf606ef1072ccdf1b4868a0b60eb26132",
+      "bytes": 3685,
+      "sha256": "7402e0fbe6294796e82550add0e2e0e978b7773271e526f9387961f80b3b4a41"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/check_uri_policy.py",
+      "git_blob": "e6e1c5b6a5413470190ff501beacb01d5674fa29",
+      "bytes": 1331,
+      "sha256": "b1ae4940682eb13f174d84dc2255ae17c34587fc58e4edfa7b5790f6c9be6f0b"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/expressions.py",
+      "git_blob": "e433efa663c9633c358bcdccbc6df50462a511f8",
+      "bytes": 1206,
+      "sha256": "b1553bd77c9a3f3a2a32d5d5cd9ceab99e147f4b5f6692824f7daeeb46d9e200"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/probe.lua",
+      "git_blob": "a52b5b727d7f0f1a299ce44805377fb4fd8d71ab",
+      "bytes": 16359,
+      "sha256": "8a49222501e120e4924338ef783a8337fd09ee76d53b48c42930f16003e7f335"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/sdk.lua",
+      "git_blob": "307dc60b1e3c3a4999788011e2178351dea9a166",
+      "bytes": 9888,
+      "sha256": "e152ef8a66aa5c0f6e96506ccce67208c7b7b03eb593285e36c9f26d8c629c9e"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_allocator.c",
+      "git_blob": "b2de7ab2c692da7fa59a2b88d930ba4f588c617d",
+      "bytes": 7180,
+      "sha256": "82f59b9b90e268844b93cac3393af0821a8eb90261b4fc1bbc8561588b122917"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_core.py",
+      "git_blob": "779e898b3ede303acf1d834eda5369bf13662590",
+      "bytes": 40256,
+      "sha256": "30f462c66f27d4cd2c79425d79b7220a3de9235e13b8d266ac912413ca3369e8"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_demo.py",
+      "git_blob": "74d61c16f394365d63e0f15dd2b13f6f3ddcba3a",
+      "bytes": 12193,
+      "sha256": "c29ff693a251266f09f637f4109ae0c3f8e7b3afacc9542a1e6ea849f908130b"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_header_fast.py",
+      "git_blob": "7a659aad911baadf59dcc29e96787ecb1df950e6",
+      "bytes": 6745,
+      "sha256": "37f4bb1cdc1633b2c154f33c0c4ec1e52daf6bde0fc416bb6bb911cbc8dec4c7"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_http_plans.py",
+      "git_blob": "912962ef32da1b6ef6e51adcfeb340cddd13b5b4",
+      "bytes": 5281,
+      "sha256": "7e786ef5944e892c296285492eae07e54a09240edb290d5f1adb50c7a4b7afc5"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_log_var_plan.py",
+      "git_blob": "9fb8d45e196af9c77e5c085cfa997bb00ac5071a",
+      "bytes": 4883,
+      "sha256": "ae3c33998e300bc58c9016713b73c060d77b0ecb067b4b403f584a5823d9da0b"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_matched_pool.py",
+      "git_blob": "1a8b50a6c7a8fa48ad8acbb0feb641f811095c03",
+      "bytes": 7691,
+      "sha256": "8c85732ec9e2f6ad6b8ef091c9aa154ddb372b36ac20951165bf56cb159f9712"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_peer_plan.py",
+      "git_blob": "a54b1ba5c9eb6de8716a993cacd8eaaf8c9ad49e",
+      "bytes": 12888,
+      "sha256": "3573680926fe8e6dd7a0d31564483585cd53e704be0a779090b6fbc1431a64d5"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_phase_context.py",
+      "git_blob": "4587eda73c527f9c898ed6f167c92e8e8c5e58f5",
+      "bytes": 4070,
+      "sha256": "54e8aa338c7290ae8aae9222b88ac141cbd69b9e77d9324ae30aa75fa8c76d49"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_request_pool.py",
+      "git_blob": "bcffe44292ed4eba04b19e6e0455acdd1526a47f",
+      "bytes": 10787,
+      "sha256": "538c866ba7c620ca8f3d0757a9cfc684c085f4a71fb8256e314c9e3a22703cb9"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_route_allocations.py",
+      "git_blob": "bc65d1b7fe7fac71a4333c6a54fef66af84ed3a3",
+      "bytes": 5113,
+      "sha256": "e90bfd68fc856b49030f1683448a79a451769573482484a7fcabe868eef62a14"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_sdk_false.py",
+      "git_blob": "d443c28103279b4e7ed48bfa0c00694b137ce33e",
+      "bytes": 10745,
+      "sha256": "e91c846276943214677a84e1687d3c983e1136ccf4f865025198ede7300eea1f"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tests/test_single.py",
+      "git_blob": "103e358739164f4fadb2d6b0c930299180ed4981",
+      "bytes": 3981,
+      "sha256": "7bd469a7cfba85f0662ba6638607d09a5fff54dc295a5bd307b5e3d8c6214f7e"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/allocator_sampler.c",
+      "git_blob": "ad36327763d0a848fb89524f89fc49c2c6cc1aa2",
+      "bytes": 9683,
+      "sha256": "36fb1577609ca504598748e5979a59b85a6ee36f8bd6082fd2b72da40294322e"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/analyze_sweep.py",
+      "git_blob": "b3e701e2c9766f1b6b6b33485b50e8b973ea1573",
+      "bytes": 3771,
+      "sha256": "8f90e9c69c4660aae348b4cb94f802878eac640529a8f92a0078b102f5d7d82d"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/bench.lua",
+      "git_blob": "fa31c768ccd7fb5ecff3be0987fa5002904f1015",
+      "bytes": 1043,
+      "sha256": "9a911df30d23a4c9afefc8b31b1f7d935e381852f4650028e5f3598401dd7291"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/benchmark.py",
+      "git_blob": "b7a14aace1ebfe2f42c703390437285df6559a0c",
+      "bytes": 11883,
+      "sha256": "feaef227411c25effc62570a1f3efcbf56c079288c27080b9c84f9d1540a4edf"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/check_allocator.py",
+      "git_blob": "6dcb9fba86cb02a9a751e5c8eea9bf7100c99e88",
+      "bytes": 1195,
+      "sha256": "ec24ce27e6978e0612df227d2189d962b62813a4fd3e512f46f6568e8f15ee3a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/cpu_sampler.c",
+      "git_blob": "b2d161606cdb3e64578b34d9a482d0ea745ea7c0",
+      "bytes": 1973,
+      "sha256": "faaa57732a429bfe921e8fd43a7d70d3d5fdab9b0d5ced73d7e2953cbd09894e"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/demo.py",
+      "git_blob": "c7b9c70206bcdc51a9d3a6216b971f7b502763f1",
+      "bytes": 11958,
+      "sha256": "64110ac47322c1afbbebc7673e5a41539f5009191eab47522a0090ef461f2cbe"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/dev.py",
+      "git_blob": "d1967cd12512ca017ae5c575145a4fd500ffc8b8",
+      "bytes": 2274,
+      "sha256": "704b9f2b20904c6d105cf31a4837dc6e1be6882b4afbefae68efcc42cd3abdde"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/finalize_run.py",
+      "git_blob": "068b55a306b597be4c55d9e5e4f7fbcee6e16fee",
+      "bytes": 3257,
+      "sha256": "ad5646588696f17ff453848027aefc2723ce9c5e170adbb13e3928136a981456"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/function_sampler.c",
+      "git_blob": "ad19b26711906e680436788a594508ac1e52a81d",
+      "bytes": 2822,
+      "sha256": "fe68d6a8599312d218667213c729d6b56a0a89d9933db1572330319f3c3638cb"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/generate_data.py",
+      "git_blob": "c6de9edc173524279f0fe5643c6107b7a8a17383",
+      "bytes": 1267,
+      "sha256": "44b4553dda75d44d9a6f84dedcbd285ffd8359525010a9dc9cd2d33837b1a69a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/profile.py",
+      "git_blob": "e5318df15ae9a6258bf44dcb207b827aa4d7b23f",
+      "bytes": 15413,
+      "sha256": "e0984788a4c9588170c6d20228827a626bc3f21b4f109d8f167ee7d538437c61"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/rebuild.py",
+      "git_blob": "a3ccaeca955f04097b57dd1caea86959aabc2a59",
+      "bytes": 3793,
+      "sha256": "e8ce2edb5d2c06eaa5bf2e605ada0da8ffc4a616491443a82b68b7799f9299a1"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/report.py",
+      "git_blob": "04322139d078ddddbc3e853d5034839b20fa8e99",
+      "bytes": 15097,
+      "sha256": "26b5d97efc29c3633c86be6f58b98d75c5de9c700afb822cd2e4e0799b63abc1"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/run.py",
+      "git_blob": "e01396d558ae29b63bc6db5b700314153b6e5893",
+      "bytes": 5576,
+      "sha256": "f41da12528f93edb5ecf659b446af85ec5659a23ed7459571576ec384d5cf0ae"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/schema_graph.lua",
+      "git_blob": "d5a808332e929557713cd7393387cfea2b18cc4c",
+      "bytes": 1542,
+      "sha256": "ddf9a2471df8aae4c1b62d3f7b87b3695061e4b94952c3c86e907b2cbd6eef23"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/harness/tools/sweep.py",
+      "git_blob": "191bf211c09e4d80a92ab2c98de80e5874d625fc",
+      "bytes": 8678,
+      "sha256": "9a00032131bdfd6a1e8eee401277f98f53d47e169406ca02f4083f579d8d23dd"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/installed-tablepool.lua",
+      "git_blob": "0b6d2cbf48829a919749bd739c4bc5c31d5fc4d3",
+      "bytes": 1409,
+      "sha256": "5ba0538cab50f608dfbf5a1fdcd7824075305875a0be964a728e67a8de896674"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/engine.h",
+      "git_blob": "14fbe07ad7c03fac55ad1183fa04c9f416918b67",
+      "bytes": 12613,
+      "sha256": "366adb7b4ad7b9154746b6e33e124220cc0179d1c3b0e71858dd09f122b17480"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/http.c",
+      "git_blob": "f7673d67ed8b658234eb604726ade29f881d2c46",
+      "bytes": 17009,
+      "sha256": "7f0239f2fc41fa9e86d91a6bb493f14e54d0b613cccdaf5be67036f030a3b9b0"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/merge.c",
+      "git_blob": "b824293783915faf8b3a7dc486b51b457a9911c4",
+      "bytes": 13472,
+      "sha256": "82a73d145b055974779e25da5dbacf06fb4dab54091ad8223d2548ba75a0eb55"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/module.c",
+      "git_blob": "32a640f80575ce1ed670a61a6b6fb2d131c561ac",
+      "bytes": 19964,
+      "sha256": "9975fca865dc9ddd89230ed96809e89a796a6caa4fcc7987d233d76ca8fa3e35"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/native_phases.c",
+      "git_blob": "ec7c090f0e30f1f9d5ec5411466d641dd0f9975f",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/plugins.c",
+      "git_blob": "c6aaa6725a61f1556eaf192bc99c3b78f1ab707e",
+      "bytes": 27818,
+      "sha256": "e66e3e4225e8f27a5af212c04e7c7dcfadccf9d98c46d9e6e61846fc6b678774"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/request.c",
+      "git_blob": "243780d3e6e29df3a2486db6760bbd01c10698f2",
+      "bytes": 38987,
+      "sha256": "d230d2d2225a5a9aab9fc3d7d2a68a9c8351824d88fe1334ca5a407f69f7328e"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/routes.c",
+      "git_blob": "65c391c5bb9281765983161434806708a23c0a3a",
+      "bytes": 29483,
+      "sha256": "e53c0c47aef9711f8942274ca98ab216e74702c370060dc4287e8729d6628e42"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/upstream.c",
+      "git_blob": "9990729a1a87309eef3ca691b6d8d1449ddd3fb7",
+      "bytes": 38562,
+      "sha256": "c8e6eef2b4403e45b6935079398951d38d63691d8978c784732dc92b6748019f"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/utils.c",
+      "git_blob": "3695228d846512c95d40de4accacdc0cb9d1b4b4",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/screen-runtime.lua",
+      "git_blob": "0cee629cf606ef1072ccdf1b4868a0b60eb26132",
+      "bytes": 3685,
+      "sha256": "7402e0fbe6294796e82550add0e2e0e978b7773271e526f9387961f80b3b4a41"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/staged-patches/balancer-peer-plan.patch",
+      "git_blob": "409b8abc2dc591852ff0751b82515b508ea91b1f",
+      "bytes": 7301,
+      "sha256": "c0e7ffeee3e3c487d5d7b04ae5f9a26be885170200e2ad74b30b1d00b91331bc"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/staged-patches/native-sdk-false-v1.patch",
+      "git_blob": "8108ca0cee22fed12b032495c66f0217a713236c",
+      "bytes": 3881,
+      "sha256": "b77cc444382db7f76b975ec7cf5ee1c93cd5cbeb9405c11229d7a0fbc047ab79"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/staged-patches/native-sdk-false.patch",
+      "git_blob": "3123c23c85c351597a6ce65eeb7757aef4717f49",
+      "bytes": 5496,
+      "sha256": "720f0ae74b24476d4916be0b24379081646a2cb27328c083ef59d1016253931a"
+    },
+    {
+      "path": "experimental/native-http-core/results/exhaustive-20261031/staged-patches/request-pool-native.patch",
+      "git_blob": "7b01e3d56e2f26273f9dd4e8054eaf92bb73a189",
+      "bytes": 30139,
+      "sha256": "66250e413be61c69ef9a7e23bc57ce0416c84225b66b4ba7e1e8f6f90cf2413a"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/bench.lua",
+      "git_blob": "fa31c768ccd7fb5ecff3be0987fa5002904f1015",
+      "bytes": 1043,
+      "sha256": "9a911df30d23a4c9afefc8b31b1f7d935e381852f4650028e5f3598401dd7291"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/benchmark.py",
+      "git_blob": "de684611dc617e3934568fa6a5e88c0488eb0607",
+      "bytes": 7420,
+      "sha256": "163781dd999b4cedcfa8e39b53168ab28042328e7a9be4baf2d26b3ef4475b8f"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/demo.py",
+      "git_blob": "a2e4ca7b745beff4dca5373505a956c0ad704d0e",
+      "bytes": 11161,
+      "sha256": "bb6a7c55997a2fabe315cd0cbb32f4d548e9c92a66672415e6fdc215e305f1bb"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/recheck_limit_only_v6.py",
+      "git_blob": "3d346d376087efa42737a10b96c05ec0c4814583",
+      "bytes": 8041,
+      "sha256": "fe05bec4d1e9ddcc1a0dbeb99f13ef3805e11929ae49dbdc881d79b47b15975a"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/runtime.lua",
+      "git_blob": "c7adea8a7019383dbc06d22559b4b7675ded6d34",
+      "bytes": 2358,
+      "sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/test_demo.py",
+      "git_blob": "64d658cfadf12072eb73249509a31930e9824223",
+      "bytes": 11692,
+      "sha256": "2cdcb5f998bd734e2e7a091bc4adba474b053372e09c4cc99b4cf61d31289d2d"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-recheck-20261031T0617Z/harness/benchmark.py",
+      "git_blob": "de684611dc617e3934568fa6a5e88c0488eb0607",
+      "bytes": 7420,
+      "sha256": "163781dd999b4cedcfa8e39b53168ab28042328e7a9be4baf2d26b3ef4475b8f"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-recheck-20261031T0617Z/harness/demo.py",
+      "git_blob": "5425389238e8ed42ffffc59dc47bc673bfcf9131",
+      "bytes": 11005,
+      "sha256": "94e18e87ac2406d0baf0319036b133476279920845acc79f04fc9024af1c0d7f"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-recheck-20261031T0617Z/harness/recheck_limit.py",
+      "git_blob": "0b94ee6513425662d4e4b79e24498cdc910f9bb6",
+      "bytes": 7130,
+      "sha256": "df5f1589492c423f23b5514693286ad942419a26a2f4d03a7becad82a5d737a7"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-recheck-20261031T0617Z/harness/report_limit_recheck.py",
+      "git_blob": "eb53b755103938cbb9a74fa7af88343990c552da",
+      "bytes": 7363,
+      "sha256": "842e11ba27e2946ba83958e840c48c83a1d6566027c880cf7d4d445163e56de2"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/audit/native-nginx-variables.c",
+      "git_blob": "4f0bd0e4b0b8471502beb15941de91acee57d5a7",
+      "bytes": 68720,
+      "sha256": "68edfa4e4e02fc9fae07c7fa73dd541998de15aaaf766b1b4833c9d0745211a9"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/audit/native-ngxvar-http-v052.lua",
+      "git_blob": "7dcdfc2d4f8eb96aee83f2c3390d2fa33607038c",
+      "bytes": 4530,
+      "sha256": "28ed9377412d7fc256dc958b66de7300014db38165aa0e68e77c82b81fa0fcca"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/audit/native-ngxvar.c",
+      "git_blob": "fb84ac71c0474130b7564bab9db143d85af336a5",
+      "bytes": 4148,
+      "sha256": "435d55e11fca82150ddc9107f44682104fd155566b5372a560a28befd0c721ea"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/background.c",
+      "git_blob": "2bab88ab1bac0d0397e7438a83834f0b24cd950b",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/cache.c",
+      "git_blob": "a5c191d0a5d6f8908fe4ef6aade31d9c6870cc60",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/config",
+      "git_blob": "784e2fb13c18879ba1afd0161e45cc53a3b561d5",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/consumer.c",
+      "git_blob": "e1b3400b7e088a3eaf8cb5137f833393ced90d60",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/engine.h",
+      "git_blob": "cda0446646ecdcc1bec24399253d6e21f3c7f26b",
+      "bytes": 11722,
+      "sha256": "d6dbdd9a91d66aa6b2aa32457d224ec237963745f897835739192afa8c4af3a8"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/expression.c",
+      "git_blob": "9f1d5ef242595914de613c12345f822a8b4ffeb7",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/http.c",
+      "git_blob": "47f7af029d0d991923fbd0f533ed395d54420d6d",
+      "bytes": 13243,
+      "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/instrumentation.c",
+      "git_blob": "f6ab9c07983a64acce9fd4b3974abece5df3f0a2",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/merge.c",
+      "git_blob": "7a0b2013ee089aaec1963d7d822a9feee3e0122f",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/module.c",
+      "git_blob": "4739399f603c750aca93504f92744f5dfe396660",
+      "bytes": 14194,
+      "sha256": "980e644f912d2b7d47588ca8940af5222ad39b898e359c7e32a9fad32bd31528"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/native_phases.c",
+      "git_blob": "ec7c090f0e30f1f9d5ec5411466d641dd0f9975f",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/platform.c",
+      "git_blob": "f246b3b57eb813cad727dff321620b29c3b5f29f",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/plugins.c",
+      "git_blob": "a2ebc887ca85f846b01c0c08c9acb0cf62974f66",
+      "bytes": 25614,
+      "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/redis_data.h",
+      "git_blob": "3983f641bbe036b6dc850ca1af822163338a364d",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/request.c",
+      "git_blob": "8843b482fe3a03f315c2cadb7b977fbf40131ad3",
+      "bytes": 36248,
+      "sha256": "f5215046db88aeb9fa1dd1b90aa5d85fe6cf4a42848cf344745494625ef3dcd3"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/resolver.c",
+      "git_blob": "1e5d1aac40155e277608c67f51ba69f446e1485f",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/resources.c",
+      "git_blob": "f5efc4d875555e427669d7fc3d56ac182f7e78cf",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/response.c",
+      "git_blob": "422e7bd94865620c838a97ad94c27149a2ff3350",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/routes.c",
+      "git_blob": "dd7409724255761ad22cb2a4ce16d6eb44066df8",
+      "bytes": 22996,
+      "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/schema.c",
+      "git_blob": "0ef97d13819cafaf67a1038e6e539caa9a3775cd",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/schema_data.h",
+      "git_blob": "4a2ef0150183caca87a58a6a98c8027ef89301fe",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/script.c",
+      "git_blob": "255ff5b845dad66541bb1d0d650e162214a7b82b",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/sdk.c",
+      "git_blob": "97686a95f0ff94c31060f697c3951916c67babfc",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/snapshot.c",
+      "git_blob": "35b6f3ebe132f0e5f3553b420726906fb0351fd2",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/tracing.c",
+      "git_blob": "e90ec5a0d713c4d3437fa89be572116b189c1ea1",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/upstream.c",
+      "git_blob": "7fcfaf02660991ad564524539f3340aa750a807b",
+      "bytes": 36956,
+      "sha256": "2627285b68304535339d14896e22785c17ea30881e12103b493451d11c2e9054"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/upstream_helpers.c",
+      "git_blob": "256a4a86bd4726582b6fb4721cd7c0b402ade5e5",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/module-source/utils.c",
+      "git_blob": "3695228d846512c95d40de4accacdc0cb9d1b4b4",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/run-research.py",
+      "git_blob": "5732c46095804f91c3c5ea30301e5da337564dd8",
+      "bytes": 2830,
+      "sha256": "9189e87f6e0371def3101091f116bb9b4312d4e515da963209683886d0f88009"
+    },
+    {
+      "path": "experimental/native-http-core/results/single-20261031/runtime.lua",
+      "git_blob": "c02ecdbbd825c4ae73ce627443cf930b2f9be4e9",
+      "bytes": 2394,
+      "sha256": "ecdc800566e74a9060fb687aa9bfadb9ffab1b5c1cd076b69788422da3cc38ca"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/analyze.py",
+      "git_blob": "5aa8b56993ddd12e865b95364997df712856675f",
+      "bytes": 15784,
+      "sha256": "fcdb5eda241cf0b24cc115f610bafda34ba33fd6c6b87d89746de98129242a7e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/benchmark.py",
+      "git_blob": "de684611dc617e3934568fa6a5e88c0488eb0607",
+      "bytes": 7420,
+      "sha256": "163781dd999b4cedcfa8e39b53168ab28042328e7a9be4baf2d26b3ef4475b8f"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/demo.py",
+      "git_blob": "a2e4ca7b745beff4dca5373505a956c0ad704d0e",
+      "bytes": 11161,
+      "sha256": "bb6a7c55997a2fabe315cd0cbb32f4d548e9c92a66672415e6fdc215e305f1bb"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/load.py",
+      "git_blob": "bb927731f2353fb2ba7b49ec89fb65518e07cf7d",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/run.py",
+      "git_blob": "c195ea255799f5fe3056b79672728dc6e2b6a7a4",
+      "bytes": 13867,
+      "sha256": "8a2e7b0b920a80db3660930438d966722dce966401cc4a7d349450b87ebf7a41"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/runtime.lua",
+      "git_blob": "c7adea8a7019383dbc06d22559b4b7675ded6d34",
+      "bytes": 2358,
+      "sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/test_demo.py",
+      "git_blob": "64d658cfadf12072eb73249509a31930e9824223",
+      "bytes": 11692,
+      "sha256": "2cdcb5f998bd734e2e7a091bc4adba474b053372e09c4cc99b4cf61d31289d2d"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/harness/verify.py",
+      "git_blob": "464ebd00ba1b66ae4ba2e6bef9808de9f52be301",
+      "bytes": 6620,
+      "sha256": "cff54b9c1bca2210bb19c9228f30d626bd7879e175d0b46917086d98992197cf"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-loop-1/measured-limit-count.lua",
+      "git_blob": "e7ded3f072980ba3056ca77941d744137c70539d",
+      "bytes": 1667,
+      "sha256": "8bf8cb6de261a47e43364e8f6d3474da5628ba269de3ae7800c58b93eb5a3753"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-loop-2/measured-limit-count.lua",
+      "git_blob": "f0d763877c9156ccefd8f671ed59c657456a634a",
+      "bytes": 1667,
+      "sha256": "02f88af5e0e60591e78730b991d28d4b05dab787fb380c832b0905775f6d993e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-loop-4/measured-limit-count.lua",
+      "git_blob": "f452d2ac0545d24a1b9cfd4109da1f9bdfa74dee",
+      "bytes": 1667,
+      "sha256": "7141e426d72d27f0498797446022b159cfc170d0d2a691ab8bc3d723e81b686b"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-none-after/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/lua-original/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-loop-1/measured-limit-count.lua",
+      "git_blob": "e7ded3f072980ba3056ca77941d744137c70539d",
+      "bytes": 1667,
+      "sha256": "8bf8cb6de261a47e43364e8f6d3474da5628ba269de3ae7800c58b93eb5a3753"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-loop-2/measured-limit-count.lua",
+      "git_blob": "f0d763877c9156ccefd8f671ed59c657456a634a",
+      "bytes": 1667,
+      "sha256": "02f88af5e0e60591e78730b991d28d4b05dab787fb380c832b0905775f6d993e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-loop-4/measured-limit-count.lua",
+      "git_blob": "f452d2ac0545d24a1b9cfd4109da1f9bdfa74dee",
+      "bytes": 1667,
+      "sha256": "7141e426d72d27f0498797446022b159cfc170d0d2a691ab8bc3d723e81b686b"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-none-after/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/native-original/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/lua-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/lua-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/lua-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/native-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/native-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/native-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v1/native-original/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/lua-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/lua-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/lua-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/native-loop-0/measured-limit-count.lua",
+      "git_blob": "8a6cc00e205c82a63ed13964d2ba1c5d5f73aeab",
+      "bytes": 1667,
+      "sha256": "5c840d15ac737ebe5e2ed71afc58177ba6b69f12b6e84312282ac48bbc24e251"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/native-loop-8/measured-limit-count.lua",
+      "git_blob": "fad1532948f34e56b0a3decda62893c63b5880e7",
+      "bytes": 1667,
+      "sha256": "fbd47f1ce6c5d6ca3309bb1d6cd9d8cf75c7c75849bc8c98d530da20c060057e"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/native-none-before/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    },
+    {
+      "path": "experimental/native-http-core/results/subtraction-v6-20261031T0925Z/preflight-v2/native-original/measured-limit-count.lua",
+      "git_blob": "a936f8acb771bacd2144c132afb57671cf4c7c2d",
+      "bytes": 1572,
+      "sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7"
+    }
+  ],
+  "evidence_manifest": {
+    "path": "experimental/native-http-core/results/EVIDENCE_MANIFEST.json",
+    "sha256": "664aa84b3df9dd0a85660254f8fb343e4027ade8193ddad0accc75faade0810c",
+    "checked_files": 1518,
+    "size_and_sha256_mismatches": []
+  },
+  "container_source_files_checked": 85,
+  "container_source_unmatched_files": [],
+  "container_source_matching": {
+    "apisix-http-core-dev": {
+      "scanned_source_roots": [
+        "/opt/apisix-core-module",
+        "/tmp/apisix-core-cost-build",
+        "/tmp/apisix-http-core-demo",
+        "/tmp/apisix-http-core-results",
+        "/tmp/apisix-http-core-test",
+        "/tmp/apisix-http-core-upstream"
+      ],
+      "files": {
+        "/opt/apisix-core-module/script.c": {
+          "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662",
+          "bytes": 2948,
+          "preserved_at": [
+            "experimental/native-http-core/module/script.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/script.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/script.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/script.c",
+            "experimental/native-http-core/results/single-20261031/module-source/script.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/script.c"
+          ]
+        },
+        "/opt/apisix-core-module/resolver.c": {
+          "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043",
+          "bytes": 14813,
+          "preserved_at": [
+            "experimental/native-http-core/module/resolver.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resolver.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resolver.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resolver.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resolver.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resolver.c"
+          ]
+        },
+        "/opt/apisix-core-module/upstream_helpers.c": {
+          "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3",
+          "bytes": 12388,
+          "preserved_at": [
+            "experimental/native-http-core/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/single-20261031/module-source/upstream_helpers.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream_helpers.c"
+          ]
+        },
+        "/opt/apisix-core-module/plugins.c": {
+          "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015",
+          "bytes": 25614,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/plugins.c",
+            "experimental/native-http-core/results/single-20261031/module-source/plugins.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/plugins.c"
+          ]
+        },
+        "/opt/apisix-core-module/redis_data.h": {
+          "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06",
+          "bytes": 8196,
+          "preserved_at": [
+            "experimental/native-http-core/module/redis_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/redis_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/redis_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/redis_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/redis_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/redis_data.h"
+          ]
+        },
+        "/opt/apisix-core-module/schema.c": {
+          "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60",
+          "bytes": 6063,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema.c",
+            "experimental/native-http-core/results/single-20261031/module-source/schema.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema.c"
+          ]
+        },
+        "/opt/apisix-core-module/config": {
+          "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598",
+          "bytes": 1539,
+          "preserved_at": [
+            "experimental/native-http-core/module/config",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/config",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/config",
+            "experimental/native-http-core/results/single-20261031/module-source/config",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/config"
+          ]
+        },
+        "/opt/apisix-core-module/tracing.c": {
+          "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4",
+          "bytes": 10285,
+          "preserved_at": [
+            "experimental/native-http-core/module/tracing.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/tracing.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/tracing.c",
+            "experimental/native-http-core/results/single-20261031/module-source/tracing.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/tracing.c"
+          ]
+        },
+        "/opt/apisix-core-module/resources.c": {
+          "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8",
+          "bytes": 15528,
+          "preserved_at": [
+            "experimental/native-http-core/module/resources.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resources.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resources.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resources.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resources.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resources.c"
+          ]
+        },
+        "/opt/apisix-core-module/sdk.c": {
+          "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f",
+          "bytes": 18294,
+          "preserved_at": [
+            "experimental/native-http-core/module/sdk.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/sdk.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/sdk.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/sdk.c",
+            "experimental/native-http-core/results/single-20261031/module-source/sdk.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/sdk.c"
+          ]
+        },
+        "/opt/apisix-core-module/native_phases.c": {
+          "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45",
+          "bytes": 3341,
+          "preserved_at": [
+            "experimental/native-http-core/module/native_phases.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/native_phases.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/native_phases.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/native_phases.c",
+            "experimental/native-http-core/results/single-20261031/module-source/native_phases.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/native_phases.c"
+          ]
+        },
+        "/opt/apisix-core-module/platform.c": {
+          "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087",
+          "bytes": 12592,
+          "preserved_at": [
+            "experimental/native-http-core/module/platform.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/platform.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/platform.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/platform.c",
+            "experimental/native-http-core/results/single-20261031/module-source/platform.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/platform.c"
+          ]
+        },
+        "/opt/apisix-core-module/snapshot.c": {
+          "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884",
+          "bytes": 9307,
+          "preserved_at": [
+            "experimental/native-http-core/module/snapshot.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/snapshot.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/snapshot.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/snapshot.c",
+            "experimental/native-http-core/results/single-20261031/module-source/snapshot.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/snapshot.c"
+          ]
+        },
+        "/opt/apisix-core-module/function_sampler.c": {
+          "sha256": "fe68d6a8599312d218667213c729d6b56a0a89d9933db1572330319f3c3638cb",
+          "bytes": 2822,
+          "preserved_at": [
+            "experimental/native-http-core/results/exhaustive-20261031/harness/tools/function_sampler.c",
+            "experimental/native-http-core/tools/function_sampler.c"
+          ]
+        },
+        "/opt/apisix-core-module/instrumentation.c": {
+          "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654",
+          "bytes": 7914,
+          "preserved_at": [
+            "experimental/native-http-core/module/instrumentation.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/instrumentation.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/instrumentation.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/instrumentation.c",
+            "experimental/native-http-core/results/single-20261031/module-source/instrumentation.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/instrumentation.c"
+          ]
+        },
+        "/opt/apisix-core-module/upstream.c": {
+          "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9",
+          "bytes": 35425,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream.c"
+          ]
+        },
+        "/opt/apisix-core-module/request.c": {
+          "sha256": "21231321a5f1aa36ad5b66b20321ae3411a23df564fb1a12f839b243f2a6741b",
+          "bytes": 32747,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/request.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/request.c"
+          ]
+        },
+        "/opt/apisix-core-module/utils.c": {
+          "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46",
+          "bytes": 25566,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/utils.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/utils.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/utils.c"
+          ]
+        },
+        "/opt/apisix-core-module/expression.c": {
+          "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a",
+          "bytes": 8923,
+          "preserved_at": [
+            "experimental/native-http-core/module/expression.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/expression.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/expression.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/expression.c",
+            "experimental/native-http-core/results/single-20261031/module-source/expression.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/expression.c"
+          ]
+        },
+        "/opt/apisix-core-module/response.c": {
+          "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63",
+          "bytes": 15847,
+          "preserved_at": [
+            "experimental/native-http-core/module/response.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/response.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/response.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/response.c",
+            "experimental/native-http-core/results/single-20261031/module-source/response.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/response.c"
+          ]
+        },
+        "/opt/apisix-core-module/http.c": {
+          "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa",
+          "bytes": 13243,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/http.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/http.c",
+            "experimental/native-http-core/results/single-20261031/module-source/http.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/http.c"
+          ]
+        },
+        "/opt/apisix-core-module/background.c": {
+          "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a",
+          "bytes": 8663,
+          "preserved_at": [
+            "experimental/native-http-core/module/background.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/background.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/background.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/background.c",
+            "experimental/native-http-core/results/single-20261031/module-source/background.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/background.c"
+          ]
+        },
+        "/opt/apisix-core-module/consumer.c": {
+          "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0",
+          "bytes": 15392,
+          "preserved_at": [
+            "experimental/native-http-core/module/consumer.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/consumer.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/consumer.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/consumer.c",
+            "experimental/native-http-core/results/single-20261031/module-source/consumer.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/consumer.c"
+          ]
+        },
+        "/opt/apisix-core-module/engine.h": {
+          "sha256": "30f6575bc10edee3d1178a8c88edf1206e4949f7ffa29067f3f99f3f10752bee",
+          "bytes": 11247,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/engine.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/engine.h"
+          ]
+        },
+        "/opt/apisix-core-module/schema_data.h": {
+          "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478",
+          "bytes": 50549,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/schema_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema_data.h"
+          ]
+        },
+        "/opt/apisix-core-module/module.c": {
+          "sha256": "2870a1b3f75f4049873368b9da284ea319934bcc5ec46c4e6926b4aec82c3d30",
+          "bytes": 13171,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/module.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/module.c"
+          ]
+        },
+        "/opt/apisix-core-module/cache.c": {
+          "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce",
+          "bytes": 16447,
+          "preserved_at": [
+            "experimental/native-http-core/module/cache.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/cache.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/cache.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/cache.c",
+            "experimental/native-http-core/results/single-20261031/module-source/cache.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/cache.c"
+          ]
+        },
+        "/opt/apisix-core-module/routes.c": {
+          "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac",
+          "bytes": 22996,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/routes.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/routes.c",
+            "experimental/native-http-core/results/single-20261031/module-source/routes.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/routes.c"
+          ]
+        },
+        "/opt/apisix-core-module/merge.c": {
+          "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0",
+          "bytes": 13353,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/merge.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/merge.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/merge.c",
+            "experimental/native-http-core/results/single-20261031/module-source/merge.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/merge.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/script.c": {
+          "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662",
+          "bytes": 2948,
+          "preserved_at": [
+            "experimental/native-http-core/module/script.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/script.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/script.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/script.c",
+            "experimental/native-http-core/results/single-20261031/module-source/script.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/script.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/resolver.c": {
+          "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043",
+          "bytes": 14813,
+          "preserved_at": [
+            "experimental/native-http-core/module/resolver.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resolver.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resolver.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resolver.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resolver.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resolver.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/upstream_helpers.c": {
+          "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3",
+          "bytes": 12388,
+          "preserved_at": [
+            "experimental/native-http-core/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/single-20261031/module-source/upstream_helpers.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream_helpers.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/plugins.c": {
+          "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015",
+          "bytes": 25614,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/plugins.c",
+            "experimental/native-http-core/results/single-20261031/module-source/plugins.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/plugins.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/redis_data.h": {
+          "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06",
+          "bytes": 8196,
+          "preserved_at": [
+            "experimental/native-http-core/module/redis_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/redis_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/redis_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/redis_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/redis_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/redis_data.h"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/schema.c": {
+          "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60",
+          "bytes": 6063,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema.c",
+            "experimental/native-http-core/results/single-20261031/module-source/schema.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/config": {
+          "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598",
+          "bytes": 1539,
+          "preserved_at": [
+            "experimental/native-http-core/module/config",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/config",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/config",
+            "experimental/native-http-core/results/single-20261031/module-source/config",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/config"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/tracing.c": {
+          "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4",
+          "bytes": 10285,
+          "preserved_at": [
+            "experimental/native-http-core/module/tracing.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/tracing.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/tracing.c",
+            "experimental/native-http-core/results/single-20261031/module-source/tracing.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/tracing.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/resources.c": {
+          "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8",
+          "bytes": 15528,
+          "preserved_at": [
+            "experimental/native-http-core/module/resources.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resources.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resources.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resources.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resources.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resources.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/sdk.c": {
+          "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f",
+          "bytes": 18294,
+          "preserved_at": [
+            "experimental/native-http-core/module/sdk.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/sdk.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/sdk.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/sdk.c",
+            "experimental/native-http-core/results/single-20261031/module-source/sdk.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/sdk.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/native_phases.c": {
+          "sha256": "8026f4d16238bc3bf281f1fa7b0f8b322b4782700b1abb0184aaa3589cc456d0",
+          "bytes": 3609,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/native_phases.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/platform.c": {
+          "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087",
+          "bytes": 12592,
+          "preserved_at": [
+            "experimental/native-http-core/module/platform.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/platform.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/platform.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/platform.c",
+            "experimental/native-http-core/results/single-20261031/module-source/platform.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/platform.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/snapshot.c": {
+          "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884",
+          "bytes": 9307,
+          "preserved_at": [
+            "experimental/native-http-core/module/snapshot.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/snapshot.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/snapshot.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/snapshot.c",
+            "experimental/native-http-core/results/single-20261031/module-source/snapshot.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/snapshot.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/instrumentation.c": {
+          "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654",
+          "bytes": 7914,
+          "preserved_at": [
+            "experimental/native-http-core/module/instrumentation.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/instrumentation.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/instrumentation.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/instrumentation.c",
+            "experimental/native-http-core/results/single-20261031/module-source/instrumentation.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/instrumentation.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/upstream.c": {
+          "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9",
+          "bytes": 35425,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/request.c": {
+          "sha256": "21231321a5f1aa36ad5b66b20321ae3411a23df564fb1a12f839b243f2a6741b",
+          "bytes": 32747,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/request.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/request.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/utils.c": {
+          "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46",
+          "bytes": 25566,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/utils.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/utils.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/utils.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/expression.c": {
+          "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a",
+          "bytes": 8923,
+          "preserved_at": [
+            "experimental/native-http-core/module/expression.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/expression.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/expression.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/expression.c",
+            "experimental/native-http-core/results/single-20261031/module-source/expression.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/expression.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/response.c": {
+          "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63",
+          "bytes": 15847,
+          "preserved_at": [
+            "experimental/native-http-core/module/response.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/response.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/response.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/response.c",
+            "experimental/native-http-core/results/single-20261031/module-source/response.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/response.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/http.c": {
+          "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa",
+          "bytes": 13243,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/http.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/http.c",
+            "experimental/native-http-core/results/single-20261031/module-source/http.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/http.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/background.c": {
+          "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a",
+          "bytes": 8663,
+          "preserved_at": [
+            "experimental/native-http-core/module/background.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/background.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/background.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/background.c",
+            "experimental/native-http-core/results/single-20261031/module-source/background.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/background.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/consumer.c": {
+          "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0",
+          "bytes": 15392,
+          "preserved_at": [
+            "experimental/native-http-core/module/consumer.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/consumer.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/consumer.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/consumer.c",
+            "experimental/native-http-core/results/single-20261031/module-source/consumer.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/consumer.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/engine.h": {
+          "sha256": "30f6575bc10edee3d1178a8c88edf1206e4949f7ffa29067f3f99f3f10752bee",
+          "bytes": 11247,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/engine.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/engine.h"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/schema_data.h": {
+          "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478",
+          "bytes": 50549,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/schema_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema_data.h"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/module.c": {
+          "sha256": "48f740b33f7a586e9dfb472844ad28d06e1629b0d230476b71bed19c2f05d7fc",
+          "bytes": 13433,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/module.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/cache.c": {
+          "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce",
+          "bytes": 16447,
+          "preserved_at": [
+            "experimental/native-http-core/module/cache.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/cache.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/cache.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/cache.c",
+            "experimental/native-http-core/results/single-20261031/module-source/cache.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/cache.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/routes.c": {
+          "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac",
+          "bytes": 22996,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/routes.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/routes.c",
+            "experimental/native-http-core/results/single-20261031/module-source/routes.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/routes.c"
+          ]
+        },
+        "/tmp/apisix-core-cost-build/module/merge.c": {
+          "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0",
+          "bytes": 13353,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/merge.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/merge.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/merge.c",
+            "experimental/native-http-core/results/single-20261031/module-source/merge.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/merge.c"
+          ]
+        }
+      }
+    },
+    "apisix-native-demo": {
+      "scanned_source_roots": [
+        "/opt/apisix-core-module",
+        "/tmp/apisix-core-cost-20261031T0755Z",
+        "/tmp/apisix-core-cost-20261031T0757Z",
+        "/tmp/apisix-http-core-demo",
+        "/tmp/apisix-http-core-results",
+        "/tmp/apisix-http-core-upstream",
+        "/tmp/apisix-limit-only-v6-20261031T0644Z",
+        "/tmp/apisix-limit-recheck-20261031T0617Z",
+        "/tmp/apisix-subtraction-nginx",
+        "/tmp/apisix-subtraction-preflight-20261031",
+        "/tmp/apisix-subtraction-v6-20261031T0925Z",
+        "/tmp/apisix-subtraction-verify-v2-20261031",
+        "/tmp/apisix-v6-limit-only-frozen",
+        "/tmp/core-cost-verify-lua",
+        "/tmp/core-cost-verify-lua-attribution",
+        "/tmp/core-cost-verify-native",
+        "/tmp/core-cost-verify-native-attribution",
+        "/tmp/native-demo-results",
+        "/tmp/native-demo-upstream"
+      ],
+      "files": {
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/script.c": {
+          "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662",
+          "bytes": 2948,
+          "preserved_at": [
+            "experimental/native-http-core/module/script.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/script.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/script.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/script.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/script.c",
+            "experimental/native-http-core/results/single-20261031/module-source/script.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/script.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/resolver.c": {
+          "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043",
+          "bytes": 14813,
+          "preserved_at": [
+            "experimental/native-http-core/module/resolver.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resolver.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resolver.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resolver.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resolver.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resolver.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resolver.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/upstream_helpers.c": {
+          "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3",
+          "bytes": 12388,
+          "preserved_at": [
+            "experimental/native-http-core/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream_helpers.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/upstream_helpers.c",
+            "experimental/native-http-core/results/single-20261031/module-source/upstream_helpers.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream_helpers.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/plugins.c": {
+          "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015",
+          "bytes": 25614,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/plugins.c",
+            "experimental/native-http-core/results/single-20261031/module-source/plugins.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/plugins.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/redis_data.h": {
+          "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06",
+          "bytes": 8196,
+          "preserved_at": [
+            "experimental/native-http-core/module/redis_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/redis_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/redis_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/redis_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/redis_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/redis_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/redis_data.h"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/schema.c": {
+          "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60",
+          "bytes": 6063,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema.c",
+            "experimental/native-http-core/results/single-20261031/module-source/schema.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/config": {
+          "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598",
+          "bytes": 1539,
+          "preserved_at": [
+            "experimental/native-http-core/module/config",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/config",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/config",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/config",
+            "experimental/native-http-core/results/single-20261031/module-source/config",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/config"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/tracing.c": {
+          "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4",
+          "bytes": 10285,
+          "preserved_at": [
+            "experimental/native-http-core/module/tracing.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/tracing.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/tracing.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/tracing.c",
+            "experimental/native-http-core/results/single-20261031/module-source/tracing.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/tracing.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/resources.c": {
+          "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8",
+          "bytes": 15528,
+          "preserved_at": [
+            "experimental/native-http-core/module/resources.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/resources.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/resources.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/resources.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/resources.c",
+            "experimental/native-http-core/results/single-20261031/module-source/resources.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/resources.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/sdk.c": {
+          "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f",
+          "bytes": 18294,
+          "preserved_at": [
+            "experimental/native-http-core/module/sdk.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/sdk.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/sdk.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/sdk.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/sdk.c",
+            "experimental/native-http-core/results/single-20261031/module-source/sdk.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/sdk.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/native_phases.c": {
+          "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45",
+          "bytes": 3341,
+          "preserved_at": [
+            "experimental/native-http-core/module/native_phases.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/native_phases.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/native_phases.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/native_phases.c",
+            "experimental/native-http-core/results/single-20261031/module-source/native_phases.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/native_phases.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/platform.c": {
+          "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087",
+          "bytes": 12592,
+          "preserved_at": [
+            "experimental/native-http-core/module/platform.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/platform.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/platform.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/platform.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/platform.c",
+            "experimental/native-http-core/results/single-20261031/module-source/platform.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/platform.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/snapshot.c": {
+          "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884",
+          "bytes": 9307,
+          "preserved_at": [
+            "experimental/native-http-core/module/snapshot.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/snapshot.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/snapshot.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/snapshot.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/snapshot.c",
+            "experimental/native-http-core/results/single-20261031/module-source/snapshot.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/snapshot.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/instrumentation.c": {
+          "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654",
+          "bytes": 7914,
+          "preserved_at": [
+            "experimental/native-http-core/module/instrumentation.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/instrumentation.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/instrumentation.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/instrumentation.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/instrumentation.c",
+            "experimental/native-http-core/results/single-20261031/module-source/instrumentation.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/instrumentation.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/upstream.c": {
+          "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9",
+          "bytes": 35425,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/upstream.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/upstream.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/upstream.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/request.c": {
+          "sha256": "21231321a5f1aa36ad5b66b20321ae3411a23df564fb1a12f839b243f2a6741b",
+          "bytes": 32747,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/request.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/request.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/utils.c": {
+          "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46",
+          "bytes": 25566,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/utils.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/utils.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/utils.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/expression.c": {
+          "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a",
+          "bytes": 8923,
+          "preserved_at": [
+            "experimental/native-http-core/module/expression.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/expression.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/expression.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/expression.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/expression.c",
+            "experimental/native-http-core/results/single-20261031/module-source/expression.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/expression.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/response.c": {
+          "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63",
+          "bytes": 15847,
+          "preserved_at": [
+            "experimental/native-http-core/module/response.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/response.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/response.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/response.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/response.c",
+            "experimental/native-http-core/results/single-20261031/module-source/response.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/response.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/http.c": {
+          "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa",
+          "bytes": 13243,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/http.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/http.c",
+            "experimental/native-http-core/results/single-20261031/module-source/http.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/http.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/background.c": {
+          "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a",
+          "bytes": 8663,
+          "preserved_at": [
+            "experimental/native-http-core/module/background.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/background.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/background.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/background.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/background.c",
+            "experimental/native-http-core/results/single-20261031/module-source/background.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/background.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/consumer.c": {
+          "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0",
+          "bytes": 15392,
+          "preserved_at": [
+            "experimental/native-http-core/module/consumer.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/consumer.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/consumer.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/consumer.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/consumer.c",
+            "experimental/native-http-core/results/single-20261031/module-source/consumer.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/consumer.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/engine.h": {
+          "sha256": "30f6575bc10edee3d1178a8c88edf1206e4949f7ffa29067f3f99f3f10752bee",
+          "bytes": 11247,
+          "preserved_at": [
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/engine.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/engine.h"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/schema_data.h": {
+          "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478",
+          "bytes": 50549,
+          "preserved_at": [
+            "experimental/native-http-core/module/schema_data.h",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/schema_data.h",
+            "experimental/native-http-core/results/before-native-filters/source/module/schema_data.h",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/schema_data.h",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/schema_data.h",
+            "experimental/native-http-core/results/single-20261031/module-source/schema_data.h",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/schema_data.h"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/module.c": {
+          "sha256": "2870a1b3f75f4049873368b9da284ea319934bcc5ec46c4e6926b4aec82c3d30",
+          "bytes": 13171,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/module.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/module.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/cache.c": {
+          "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce",
+          "bytes": 16447,
+          "preserved_at": [
+            "experimental/native-http-core/module/cache.c",
+            "experimental/native-http-core/results/before-log-prefetch/source/module/cache.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/cache.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/candidate-module-source/cache.c",
+            "experimental/native-http-core/results/exhaustive-20261031/screen-module-source/cache.c",
+            "experimental/native-http-core/results/single-20261031/module-source/cache.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/cache.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/routes.c": {
+          "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac",
+          "bytes": 22996,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/routes.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/routes.c",
+            "experimental/native-http-core/results/single-20261031/module-source/routes.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/routes.c"
+          ]
+        },
+        "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/module/merge.c": {
+          "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0",
+          "bytes": 13353,
+          "preserved_at": [
+            "experimental/native-http-core/results/before-log-prefetch/source/module/merge.c",
+            "experimental/native-http-core/results/before-native-filters/source/module/merge.c",
+            "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/merge.c",
+            "experimental/native-http-core/results/single-20261031/module-source/merge.c",
+            "a3770f02b3adc2c295e993b8234da3e49f26864c:experimental/native-http-core/module/merge.c"
+          ]
+        }
+      }
+    }
+  },
+  "preserved_commits": [
+    {
+      "sha": "cd0fb07a1c5970ebcb6e0e3c073639c8e8c256a0",
+      "subject": "feat: add native HTTP core research and LLM handoff",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "634b6b6093751041e85b0bf5b8b27e752a9a8682",
+      "subject": "perf: checkpoint native HTTP core optimization experiments",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "1aa6d5f67c4dd6c4a3aca2df6d9d742395824c4e",
+      "subject": "docs: preserve whitespace in raw measurement archives",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "a3770f02b3adc2c295e993b8234da3e49f26864c",
+      "subject": "test: repeat isolated limit-count comparison for three rounds",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "7c3402eb3ce463dfffe6591e5c76d798421407ac",
+      "subject": "merge: preserve concurrent research and append historical recheck evidence",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "e9688936adf95b70291a9798fb98106c2bb5a51d",
+      "subject": "test: compare frozen v6 limit-count with global metrics disabled",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "8b8dac1ea923331d55e8d02763b21d456ada0eda",
+      "subject": "test: record scoped core CPU, GC and fixed-load latency diagnostics",
+      "reachable_from_audited_commit": true
+    },
+    {
+      "sha": "3e63b632ca33b805d42fb839738cf8120aa11ead",
+      "subject": "Measure v6 worker costs with subtraction and plugin amplification",
+      "reachable_from_audited_commit": true
+    }
+  ],
+  "closeout_validation": "Preservation, links, source identity and Git history only. No new module build, functional test or performance run."
+}

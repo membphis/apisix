@@ -1,5 +1,10 @@
 # Native standalone HTTP core demo
 
+> V1 research milestone: [frozen implementation and preservation audit](V1_MILESTONE.md),
+> [user decisions and research hypotheses](V1_DISCUSSION_RECORD.md), and
+> [the next session prompt](V1_NEXT_SESSION_PROMPT.md).
+> Continue on a new branch from the delivered V1 commit; the final architecture is still to be decided.
+
 > Latest research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
 > with [the previous single-plugin report](EXPERIMENTS_20261031.md) preserved.
 > The comparison uses unchanged stable APISIX 3.19.0 plugin sources, one route plugin
