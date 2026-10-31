@@ -1,0 +1,53 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+PASS lua-core 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native-lua 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native-c-adapter 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native-c-pipeline 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+PASS native-c-adapter generation pinning/reload/key rotation/rejected unsupported reload/recovery
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_native_key_auth.py", line 212, in <module>
+    if variant in ("native-c-adapter", "native-c-pipeline"): lifecycle(variant)
+  File "/src/experimental/native-http-core/tests/test_native_key_auth.py", line 174, in lifecycle
+    assert pending.result()[0] == 200
+AssertionError

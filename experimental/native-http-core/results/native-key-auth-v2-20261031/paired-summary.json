@@ -1,0 +1,487 @@
+{
+  "sample_count": 8,
+  "module_sha256": "99bb4233fa8780c7ace4395f8ff52ead0398a77b31218face9713031dbbdab5f",
+  "means": {
+    "lua-core": {
+      "qps": 23532.010000000002,
+      "worker_cpu_us_per_request": 42.456199759258006,
+      "rss_peak_bytes": 32124928
+    },
+    "native-lua": {
+      "qps": 25606.25,
+      "worker_cpu_us_per_request": 39.009131746358236,
+      "rss_peak_bytes": 18130944
+    },
+    "native-c-adapter": {
+      "qps": 28601.989999999998,
+      "worker_cpu_us_per_request": 34.9143630911619,
+      "rss_peak_bytes": 18053120
+    },
+    "native-c-pipeline": {
+      "qps": 46738.925,
+      "worker_cpu_us_per_request": 21.32411934999041,
+      "rss_peak_bytes": 17289216
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "native-lua",
+      "control": "lua-core",
+      "mean_qps_delta_percent": 8.81454665368575,
+      "per_round_delta_percent": [
+        10.134095526647101,
+        7.486723339895285
+      ]
+    },
+    {
+      "candidate": "native-c-adapter",
+      "control": "native-lua",
+      "mean_qps_delta_percent": 11.699253112033192,
+      "per_round_delta_percent": [
+        9.274987816262703,
+        14.198803635811274
+      ]
+    },
+    {
+      "candidate": "native-c-pipeline",
+      "control": "native-c-adapter",
+      "mean_qps_delta_percent": 63.41144444844575,
+      "per_round_delta_percent": [
+        64.27636113268092,
+        62.558117890239
+      ]
+    },
+    {
+      "candidate": "native-c-pipeline",
+      "control": "native-lua",
+      "mean_qps_delta_percent": 82.52936294849891,
+      "per_round_delta_percent": [
+        79.51297361273679,
+        85.63942584354464
+      ]
+    },
+    {
+      "candidate": "native-c-pipeline",
+      "control": "lua-core",
+      "mean_qps_delta_percent": 98.61849880226976,
+      "per_round_delta_percent": [
+        97.70498984137635,
+        99.53773606622092
+      ]
+    }
+  ],
+  "throttled_samples": [],
+  "raw_verification_passed": true,
+  "same_resources_and_runtime": true,
+  "rows": [
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 85123287,
+        "user_usec": 39786534,
+        "system_usec": 45336752,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 85180772,
+        "user_usec": 39820859,
+        "system_usec": 45359913,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.24699978700119,
+      "requests": 1416470,
+      "qps": 23605.56,
+      "workers": [
+        145088
+      ],
+      "worker_cpu_seconds": 59.94,
+      "worker_user_cpu_seconds": 32.870000000000005,
+      "worker_system_cpu_seconds": 27.07,
+      "worker_cpu_us_per_request": 42.316462756006125,
+      "rss_start_bytes": 31879168,
+      "rss_end_bytes": 32649216,
+      "rss_peak_bytes": 32759808,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1325.0,
+        "p95": 1691.0,
+        "p99": 2063.0
+      },
+      "error_rate": 0,
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-lua",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 86437002,
+        "user_usec": 40186300,
+        "system_usec": 46250703,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 86655516,
+        "user_usec": 40305871,
+        "system_usec": 46349646,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.2532242160014,
+      "requests": 1559959,
+      "qps": 25997.77,
+      "workers": [
+        145210
+      ],
+      "worker_cpu_seconds": 59.91000000000001,
+      "worker_user_cpu_seconds": 32.31,
+      "worker_system_cpu_seconds": 27.6,
+      "worker_cpu_us_per_request": 38.40485551222821,
+      "rss_start_bytes": 17985536,
+      "rss_end_bytes": 17829888,
+      "rss_peak_bytes": 18055168,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1209.0,
+        "p95": 1519.0,
+        "p99": 1898.0
+      },
+      "error_rate": 0,
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-c-adapter",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 90409729,
+        "user_usec": 37427378,
+        "system_usec": 52982351,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 90524308,
+        "user_usec": 37489254,
+        "system_usec": 53035054,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.25414860100136,
+      "requests": 1704555,
+      "qps": 28409.06,
+      "workers": [
+        145332
+      ],
+      "worker_cpu_seconds": 59.92999999999999,
+      "worker_user_cpu_seconds": 28.78,
+      "worker_system_cpu_seconds": 31.15,
+      "worker_cpu_us_per_request": 35.15873644440924,
+      "rss_start_bytes": 18096128,
+      "rss_end_bytes": 17993728,
+      "rss_peak_bytes": 18112512,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1106.0,
+        "p95": 1400.0,
+        "p99": 1683.0
+      },
+      "error_rate": 0,
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-c-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 104857048,
+        "user_usec": 30308754,
+        "system_usec": 74548293,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 104909428,
+        "user_usec": 30339456,
+        "system_usec": 74569973,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.26346985999953,
+      "requests": 2800220,
+      "qps": 46669.37,
+      "workers": [
+        145460
+      ],
+      "worker_cpu_seconds": 59.86,
+      "worker_user_cpu_seconds": 19.01,
+      "worker_system_cpu_seconds": 40.85,
+      "worker_cpu_us_per_request": 21.376891815643056,
+      "rss_start_bytes": 17235968,
+      "rss_end_bytes": 17235968,
+      "rss_peak_bytes": 17235968,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 678.0,
+        "p95": 870.0,
+        "p99": 1040.0
+      },
+      "error_rate": 0,
+      "round": 1
+    },
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 85038688,
+        "user_usec": 40366297,
+        "system_usec": 44672391,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 85094782,
+        "user_usec": 40397213,
+        "system_usec": 44697568,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.254629969000234,
+      "requests": 1407646,
+      "qps": 23458.46,
+      "workers": [
+        145960
+      ],
+      "worker_cpu_seconds": 59.959999999999994,
+      "worker_user_cpu_seconds": 32.96,
+      "worker_system_cpu_seconds": 27.0,
+      "worker_cpu_us_per_request": 42.595936762509886,
+      "rss_start_bytes": 31174656,
+      "rss_end_bytes": 31473664,
+      "rss_peak_bytes": 31490048,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1327.0,
+        "p95": 1731.0,
+        "p99": 2168.0
+      },
+      "error_rate": 0,
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-lua",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 86964037,
+        "user_usec": 40126097,
+        "system_usec": 46837940,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 87075726,
+        "user_usec": 40186217,
+        "system_usec": 46889508,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.24906260000171,
+      "requests": 1515396,
+      "qps": 25214.73,
+      "workers": [
+        145832
+      ],
+      "worker_cpu_seconds": 60.03,
+      "worker_user_cpu_seconds": 32.64,
+      "worker_system_cpu_seconds": 27.39,
+      "worker_cpu_us_per_request": 39.61340798048827,
+      "rss_start_bytes": 18063360,
+      "rss_end_bytes": 17981440,
+      "rss_peak_bytes": 18206720,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1245.0,
+        "p95": 1541.0,
+        "p99": 1953.0
+      },
+      "error_rate": 0,
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-c-adapter",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 89417964,
+        "user_usec": 37257360,
+        "system_usec": 52160605,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 89661849,
+        "user_usec": 37362560,
+        "system_usec": 52299288,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.25235723699916,
+      "requests": 1727719,
+      "qps": 28794.92,
+      "workers": [
+        145710
+      ],
+      "worker_cpu_seconds": 59.900000000000006,
+      "worker_user_cpu_seconds": 29.07,
+      "worker_system_cpu_seconds": 30.830000000000002,
+      "worker_cpu_us_per_request": 34.66998973791456,
+      "rss_start_bytes": 17899520,
+      "rss_end_bytes": 17911808,
+      "rss_peak_bytes": 17993728,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 1094.0,
+        "p95": 1374.0,
+        "p99": 1655.0
+      },
+      "error_rate": 0,
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "native-c-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 105030180,
+        "user_usec": 31209923,
+        "system_usec": 73820257,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 105308247,
+        "user_usec": 31352408,
+        "system_usec": 73955838,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.25750690899986,
+      "requests": 2813174,
+      "qps": 46808.48,
+      "workers": [
+        145582
+      ],
+      "worker_cpu_seconds": 59.839999999999996,
+      "worker_user_cpu_seconds": 19.53,
+      "worker_system_cpu_seconds": 40.31,
+      "worker_cpu_us_per_request": 21.271346884337763,
+      "rss_start_bytes": 17342464,
+      "rss_end_bytes": 17342464,
+      "rss_peak_bytes": 17342464,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "p50": 674.0,
+        "p95": 869.0,
+        "p99": 1067.0
+      },
+      "error_rate": 0,
+      "round": 2
+    }
+  ],
+  "limitations": "Two reversed-order rounds, no statistical-significance claim. Common pinned historical dependencies, not a stock release image. C-only mode has an explicit documented capability contract."
+}

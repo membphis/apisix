@@ -160,6 +160,7 @@ if __name__ == "__main__":
     parser.add_argument("--variant", default="default")
     parser.add_argument("--out", type=Path, required=True,
                         help="new evidence directory; existing results are never overwritten")
+    parser.add_argument("--stop-after", action="store_true", help="stop after the samples instead of restoring the historical demo")
     args = parser.parse_args()
     OUT = args.out
     OUT.mkdir(parents=True, exist_ok=False)
@@ -214,5 +215,8 @@ if __name__ == "__main__":
         for mode in modes:
             results.append(sample(mode, prefix, cpu, args.suite, args.variant))
             (OUT / "results.json").write_text(json.dumps(results, indent=2))
-    prepare("native")
-    ready()
+    if args.stop_after:
+        stop()
+    else:
+        prepare("native")
+        ready()

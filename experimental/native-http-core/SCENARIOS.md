@@ -1,6 +1,10 @@
 # Demo scope and native ownership
 
-> 最新研究请先读 [16项候选、证据与研究边界](EXHAUSTIVE_20261031.md)；
+> 最新专项：[key-auth 原生业务与 C 请求闭环](NATIVE_KEY_AUTH_V2.md)。用户已授权重写认证插件，新增C业务/旧适配器与完整C请求路径，默认关闭。
+> 本轮两轮60秒配对：完整C相对C核心+Lua key-auth均值+82.53%，相对稳定Lua+98.62%；只适用于报告明确的key-auth场景和配置能力，不推广到其他插件。
+> 上一阶段已提交并推送至`apisix-next-v4-llm-core-v1`；专项分支为`apisix-next-v4-llm-native-plugins-v2`。下列旧报告及历史正文保持原结果。
+
+> 上一阶段研究请读 [16项候选、证据与研究边界](EXHAUSTIVE_20261031.md)；
 > [上一轮单插件报告](EXPERIMENTS_20261031.md) 与本文历史正文继续保留，不改写旧结果。
 > 当前口径是稳定版 APISIX 3.19.0、路由独立启用 Prometheus / key-auth / local limit-count，双方排除 `ai`；每个压力样本仍为60秒。
 > 本轮首批13项加追加3项，共16个运行时开关，另测O3、O3-lto及O3-lto-local；模块ASan/UBSan、扩展池生命周期及稳定源O2单插件验证已完成，证据见最新报告。

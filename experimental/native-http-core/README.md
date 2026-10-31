@@ -1,6 +1,13 @@
 # Native standalone HTTP core demo
 
-> Latest research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
+> Latest special study: [native key-auth business and a C-only request path](NATIVE_KEY_AUTH_V2.md).
+> The new mode rewrites key-auth and its request integration in C; all new switches default off.
+> Two 60-second paired rounds show +82.53% mean QPS versus C core + Lua key-auth and +98.62%
+> versus the stable Lua core, within the documented route-only key-auth capability contract.
+> The previous checkpoint is pushed as `apisix-next-v4-llm-core-v1`; this study uses
+> `apisix-next-v4-llm-native-plugins-v2`. Earlier results below remain historical evidence.
+
+> Previous research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
 > with [the previous single-plugin report](EXPERIMENTS_20261031.md) preserved.
 > The comparison uses unchanged stable APISIX 3.19.0 plugin sources, one route plugin
 > at a time (Prometheus, key-auth or local limit-count), and excludes `ai` on both sides.

@@ -562,7 +562,12 @@ ac_peer_get(ngx_peer_connection_t *pc, void *data, lua_State *L)
                                     (ngx_uint_t) selected->port) - host.data;
         }
         peer->ctx->upstream_host = host;
-        ac_var_assign(L, peer->ctx, "upstream_host", host, 1);
+        if (L) ac_var_assign(L, peer->ctx, "upstream_host", host, 1);
+    }
+    if (!L) {
+        peer->ctx->native_variables[3] = selected->host;
+        peer->ctx->native_variable_set |= (uint64_t) 1 << 3;
+        return NGX_OK;
     }
     ac_push(L, peer->ctx->table_ref);
     u_char ip[NGX_SOCKADDR_STRLEN];
@@ -886,6 +891,117 @@ ac_upstream_enabled(ac_request_t *ctx)
 {
     ac_loc_conf_t *conf = ngx_http_get_module_loc_conf(ctx->request, ngx_http_apisix_core_module);
     return conf->proxy;
+}
+
+void
+ac_upstream_validate_native(lua_State *L, ac_main_conf_t *main, ac_route_t *route)
+{
+    ac_upstream_t *u = route->upstream;
+    ac_node_t *nodes;
+    ngx_uint_t i;
+    if (!u) return;
+    if (u->domain || ngx_strcmp(u->scheme.data, "http") != 0
+        || ngx_strcmp(u->type.data, "chash") == 0 || ngx_strcmp(u->pass_host.data, "node") == 0)
+        luaL_error(L, "native pipeline requires static HTTP nodes, native selection and pass/rewrite host");
+    if (u->keepalive_size != 320 || u->keepalive_requests != 1000 || u->keepalive_idle != 60)
+        luaL_error(L, "native pipeline requires the configured common 320/1000/60s keepalive settings");
+    nodes = u->nodes.elts;
+    for (i = 0; i < u->nodes.nelts; i++)
+        if (!nodes[i].address.sockaddr) luaL_error(L, "native pipeline has an unresolved peer");
+    (void) main;
+}
+
+ngx_int_t
+ac_upstream_prepare_native(ac_request_t *ctx)
+{
+    ngx_http_request_t *r = ctx->request;
+    ac_upstream_t *u = ctx->route->upstream;
+    ac_peer_t *peer;
+    ngx_peer_connection_t pc;
+    uintptr_t escaped; u_char *out;
+    if (!u || !u->nodes.nelts) return 503;
+    ctx->upstream = u; ctx->upstream_scheme = u->scheme;
+    if (ngx_strcmp(u->pass_host.data, "rewrite") == 0) ctx->upstream_host = u->upstream_host;
+    else ctx->upstream_host = r->headers_in.host ? r->headers_in.host->value : r->headers_in.server;
+    if (r->valid_unparsed_uri) ctx->upstream_uri = r->unparsed_uri;
+    else {
+        escaped = ngx_escape_uri(NULL, r->uri.data, r->uri.len, NGX_ESCAPE_URI);
+        out = ngx_pnalloc(r->pool, r->uri.len + 2 * escaped + r->args.len + 1);
+        if (!out) return 500;
+        ctx->upstream_uri.data = out;
+        out = (u_char *) ngx_escape_uri(out, r->uri.data, r->uri.len, NGX_ESCAPE_URI);
+        if (r->args.len) { *out++ = '?'; out = ngx_cpymem(out, r->args.data, r->args.len); }
+        ctx->upstream_uri.len = out - ctx->upstream_uri.data;
+    }
+    peer = ngx_pcalloc(r->pool, sizeof(*peer));
+    if (!peer) return 500;
+    peer->ctx = ctx; peer->upstream = u; peer->started = ngx_current_msec; peer->ring_ref = LUA_NOREF;
+    peer->tried = ngx_pcalloc(r->pool, ((u->nodes.nelts + 8 * sizeof(uintptr_t) - 1)
+                              / (8 * sizeof(uintptr_t))) * sizeof(uintptr_t));
+    if (!peer->tried) return 500;
+    ctx->native_peer = peer; ngx_memzero(&pc, sizeof(pc));
+    return ac_peer_get(&pc, peer, NULL) == NGX_OK ? NGX_OK : 502;
+}
+
+static ngx_int_t
+ac_native_peer_get(ngx_peer_connection_t *pc, void *data)
+{
+    ac_peer_t *peer = data;
+    ac_node_t *node = peer->selected;
+    ac_request_t *ctx = peer->ctx;
+    if (ctx->balance_attempts && peer->upstream->retry_timeout
+        && ngx_current_msec - peer->started > peer->upstream->retry_timeout) return NGX_BUSY;
+    if (!ctx->balance_attempts && node) {
+        pc->sockaddr = node->address.sockaddr; pc->socklen = node->address.socklen;
+        pc->name = &node->address.name; pc->cached = 0; pc->connection = NULL;
+    } else if (ac_peer_get(pc, peer, NULL) != NGX_OK) return NGX_BUSY;
+    ctx->balance_attempts++; return NGX_OK;
+}
+
+static ngx_int_t
+ac_native_peer_init(ngx_http_request_t *r, ngx_http_upstream_srv_conf_t *us)
+{
+    ac_request_t *ctx = ngx_http_get_module_ctx(r, ngx_http_apisix_core_module);
+    ngx_http_upstream_t *u = r->upstream;
+    ngx_http_upstream_conf_t *conf;
+    ac_upstream_t *upstream;
+    ngx_uint_t retries;
+    if (!ctx || !ctx->c_pipeline || !ctx->native_peer) return NGX_ERROR;
+    upstream = ctx->upstream;
+    conf = ngx_palloc(r->pool, sizeof(*conf));
+    if (!conf) return NGX_ERROR;
+    *conf = *u->conf; u->conf = conf;
+    conf->connect_timeout = upstream->connect_timeout;
+    conf->send_timeout = upstream->send_timeout; conf->read_timeout = upstream->read_timeout;
+    /* This APISIX runtime snapshots effective timeouts into upstream_t before
+     * init_peer, as its existing balancer C API does. Update both views. */
+    u->connect_timeout = upstream->connect_timeout;
+    u->send_timeout = upstream->send_timeout; u->read_timeout = upstream->read_timeout;
+    conf->next_upstream_timeout = upstream->retry_timeout;
+    retries = upstream->retries == NGX_CONF_UNSET_UINT ? upstream->nodes.nelts - 1 : upstream->retries;
+    /* Route retry counts do not override proxy_next_upstream off or the
+     * configured failure classes. This is also true of the Lua balancer. */
+    if (conf->next_upstream & NGX_HTTP_UPSTREAM_FT_OFF) retries = 0;
+    u->peer.data = ctx->native_peer; u->peer.get = ac_native_peer_get; u->peer.free = ac_peer_free;
+    u->peer.tries = retries + 1;
+    (void) us; return NGX_OK;
+}
+
+static ngx_int_t
+ac_native_upstream_init(ngx_conf_t *cf, ngx_http_upstream_srv_conf_t *us)
+{
+    us->peer.init = ac_native_peer_init;
+    (void) cf; return NGX_OK;
+}
+
+char *
+ac_upstream_native_directive(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+{
+    ngx_http_upstream_srv_conf_t *us = ngx_http_conf_get_module_srv_conf(cf, ngx_http_upstream_module);
+    /* Place before keepalive: the standard NGINX module wraps this init_peer. */
+    if (us->peer.init_upstream) return "native_balancer must precede keepalive and other balancers";
+    us->peer.init_upstream = ac_native_upstream_init;
+    (void) cmd; (void) conf; return NGX_CONF_OK;
 }
 
 void

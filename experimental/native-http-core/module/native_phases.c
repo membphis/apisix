@@ -55,6 +55,7 @@ ac_native_body(ngx_http_request_t *request, ngx_chain_t *buffers)
 {
     ac_request_t *ctx = ngx_http_get_module_ctx(request, ngx_http_apisix_core_module);
     if (ctx && ctx->main->native_filters && ac_upstream_enabled(ctx)) {
+        if (ctx->c_pipeline) return next_body(request, buffers);
         /* Startup/transactional compilation reject tracing, scripts and Lua
          * filter callbacks in this mode. Both body callback plans are empty. */
         ctx->phase = AC_BODY_FILTER;

@@ -37,6 +37,12 @@ static void *ac_create_location(ngx_conf_t *cf);
 static char *ac_merge_location(ngx_conf_t *cf, void *parent, void *child);
 
 static ngx_command_t ac_commands[] = {
+    {ngx_string("apisix_core_native_key_auth"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_key_auth), NULL},
+    {ngx_string("apisix_core_native_pipeline"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_pipeline), NULL},
+    {ngx_string("apisix_core_native_balancer"), NGX_HTTP_UPS_CONF | NGX_CONF_NOARGS,
+     ac_upstream_native_directive, 0, 0, NULL},
     {ngx_string("apisix_core_balancer_peer_plan"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, balancer_peer_plan), NULL},
     {ngx_string("apisix_core_sdk_cache_replay"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
@@ -329,6 +335,7 @@ ac_request(lua_State *L)
     }
     ctx = ngx_http_get_module_ctx(request, ngx_http_apisix_core_module);
     if (ctx != NULL) {
+        if (ctx->c_pipeline) luaL_error(L, "C-only request cannot enter the Lua engine; remove business Lua phase hooks");
         return ctx;
     }
     ctx = ngx_pcalloc(request->pool, sizeof(*ctx));
@@ -533,6 +540,8 @@ ac_create_main(ngx_conf_t *cf)
         if (!main->request_pool_state || !main->matched_pool_state) return NULL;
         main->pool = cf->pool;
         main->native_filters = NGX_CONF_UNSET;
+        main->native_key_auth = NGX_CONF_UNSET;
+        main->native_pipeline = NGX_CONF_UNSET;
         main->lazy_rate_json = NGX_CONF_UNSET;
         main->rate_variable_index = NGX_ERROR;
         main->log_var_plan = NGX_CONF_UNSET;
@@ -572,6 +581,9 @@ static ngx_int_t
 ac_register(ngx_conf_t *cf)
 {
     ac_main_conf_t *main = ngx_http_conf_get_module_main_conf(cf, ngx_http_apisix_core_module);
+    if (main->native_pipeline == NGX_CONF_UNSET) main->native_pipeline = 0;
+    if (main->native_key_auth == NGX_CONF_UNSET) main->native_key_auth = 0;
+    if (main->native_pipeline) main->native_key_auth = 1;
     if (main->fused_balancer == NGX_CONF_UNSET) main->fused_balancer = 0;
     if (main->batch_vars == NGX_CONF_UNSET) main->batch_vars = 0;
     if (main->http_var_plan == NGX_CONF_UNSET) main->http_var_plan = 0;
@@ -598,6 +610,7 @@ ac_register(ngx_conf_t *cf)
     if (ac_script_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_snapshot_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_sdk_register(cf) != NGX_OK) return NGX_ERROR;
+    if (ac_pipeline_register(cf) != NGX_OK) return NGX_ERROR;
     return ac_native_filters_register(cf);
 }
 

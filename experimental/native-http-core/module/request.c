@@ -73,6 +73,31 @@ ac_native_header_write(ngx_http_request_t *r, ngx_str_t name,
     ngx_str_t value, ngx_flag_t response, ngx_flag_t append, char **error)
 {
     int status;
+    ac_request_t *ctx = ngx_http_get_module_ctx(r, ngx_http_apisix_core_module);
+    if (response && ctx && ctx->c_pipeline) {
+        ngx_list_part_t *part = &r->headers_out.headers.part;
+        ngx_table_elt_t *headers = part->elts, *h;
+        ngx_uint_t i;
+        if (ngx_strlchr(name.data, name.data + name.len, ':')
+            || (value.data && (ngx_strlchr(value.data, value.data + value.len, '\r')
+                || ngx_strlchr(value.data, value.data + value.len, '\n')))) {
+            *error = "invalid native response header"; return NGX_ERROR;
+        }
+        if (!append) for (i = 0; ; i++) {
+            if (i >= part->nelts) {
+                if (!part->next) break;
+                part = part->next; headers = part->elts; i = 0;
+            }
+            if (headers[i].key.len == name.len && ngx_strncasecmp(headers[i].key.data, name.data, name.len) == 0)
+                headers[i].hash = 0;
+        }
+        if (!value.data) return NGX_OK;
+        h = ngx_list_push(&r->headers_out.headers);
+        if (!h) { *error = "no memory"; return NGX_ERROR; }
+        ngx_memzero(h, sizeof(*h)); h->hash = 1; h->key = name; h->value = value;
+        if (name.len == 6 && ngx_strncasecmp(name.data, (u_char *) "server", 6) == 0) r->headers_out.server = h;
+        return NGX_OK;
+    }
     if (append && !value.data) { *error = "invalid header value"; return NGX_ERROR; }
     if (response) {
         status = ngx_http_lua_ffi_set_resp_header(r, (char *) name.data, name.len,

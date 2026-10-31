@@ -1,0 +1,44 @@
+Native C module rebuilt function-profile
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-auth-functions.txt
+Instrumented C subtrees only, including instrumentation tax; not throughput evidence
+Request denominator (ac_http_prepare): 0
+self%  count      inclusive_ms     self_ms   function
+ 58.5    735582          2539.8      2521.4 ac_native_body
+  7.3   3310199           343.0       313.0 ac_native_header_write
+  6.0  10298428           258.8       258.8 ac_var_set
+  4.2    367801           395.4       182.3 ac_http_prepare_native
+  2.5    367791           238.4       108.9 ac_native_header
+  1.9    367801          1029.6        83.2 ac_pipeline_access
+  1.7    367801           266.6        71.4 ac_key_execute
+  1.5    367801           139.4        64.4 ac_peer_get
+  1.4   1839005            59.6        59.6 ac_var_get
+  1.3   1103403           148.4        58.1 ac_key_header_write
+  1.3   2206786            55.2        55.2 ac_node_state
+  1.0    367791           118.5        44.0 ac_header_fields
+  0.9    735602            56.9        38.4 ac_node_eligible
+  0.9   1103413            37.7        37.7 ac_main
+  0.8    367791            54.0        35.5 ac_upstream_log
+  0.8    367801            54.0        35.1 ac_match_native
+  0.7   1103373            30.0        30.0 ngx_strlchr
+  0.7    367801            50.7        29.8 ac_only_decoded_or_merged
+  0.7   1103373            29.6        29.6 ac_upstream_enabled
+  0.7    735582            38.4        29.0 ac_peer_free
+  0.7    367801           168.1        28.7 ac_upstream_prepare_native
+  0.5    367791            76.4        22.4 ac_pipeline_log
+  0.5    367791            54.2        19.9 ac_pipeline_cleanup
+  0.5    367801           286.3        19.7 ac_key_auth_run
+  0.5    367791            34.3        19.6 ac_snapshot_release
+  0.5    367801            28.8        19.5 ac_snapshot_acquire
+  0.4    367801            16.6        16.6 ac_native_peer_init
+  0.3    367801            11.3        11.3 ac_key_header
+  0.3    367801            11.1        11.1 ac_decode
+  0.2    367801            10.0        10.0 ngx_strlchr
+  0.2    367801             9.9         9.9 ac_key_equal
+  0.2    367801             9.8         9.8 ac_equal
+  0.2    367801             9.5         9.5 ac_path_matches
+  0.2    367801             9.4         9.4 ac_native_peer_get
+  0.2    367801             9.4         9.4 ac_host_rank

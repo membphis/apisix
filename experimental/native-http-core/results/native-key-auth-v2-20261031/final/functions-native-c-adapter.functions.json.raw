@@ -1,0 +1,684 @@
+{
+  "requests": 180830,
+  "functions": [
+    {
+      "name": "ac_balance_finish_ctx",
+      "calls": 180830,
+      "inclusive_ns": 83474191,
+      "self_ns": 66348734,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_balance_finish",
+      "calls": 180830,
+      "inclusive_ns": 102646108,
+      "self_ns": 14586805,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_balance_start",
+      "calls": 180830,
+      "inclusive_ns": 24473367,
+      "self_ns": 14885260,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_peer_get",
+      "calls": 180830,
+      "inclusive_ns": 210444922,
+      "self_ns": 73374307,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_upstream_cleanup",
+      "calls": 180815,
+      "inclusive_ns": 16087198,
+      "self_ns": 11118273,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_upstream_prepare",
+      "calls": 180830,
+      "inclusive_ns": 541069446,
+      "self_ns": 74307199,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_balance_enter_ctx",
+      "calls": 180830,
+      "inclusive_ns": 4860877,
+      "self_ns": 4860877,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ngx_crc32_long",
+      "calls": 180830,
+      "inclusive_ns": 17125457,
+      "self_ns": 17125457,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_node_state",
+      "calls": 1084950,
+      "inclusive_ns": 26965019,
+      "self_ns": 26965019,
+      "calls_per_request": 5.999834098324393
+    },
+    {
+      "name": "ac_upstream_enabled",
+      "calls": 1265765,
+      "inclusive_ns": 34040993,
+      "self_ns": 34040993,
+      "calls_per_request": 6.99975114748659
+    },
+    {
+      "name": "ac_upstream_next",
+      "calls": 361660,
+      "inclusive_ns": 10083156,
+      "self_ns": 10083156,
+      "calls_per_request": 2.0
+    },
+    {
+      "name": "ac_peer_free",
+      "calls": 361630,
+      "inclusive_ns": 19481138,
+      "self_ns": 14976818,
+      "calls_per_request": 1.9998340983243932
+    },
+    {
+      "name": "ac_upstream_log",
+      "calls": 180815,
+      "inclusive_ns": 38235366,
+      "self_ns": 19257055,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_var_set",
+      "calls": 6690710,
+      "inclusive_ns": 171925817,
+      "self_ns": 171925817,
+      "calls_per_request": 37.0
+    },
+    {
+      "name": "ac_var_get",
+      "calls": 904150,
+      "inclusive_ns": 29459329,
+      "self_ns": 29459329,
+      "calls_per_request": 5.0
+    },
+    {
+      "name": "ac_node_eligible",
+      "calls": 361660,
+      "inclusive_ns": 27773633,
+      "self_ns": 18820103,
+      "calls_per_request": 2.0
+    },
+    {
+      "name": "ac_trace_finish_all",
+      "calls": 180815,
+      "inclusive_ns": 4704635,
+      "self_ns": 4704635,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_phase_begin",
+      "calls": 723275,
+      "inclusive_ns": 18380534,
+      "self_ns": 18380534,
+      "calls_per_request": 3.9997511474865894
+    },
+    {
+      "name": "ac_trace_release",
+      "calls": 180815,
+      "inclusive_ns": 13502779,
+      "self_ns": 13502779,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_phase_finish",
+      "calls": 723275,
+      "inclusive_ns": 18888582,
+      "self_ns": 18888582,
+      "calls_per_request": 3.9997511474865894
+    },
+    {
+      "name": "ac_route_context_at",
+      "calls": 723320,
+      "inclusive_ns": 254862933,
+      "self_ns": 161193133,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_var_index",
+      "calls": 180830,
+      "inclusive_ns": 178432384,
+      "self_ns": 78992865,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_route_context",
+      "calls": 723320,
+      "inclusive_ns": 332059320,
+      "self_ns": 58214223,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_sdk_context",
+      "calls": 180830,
+      "inclusive_ns": 192059429,
+      "self_ns": 29612552,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_name",
+      "calls": 723320,
+      "inclusive_ns": 20684368,
+      "self_ns": 20684368,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_release_vars",
+      "calls": 180815,
+      "inclusive_ns": 99832312,
+      "self_ns": 72766270,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_done",
+      "calls": 180830,
+      "inclusive_ns": 7180033,
+      "self_ns": 7180033,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_native_var_fetch",
+      "calls": 180830,
+      "inclusive_ns": 19008879,
+      "self_ns": 19008879,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_var_cache",
+      "calls": 180830,
+      "inclusive_ns": 42772738,
+      "self_ns": 28927221,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_set_vars",
+      "calls": 180830,
+      "inclusive_ns": 142622638,
+      "self_ns": 106840341,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_native_header_write",
+      "calls": 1627455,
+      "inclusive_ns": 184490274,
+      "self_ns": 184490274,
+      "calls_per_request": 8.999917049162196
+    },
+    {
+      "name": "ac_native_header_set",
+      "calls": 723320,
+      "inclusive_ns": 123563508,
+      "self_ns": 38501882,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_background_start",
+      "calls": 10,
+      "inclusive_ns": 32836,
+      "self_ns": 23513,
+      "calls_per_request": 5.530055853564121e-05
+    },
+    {
+      "name": "ac_consumer_merge",
+      "calls": 180830,
+      "inclusive_ns": 134878654,
+      "self_ns": 38202178,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_background_next",
+      "calls": 10,
+      "inclusive_ns": 9323,
+      "self_ns": 9323,
+      "calls_per_request": 5.530055853564121e-05
+    },
+    {
+      "name": "ac_header_fields",
+      "calls": 180815,
+      "inclusive_ns": 55325083,
+      "self_ns": 26758222,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_plan_has_phase",
+      "calls": 361630,
+      "inclusive_ns": 11148260,
+      "self_ns": 11148260,
+      "calls_per_request": 1.9998340983243932
+    },
+    {
+      "name": "ac_current_plan",
+      "calls": 1808270,
+      "inclusive_ns": 45972308,
+      "self_ns": 45972308,
+      "calls_per_request": 9.999834098324394
+    },
+    {
+      "name": "ac_native_header",
+      "calls": 180815,
+      "inclusive_ns": 137617160,
+      "self_ns": 76555933,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_native_body",
+      "calls": 361630,
+      "inclusive_ns": 1516345650,
+      "self_ns": 1488493646,
+      "calls_per_request": 1.9998340983243932
+    },
+    {
+      "name": "ac_table_pool_fetch",
+      "calls": 180830,
+      "inclusive_ns": 4722190,
+      "self_ns": 4722190,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_abs",
+      "calls": 1989130,
+      "inclusive_ns": 50825309,
+      "self_ns": 50825309,
+      "calls_per_request": 11.0
+    },
+    {
+      "name": "ac_table_pool_return",
+      "calls": 180815,
+      "inclusive_ns": 34313838,
+      "self_ns": 29463128,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_push",
+      "calls": 13381345,
+      "inclusive_ns": 351693337,
+      "self_ns": 351693337,
+      "calls_per_request": 73.99958524581098
+    },
+    {
+      "name": "ac_set_string",
+      "calls": 723320,
+      "inclusive_ns": 116171958,
+      "self_ns": 97567639,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_bool_field",
+      "calls": 1084965,
+      "inclusive_ns": 49363166,
+      "self_ns": 49363166,
+      "calls_per_request": 5.999917049162197
+    },
+    {
+      "name": "ac_cleanup",
+      "calls": 180815,
+      "inclusive_ns": 90564713,
+      "self_ns": 23237944,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_request",
+      "calls": 1989085,
+      "inclusive_ns": 386951860,
+      "self_ns": 161120097,
+      "calls_per_request": 10.99975114748659
+    },
+    {
+      "name": "ngx_array_init",
+      "calls": 180830,
+      "inclusive_ns": 5034298,
+      "self_ns": 5034298,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_return_call",
+      "calls": 180830,
+      "inclusive_ns": 154816860,
+      "self_ns": 34518032,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_advance",
+      "calls": 1627440,
+      "inclusive_ns": 182275052,
+      "self_ns": 47396398,
+      "calls_per_request": 8.999834098324394
+    },
+    {
+      "name": "ac_complete",
+      "calls": 180830,
+      "inclusive_ns": 112455950,
+      "self_ns": 22348419,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_leave",
+      "calls": 361645,
+      "inclusive_ns": 338184176,
+      "self_ns": 112556864,
+      "calls_per_request": 1.9999170491621965
+    },
+    {
+      "name": "ac_key_header",
+      "calls": 180830,
+      "inclusive_ns": 7227528,
+      "self_ns": 7227528,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_key_equal",
+      "calls": 180830,
+      "inclusive_ns": 5076845,
+      "self_ns": 5076845,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_key_header_write",
+      "calls": 542490,
+      "inclusive_ns": 78268757,
+      "self_ns": 28839964,
+      "calls_per_request": 3.0
+    },
+    {
+      "name": "ac_pipeline_log",
+      "calls": 180815,
+      "inclusive_ns": 4784489,
+      "self_ns": 4784489,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_pipeline_access",
+      "calls": 180830,
+      "inclusive_ns": 16784510,
+      "self_ns": 9899989,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_main",
+      "calls": 4339925,
+      "inclusive_ns": 119904103,
+      "self_ns": 119904103,
+      "calls_per_request": 24.000027650279268
+    },
+    {
+      "name": "ac_key_execute",
+      "calls": 180830,
+      "inclusive_ns": 147703263,
+      "self_ns": 35697139,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_key_callback",
+      "calls": 180830,
+      "inclusive_ns": 251919696,
+      "self_ns": 75958626,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_path_matches",
+      "calls": 180830,
+      "inclusive_ns": 4880002,
+      "self_ns": 4880002,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ngx_array_init",
+      "calls": 180830,
+      "inclusive_ns": 4918200,
+      "self_ns": 4918200,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_accept_route",
+      "calls": 180830,
+      "inclusive_ns": 286972009,
+      "self_ns": 71918287,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_host_rank",
+      "calls": 180830,
+      "inclusive_ns": 4913624,
+      "self_ns": 4913624,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_match_next",
+      "calls": 180830,
+      "inclusive_ns": 318172310,
+      "self_ns": 11238780,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_match_complete",
+      "calls": 180830,
+      "inclusive_ns": 306933530,
+      "self_ns": 15081519,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_next",
+      "calls": 542475,
+      "inclusive_ns": 1675047531,
+      "self_ns": 207820493,
+      "calls_per_request": 2.9999170491621965
+    },
+    {
+      "name": "ac_enabled",
+      "calls": 180830,
+      "inclusive_ns": 18583439,
+      "self_ns": 13789844,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_phase_step",
+      "calls": 180830,
+      "inclusive_ns": 1190713589,
+      "self_ns": 14817812,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_phase_next",
+      "calls": 542475,
+      "inclusive_ns": 2054566570,
+      "self_ns": 41334863,
+      "calls_per_request": 2.9999170491621965
+    },
+    {
+      "name": "ac_enter",
+      "calls": 361645,
+      "inclusive_ns": 1931145402,
+      "self_ns": 76839919,
+      "calls_per_request": 1.9999170491621965
+    },
+    {
+      "name": "ac_phase_start",
+      "calls": 361645,
+      "inclusive_ns": 2953207345,
+      "self_ns": 30935200,
+      "calls_per_request": 1.9999170491621965
+    },
+    {
+      "name": "ac_require",
+      "calls": 1265750,
+      "inclusive_ns": 99897319,
+      "self_ns": 99897319,
+      "calls_per_request": 6.999668196648786
+    },
+    {
+      "name": "ac_collect_candidates",
+      "calls": 361660,
+      "inclusive_ns": 20575387,
+      "self_ns": 15661763,
+      "calls_per_request": 2.0
+    },
+    {
+      "name": "ac_match_start",
+      "calls": 180830,
+      "inclusive_ns": 270582959,
+      "self_ns": 61900489,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_snapshot_release",
+      "calls": 180815,
+      "inclusive_ns": 16925733,
+      "self_ns": 9781902,
+      "calls_per_request": 0.9999170491621966
+    },
+    {
+      "name": "ac_snapshot_tick",
+      "calls": 10,
+      "inclusive_ns": 828918,
+      "self_ns": 6339,
+      "calls_per_request": 5.530055853564121e-05
+    },
+    {
+      "name": "ac_snapshot_reload",
+      "calls": 10,
+      "inclusive_ns": 822238,
+      "self_ns": 451919,
+      "calls_per_request": 5.530055853564121e-05
+    },
+    {
+      "name": "ac_script_next",
+      "calls": 1084965,
+      "inclusive_ns": 167146428,
+      "self_ns": 88739676,
+      "calls_per_request": 5.999917049162197
+    },
+    {
+      "name": "ac_snapshot_acquire",
+      "calls": 180830,
+      "inclusive_ns": 14266144,
+      "self_ns": 9601708,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ngx_crc32_long",
+      "calls": 10,
+      "inclusive_ns": 370089,
+      "self_ns": 370089,
+      "calls_per_request": 5.530055853564121e-05
+    },
+    {
+      "name": "ac_decode",
+      "calls": 180830,
+      "inclusive_ns": 7588065,
+      "self_ns": 7588065,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_only_decoded_or_merged",
+      "calls": 180830,
+      "inclusive_ns": 27206029,
+      "self_ns": 14648772,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_forwarded",
+      "calls": 180830,
+      "inclusive_ns": 974876751,
+      "self_ns": 123274988,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_native_var_set",
+      "calls": 1627470,
+      "inclusive_ns": 391106034,
+      "self_ns": 87188954,
+      "calls_per_request": 9.0
+    },
+    {
+      "name": "ac_var_assign",
+      "calls": 1265810,
+      "inclusive_ns": 427559843,
+      "self_ns": 163735807,
+      "calls_per_request": 7.0
+    },
+    {
+      "name": "ngx_strlchr",
+      "calls": 180830,
+      "inclusive_ns": 5775752,
+      "self_ns": 5775752,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_native_var_write",
+      "calls": 1627470,
+      "inclusive_ns": 303917080,
+      "self_ns": 218142961,
+      "calls_per_request": 9.0
+    },
+    {
+      "name": "ac_var_batch_end",
+      "calls": 542490,
+      "inclusive_ns": 14285335,
+      "self_ns": 14285335,
+      "calls_per_request": 3.0
+    },
+    {
+      "name": "ac_var_batch_begin",
+      "calls": 542490,
+      "inclusive_ns": 61359248,
+      "self_ns": 47028359,
+      "calls_per_request": 3.0
+    },
+    {
+      "name": "ac_http_match_finish",
+      "calls": 180830,
+      "inclusive_ns": 33464033,
+      "self_ns": 9805210,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_var_batch_assign",
+      "calls": 1989130,
+      "inclusive_ns": 351170113,
+      "self_ns": 190545576,
+      "calls_per_request": 11.0
+    },
+    {
+      "name": "ac_read_var",
+      "calls": 1446640,
+      "inclusive_ns": 321908737,
+      "self_ns": 246685181,
+      "calls_per_request": 8.0
+    },
+    {
+      "name": "ac_equal",
+      "calls": 180830,
+      "inclusive_ns": 4969192,
+      "self_ns": 4969192,
+      "calls_per_request": 1.0
+    },
+    {
+      "name": "ac_set_header",
+      "calls": 723320,
+      "inclusive_ns": 163078819,
+      "self_ns": 39515311,
+      "calls_per_request": 4.0
+    },
+    {
+      "name": "ac_http_prepare",
+      "calls": 180830,
+      "inclusive_ns": 1214401937,
+      "self_ns": 61054492,
+      "calls_per_request": 1.0
+    }
+  ]
+}

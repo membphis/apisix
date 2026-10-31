@@ -1,0 +1,5 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+{'status': 401, 'upstream_hits_delta': 0}

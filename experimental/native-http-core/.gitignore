@@ -3,4 +3,6 @@ results/*
 !results/single-20261031/module.so
 !results/exhaustive-20261031/
 !results/exhaustive-20261031/**/*.so
+!results/native-key-auth-v2-20261031/
+!results/native-key-auth-v2-20261031/**/*.so
 __pycache__/

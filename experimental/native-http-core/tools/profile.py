@@ -84,9 +84,9 @@ TRACE_PROFILE = r'''
 '''
 
 
-def function_summary(output):
+def function_summary(output, module=MODULE):
     symbols = {}
-    text = subprocess.check_output(["nm", "-an", "--defined-only", MODULE], text=True)
+    text = subprocess.check_output(["nm", "-an", "--defined-only", module], text=True)
     for row in text.splitlines():
         parts = row.split()
         if len(parts) >= 3 and parts[1] in ("t", "T"):
@@ -96,11 +96,13 @@ def function_summary(output):
         address, count, inclusive, own = row.split()
         rows.append((symbols.get(int(address, 16), address), int(count), int(inclusive), int(own)))
     total = sum(row[3] for row in rows)
-    requests = next((row[1] for row in rows if row[0] == "ac_http_prepare"), 0)
+    denominator = "ac_http_prepare" if any(row[0] == "ac_http_prepare" for row in rows) else "ac_http_prepare_native"
+    requests = next((row[1] for row in rows if row[0] == denominator), 0)
     print("Instrumented C subtrees only, including instrumentation tax; not throughput evidence")
-    print("Request denominator (ac_http_prepare):", requests)
+    print("Request denominator (" + denominator + "):", requests)
     Path(str(output) + ".functions.json").write_text(json.dumps({
         "requests": requests,
+        "request_denominator": denominator,
         "functions": [{"name": name, "calls": count, "inclusive_ns": inclusive,
                        "self_ns": own, "calls_per_request": count / requests if requests else None}
                       for name, count, inclusive, own in rows]}, indent=2))

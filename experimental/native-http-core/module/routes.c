@@ -541,6 +541,45 @@ ac_candidate_order(const void *a, const void *b)
     return left->sequence < right->sequence ? -1 : 1;
 }
 
+/* Same compressed tree, predicates and precedence as the Lua-ABI path. Native
+ * mode forbids expressions/filter callbacks at compile time; no options table,
+ * captures table or registry publication is needed by a C-only plugin. */
+ngx_int_t
+ac_match_native(ac_request_t *ctx)
+{
+    ac_radix_node_t *node = ctx->main->route_index, *child;
+    ac_candidate_t *entries, candidate, best;
+    ngx_flag_t found = 0;
+    ngx_uint_t offset = 0, i;
+    ngx_str_t key = ctx->routing_uri;
+    int *captures;
+    for (;;) {
+        entries = node->entries.elts;
+        for (i = 0; i < node->entries.nelts; i++) {
+            candidate = entries[i];
+            candidate.host_rank = ac_host_rank(ctx->main, candidate.route, ctx->request, &candidate.host);
+            if (candidate.host_rank < 0) continue;
+            if (!ctx->main->host_router) candidate.host_rank = 0;
+            if (candidate.route->methods && !(candidate.route->methods & ctx->request->method)) continue;
+            if (candidate.route->cidrs.nelts && ngx_cidr_match(ctx->request->connection->sockaddr,
+                    &candidate.route->cidrs) != NGX_OK) continue;
+            captures = NULL;
+            if (!ac_path_matches(candidate.path, ctx, &captures)) continue;
+            if (!found || ac_candidate_order(&candidate, &best) < 0) { best = candidate; found = 1; }
+        }
+        if (offset == key.len) break;
+        for (child = node->child; child; child = child->sibling) {
+            if (child->edge.len <= key.len - offset && ngx_memcmp(child->edge.data,
+                    key.data + offset, child->edge.len) == 0) break;
+        }
+        if (!child) break;
+        offset += child->edge.len; node = child;
+    }
+    if (!found) return NGX_HTTP_NOT_FOUND;
+    ctx->route = best.route; ctx->path = best.path; ctx->metadata = best.route->metadata;
+    return best.route->resolve_status ? (ngx_int_t) best.route->resolve_status : NGX_OK;
+}
+
 static void
 ac_collect_candidates(lua_State *L, ac_request_t *ctx, ac_radix_node_t *node)
 {
