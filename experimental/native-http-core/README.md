@@ -132,6 +132,13 @@ python3 experimental/native-http-core/tools/report_limit_recheck.py experimental
 It verifies that the module and native sources still match the original recorded
 binary; a new implementation needs its own explicitly recorded reference.
 
+The subsequent [limit-count-only comparison](results/limit-only-v6-20261031T0644Z/REPORT.md)
+disables all global plugins, Prometheus export and scraping on that same frozen
+v6 binary. Its three paired throughput changes are +14.28%, +13.94% and +10.28%;
+the ratio of mean QPS is +12.81%, with zero observed errors. Exact preparation,
+sampler and runtime snapshots plus reproduction steps are in the
+[version record](results/limit-only-v6-20261031T0644Z/PROVENANCE.md).
+
 The implementation is separate from the earlier small partial experiment.
 Its measurements are not evidence for this implementation.
 

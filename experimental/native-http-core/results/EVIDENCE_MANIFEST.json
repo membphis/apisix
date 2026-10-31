@@ -1,5 +1,5 @@
 {
-  "recorded_utc": "2026-10-31T06:35:17.637704+00:00",
+  "recorded_utc": "2026-10-31T06:53:57.846444+00:00",
   "branch": "apisix-next-v4-llm",
   "source_baseline": "b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
   "final_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
@@ -12,8 +12,8 @@
     },
     {
       "path": "experimental/native-http-core/results/README.md",
-      "bytes": 2334,
-      "sha256": "7b717b0149e4e18bf8919b78f2e9d4672a9c9d5c0e31d921b7744105ee2d2b6c"
+      "bytes": 2488,
+      "sha256": "1e4dae69ad80f348756b9d4733f3b68e89d947e075a8ba00185f61b20e46800a"
     },
     {
       "path": "experimental/native-http-core/results/apisix-native-access-sample.json",
@@ -3311,6 +3311,391 @@
       "sha256": "5556fc0b5b45a9510dedf0d6bfb86db51c4bcb3b20c96277edcc2820a243d866"
     },
     {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/PROVENANCE.md",
+      "bytes": 3487,
+      "sha256": "e6a492bf15ccbe315878821d70ca02d89420bfb536fd642e33385660fa2ac584"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/REPORT.md",
+      "bytes": 3012,
+      "sha256": "2750151e471ca8fce79a47e309426f8006a5e91e2d60405422a95bcac6f15e3c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/environment.json",
+      "bytes": 4004,
+      "sha256": "e419425de8506079efc250c34239021518ffb5b11e77e5acd1c5375c94fda179"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/fixture.json",
+      "bytes": 626,
+      "sha256": "8cc14322326ac2230288bce5eaeae9aa728f13b176ea0ded82cbd703ef814c93"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/bench.lua",
+      "bytes": 1043,
+      "sha256": "9a911df30d23a4c9afefc8b31b1f7d935e381852f4650028e5f3598401dd7291"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/benchmark.py",
+      "bytes": 7420,
+      "sha256": "163781dd999b4cedcfa8e39b53168ab28042328e7a9be4baf2d26b3ef4475b8f"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/demo.py",
+      "bytes": 11161,
+      "sha256": "bb6a7c55997a2fabe315cd0cbb32f4d548e9c92a66672415e6fdc215e305f1bb"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/recheck_limit_only_v6.py",
+      "bytes": 8041,
+      "sha256": "fe05bec4d1e9ddcc1a0dbeb99f13ef3805e11929ae49dbdc881d79b47b15975a"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/runtime.lua",
+      "bytes": 2358,
+      "sha256": "0f4e9f708adc0aa7eb10b1d1d5da06553d9085d537a65a5c2604574bdc9de76e"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/harness/test_demo.py",
+      "bytes": 11692,
+      "sha256": "2cdcb5f998bd734e2e7a091bc4adba474b053372e09c4cc99b4cf61d31289d2d"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/lua/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/lua/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/lua/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/lua/native.json",
+      "bytes": 7956,
+      "sha256": "f7deebaaab3be367fd02bd3d9ee0dfb7fa0a63284de77b8260d8bf943cf239cc"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/lua/nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/native/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/native/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/native/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/native/native.json",
+      "bytes": 7956,
+      "sha256": "674c977b7aa7050a042e70057d4a27e502854e3b5cf8603580c8ef801b10cdf0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/preflight/native/nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/reference-environment.json",
+      "bytes": 13573,
+      "sha256": "c2c6d8022840c61fc3b88b0211b7519f4c7bf6565733e4b020e69aa6d8cdcde4"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/restored-native/apisix.json",
+      "bytes": 931,
+      "sha256": "1a1151b3c2f01958968bcad0430b95f681001f9ba862d3f3b3946d714e54a233"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/restored-native/config.yaml",
+      "bytes": 691,
+      "sha256": "4bb68ccadb64a740fd066d798804b188315d639db544599de81cbb71a69b9ed4"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/restored-native/configuration-check.json",
+      "bytes": 545,
+      "sha256": "220a45184e0dadbb36a9be081d7a3846d85f00284e07994bde00be6a98d7ddc2"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/restored-native/native.json",
+      "bytes": 7924,
+      "sha256": "e247c3534bbcb1145421793580d6eced1c77fd00f4a275c0476f50199b3b3499"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/restored-native/nginx.conf",
+      "bytes": 13418,
+      "sha256": "0d98b999801967cf0c8757e340ac0468e5eb8ae9622a16bb5390b3acd4401390"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/results.json",
+      "bytes": 3651,
+      "sha256": "79e56af4abcdb45feb987d3e3aa7f2ce40251ede456060529a831a4b2d7ea8ed"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/lua-limit-nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/lua-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/lua-limit.txt",
+      "bytes": 487,
+      "sha256": "b6f667ad7678526622d6b914d2f836ac6854b1d5b38892c192132da996f32c23"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/native.json",
+      "bytes": 7956,
+      "sha256": "9a4318d1faa9ec509bd0c483cc474f95dae9d1c23159044b4ca022f68345b005"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/lua/nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/native-limit-nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/native-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/native-limit.txt",
+      "bytes": 487,
+      "sha256": "96faffb77eacaeefe99ad9676c7f9a3979f6d90121415a7d68beb80c2a8cf031"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/native.json",
+      "bytes": 7956,
+      "sha256": "968cbe0b6c9cccbd3b60112094c713f337714cb1e58c397c20457a0d2b0e7155"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-1/native/nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/lua-limit-nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/lua-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/lua-limit.txt",
+      "bytes": 487,
+      "sha256": "c8ba2ad0890c0c1d1b9532b40a9bde2251f8998721290be38d3514d83d011a93"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/native.json",
+      "bytes": 7956,
+      "sha256": "0f89021dfd18d48998e88b0c8f98fceff4204d2efcabba67dda3a27e9b7ea441"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/lua/nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/native-limit-nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/native-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/native-limit.txt",
+      "bytes": 487,
+      "sha256": "28a42342858d5eb45712ce5c8e08b72c32b9d490520b3e9a65e0b7b5dc1c4335"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/native.json",
+      "bytes": 7956,
+      "sha256": "7593e8ffb700267e9800d9e10468f3d80e1cf464403723c1715d76936af5d3bd"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-2/native/nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/lua-limit-nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/lua-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/lua-limit.txt",
+      "bytes": 487,
+      "sha256": "aee78d322adfbeb537054b8dd86f843d868000078d6e2efdc907459440185e4e"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/native.json",
+      "bytes": 7956,
+      "sha256": "d92f7c1fbed110965d3b95539cdc03b32e64bb0ce2f62abfd17160814d5216f8"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/lua/nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/configuration-check.json",
+      "bytes": 555,
+      "sha256": "343626b07930e63a21019cb6b303359f005a3b865bee1194b2fc3145fa4da8e0"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/native-limit-nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/native-limit-resources.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/native-limit.txt",
+      "bytes": 487,
+      "sha256": "19aa97bafb4678ca0b0251d5831e789ab22644cb2d37677d00460572bed781e3"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/native.json",
+      "bytes": 7956,
+      "sha256": "3a4acc925825d465541cb90239bb2eed7d6fe410b28d7a5dff1060a8b6a6efea"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/round-3/native/nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/runner.log",
+      "bytes": 7079,
+      "sha256": "23efe5669895a6449579b6838b68db1ad4401c851ec26c10f4ad569607d10003"
+    },
+    {
+      "path": "experimental/native-http-core/results/limit-only-v6-20261031T0644Z/summary.json",
+      "bytes": 633,
+      "sha256": "97b17cd0aeea8944090db3c127bb06288cb587f60f6e11d57c3506a40eb1c186"
+    },
+    {
       "path": "experimental/native-http-core/results/limit-recheck-20261031T0617Z/PROVENANCE.md",
       "bytes": 2006,
       "sha256": "d88b848b7753e348e26f934353cd8a2e88a69944f556424fa85736ed2550863c"
@@ -4588,5 +4973,6 @@
   ],
   "latest_recheck": "limit-recheck-20261031T0617Z",
   "historical_v6_reproduction_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
-  "preserved_remote_research_commit": "1aa6d5f6"
+  "preserved_remote_research_commit": "1aa6d5f6",
+  "latest_limit_only_v6": "limit-only-v6-20261031T0644Z"
 }
