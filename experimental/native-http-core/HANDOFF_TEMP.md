@@ -1,5 +1,7 @@
 # APISIX next v4 llm：临时研究记录与模型交接
 
+> 当前评审入口：[阶段、结果和证据索引](RESEARCH_INDEX.md)；架构与后续：[C 插件直连、混用与渐进迁移](NATIVE_PLUGIN_MIGRATION.md)。用户现已授权补充文档并创建本专项研究 PR；下文早期“没有要求创建 PR”的表述仅保留当时上下文。
+
 > 最新混合研究：[C key-auth＋原版 Lua Prometheus](HYBRID_PROMETHEUS_20261031.md)。新增按需log桥接，同功能两轮60秒配对，混合模式相对稳定Lua平均QPS +44.89%，P95/P99分别下降41.56%/45.92%。
 > 原v2纯C结果及以下历史正文保持原值；混合模式启用Lua指标的代价、P99.9逐轮波动和能力范围见新报告。
 

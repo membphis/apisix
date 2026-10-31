@@ -1,5 +1,10 @@
 # Native standalone HTTP core demo
 
+> Research review: [stage index, paired results and evidence](RESEARCH_INDEX.md),
+> and [direct C plugins, mixed execution and gradual migration](NATIVE_PLUGIN_MIGRATION.md).
+> The v3 research PR compares against the fixed v1 checkpoint and includes v2/v3;
+> the parallel `apisix-next-v4-llm` line remains separate.
+
 > Latest: [C key-auth with unchanged Lua Prometheus](HYBRID_PROMETHEUS_20261031.md).
 > An opt-in log bridge keeps routing/auth/peer work in C and enters Lua at log time.
 > Two paired 60-second rounds show +44.89% mean QPS versus stable Lua with the same
