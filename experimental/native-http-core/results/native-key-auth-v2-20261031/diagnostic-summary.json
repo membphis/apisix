@@ -1,0 +1,161 @@
+{
+  "note": "Derived from preserved raw counters. Old profile formatter only used ac_http_prepare and reported requests=0 for the C-only path. This summary explicitly uses ac_http_prepare_native there. Instrumentation is diagnostic, not acceptance QPS or whole-worker CPU attribution.",
+  "variants": {
+    "native-lua": {
+      "allocator": {
+        "accepted_requests": 251241,
+        "window_wall_seconds": 10,
+        "normalization": "NGINX accepted requests across this master; includes background HTTP and in-flight boundary effects, not completed wrk requests",
+        "calls": 7538796,
+        "new_calls": 3770954,
+        "realloc_calls": 327,
+        "free_calls": 3767515,
+        "failed_calls": 0,
+        "requested_new_bytes": 320103936,
+        "requested_realloc_bytes": 284384,
+        "positive_growth_bytes": 320194880,
+        "freed_bytes": 319976027,
+        "relative_bytes": 218853,
+        "relative_peak_bytes": 304601,
+        "counters_exact": true,
+        "counter_saturated": false,
+        "allocator_restored": true,
+        "scope": "VM allocator requests; byte balance and peak are relative to start, not live heap"
+      },
+      "allocator_per_accepted_request": {
+        "calls": 30.006233059094654,
+        "new_calls": 15.009309786221198,
+        "requested_new_bytes": 1274.0911555040777,
+        "positive_growth_bytes": 1274.4531346396489
+      },
+      "function_request_denominator": "ac_http_prepare",
+      "function_requests": 155631,
+      "function_counts": {
+        "ac_request": 1556337,
+        "ac_push": 11049846,
+        "ac_phase_start": 311271,
+        "ac_phase_step": 155631,
+        "ac_balance_start": 155631,
+        "ac_balance_finish": 155631,
+        "ac_key_callback": 0,
+        "ac_key_auth_run": 0,
+        "ac_key_execute": 0
+      },
+      "function_calls_per_request": {
+        "ac_request": 10.000173487287237,
+        "ac_push": 71.00028914547873,
+        "ac_phase_start": 2.000057829095746,
+        "ac_phase_step": 1.0,
+        "ac_balance_start": 1.0,
+        "ac_balance_finish": 1.0,
+        "ac_key_callback": 0.0,
+        "ac_key_auth_run": 0.0,
+        "ac_key_execute": 0.0
+      }
+    },
+    "native-c-adapter": {
+      "allocator": {
+        "free_calls": 1934219,
+        "failed_calls": 0,
+        "requested_new_bytes": 122517948,
+        "requested_realloc_bytes": 14016,
+        "positive_growth_bytes": 122523684,
+        "freed_bytes": 121995791,
+        "relative_bytes": 527893,
+        "relative_peak_bytes": 723897,
+        "counters_exact": true,
+        "counter_saturated": false,
+        "allocator_restored": true,
+        "scope": "VM allocator requests; byte balance and peak are relative to start, not live heap",
+        "accepted_requests": 277210,
+        "window_wall_seconds": 10,
+        "normalization": "NGINX accepted requests across this master; includes background HTTP and in-flight boundary effects, not completed wrk requests",
+        "calls": 3876852,
+        "new_calls": 1942594,
+        "realloc_calls": 39
+      },
+      "allocator_per_accepted_request": {
+        "calls": 13.985253057249016,
+        "new_calls": 7.0076620612532015,
+        "requested_new_bytes": 441.967995382562,
+        "positive_growth_bytes": 441.98868727679377
+      },
+      "function_request_denominator": "ac_http_prepare",
+      "function_requests": 180830,
+      "function_counts": {
+        "ac_request": 1989085,
+        "ac_push": 13381345,
+        "ac_phase_start": 361645,
+        "ac_phase_step": 180830,
+        "ac_balance_start": 180830,
+        "ac_balance_finish": 180830,
+        "ac_key_callback": 180830,
+        "ac_key_auth_run": 0,
+        "ac_key_execute": 180830
+      },
+      "function_calls_per_request": {
+        "ac_request": 10.99975114748659,
+        "ac_push": 73.99958524581098,
+        "ac_phase_start": 1.9999170491621965,
+        "ac_phase_step": 1.0,
+        "ac_balance_start": 1.0,
+        "ac_balance_finish": 1.0,
+        "ac_key_callback": 1.0,
+        "ac_key_auth_run": 0.0,
+        "ac_key_execute": 1.0
+      }
+    },
+    "native-c-pipeline": {
+      "allocator": {
+        "calls": 43,
+        "new_calls": 42,
+        "realloc_calls": 1,
+        "free_calls": 0,
+        "failed_calls": 0,
+        "requested_new_bytes": 2288,
+        "requested_realloc_bytes": 840,
+        "positive_growth_bytes": 2744,
+        "freed_bytes": 0,
+        "relative_bytes": 2744,
+        "relative_peak_bytes": 2744,
+        "counters_exact": true,
+        "counter_saturated": false,
+        "allocator_restored": true,
+        "scope": "VM allocator requests; byte balance and peak are relative to start, not live heap",
+        "normalization": "NGINX accepted requests across this master; includes background HTTP and in-flight boundary effects, not completed wrk requests",
+        "window_wall_seconds": 10,
+        "accepted_requests": 485061
+      },
+      "allocator_per_accepted_request": {
+        "calls": 8.864864419114297e-05,
+        "new_calls": 8.658704781460476e-05,
+        "requested_new_bytes": 0.0047169325095194215,
+        "positive_growth_bytes": 0.005657020457220844
+      },
+      "function_request_denominator": "ac_http_prepare_native",
+      "function_requests": 367801,
+      "function_counts": {
+        "ac_request": 0,
+        "ac_push": 0,
+        "ac_phase_start": 0,
+        "ac_phase_step": 0,
+        "ac_balance_start": 0,
+        "ac_balance_finish": 0,
+        "ac_key_callback": 0,
+        "ac_key_auth_run": 367801,
+        "ac_key_execute": 367801
+      },
+      "function_calls_per_request": {
+        "ac_request": 0.0,
+        "ac_push": 0.0,
+        "ac_phase_start": 0.0,
+        "ac_phase_step": 0.0,
+        "ac_balance_start": 0.0,
+        "ac_balance_finish": 0.0,
+        "ac_key_callback": 0.0,
+        "ac_key_auth_run": 1.0,
+        "ac_key_execute": 1.0
+      }
+    }
+  }
+}

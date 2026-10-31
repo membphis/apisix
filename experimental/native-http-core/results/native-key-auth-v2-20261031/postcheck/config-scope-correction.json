@@ -1,0 +1,11 @@
+{
+  "before_sha256": "fdefe7adba15ee1de6b3235e9428672cfc742c33de90960b72ef3b3bda427b86",
+  "after_sha256": "7829f21a05c20ea67c57f7cc6801cb17c76298b7773fb2a4218fb2a78cbfbdc8",
+  "exact_replacement_before": "apisix_core_proxy on;\nlocation / {",
+  "exact_replacement_after": "location / {\n            apisix_core_proxy on;",
+  "only_this_replacement": true,
+  "same_business_resources": true,
+  "business_location_effective_proxy_flag": "on in both configurations",
+  "nginx_status_after": 200,
+  "note": "Generator scope correction after the 8 formal samples. Same business path, C module, routing/auth/upstream configuration; four-way correctness rerun. Original measured configs remain untouched."
+}

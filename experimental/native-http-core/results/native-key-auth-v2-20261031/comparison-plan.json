@@ -1,0 +1,41 @@
+{
+  "variants": {
+    "lua-core": [
+      "lua",
+      ""
+    ],
+    "native-lua": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on;"
+    ],
+    "native-c-adapter": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_key_auth on;"
+    ],
+    "native-c-pipeline": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_pipeline on;"
+    ]
+  },
+  "orders": [
+    [
+      "lua-core",
+      "native-lua",
+      "native-c-adapter",
+      "native-c-pipeline"
+    ],
+    [
+      "native-c-pipeline",
+      "native-c-adapter",
+      "native-lua",
+      "lua-core"
+    ]
+  ],
+  "warmup_seconds": 5,
+  "sample_seconds": 60,
+  "rounds": 2,
+  "plugin": "key-auth",
+  "selection": "No tuning/selection based on throughput; all four frozen paths reported",
+  "metrics": "QPS CPU/request p50 p95 p99 RSS raw errors throttling",
+  "native_pipeline_scope": "No business-request Lua phase/balancer hooks; Lua init/config timers remain"
+}

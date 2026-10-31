@@ -1,6 +1,25 @@
 # Native standalone HTTP core demo
 
-> Latest research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
+> Research review: [stage index, paired results and evidence](RESEARCH_INDEX.md),
+> and [direct C plugins, mixed execution and gradual migration](NATIVE_PLUGIN_MIGRATION.md).
+> [Draft research PR #1](https://github.com/membphis/apisix/pull/1)
+> compares against the fixed v1 checkpoint and includes v2/v3;
+> the parallel `apisix-next-v4-llm` line remains separate.
+
+> Latest: [C key-auth with unchanged Lua Prometheus](HYBRID_PROMETHEUS_20261031.md).
+> An opt-in log bridge keeps routing/auth/peer work in C and enters Lua at log time.
+> Two paired 60-second rounds show +44.89% mean QPS versus stable Lua with the same
+> two plugins; P95/P99 fall by 41.56%/45.92%. The report retains metric overhead,
+> P99.9 variability, all raw evidence and the explicit compatibility contract.
+
+> Previous special study: [native key-auth business and a C-only request path](NATIVE_KEY_AUTH_V2.md).
+> The new mode rewrites key-auth and its request integration in C; all new switches default off.
+> Two 60-second paired rounds show +82.53% mean QPS versus C core + Lua key-auth and +98.62%
+> versus the stable Lua core, within the documented route-only key-auth capability contract.
+> The previous checkpoint is pushed as `apisix-next-v4-llm-core-v1`; this study uses
+> `apisix-next-v4-llm-native-plugins-v2`. Earlier results below remain historical evidence.
+
+> Previous research: [16 runtime experiments and evidence](EXHAUSTIVE_20261031.md),
 > with [the previous single-plugin report](EXPERIMENTS_20261031.md) preserved.
 > The comparison uses unchanged stable APISIX 3.19.0 plugin sources, one route plugin
 > at a time (Prometheus, key-auth or local limit-count), and excludes `ai` on both sides.

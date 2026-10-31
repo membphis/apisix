@@ -1,0 +1,55 @@
+[
+  {
+    "mode": "native",
+    "prefix": "auth",
+    "duration_seconds": 60,
+    "suite": "single",
+    "variant": "round-2-c-no-metrics",
+    "plugin": "key-auth",
+    "cgroup_cpu_delta": {
+      "usage_usec": 106976238,
+      "user_usec": 31128064,
+      "system_usec": 75848174,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 107031108,
+      "user_usec": 31155822,
+      "system_usec": 75875286,
+      "nice_usec": 0,
+      "nr_periods": 603,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.25702123500014,
+    "warmup_requests": 254417,
+    "requests": 2864611,
+    "qps": 47663.94,
+    "workers": [
+      172411
+    ],
+    "worker_cpu_seconds": 59.949999999999996,
+    "worker_user_cpu_seconds": 18.91,
+    "worker_system_cpu_seconds": 41.04,
+    "worker_cpu_us_per_request": 20.927797875523062,
+    "rss_start_bytes": 17248256,
+    "rss_end_bytes": 17248256,
+    "rss_peak_bytes": 17248256,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "mean": 673.349,
+      "p50": 664.0,
+      "p95": 820.0,
+      "p99": 1079.0,
+      "p999": 2641.0
+    },
+    "error_rate": 0
+  }
+]

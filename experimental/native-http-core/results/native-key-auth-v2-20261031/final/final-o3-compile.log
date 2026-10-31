@@ -1,0 +1,301 @@
+checking for OS
+ + Linux 6.18.57 x86_64
+checking for C compiler ... found
+ + using GNU C compiler
+ + gcc version: 10.2.1 20210110 (Debian 10.2.1-6) 
+checking for gcc -pipe switch ... found
+checking for -Wl,-E switch ... found
+checking for gcc builtin atomic operations ... found
+checking for C99 variadic macros ... found
+checking for gcc variadic macros ... found
+checking for gcc builtin 64 bit byteswap ... found
+checking for unistd.h ... found
+checking for inttypes.h ... found
+checking for limits.h ... found
+checking for sys/filio.h ... not found
+checking for sys/param.h ... found
+checking for sys/mount.h ... found
+checking for sys/statvfs.h ... found
+checking for crypt.h ... found
+checking for Linux specific features
+checking for epoll ... found
+checking for EPOLLRDHUP ... found
+checking for EPOLLEXCLUSIVE ... found
+checking for eventfd() ... found
+checking for O_PATH ... found
+checking for sendfile() ... found
+checking for sendfile64() ... found
+checking for sys/prctl.h ... found
+checking for prctl(PR_SET_DUMPABLE) ... found
+checking for prctl(PR_SET_KEEPCAPS) ... found
+checking for capabilities ... found
+checking for crypt_r() ... found
+checking for sys/vfs.h ... found
+checking for BPF sockhash ... found
+checking for SO_COOKIE ... found
+checking for UDP_SEGMENT ... found
+checking for nobody group ... not found
+checking for nogroup group ... found
+checking for poll() ... found
+checking for /dev/poll ... not found
+checking for kqueue ... not found
+checking for crypt() ... not found
+checking for crypt() in libcrypt ... found
+checking for F_READAHEAD ... not found
+checking for posix_fadvise() ... found
+checking for O_DIRECT ... found
+checking for F_NOCACHE ... not found
+checking for directio() ... not found
+checking for statfs() ... found
+checking for statvfs() ... found
+checking for dlopen() ... not found
+checking for dlopen() in libdl ... found
+checking for sched_yield() ... found
+checking for sched_setaffinity() ... found
+checking for SO_SETFIB ... not found
+checking for SO_REUSEPORT ... found
+checking for SO_ACCEPTFILTER ... not found
+checking for SO_BINDANY ... not found
+checking for IP_TRANSPARENT ... found
+checking for IP_BINDANY ... not found
+checking for IP_BIND_ADDRESS_NO_PORT ... found
+checking for IP_RECVDSTADDR ... not found
+checking for IP_SENDSRCADDR ... not found
+checking for IP_PKTINFO ... found
+checking for IPV6_RECVPKTINFO ... found
+checking for IP_MTU_DISCOVER ... found
+checking for IPV6_MTU_DISCOVER ... found
+checking for IP_DONTFRAG ... not found
+checking for IPV6_DONTFRAG ... found
+checking for TCP_DEFER_ACCEPT ... found
+checking for TCP_KEEPIDLE ... found
+checking for TCP_FASTOPEN ... found
+checking for TCP_INFO ... found
+checking for accept4() ... found
+checking for int size ... 4 bytes
+checking for long size ... 8 bytes
+checking for long long size ... 8 bytes
+checking for void * size ... 8 bytes
+checking for uint32_t ... found
+checking for uint64_t ... found
+checking for sig_atomic_t ... found
+checking for sig_atomic_t size ... 4 bytes
+checking for socklen_t ... found
+checking for in_addr_t ... found
+checking for in_port_t ... found
+checking for rlim_t ... found
+checking for uintptr_t ... uintptr_t found
+checking for system byte ordering ... little endian
+checking for size_t size ... 8 bytes
+checking for off_t size ... 8 bytes
+checking for time_t size ... 8 bytes
+checking for AF_INET6 ... found
+checking for setproctitle() ... not found
+checking for pread() ... found
+checking for pwrite() ... found
+checking for pwritev() ... found
+checking for strerrordesc_np() ... not found
+checking for sys_nerr ... found
+checking for localtime_r() ... found
+checking for clock_gettime(CLOCK_MONOTONIC) ... found
+checking for posix_memalign() ... found
+checking for memalign() ... found
+checking for mmap(MAP_ANON|MAP_SHARED) ... found
+checking for mmap("/dev/zero", MAP_SHARED) ... found
+checking for System V shared memory ... found
+checking for POSIX semaphores ... not found
+checking for POSIX semaphores in libpthread ... found
+checking for struct msghdr.msg_control ... found
+checking for ioctl(FIONBIO) ... found
+checking for ioctl(FIONREAD) ... found
+checking for struct tm.tm_gmtoff ... found
+checking for struct dirent.d_namlen ... not found
+checking for struct dirent.d_type ... found
+checking for sysconf(_SC_NPROCESSORS_ONLN) ... found
+checking for sysconf(_SC_LEVEL1_DCACHE_LINESIZE) ... found
+checking for openat(), fstatat() ... found
+checking for getaddrinfo() ... found
+checking for SOCK_CLOEXEC support ... found
+checking for FD_CLOEXEC support ... found
+configuring additional dynamic modules
+adding module in /opt/apisix-core-module
+ + ngx_http_apisix_core_module was configured
+checking for PCRE2 library ... not found
+checking for PCRE library ... found
+checking for PCRE JIT support ... found
+checking for OpenSSL library ... found
+checking for zlib library ... found
+creating objs/Makefile
+
+Configuration summary
+  + using threads
+  + using system PCRE library
+  + using system OpenSSL library
+  + using system zlib library
+
+  nginx path prefix: "/usr/local/nginx"
+  nginx binary file: "/usr/local/nginx/sbin/nginx"
+  nginx modules path: "/usr/local/nginx/modules"
+  nginx configuration prefix: "/usr/local/nginx/conf"
+  nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
+  nginx pid file: "/usr/local/nginx/logs/nginx.pid"
+  nginx error log file: "/usr/local/nginx/logs/error.log"
+  nginx http access log file: "/usr/local/nginx/logs/access.log"
+  nginx http client request body temporary files: "client_body_temp"
+  nginx http proxy temporary files: "proxy_temp"
+  nginx http fastcgi temporary files: "fastcgi_temp"
+  nginx http uwsgi temporary files: "uwsgi_temp"
+  nginx http scgi temporary files: "scgi_temp"
+
+make -f objs/Makefile modules
+make[1]: Entering directory '/tmp/openresty-1.27.1.2/bundle/nginx-1.27.1'
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/key_auth.o \
+	/opt/apisix-core-module/key_auth.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/pipeline.o \
+	/opt/apisix-core-module/pipeline.c
+In file included from src/core/ngx_core.h:53,
+                 from /opt/apisix-core-module/engine.h:21,
+                 from /opt/apisix-core-module/pipeline.c:2:
+/opt/apisix-core-module/pipeline.c: In function ‘ac_pipeline_access’:
+src/core/ngx_string.h:43:5: warning: macro expands to multiple statements [-Wmultistatement-macros]
+   43 |     (str)->len = sizeof(text) - 1; (str)->data = (u_char *) text
+      |     ^
+/opt/apisix-core-module/pipeline.c:44:35: note: in expansion of macro ‘ngx_str_set’
+   44 |     if (rc == NGX_HTTP_NOT_FOUND) ngx_str_set(&body, "{\"error_msg\":\"404 Route Not Found\"}\n");
+      |                                   ^~~~~~~~~~~
+/opt/apisix-core-module/pipeline.c:44:5: note: some parts of macro expansion are not guarded by this ‘if’ clause
+   44 |     if (rc == NGX_HTTP_NOT_FOUND) ngx_str_set(&body, "{\"error_msg\":\"404 Route Not Found\"}\n");
+      |     ^~
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/module.o \
+	/opt/apisix-core-module/module.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/native_phases.o \
+	/opt/apisix-core-module/native_phases.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/plugins.o \
+	/opt/apisix-core-module/plugins.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/routes.o \
+	/opt/apisix-core-module/routes.c
+/opt/apisix-core-module/routes.c: In function ‘ac_match_native’:
+/opt/apisix-core-module/routes.c:541:50: warning: ‘best.sequence’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  541 |     return left->sequence < right->sequence ? -1 : 1;
+      |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/opt/apisix-core-module/routes.c:551:41: note: ‘best.sequence’ was declared here
+  551 |     ac_candidate_t *entries, candidate, best;
+      |                                         ^~~~
+/opt/apisix-core-module/routes.c:535:54: warning: ‘best.path’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  535 |     if (left->path->prefix.len != right->path->prefix.len) {
+      |                                   ~~~~~~~~~~~~~~~~~~~^~~~
+/opt/apisix-core-module/routes.c:551:41: note: ‘best.path’ was declared here
+  551 |     ac_candidate_t *entries, candidate, best;
+      |                                         ^~~~
+/opt/apisix-core-module/routes.c:538:46: warning: ‘best.route’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  538 |     if (left->route->priority != right->route->priority) return left->route->priority > right->route->priority ? -1 : 1;
+      |                                  ~~~~~~~~~~~~^~~~~~~~~~
+/opt/apisix-core-module/routes.c:551:41: note: ‘best.route’ was declared here
+  551 |     ac_candidate_t *entries, candidate, best;
+      |                                         ^~~~
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/sdk.o \
+	/opt/apisix-core-module/sdk.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/schema.o \
+	/opt/apisix-core-module/schema.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/resources.o \
+	/opt/apisix-core-module/resources.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/request.o \
+	/opt/apisix-core-module/request.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/merge.o \
+	/opt/apisix-core-module/merge.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/response.o \
+	/opt/apisix-core-module/response.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/consumer.o \
+	/opt/apisix-core-module/consumer.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/cache.o \
+	/opt/apisix-core-module/cache.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/utils.o \
+	/opt/apisix-core-module/utils.c
+/opt/apisix-core-module/utils.c: In function ‘ac_seed’:
+/opt/apisix-core-module/utils.c:98:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   98 |         if (file) fclose(file); lua_pushnil(L); lua_pushliteral(L, "failed to read urandom"); return 2;
+      |         ^~
+/opt/apisix-core-module/utils.c:98:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   98 |         if (file) fclose(file); lua_pushnil(L); lua_pushliteral(L, "failed to read urandom"); return 2;
+      |                                 ^~~~~~~~~~~
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/upstream.o \
+	/opt/apisix-core-module/upstream.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/instrumentation.o \
+	/opt/apisix-core-module/instrumentation.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/resolver.o \
+	/opt/apisix-core-module/resolver.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/expression.o \
+	/opt/apisix-core-module/expression.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/background.o \
+	/opt/apisix-core-module/background.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/platform.o \
+	/opt/apisix-core-module/platform.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/tracing.o \
+	/opt/apisix-core-module/tracing.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/http.o \
+	/opt/apisix-core-module/http.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/upstream_helpers.o \
+	/opt/apisix-core-module/upstream_helpers.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/script.o \
+	/opt/apisix-core-module/script.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/addon/apisix-core-module/snapshot.o \
+	/opt/apisix-core-module/snapshot.c
+cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O3 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+	-o objs/ngx_http_apisix_core_module_modules.o \
+	objs/ngx_http_apisix_core_module_modules.c
+cc -o objs/ngx_http_apisix_core_module.so \
+objs/addon/apisix-core-module/key_auth.o \
+objs/addon/apisix-core-module/pipeline.o \
+objs/addon/apisix-core-module/module.o \
+objs/addon/apisix-core-module/native_phases.o \
+objs/addon/apisix-core-module/plugins.o \
+objs/addon/apisix-core-module/routes.o \
+objs/addon/apisix-core-module/sdk.o \
+objs/addon/apisix-core-module/schema.o \
+objs/addon/apisix-core-module/resources.o \
+objs/addon/apisix-core-module/request.o \
+objs/addon/apisix-core-module/merge.o \
+objs/addon/apisix-core-module/response.o \
+objs/addon/apisix-core-module/consumer.o \
+objs/addon/apisix-core-module/cache.o \
+objs/addon/apisix-core-module/utils.o \
+objs/addon/apisix-core-module/upstream.o \
+objs/addon/apisix-core-module/instrumentation.o \
+objs/addon/apisix-core-module/resolver.o \
+objs/addon/apisix-core-module/expression.o \
+objs/addon/apisix-core-module/background.o \
+objs/addon/apisix-core-module/platform.o \
+objs/addon/apisix-core-module/tracing.o \
+objs/addon/apisix-core-module/http.o \
+objs/addon/apisix-core-module/upstream_helpers.o \
+objs/addon/apisix-core-module/script.o \
+objs/addon/apisix-core-module/snapshot.o \
+objs/ngx_http_apisix_core_module_modules.o \
+-shared
+make[1]: Leaving directory '/tmp/openresty-1.27.1.2/bundle/nginx-1.27.1'

@@ -97,7 +97,8 @@ print(require("cjson.safe").encode(value))
 
 def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
             upstream_address=None, gateway_cpu=None, upstream_cpu=None, native_filters=True,
-            single_plugin=None):
+            single_plugin=None, plugin_allowlist=None, proxy_retry=False, with_prometheus=False,
+            prometheus_settings=None, observe_access=False, init_worker_extra=None):
     assert mode in ("lua", "native"), mode
     stop()
     # Retire only the earlier prototype processes in this dedicated demo container.
@@ -114,6 +115,11 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
         snapshot["global_rules"] = []
         if single_plugin != "key-auth":
             snapshot["consumers"] = []
+    if with_prometheus:
+        assert single_plugin == "key-auth" or plugin_allowlist == ["key-auth", "prometheus"]
+        if not snapshot.get("global_rules"):
+            snapshot["global_rules"] = [{"id": "metrics", "plugins": {"prometheus": {}}}]
+        plugin_allowlist = ["key-auth", "prometheus"]
     if upstream_address:
         snapshot["upstream"] = upstream_address
     if benchmark or test_window:
@@ -134,7 +140,7 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
                    "enable_http2": False, "enable_admin": False, "ssl": {"enable": False},
                    "extra_lua_path": str(ROOT / "native_lua/?.lua") + ";" + str(ROOT / "?.lua")},
         "deployment": {"role": "data_plane", "role_data_plane": {"config_provider": "json"}},
-        "plugins": [single_plugin] if single_plugin else ["prometheus", "key-auth", "limit-count"],
+        "plugins": plugin_allowlist or ([single_plugin] if single_plugin else ["prometheus", "key-auth", "limit-count"]),
         "plugin_attr": {"prometheus": {"enable_export_server": True,
                          "export_addr": {"ip": "0.0.0.0", "port": 9091}, "refresh_interval": 1}},
         "nginx_config": {"worker_processes": workers, "error_log_level": "warn",
@@ -143,16 +149,28 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
             "http": {"enable_access_log": False}}
     }
     # An explicit list replaces defaults (including the global monkeypatch plugin "ai").
+    if proxy_retry:
+        config["nginx_config"]["http_server_location_configuration_snippet"] = (
+            "proxy_connect_timeout 100ms; proxy_read_timeout 100ms; proxy_send_timeout 100ms; "
+            "proxy_next_upstream error timeout;")
+    if prometheus_settings:
+        config["plugin_attr"]["prometheus"].update(copy.deepcopy(prometheus_settings))
+    if observe_access:
+        config["nginx_config"]["http_configuration_snippet"] = (
+            'log_format hybrid_check "$http_x_demo_probe|$arg_skip|$status|$request_length|$bytes_sent";')
+        config["nginx_config"]["http_server_location_configuration_snippet"] += (
+            "\naccess_log logs/hybrid-access.log hybrid_check;")
     assert "ai" not in config["plugins"]
-    if single_plugin and single_plugin != "prometheus":
+    if not with_prometheus and ((single_plugin and single_plugin != "prometheus") or (plugin_allowlist and "prometheus" not in plugin_allowlist)):
         config.pop("plugin_attr")
     if gateway_cpu is not None:
         config["nginx_config"]["main_configuration_snippet"] = f"worker_cpu_affinity {1 << gateway_cpu:b};"
     resources = copy.deepcopy(snapshot)
     endpoint = resources.pop("upstream")
     for route in resources["routes"]:
-        route["upstream"] = {"type": "roundrobin", "nodes": {endpoint: 1}, "retries": 0,
-                             "timeout": {"connect": 0.1, "read": 0.1, "send": 0.1}}
+        if "upstream" not in route and "upstream_id" not in route:
+            route["upstream"] = {"type": "roundrobin", "nodes": {endpoint: 1}, "retries": 0,
+                                 "timeout": {"connect": 0.1, "read": 0.1, "send": 0.1}}
     (ROOT / "conf/config.yaml").write_text(json.dumps(config))
     (ROOT / "conf/apisix.json").write_text(json.dumps(resources))
     subprocess.run(["bash", str(SOURCE / "bin/apisix"), "init"], cwd=ROOT, check=True)
@@ -214,6 +232,30 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
         text = re.sub(r"^\s*set \$original_(?:x_forwarded_\w+|forwarded)\s+[^;]*;\n", "", text, flags=re.MULTILINE)
         text = re.sub(r'^\s*more_set_input_headers "(?:X-Forwarded-(?:Proto|Host|Port)|Forwarded):[^\n]*\n',
                       "", text, flags=re.MULTILINE)
+    if mode == "native" and "apisix_core_native_pipeline on;" in os.environ.get("APISIX_CORE_DIRECTIVES", ""):
+        # Scope C routing to the business location. A server-level mark would
+        # intercept sibling locations such as the stock nginx_status endpoint.
+        marker = "apisix_core_proxy on;\nlocation / {"
+        assert text.count(marker) == 1
+        text = text.replace(marker, "location / {\n            apisix_core_proxy on;", 1)
+        # No business-request Lua phase or balancer. Keep init/config timers.
+        for phase in ("access", "header_filter", "body_filter", "log", "balancer"):
+            pattern = r"\b" + phase + r"_by_lua_block\s*\{[^{}]*\}"
+            text = re.sub(pattern, "", text)
+        if "apisix_core_lua_log_bridge on;" in os.environ.get("APISIX_CORE_DIRECTIVES", ""):
+            marker = "apisix_core_proxy on;"
+            assert text.count(marker) == 1
+            text = text.replace(marker, marker + '\n            log_by_lua_block { require("apisix.native.runtime").native_log() }', 1)
+        marker = "upstream apisix_backend {"
+        assert text.count(marker) == 1
+        text = text.replace(marker, marker + "\n        apisix_core_native_balancer;", 1)
+        # The dynamic Lua pool has no age cutoff. Use the largest representable
+        # signed msec interval in the stock C pool (64-bit pinned runtime).
+        text = text.replace("keepalive 320;", "keepalive 320;\n        keepalive_time 9223372036854775807ms;", 1)
+    if init_worker_extra:
+        marker = 'require("apisix.native.engine").init_worker()' if mode == "native" else 'apisix.http_init_worker()'
+        assert text.count(marker) == 1
+        text = text.replace(marker, marker + "\n" + init_worker_extra, 1)
     path.write_text(text)
     for entry in [ROOT, *ROOT.rglob("*")]:
         if not entry.is_symlink():

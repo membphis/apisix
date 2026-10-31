@@ -14,7 +14,8 @@
 -- limitations under the License.
 
 done = function(summary, latency, requests)
-    io.write(string.format("percentiles_us p50=%.3f p95=%.3f p99=%.3f\n",
+    io.write(string.format("percentiles_us mean=%.3f p50=%.3f p95=%.3f p99=%.3f p999=%.3f\n",
+                           latency.mean,
                            latency:percentile(50), latency:percentile(95),
-                           latency:percentile(99)))
+                           latency:percentile(99), latency:percentile(99.9)))
 end

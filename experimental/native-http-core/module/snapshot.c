@@ -51,7 +51,9 @@ ac_snapshot_compile(lua_State *L)
     }
     ac_compile_globals(L, main, 1);
     ac_consumer_prepare(L, main);
+    if (main->native_key_auth == 1) ac_key_auth_prepare(L, main);
     ac_compile_routes(L, main, 1);
+    if (main->native_key_auth == 1) ac_pipeline_compile(L, main);
     return 0;
 }
 
@@ -110,7 +112,8 @@ ac_snapshot_release(lua_State *L, ac_request_t *ctx)
     ctx->generation = NULL;
     if (!generation) return;
     if (generation->users) generation->users--;
-    if (generation->users || root->generation == generation) return;
+    /* C-only requests defer retired Lua reference reclamation to the watcher. */
+    if (!L || generation->users || root->generation == generation) return;
     for (link = &root->retired; *link && *link != generation; link = &(*link)->next) { }
     if (*link) { *link = generation->next; ac_snapshot_destroy(L, generation); }
 }
@@ -189,6 +192,11 @@ static int
 ac_snapshot_tick(lua_State *L)
 {
     if (lua_toboolean(L, 1)) return 0;
+    ac_generation_t **link = &ac_main()->retired, *item;
+    while ((item = *link) != NULL) {
+        if (!item->users) { *link = item->next; ac_snapshot_destroy(L, item); }
+        else link = &item->next;
+    }
     lua_pushcfunction(L, ac_snapshot_reload);
     if (lua_pcall(L, 0, 2, 0)) {
         ngx_log_error(NGX_LOG_ERR, ngx_cycle->log, 0, "standalone reload failed: %s", lua_tostring(L, -1));

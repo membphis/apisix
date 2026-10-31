@@ -32,6 +32,8 @@ typedef enum {
 typedef struct ac_expr_s ac_expr_t;
 typedef struct ac_table_pool_s ac_table_pool_t;
 typedef struct ac_rate_snapshot_s ac_rate_snapshot_t;
+typedef struct ac_key_auth_conf_s ac_key_auth_conf_t;
+typedef struct ac_key_auth_index_s ac_key_auth_index_t;
 
 typedef struct {
     ngx_str_t name;
@@ -46,6 +48,8 @@ typedef struct {
     ac_plugin_t *plugin;
     int conf_ref;
     int pre_ref;
+    int native_ref;
+    ac_key_auth_conf_t *key_auth;
     lua_Number priority;
     ac_expr_t *expression;
     unsigned consumer_only:1;
@@ -89,6 +93,7 @@ typedef struct {
     ac_upstream_t *upstream;
     ac_expr_t *expression;
     ac_metadata_t *metadata;
+    ac_key_auth_conf_t *key_auth;
 } ac_route_t;
 
 typedef struct {
@@ -137,6 +142,10 @@ typedef struct {
     uint32_t config_crc;
     ngx_uint_t config_version;
     ngx_flag_t native_filters;
+    ngx_flag_t native_key_auth;
+    ngx_flag_t native_pipeline;
+    ngx_flag_t lua_log_bridge;
+    ac_key_auth_index_t *key_auth_index;
     ngx_flag_t lazy_rate_json;
     ngx_int_t rate_variable_index;
     ngx_uint_t rate_variable_slot;
@@ -219,6 +228,10 @@ typedef struct {
     ngx_str_t upstream_uri;
     ngx_str_t routing_uri;
     ngx_str_t normalized_uri;
+    ngx_str_t matched_host;
+    ngx_str_t balancer_ip;
+    ngx_uint_t balancer_port;
+    void *native_consumer;
     unsigned upstream_owned:1;
     ngx_str_t native_variables[64];
     ac_rate_snapshot_t *rate_snapshot;
@@ -235,7 +248,27 @@ typedef struct {
     unsigned script_loaded:1;
     unsigned script_dispatched:1;
     unsigned script_pending:1;
+    unsigned c_pipeline:1;
+    unsigned lua_log_active:1;
+    unsigned lua_log_started:1;
+    unsigned native_proxied:1;
+    unsigned upstream_logged:1;
 } ac_request_t;
+
+void ac_key_auth_prepare(lua_State *L, ac_main_conf_t *main);
+void ac_key_auth_compile(lua_State *L, ac_main_conf_t *main, ac_call_t *call, ngx_pool_t *pool);
+ngx_int_t ac_key_auth_run(ac_request_t *ctx, ac_key_auth_conf_t *conf, ngx_str_t *body);
+void ac_pipeline_compile(lua_State *L, ac_main_conf_t *main);
+ngx_int_t ac_pipeline_register(ngx_conf_t *cf);
+ngx_int_t ac_match_native(ac_request_t *ctx);
+ngx_int_t ac_http_prepare_native(ac_request_t *ctx);
+ngx_int_t ac_upstream_prepare_native(ac_request_t *ctx);
+void ac_upstream_validate_native(lua_State *L, ac_main_conf_t *main, ac_route_t *route);
+char *ac_upstream_native_directive(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
+void ac_attach_lua_context(lua_State *L, ac_request_t *ctx);
+void ac_cleanup(void *data);
+void ac_key_auth_publish(lua_State *L, ac_request_t *ctx);
+int ac_pipeline_log_start(lua_State *L);
 
 extern ngx_module_t ngx_http_apisix_core_module;
 extern const char *ac_phase_names[AC_PHASES];

@@ -1,0 +1,7 @@
+alloc-native-lua
+alloc-native-c-adapter
+alloc-native-c-pipeline
+functions-native-lua
+functions-native-c-adapter
+functions-native-c-pipeline
+restore-o3

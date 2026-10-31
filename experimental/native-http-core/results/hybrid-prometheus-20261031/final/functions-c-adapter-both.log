@@ -1,0 +1,44 @@
+Native C module rebuilt function-profile
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-hybrid-auth-functions.txt
+Instrumented C subtrees only, including instrumentation tax; not throughput evidence
+Request denominator (ac_http_prepare): 133687
+self%  count      inclusive_ms     self_ms   function
+ 23.4    267374          1459.2      1438.9 ac_native_body
+  5.4  12566578           332.6       332.6 ac_push
+  3.3   1069496           258.1       202.1 ac_read_var
+  3.2   1069496           246.2       193.9 ac_native_var_fetch
+  3.1    802122           297.8       188.9 ac_route_context_at
+  2.8    534748          1371.9       174.6 ac_next
+  2.7   1203183           166.2       166.2 ac_native_header_write
+  2.5    133687           152.3       152.3 ac_ngx
+  2.5   1203183           216.0       151.7 ac_native_var_write
+  2.1   4946419           128.4       128.4 ac_var_set
+  2.1    935809           310.6       126.2 ac_var_assign
+  2.0    133687           372.2       122.3 ac_prefetch_log_vars
+  2.0   3876943           120.0       120.0 ac_main
+  1.7   1470557           224.4       102.9 ac_var_batch_assign
+  1.4    133687           748.4        86.4 ac_forwarded
+  1.3    267374           243.0        81.7 ac_leave
+  1.3    133687           106.0        77.6 ac_set_vars
+  1.2    668435            93.4        75.7 ac_set_string
+  1.2    935809            72.6        72.6 ac_require
+  1.1    133687           116.9        70.7 ac_native_header
+  1.1   1737931           289.5        67.5 ac_request
+  1.1    802122           124.5        65.2 ac_script_next
+  1.1   1203183           280.9        64.9 ac_native_var_set
+  1.1    802122           383.6        64.9 ac_route_context
+  1.0    133687           162.6        59.0 ac_peer_get
+  0.9    267374          1833.1        58.1 ac_enter
+  0.9    133687           130.7        55.7 ac_var_index
+  0.9    133687           203.7        53.8 ac_attach_lua_context
+  0.9    133687            66.2        53.4 ac_balance_finish_ctx
+  0.8    133687            71.5        52.1 ac_release_vars
+  0.8    133687           365.5        51.8 ac_upstream_prepare
+  0.8    267374           237.0        51.6 ac_return_call
+  0.8   2005305            51.4        51.4 ac_abs
+  0.8    133687           202.9        51.1 ac_accept_route
+  0.8    133687           205.8        49.4 ac_match_start

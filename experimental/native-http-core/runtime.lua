@@ -98,4 +98,10 @@ function M.balance()
     return emit(engine.balance_finish())
 end
 
+-- Native routing/auth/peer callbacks have already completed. Only enter the
+-- existing Lua plugin scheduler for the log-only compatibility contract.
+function M.native_log()
+    if engine.native_log_start() then return M.run("log") end
+end
+
 return M

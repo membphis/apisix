@@ -1,0 +1,19 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License. You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+ngx_addon_name=ngx_http_apisix_core_module
+ngx_module_type=HTTP
+ngx_module_name=ngx_http_apisix_core_module
+ngx_module_srcs="$ngx_addon_dir/key_auth.c $ngx_addon_dir/pipeline.c $ngx_addon_dir/module.c $ngx_addon_dir/native_phases.c $ngx_addon_dir/plugins.c $ngx_addon_dir/routes.c $ngx_addon_dir/sdk.c $ngx_addon_dir/schema.c $ngx_addon_dir/resources.c $ngx_addon_dir/request.c $ngx_addon_dir/merge.c $ngx_addon_dir/response.c $ngx_addon_dir/consumer.c $ngx_addon_dir/cache.c $ngx_addon_dir/utils.c $ngx_addon_dir/upstream.c $ngx_addon_dir/instrumentation.c $ngx_addon_dir/resolver.c $ngx_addon_dir/expression.c $ngx_addon_dir/background.c $ngx_addon_dir/platform.c $ngx_addon_dir/tracing.c $ngx_addon_dir/http.c $ngx_addon_dir/upstream_helpers.c $ngx_addon_dir/script.c $ngx_addon_dir/snapshot.c"
+. auto/module

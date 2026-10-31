@@ -1,0 +1,1158 @@
+{
+  "recorded_utc": "2026-10-31T09:37:11.664957+00:00",
+  "branch": "apisix-next-v4-llm-native-plugins-v3-hybrid",
+  "parent_commit": "caf19a144cc6f9caedcf875a2649f7e30eb78b7e",
+  "stable_release": "3.19.0",
+  "stable_commit": "473043623c161966f3f6ef4e8f12d2d8667a12d2",
+  "selected_module_sha256": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406",
+  "formal_throughput_samples": 8,
+  "sample_seconds": 60,
+  "note": "Paths relative to this directory; manifest excludes itself. All positive/negative cost results, fixture failures, raw logs, build/source/binary and diagnostics preserved. Allocator/function diagnostic windows are separate from formal throughput. REPORT.md links target the canonical HYBRID_PROMETHEUS_20261031.md two directories above. Harness is final delivery snapshot, not a claim of preserving every earlier failing script version. Feature disabled by default. See report and final-integrity.json for semantics, dependency and statistical limits.",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 10297,
+      "sha256": "646245e60d9735e9273d403ae709cf623b2f3fa65bc69756e1d46c06dd55e6d4"
+    },
+    {
+      "path": "diagnostic-summary.json",
+      "bytes": 4729,
+      "sha256": "02ff1727abb510323de33e54a8b16b3525e265f5881982adc2ad508dd9aab406"
+    },
+    {
+      "path": "final/alloc-c-adapter-both-build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/alloc-c-adapter-both.log",
+      "bytes": 1029,
+      "sha256": "22590915b109000b0a3f25324b3fcb7b2fdcb2dc6e32c45d37e4a9a5957d6bef"
+    },
+    {
+      "path": "final/alloc-c-adapter-both.metadata.json.raw",
+      "bytes": 1131,
+      "sha256": "5602d9b4c4c418e36b15d2990bd7c32e7359431c6ec1b0f1a969a23f2fe6bf50"
+    },
+    {
+      "path": "final/alloc-c-adapter-both.nginx.conf.raw",
+      "bytes": 15369,
+      "sha256": "3ec1b09de3b70b09fed04390753872c417bb8f79b6d3d7629fe64be211df76b8"
+    },
+    {
+      "path": "final/alloc-c-adapter-both.raw",
+      "bytes": 656,
+      "sha256": "987629d414be11fa5c714579e067a1a91a7d192a637e768dcdfdbecbd87eafa4"
+    },
+    {
+      "path": "final/alloc-c-adapter-both.wrk.txt.raw",
+      "bytes": 331,
+      "sha256": "a7194cd9f939c951d7d6c9c92460c9b05dd7775f3e68aee3d2eda112e8cd0df7"
+    },
+    {
+      "path": "final/alloc-c-hybrid-build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/alloc-c-hybrid.log",
+      "bytes": 1014,
+      "sha256": "51c8b3ec5cc705902bbb86cb6939ed3a62539035869d0338a16e49fb4d24a38a"
+    },
+    {
+      "path": "final/alloc-c-hybrid.metadata.json.raw",
+      "bytes": 1162,
+      "sha256": "b4049a7f329ce7e80b3aec820a53be61674440dcaa0c73d1f16e2bb684753ae2"
+    },
+    {
+      "path": "final/alloc-c-hybrid.nginx.conf.raw",
+      "bytes": 15049,
+      "sha256": "63ece999e1a9fa3fba4a2935d9d9aac86502b522f792fe70360f3bf452e16b52"
+    },
+    {
+      "path": "final/alloc-c-hybrid.raw",
+      "bytes": 641,
+      "sha256": "e2cc6262570d7cd4eff4783097aee4e34d0ccb75ecdf0ae317289a971fdb8f9b"
+    },
+    {
+      "path": "final/alloc-c-hybrid.wrk.txt.raw",
+      "bytes": 331,
+      "sha256": "64bd5f50a05e1d3033dfe93ff119c494a5515077456666f28fc4b9d9fd7436ab"
+    },
+    {
+      "path": "final/alloc-c-no-metrics-build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/alloc-c-no-metrics.log",
+      "bytes": 974,
+      "sha256": "c5c990ee98986cce4a2744bda071d3a81cab02f90150b0c82135b2a52d48faad"
+    },
+    {
+      "path": "final/alloc-c-no-metrics.metadata.json.raw",
+      "bytes": 1140,
+      "sha256": "09f3ecf0398652584cf632a494131fe917e4e3283c3c7d2dde273fcf9876117b"
+    },
+    {
+      "path": "final/alloc-c-no-metrics.nginx.conf.raw",
+      "bytes": 14440,
+      "sha256": "11f9c42480117c752d557fa3a9ddefa14299093b9ef82b16933dd94f241752c3"
+    },
+    {
+      "path": "final/alloc-c-no-metrics.raw",
+      "bytes": 592,
+      "sha256": "c0c2c5ef6ddb015564769a99068adc1701d1527e71e341275b269b34ddafdab2"
+    },
+    {
+      "path": "final/alloc-c-no-metrics.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "75850743ea2951ccf5f680edac9760e2b780b579198f3ae03c7c0b51236d73c6"
+    },
+    {
+      "path": "final/allocator-sampler.so",
+      "bytes": 16896,
+      "sha256": "7896cc4677e5d0aa25fa7e8459da436469f65e80b7fbe0daae376c67726ae1fa"
+    },
+    {
+      "path": "final/asan-build-build.json",
+      "bytes": 3009,
+      "sha256": "6deaaab1c2bf0aaa58cd8ba26e5c4b8813d2a2a7d114012d695f90f41e650bc2"
+    },
+    {
+      "path": "final/asan-build-compile.log",
+      "bytes": 20188,
+      "sha256": "8f5bff20099478f98e40ea811f51671cc4caafd141230d6be514c871bdd8c9b0"
+    },
+    {
+      "path": "final/asan-build.log",
+      "bytes": 42,
+      "sha256": "071637908d4bb5197d6ec701dc1c39dd90ec90af9ee478c9e7937e87f0e4c8e5"
+    },
+    {
+      "path": "final/asan-core-default.log",
+      "bytes": 386,
+      "sha256": "616a1da668a036d26e0193128f837489a800f833044dcd21eb7b06b93dfa8432"
+    },
+    {
+      "path": "final/asan-core-encoded.log",
+      "bytes": 386,
+      "sha256": "b449681ed89f473188285649a4754ff8735a7efb8671a0102874da618794f4bd"
+    },
+    {
+      "path": "final/asan-core-servlet.log",
+      "bytes": 386,
+      "sha256": "910def732913c3602c84a810a02fba4da11f86dd01396542d3bd4b1b17a55658"
+    },
+    {
+      "path": "final/asan-core-tail.log",
+      "bytes": 383,
+      "sha256": "2f39d3edd9cbfead69ae13dc16ba37ef01d035ee6a25eea70d7a8760fccee3b8"
+    },
+    {
+      "path": "final/asan-core-trusted.log",
+      "bytes": 386,
+      "sha256": "665ffae25b6c0fe1813a45c628fc62b6e8283335eef4ab155df82ad462926650"
+    },
+    {
+      "path": "final/asan-core-untrusted.log",
+      "bytes": 388,
+      "sha256": "4a3850a972f6ca07d5ee44e5f295374c8477499b2b3b0d086e772dda0b3e2d39"
+    },
+    {
+      "path": "final/asan-hybrid.json",
+      "bytes": 168798,
+      "sha256": "24e8bcab843930e408c9fbf7a03902afa247806f0c4bf17c92b49b359589faa9"
+    },
+    {
+      "path": "final/asan-hybrid.log",
+      "bytes": 3984,
+      "sha256": "01b7b05d21da06625c679047c42913bdec61ce72f53429162abdbb8e8221f0c5"
+    },
+    {
+      "path": "final/asan-v2-regression.json",
+      "bytes": 119195,
+      "sha256": "cba5052bec55a433ff4716ff02f16ca6ed582d2dfdfb36f1a2c7544faf594230"
+    },
+    {
+      "path": "final/asan-v2-regression.log",
+      "bytes": 3886,
+      "sha256": "97b15e99565a1cefa5323da1b49a1eb9acdfc231f16b5e9e0f366eec8b1ea7f6"
+    },
+    {
+      "path": "final/comparison-plan.json",
+      "bytes": 1412,
+      "sha256": "7ef68bcfc4b046d13900921d580dd36f6e61d47e48689e415f11630cab4193f4"
+    },
+    {
+      "path": "final/events.jsonl",
+      "bytes": 2262,
+      "sha256": "78cf1c5ebcaa94659901f81e246e4862747be30cc47706f47ac4cf032652ca59"
+    },
+    {
+      "path": "final/final-hybrid.json",
+      "bytes": 168798,
+      "sha256": "0f4bf842dc76f6a43ce804b59cf940f325b445e29eb432e3e88ceb2a606704b1"
+    },
+    {
+      "path": "final/final-hybrid.log",
+      "bytes": 3984,
+      "sha256": "01b7b05d21da06625c679047c42913bdec61ce72f53429162abdbb8e8221f0c5"
+    },
+    {
+      "path": "final/final-o3-build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/final-o3-compile.log",
+      "bytes": 20175,
+      "sha256": "79ffee22525be9b5aae117e811b4b2273995b3730699ab790e7921f04cdf5139"
+    },
+    {
+      "path": "final/final-o3.log",
+      "bytes": 27,
+      "sha256": "207512970e81e0b69d844342eb9bb13c07cbc17aeef35a0ca3b7b49b40f0b11b"
+    },
+    {
+      "path": "final/function-module.so",
+      "bytes": 1862096,
+      "sha256": "2327591f3415ebdb9d8a3e3303ef45a84df252a28a59417d7a62f5fe616d1304"
+    },
+    {
+      "path": "final/functions-c-adapter-both-build.json",
+      "bytes": 2906,
+      "sha256": "1369f806ef470b1e999bb61257e2598f56ed7475f70729d524c27f9a0bc86048"
+    },
+    {
+      "path": "final/functions-c-adapter-both.functions.json.raw",
+      "bytes": 17630,
+      "sha256": "93492fba2ce61a74cd2fb90f1f870a02fc41dcb1f7d3274044fced1994e8eb15"
+    },
+    {
+      "path": "final/functions-c-adapter-both.log",
+      "bytes": 2653,
+      "sha256": "fa63b5130e5588e68dace849b928550f02cf89cda74de5054f19cc9e8c1a0f89"
+    },
+    {
+      "path": "final/functions-c-adapter-both.metadata.json.raw",
+      "bytes": 855,
+      "sha256": "8d9c7bd0e5fce0b6fd9d1dc8719659fe9471ef7d0b0b6cfc5dca8e1c47d74200"
+    },
+    {
+      "path": "final/functions-c-adapter-both.nginx.conf.raw",
+      "bytes": 14310,
+      "sha256": "e105e19a521ed9edc528319fdb4e9019c63cae61c90f442b5e8a446e59f0590c"
+    },
+    {
+      "path": "final/functions-c-adapter-both.raw",
+      "bytes": 3371,
+      "sha256": "858a39fd0abcca661492dbab29b2eb4c239b304a8e07133367c693f4acd3894e"
+    },
+    {
+      "path": "final/functions-c-adapter-both.wrk.txt.raw",
+      "bytes": 331,
+      "sha256": "b0f9a58000570dbe7fa2a6c1052a89da12450e85093df76119e5cd441c91745b"
+    },
+    {
+      "path": "final/functions-c-hybrid-build.json",
+      "bytes": 2906,
+      "sha256": "1369f806ef470b1e999bb61257e2598f56ed7475f70729d524c27f9a0bc86048"
+    },
+    {
+      "path": "final/functions-c-hybrid.functions.json.raw",
+      "bytes": 15365,
+      "sha256": "1d4fc9812705d4459995ec4b48a7daae0ce6f639296782a8cf81ef02864ce443"
+    },
+    {
+      "path": "final/functions-c-hybrid.log",
+      "bytes": 2682,
+      "sha256": "c53395d0cea983739ab4befa38ac54f70722ebd5bf476a8401105dd4c6ccdcdd"
+    },
+    {
+      "path": "final/functions-c-hybrid.metadata.json.raw",
+      "bytes": 886,
+      "sha256": "6ee634cdd5b632ac19f25b705386be37a6aefc7a867a5d86de983ab7666f824c"
+    },
+    {
+      "path": "final/functions-c-hybrid.nginx.conf.raw",
+      "bytes": 13990,
+      "sha256": "0bb883815b8a717be9f69661c0ce68246d4191bd8bf4a7204a9699e256c1ee5c"
+    },
+    {
+      "path": "final/functions-c-hybrid.raw",
+      "bytes": 2721,
+      "sha256": "3bb50b0cd6344437ebf236a0ee75ad28de60306e7cbcc711dd9a22a84f1535df"
+    },
+    {
+      "path": "final/functions-c-hybrid.wrk.txt.raw",
+      "bytes": 331,
+      "sha256": "ee9e4b40425626af8bd029903d6313a5f6d4674004d30fe1e591043186f6127e"
+    },
+    {
+      "path": "final/module-source/background.c",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "final/module-source/cache.c",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "final/module-source/config",
+      "bytes": 1591,
+      "sha256": "a22c194fc8adb6f6a706b8ba4805d9fc9c32ede2d0ec37a1e2dc9858dc536ccb"
+    },
+    {
+      "path": "final/module-source/consumer.c",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "final/module-source/engine.h",
+      "bytes": 14435,
+      "sha256": "9fe71cd91a8f592fd1f62b8344aafa9cc70206b2805c1fc5d924ccd3fc0dc375"
+    },
+    {
+      "path": "final/module-source/expression.c",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "final/module-source/http.c",
+      "bytes": 20014,
+      "sha256": "656997d0fea03f75fbc7b2e9f88e419c116b5999ed5cb23849cffd722af58d19"
+    },
+    {
+      "path": "final/module-source/instrumentation.c",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "final/module-source/key_auth.c",
+      "bytes": 14634,
+      "sha256": "e64da5a1a545afc1c0897b718e14523f73f73be3f96316f5a396dd81c25d5e4d"
+    },
+    {
+      "path": "final/module-source/merge.c",
+      "bytes": 13472,
+      "sha256": "82a73d145b055974779e25da5dbacf06fb4dab54091ad8223d2548ba75a0eb55"
+    },
+    {
+      "path": "final/module-source/module.c",
+      "bytes": 26509,
+      "sha256": "e3e2af0efd16c55054554e1526684a7e4a8064f8d0a5425efd83efc60d530a63"
+    },
+    {
+      "path": "final/module-source/native_phases.c",
+      "bytes": 3406,
+      "sha256": "cb30bc0dc9840affbf01155649a4a7d4910ae0fd4819cef774aaf7ffb40396c5"
+    },
+    {
+      "path": "final/module-source/pipeline.c",
+      "bytes": 11258,
+      "sha256": "09ce42e48aee6b6d189088741a7955e26c00e26b13e29dc87637b190a725e6f0"
+    },
+    {
+      "path": "final/module-source/platform.c",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "final/module-source/plugins.c",
+      "bytes": 28217,
+      "sha256": "f39074d5c5097f17e87b688b60bf6a362a88846acf507e3f04405252e3388609"
+    },
+    {
+      "path": "final/module-source/redis_data.h",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "final/module-source/request.c",
+      "bytes": 41337,
+      "sha256": "10fb561405fe96300c9a01ee39d11b960c705206281a186f2d586a356f3553b8"
+    },
+    {
+      "path": "final/module-source/resolver.c",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "final/module-source/resources.c",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "final/module-source/response.c",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "final/module-source/routes.c",
+      "bytes": 32067,
+      "sha256": "fc9569b9de69bf64b0a17861480ca41e9bcad5b79af0e7e757945cfd5b9844ae"
+    },
+    {
+      "path": "final/module-source/schema.c",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "final/module-source/schema_data.h",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "final/module-source/script.c",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "final/module-source/sdk.c",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "final/module-source/snapshot.c",
+      "bytes": 9740,
+      "sha256": "8cca10ed5fa0077954e1729a1e34cda813cd7716d8dabcac871c13a4f9ae2f3d"
+    },
+    {
+      "path": "final/module-source/tracing.c",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "final/module-source/upstream.c",
+      "bytes": 48467,
+      "sha256": "af287d424a588e9e029256ed479acf6b3f6713c1561620c7c804a49707b48d14"
+    },
+    {
+      "path": "final/module-source/upstream_helpers.c",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "final/module-source/utils.c",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "final/module.so",
+      "bytes": 1789720,
+      "sha256": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406"
+    },
+    {
+      "path": "final/restore-o3-build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/restore-o3-compile.log",
+      "bytes": 20175,
+      "sha256": "7033857eece5b5725b36da25406a6971f3a3e90e4c11069334c109615d8f589e"
+    },
+    {
+      "path": "final/restore-o3.log",
+      "bytes": 27,
+      "sha256": "207512970e81e0b69d844342eb9bb13c07cbc17aeef35a0ca3b7b49b40f0b11b"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/environment.json",
+      "bytes": 16134,
+      "sha256": "4f099f2763dfcdaa938fb04fc0f8455a4b60f1199491667c09b6b40eb4b66047"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-metrics-final.prom",
+      "bytes": 20419,
+      "sha256": "aebfedcf553ff2b1ce7db2fa3347685bf46fc340cc2ff13383c16d07a4529c2f"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-nginx.conf",
+      "bytes": 13854,
+      "sha256": "83b46f49d0a86f216f7128dac911ab8a75bb382328b77830d3d85a56cd2d4c26"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth-warmup.txt",
+      "bytes": 512,
+      "sha256": "27f38443b66b5dc81c1cbe16f2587d8c0abc047134116ffddc7a70a0988e8f98"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/native-auth.txt",
+      "bytes": 514,
+      "sha256": "859a5653e45c7bccb18de97ffcad9c03686f46efb25b7e565fd425626d864ae4"
+    },
+    {
+      "path": "final/round-1-c-adapter-both/results.json",
+      "bytes": 1808,
+      "sha256": "b8e03f318f6714015b6a116eb7f7ec76162d8caf3ddcf87cdc086f523aea49c7"
+    },
+    {
+      "path": "final/round-1-c-adapter-both.log",
+      "bytes": 1748,
+      "sha256": "78e674ac9ffc407d520caea2c675642fd26b38b320e16804edd95f25b07eef8d"
+    },
+    {
+      "path": "final/round-1-c-hybrid/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-1-c-hybrid/environment.json",
+      "bytes": 16159,
+      "sha256": "27247ffbfc5b11719f8a689f60ecc78f26195896ca3432e4cba24a814dbfbf79"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-metrics-final.prom",
+      "bytes": 20641,
+      "sha256": "3ec27b7c16fd1aff6f909ea2144893835603e3bb7d847b495d4f3f9cf3a08003"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-nginx.conf",
+      "bytes": 13534,
+      "sha256": "1d5a809736620d628a333365e21c4c6edcd1c6abab45d93c88276df1152211bd"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth-warmup.txt",
+      "bytes": 513,
+      "sha256": "ce98259572446fbe972dfd40833fc96ddc436dc34f2350afce2ff4a33784c306"
+    },
+    {
+      "path": "final/round-1-c-hybrid/native-auth.txt",
+      "bytes": 514,
+      "sha256": "91c5f3ab701f34a95a8140942eea36b229a4b4e40fe80f7e7c4aa7ad02771f49"
+    },
+    {
+      "path": "final/round-1-c-hybrid/results.json",
+      "bytes": 1822,
+      "sha256": "61dce1a428abdf5ee8c9865b69b11fbdf793e3316c727c8f0a9e0feba61daa78"
+    },
+    {
+      "path": "final/round-1-c-hybrid.log",
+      "bytes": 1754,
+      "sha256": "970cf2d10337ae3d7136048815556a8566d2afa56a7db0293b3f4e0bfeca89bb"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/environment.json",
+      "bytes": 16146,
+      "sha256": "6ca5f49f44fd4ae8eea715459a77008714a35f29b996cb90fe9e6ac6bfb40aad"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth-nginx.conf",
+      "bytes": 12916,
+      "sha256": "7829f21a05c20ea67c57f7cc6801cb17c76298b7773fb2a4218fb2a78cbfbdc8"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth-warmup.txt",
+      "bytes": 509,
+      "sha256": "572c718d08ee5697047837d52efac6b35dcdeeba50a39f17e2638ff1d56da16e"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/native-auth.txt",
+      "bytes": 512,
+      "sha256": "21114503daa5569d3c604fb19f7057b5cad64d3cc6410cea020880d1cbb941cc"
+    },
+    {
+      "path": "final/round-1-c-no-metrics/results.json",
+      "bytes": 1395,
+      "sha256": "fec174cf67393af13ed51cda4eba289acd4596c6cb999ee8c6d5a7191a087551"
+    },
+    {
+      "path": "final/round-1-c-no-metrics.log",
+      "bytes": 1419,
+      "sha256": "4681365f765b91408a2cbf342e35795bc51726eb08eab16106ae7a2285048e0e"
+    },
+    {
+      "path": "final/round-1-lua-both/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-1-lua-both/environment.json",
+      "bytes": 15903,
+      "sha256": "df75c5fb11c0e0897401dc26290f681179c4e931d4d097ad68bc477ee389c942"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-metrics-final.prom",
+      "bytes": 20434,
+      "sha256": "e44a6e3096faccc48bbb597a4c9c2889e005c3b97771b1572f950c0069a5bbfe"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-nginx.conf",
+      "bytes": 13556,
+      "sha256": "0d97b68f17152b45dd3d3e659377aec0cdd211c43b96b1dfac5059c307fb8e51"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth-warmup.txt",
+      "bytes": 512,
+      "sha256": "e958f3587ac8046d868f5219d27c2566b751284a92748ee1063b0b7633aa245a"
+    },
+    {
+      "path": "final/round-1-lua-both/lua-auth.txt",
+      "bytes": 514,
+      "sha256": "4938f583ceccb8608d7ba94d35bbca7513bfe0c5c25019daa4d2fd420535caa9"
+    },
+    {
+      "path": "final/round-1-lua-both/results.json",
+      "bytes": 1786,
+      "sha256": "901314c0a990bdefd1fed324f53903b633606cb1e6904a4924e2bb8c3fcbb1e6"
+    },
+    {
+      "path": "final/round-1-lua-both.log",
+      "bytes": 1852,
+      "sha256": "4b3b2a9fa18a0db9d2940cbb994a803b4199b7f4992948f7a9430625aeb58d64"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/environment.json",
+      "bytes": 16134,
+      "sha256": "f8957a2bfed54faebf4e0647a0562bbf7dd041ed2e41d256d8589cabc243dd85"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-metrics-final.prom",
+      "bytes": 20419,
+      "sha256": "cb22526ccb8b7629d6f00930787f483a3fc3da08fa1e01ab6c32d81b2d4d8fb5"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-nginx.conf",
+      "bytes": 13854,
+      "sha256": "83b46f49d0a86f216f7128dac911ab8a75bb382328b77830d3d85a56cd2d4c26"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth-warmup.txt",
+      "bytes": 513,
+      "sha256": "8e6a690321a4d98fbcb0917bab1546afed534eaec813cb6769256a8f01e5279e"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/native-auth.txt",
+      "bytes": 514,
+      "sha256": "0bb22b32cd91d42e0524f7dcda982dd7a87d64dda6655089f954b281b0058572"
+    },
+    {
+      "path": "final/round-2-c-adapter-both/results.json",
+      "bytes": 1795,
+      "sha256": "91d8b6f16b69ed953ec28f54651f27a69422a530b84e6d6401649afb6b8ba2b8"
+    },
+    {
+      "path": "final/round-2-c-adapter-both.log",
+      "bytes": 1735,
+      "sha256": "d5524cb6cff6fd5c72ef06cd9a1d9b1b7c3295306f75f09e09b9f3e4207e1cdf"
+    },
+    {
+      "path": "final/round-2-c-hybrid/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-2-c-hybrid/environment.json",
+      "bytes": 16159,
+      "sha256": "1d43add86cd180d366e619b73aa8210d47b70ab7e311390fae4855e7b8e8b5a0"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-metrics-final.prom",
+      "bytes": 20641,
+      "sha256": "42b01ae1c4be7d02f9f95b5a2c7449cbc0f0ce0e65a1a926c301a5fd205fc859"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-nginx.conf",
+      "bytes": 13534,
+      "sha256": "1d5a809736620d628a333365e21c4c6edcd1c6abab45d93c88276df1152211bd"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth-warmup.txt",
+      "bytes": 513,
+      "sha256": "e3a549075da4d8433011953f297b0ee42f43dd034a277003d6faa30f431fc403"
+    },
+    {
+      "path": "final/round-2-c-hybrid/native-auth.txt",
+      "bytes": 514,
+      "sha256": "9e2194481fc8ee9bff8fdf421a0a831ea51f5c7c0bc761fedb571057bfcea1ce"
+    },
+    {
+      "path": "final/round-2-c-hybrid/results.json",
+      "bytes": 1822,
+      "sha256": "145fc71609665f986d25067d68ed2073c4b2612b16689512165a7ce190d952f8"
+    },
+    {
+      "path": "final/round-2-c-hybrid.log",
+      "bytes": 1754,
+      "sha256": "23791f0e1932870f295d40a8938f52f494b6f44e85cee3db63dc6c55d975c63e"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/environment.json",
+      "bytes": 16146,
+      "sha256": "b592a4a1af0617d366a91d839f19d57f4b161b81612af480f484f1216445fa67"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth-nginx.conf",
+      "bytes": 12916,
+      "sha256": "7829f21a05c20ea67c57f7cc6801cb17c76298b7773fb2a4218fb2a78cbfbdc8"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth-warmup.txt",
+      "bytes": 509,
+      "sha256": "7f6244d6c456ac358f03289cfc20499f749e069b89e48972cd47a5de251c83f2"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/native-auth.txt",
+      "bytes": 511,
+      "sha256": "9a8eb7aafee403c70e10b40ef2e88578672339ea9dc3607f60c9612f2b293dc6"
+    },
+    {
+      "path": "final/round-2-c-no-metrics/results.json",
+      "bytes": 1381,
+      "sha256": "0eb853187d2819961d8473a3f9d317a0346235ec2761317e640937ef97a5440c"
+    },
+    {
+      "path": "final/round-2-c-no-metrics.log",
+      "bytes": 1405,
+      "sha256": "3fdfec053b67a7f7e96db1283eeaf0f1596bf78c55c834d4d21cdb31e3edbcf9"
+    },
+    {
+      "path": "final/round-2-lua-both/build.json",
+      "bytes": 2884,
+      "sha256": "3ea21a31b1d9d5715ea29ed26fcc37a20d4d42da5ca16f793593edfb8bad330b"
+    },
+    {
+      "path": "final/round-2-lua-both/environment.json",
+      "bytes": 15903,
+      "sha256": "8626ff934905eede87f238166d382a3ea838a7aef11a448a419bd2903de79069"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-config.yaml",
+      "bytes": 828,
+      "sha256": "072d96799be5ed6c70c07e37ab0f19a6a4de12afbb8489ad7ce3dde71c5f2fac"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-metrics-final.prom",
+      "bytes": 20657,
+      "sha256": "0e5190efe1a80a30fc7d567a25adc1f14c3ddadf7f6ec80fcdfd87768301bd81"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-nginx.conf",
+      "bytes": 13556,
+      "sha256": "0d97b68f17152b45dd3d3e659377aec0cdd211c43b96b1dfac5059c307fb8e51"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-resources.json",
+      "bytes": 469,
+      "sha256": "52f51766fff9d702746e7812519fa3726db1cab2772e5bc76a5920e0ef5d4a42"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth-warmup.txt",
+      "bytes": 512,
+      "sha256": "b745766de36e9e04deb52c7938e1a1e3d9aaf03c783e828bfc459535f626f064"
+    },
+    {
+      "path": "final/round-2-lua-both/lua-auth.txt",
+      "bytes": 515,
+      "sha256": "505a1063beb561cb7de9bce127b3c1b819d704bfa75084d3140b07f85ee996bc"
+    },
+    {
+      "path": "final/round-2-lua-both/results.json",
+      "bytes": 1833,
+      "sha256": "26fcc0d1d4ba09ae8c0bb635aedf8a31a10ac369f76ded2e480297950982bdfb"
+    },
+    {
+      "path": "final/round-2-lua-both.log",
+      "bytes": 1891,
+      "sha256": "3b27fcf8736944f44ee37f2831ca936172ad582916042c6163b602ad5cc1260c"
+    },
+    {
+      "path": "final/runtime.lua",
+      "bytes": 3927,
+      "sha256": "96cf93ad704f7db89c0659bc0a08d1deeba12c0666b83ad45fb821782dd492e4"
+    },
+    {
+      "path": "final-integrity.json",
+      "bytes": 4385,
+      "sha256": "386ccdfa51b6b200314f1855ba829618cd45179caeb0152019496b2bf19c61a8"
+    },
+    {
+      "path": "harness/tests/check_uri_policy.py",
+      "bytes": 1331,
+      "sha256": "b1ae4940682eb13f174d84dc2255ae17c34587fc58e4edfa7b5790f6c9be6f0b"
+    },
+    {
+      "path": "harness/tests/expressions.py",
+      "bytes": 1206,
+      "sha256": "b1553bd77c9a3f3a2a32d5d5cd9ceab99e147f4b5f6692824f7daeeb46d9e200"
+    },
+    {
+      "path": "harness/tests/probe.lua",
+      "bytes": 16359,
+      "sha256": "8a49222501e120e4924338ef783a8337fd09ee76d53b48c42930f16003e7f335"
+    },
+    {
+      "path": "harness/tests/sdk.lua",
+      "bytes": 9888,
+      "sha256": "e152ef8a66aa5c0f6e96506ccce67208c7b7b03eb593285e36c9f26d8c629c9e"
+    },
+    {
+      "path": "harness/tests/test_allocator.c",
+      "bytes": 7180,
+      "sha256": "82f59b9b90e268844b93cac3393af0821a8eb90261b4fc1bbc8561588b122917"
+    },
+    {
+      "path": "harness/tests/test_core.py",
+      "bytes": 40256,
+      "sha256": "30f462c66f27d4cd2c79425d79b7220a3de9235e13b8d266ac912413ca3369e8"
+    },
+    {
+      "path": "harness/tests/test_demo.py",
+      "bytes": 12193,
+      "sha256": "c29ff693a251266f09f637f4109ae0c3f8e7b3afacc9542a1e6ea849f908130b"
+    },
+    {
+      "path": "harness/tests/test_header_fast.py",
+      "bytes": 6745,
+      "sha256": "37f4bb1cdc1633b2c154f33c0c4ec1e52daf6bde0fc416bb6bb911cbc8dec4c7"
+    },
+    {
+      "path": "harness/tests/test_http_plans.py",
+      "bytes": 5281,
+      "sha256": "7e786ef5944e892c296285492eae07e54a09240edb290d5f1adb50c7a4b7afc5"
+    },
+    {
+      "path": "harness/tests/test_hybrid_prometheus.py",
+      "bytes": 13170,
+      "sha256": "c3d66864c7f7f29ba76ae29f1e09b214aa0855b9ba1da76b7a6512138973a372"
+    },
+    {
+      "path": "harness/tests/test_log_var_plan.py",
+      "bytes": 4883,
+      "sha256": "ae3c33998e300bc58c9016713b73c060d77b0ecb067b4b403f584a5823d9da0b"
+    },
+    {
+      "path": "harness/tests/test_matched_pool.py",
+      "bytes": 7691,
+      "sha256": "8c85732ec9e2f6ad6b8ef091c9aa154ddb372b36ac20951165bf56cb159f9712"
+    },
+    {
+      "path": "harness/tests/test_native_key_auth.py",
+      "bytes": 12511,
+      "sha256": "399b2dd31955677a3b121505a58b946a0039ef7c89e9b61419541a84c1616941"
+    },
+    {
+      "path": "harness/tests/test_peer_plan.py",
+      "bytes": 12888,
+      "sha256": "3573680926fe8e6dd7a0d31564483585cd53e704be0a779090b6fbc1431a64d5"
+    },
+    {
+      "path": "harness/tests/test_phase_context.py",
+      "bytes": 4070,
+      "sha256": "54e8aa338c7290ae8aae9222b88ac141cbd69b9e77d9324ae30aa75fa8c76d49"
+    },
+    {
+      "path": "harness/tests/test_request_pool.py",
+      "bytes": 10787,
+      "sha256": "538c866ba7c620ca8f3d0757a9cfc684c085f4a71fb8256e314c9e3a22703cb9"
+    },
+    {
+      "path": "harness/tests/test_route_allocations.py",
+      "bytes": 5113,
+      "sha256": "e90bfd68fc856b49030f1683448a79a451769573482484a7fcabe868eef62a14"
+    },
+    {
+      "path": "harness/tests/test_sdk_false.py",
+      "bytes": 10745,
+      "sha256": "e91c846276943214677a84e1687d3c983e1136ccf4f865025198ede7300eea1f"
+    },
+    {
+      "path": "harness/tests/test_single.py",
+      "bytes": 3981,
+      "sha256": "7bd469a7cfba85f0662ba6638607d09a5fff54dc295a5bd307b5e3d8c6214f7e"
+    },
+    {
+      "path": "harness/tools/allocator_sampler.c",
+      "bytes": 9683,
+      "sha256": "36fb1577609ca504598748e5979a59b85a6ee36f8bd6082fd2b72da40294322e"
+    },
+    {
+      "path": "harness/tools/analyze_hybrid.py",
+      "bytes": 5269,
+      "sha256": "e9581b073cb54a7fed57f3d34befb07b4021d88cadb1fbd9e79ae59fa5f3a77f"
+    },
+    {
+      "path": "harness/tools/analyze_key_auth.py",
+      "bytes": 4755,
+      "sha256": "b36a90b1c5a02a7ef39884e4ca5f6f9ca5a593391afd7ed6a1d9b59121100089"
+    },
+    {
+      "path": "harness/tools/analyze_sweep.py",
+      "bytes": 3771,
+      "sha256": "8f90e9c69c4660aae348b4cb94f802878eac640529a8f92a0078b102f5d7d82d"
+    },
+    {
+      "path": "harness/tools/bench.lua",
+      "bytes": 1130,
+      "sha256": "0b0b2e695c07bd78e9e4b492747604fa0ea5d650639f8302e56e487c72850ce5"
+    },
+    {
+      "path": "harness/tools/benchmark.py",
+      "bytes": 14356,
+      "sha256": "de9931e8ff0475d486c7e711e2ee2bfdd3cb60bebcc6c1829f5ef7eb76203bb6"
+    },
+    {
+      "path": "harness/tools/check_allocator.py",
+      "bytes": 1195,
+      "sha256": "ec24ce27e6978e0612df227d2189d962b62813a4fd3e512f46f6568e8f15ee3a"
+    },
+    {
+      "path": "harness/tools/cpu_sampler.c",
+      "bytes": 1973,
+      "sha256": "faaa57732a429bfe921e8fd43a7d70d3d5fdab9b0d5ced73d7e2953cbd09894e"
+    },
+    {
+      "path": "harness/tools/demo.py",
+      "bytes": 15050,
+      "sha256": "243861eff2b3db4d41e0a167b6e64aeb38bbe096ff085cdb150f0ed840d910a5"
+    },
+    {
+      "path": "harness/tools/dev.py",
+      "bytes": 2274,
+      "sha256": "704b9f2b20904c6d105cf31a4837dc6e1be6882b4afbefae68efcc42cd3abdde"
+    },
+    {
+      "path": "harness/tools/finalize_run.py",
+      "bytes": 3257,
+      "sha256": "ad5646588696f17ff453848027aefc2723ce9c5e170adbb13e3928136a981456"
+    },
+    {
+      "path": "harness/tools/function_sampler.c",
+      "bytes": 2822,
+      "sha256": "fe68d6a8599312d218667213c729d6b56a0a89d9933db1572330319f3c3638cb"
+    },
+    {
+      "path": "harness/tools/generate_data.py",
+      "bytes": 1267,
+      "sha256": "44b4553dda75d44d9a6f84dedcbd285ffd8359525010a9dc9cd2d33837b1a69a"
+    },
+    {
+      "path": "harness/tools/hybrid_experiment.py",
+      "bytes": 4651,
+      "sha256": "6ac55b10c066750f159f6d46de339ee46ba781035d428c12f15c9f0d3498e325"
+    },
+    {
+      "path": "harness/tools/key_auth_experiment.py",
+      "bytes": 5054,
+      "sha256": "35ba16b8a0fdcdddb65bebdcb9fe8de701d8bb8ceed0b072ae80f0b837cb973b"
+    },
+    {
+      "path": "harness/tools/profile.py",
+      "bytes": 15650,
+      "sha256": "cb9faa545c534b71936a7556262b48df24e2467673e0da74f65cd0ce2e65eb2f"
+    },
+    {
+      "path": "harness/tools/rebuild.py",
+      "bytes": 3793,
+      "sha256": "e8ce2edb5d2c06eaa5bf2e605ada0da8ffc4a616491443a82b68b7799f9299a1"
+    },
+    {
+      "path": "harness/tools/report.py",
+      "bytes": 15097,
+      "sha256": "26b5d97efc29c3633c86be6f58b98d75c5de9c700afb822cd2e4e0799b63abc1"
+    },
+    {
+      "path": "harness/tools/run.py",
+      "bytes": 5576,
+      "sha256": "f41da12528f93edb5ecf659b446af85ec5659a23ed7459571576ec384d5cf0ae"
+    },
+    {
+      "path": "harness/tools/schema_graph.lua",
+      "bytes": 1542,
+      "sha256": "ddf9a2471df8aae4c1b62d3f7b87b3695061e4b94952c3c86e907b2cbd6eef23"
+    },
+    {
+      "path": "harness/tools/sweep.py",
+      "bytes": 8678,
+      "sha256": "9a00032131bdfd6a1e8eee401277f98f53d47e169406ca02f4083f579d8d23dd"
+    },
+    {
+      "path": "metrics-baseline-failed.prom",
+      "bytes": 237624,
+      "sha256": "312913df9d2ea2cd053493707b513dd86b7123e990e12269478bec6a029b1583"
+    },
+    {
+      "path": "paired-summary.json",
+      "bytes": 17977,
+      "sha256": "be7f036139862ee979aa2c510bdec38b35d81157cd82986de4efba978b2d3112"
+    },
+    {
+      "path": "runner-logs/apisix-hybrid-bench-runner.log",
+      "bytes": 156,
+      "sha256": "9c181ec56d6f9e9d4fe3a411b8a697394d28e0dd56fb4eccd639b22808959eae"
+    },
+    {
+      "path": "runner-logs/apisix-hybrid-diagnostics-runner.log",
+      "bytes": 110,
+      "sha256": "1c6647900ada4c315c3814400b08e5e22687212afa0308ce2b548c3ea120ff77"
+    },
+    {
+      "path": "runner-logs/apisix-hybrid-validate-runner.log",
+      "bytes": 171,
+      "sha256": "2023be419328ceddd6d34df114a5ce57d617543106ef7e6ac73ef5d7aaac71a2"
+    },
+    {
+      "path": "semantics-o3-filter-fixed.json",
+      "bytes": 168798,
+      "sha256": "a08f9f3ac4fce5196de311df79c986b7138e1777c873bf46b619fe2fa1a5d3ff"
+    },
+    {
+      "path": "semantics-o3-filter-fixed.log",
+      "bytes": 1515,
+      "sha256": "c2100cb92de38b77c1674d57645436ab743bcf977553fe0d8fdec29a6d7ff005"
+    },
+    {
+      "path": "semantics-o3-lifecycle.log",
+      "bytes": 2360,
+      "sha256": "381d1fb112cf84cb8c7e76ee0d13c08b826db8da71fc5a67e85b39fee964e213"
+    },
+    {
+      "path": "semantics-o3-mtime-fixed.json",
+      "bytes": 168798,
+      "sha256": "8d28df410ad2dde3d0ffd439788fa61a380ac0be1d84019a3fe6a3c027606494"
+    },
+    {
+      "path": "semantics-o3-mtime-fixed.log",
+      "bytes": 3984,
+      "sha256": "01b7b05d21da06625c679047c42913bdec61ce72f53429162abdbb8e8221f0c5"
+    },
+    {
+      "path": "semantics-o3.log",
+      "bytes": 239864,
+      "sha256": "e2b8f976d0c0b3c8974debf7b3513179b002c456887a800a99d179484231007d"
+    }
+  ]
+}

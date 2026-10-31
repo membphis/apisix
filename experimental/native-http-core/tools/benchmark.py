@@ -77,8 +77,9 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
     prepare(mode, benchmark=True,
             gateway_cpu=cpu[0] if len(cpu) >= 3 else None,
             upstream_cpu=cpu[1] if len(cpu) >= 3 else None,
-            single_plugin=SINGLE_PLUGINS[prefix] if suite == "single" else None)
-    ready("/missing", expected=404) if suite == "single" else ready()
+            single_plugin=SINGLE_PLUGINS[prefix] if suite in ("single", "hybrid") else None,
+            with_prometheus=suite == "hybrid")
+    ready("/missing", expected=404) if suite in ("single", "hybrid") else ready()
     for source, suffix in (("nginx.conf", "nginx.conf"), ("apisix.json", "resources.json"),
                            ("config.yaml", "config.yaml")):
         (OUT / f"{mode}-{prefix}-{suffix}").write_text((ROOT / "conf" / source).read_text())
@@ -94,8 +95,10 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
             os.sched_setaffinity(0, set(cpu[2:]))
     command = ["wrk", "-t2", "-c32", "--latency", "-s", str(HERE / "tools/bench.lua"), "-H", "apikey: demo-key",
                f"http://127.0.0.1:9080/{prefix}/benchmark"]
-    subprocess.run(command[:1] + ["-d5s"] + command[1:], check=True,
-                   stdout=subprocess.DEVNULL, preexec_fn=pin_driver)
+    warm = subprocess.check_output(command[:1] + ["-d5s"] + command[1:], text=True,
+                                   preexec_fn=pin_driver)
+    (OUT / f"{mode}-{prefix}-warmup.txt").write_text(warm)
+    warm_requests = int(re.search(r"(\d+) requests in", warm)[1])
     log = ROOT / "logs/error.log"
     log_offset = log.stat().st_size
     start = usage(pids)
@@ -111,7 +114,7 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
             process.kill()
             raise RuntimeError("gateway worker restarted during sample")
         observations.append(usage(pids))
-        if suite == "legacy" or prefix == "metrics":
+        if suite in ("legacy", "hybrid") or prefix == "metrics":
             metrics()  # single-plugin auth/limit do not enable Prometheus
         time.sleep(1)
     stdout, stderr = process.communicate()
@@ -119,6 +122,7 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
     if process.returncode:
         raise RuntimeError(f"wrk failed: {stdout} {stderr}")
     final = usage(pids)
+    end_wall = time.monotonic()
     cgroup_end = cgroup_cpu()
     host_cpu_end = cgroup_cpu(Path("/host-cpu.stat"))
     errors = log.read_bytes()[log_offset:].decode(errors="replace")
@@ -131,12 +135,13 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
     qps = float(re.search(r"Requests/sec:\s+([\d.]+)", stdout)[1])
     result = {"mode": mode, "prefix": prefix, "duration_seconds": 60,
               "suite": suite, "variant": variant,
-              "plugin": SINGLE_PLUGINS.get(prefix) if suite == "single" else None,
+              "plugin": SINGLE_PLUGINS.get(prefix) if suite in ("single", "hybrid") else None,
               "cgroup_cpu_delta": {key: value - cgroup_start[key]
                                    for key, value in cgroup_end.items() if key in cgroup_start},
               "host_cgroup_cpu_delta": {key: value - host_cpu_start[key]
                                         for key, value in host_cpu_end.items() if key in host_cpu_start},
-              "wall_seconds": time.monotonic() - start_wall,
+              "wall_seconds": end_wall - start_wall,
+              "warmup_requests": warm_requests,
               "requests": count, "qps": qps, "workers": pids,
               "worker_cpu_seconds": final["cpu_seconds"] - start["cpu_seconds"],
               "worker_user_cpu_seconds": final["user_cpu_seconds"] - start["user_cpu_seconds"],
@@ -146,26 +151,54 @@ def sample(mode, prefix, cpu, suite="legacy", variant="default"):
               "rss_peak_bytes": max([start["rss_bytes"], final["rss_bytes"]] + [x["rss_bytes"] for x in observations]),
               "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
               "latencies_us": {key: float(value) for key, value in
-                               re.findall(r"\b(p50|p95|p99)=([\d.]+)", stdout)},
+                               re.findall(r"\b(mean|p50|p95|p99|p999)=([\d.]+)", stdout)},
               "error_rate": 0}
+    if suite == "hybrid":
+        from test_hybrid_prometheus import rows
+        # Exporter caching is asynchronous. Check the completed run after CPU
+        # measurement; in-flight requests at the two wrk cutoffs can exceed
+        # completed client responses by at most a small concurrency allowance.
+        expected = warm_requests + count
+        for _ in range(100):
+            text = metrics()
+            status = {}
+            for labels, value in rows(text, "apisix_http_status"):
+                if labels["route"] == "auth": status[labels["code"]] = status.get(labels["code"], 0) + value
+            total = sum(status.values())
+            hist = sum(value for labels, value in rows(text, "apisix_http_latency_count")
+                       if labels["route"] == "auth" and labels["type"] == "request")
+            metric_errors = [float(line.rsplit(" ", 1)[1]) for line in text.splitlines()
+                             if "metric_errors_total" in line and not line.startswith("#")]
+            if expected <= total <= expected + 128 and hist == total and all(value == 0 for value in metric_errors): break
+            time.sleep(.1)
+        else:
+            (OUT / f"{mode}-{prefix}-metrics-failed.prom").write_text(text)
+            raise RuntimeError(f"load metric validation failed: client={expected}, server={status}, histogram={hist}, errors={metric_errors}")
+        (OUT / f"{mode}-{prefix}-metrics-final.prom").write_text(text)
+        result["metric_validation"] = {"status_counts": status, "request_histogram_count": hist,
+            "client_completed_warmup_plus_sample": expected, "server_request_excess": total - expected,
+            "cutoff_allowance": 128, "metric_errors": metric_errors,
+            "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."}
     print(json.dumps(result), flush=True)
     return result
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--suite", choices=["single", "legacy"], default="single")
+    parser.add_argument("--suite", choices=["single", "legacy", "hybrid"], default="single")
     parser.add_argument("--prefixes", nargs="+")
     parser.add_argument("--modes", nargs="+", choices=["lua", "native"], default=["lua", "native"])
     parser.add_argument("--variant", default="default")
     parser.add_argument("--out", type=Path, required=True,
                         help="new evidence directory; existing results are never overwritten")
+    parser.add_argument("--stop-after", action="store_true", help="stop after the samples instead of restoring the historical demo")
     args = parser.parse_args()
     OUT = args.out
     OUT.mkdir(parents=True, exist_ok=False)
-    prefixes = args.prefixes or (["metrics", "auth", "limit"] if args.suite == "single"
+    prefixes = args.prefixes or (["auth"] if args.suite == "hybrid" else
+                                ["metrics", "auth", "limit"] if args.suite == "single"
                                 else ["plain", "auth", "limit", "combined"])
-    allowed = SINGLE_PLUGINS if args.suite == "single" else ["plain", "auth", "limit", "combined"]
+    allowed = ["auth"] if args.suite == "hybrid" else SINGLE_PLUGINS if args.suite == "single" else ["plain", "auth", "limit", "combined"]
     assert all(prefix in allowed for prefix in prefixes), "prefix does not belong to selected suite"
     symbols = subprocess.check_output(["nm", "-D", MODULE], text=True)
     assert not any(marker in symbols for marker in ("__asan", "__ubsan", "ac_function_profile_start", "ac_route_profile_start")), \
@@ -214,5 +247,8 @@ if __name__ == "__main__":
         for mode in modes:
             results.append(sample(mode, prefix, cpu, args.suite, args.variant))
             (OUT / "results.json").write_text(json.dumps(results, indent=2))
-    prepare("native")
-    ready()
+    if args.stop_after:
+        stop()
+    else:
+        prepare("native")
+        ready()

@@ -167,7 +167,10 @@ ac_decode(lua_State *L, ac_request_t *ctx, ngx_str_t path, ngx_flag_t keep_slash
     ngx_int_t hi, lo;
     u_char *out;
     decoded.data = ngx_pnalloc(ctx->request->pool, path.len + 1);
-    if (!decoded.data) luaL_error(L, "URI decoding allocation failed");
+    if (!decoded.data) {
+        if (L) luaL_error(L, "URI decoding allocation failed");
+        decoded.len = 0; return decoded;
+    }
     out = decoded.data;
     for (i = 0; i < path.len; i++) {
         if (path.data[i] == '%' && i + 2 < path.len
@@ -191,6 +194,7 @@ ac_only_decoded_or_merged(lua_State *L, ac_request_t *ctx, ngx_str_t path, ngx_s
     if (ctx->main->plain_uri == 1 && ac_equal(path, uri)
         && !ngx_strlchr(path.data, path.data + path.len, '%')) return 1;
     decoded = ac_decode(L, ctx, path, 0);
+    if (!decoded.data) return 0;
     if (ac_equal(decoded, uri)) return 1;
     for (i = 0; i < decoded.len; i++) {
         if (decoded.data[i] == '/' && written && decoded.data[written - 1] == '/') continue;
@@ -365,6 +369,56 @@ void
 ac_http_match_finish(lua_State *L, ac_request_t *ctx)
 {
     ac_var_assign(L, ctx, "uri", ctx->normalized_uri, 0);
+}
+
+/* C-only request preparation for the explicitly validated native-plugin mode.
+ * Uses the same URI policy; no observable Lua cache/getter exists in this mode. */
+ngx_int_t
+ac_http_prepare_native(ac_request_t *ctx)
+{
+    ngx_http_request_t *r = ctx->request;
+    ngx_str_t path = r->unparsed_uri, host, port, value, nil = ngx_null_string;
+    ngx_str_t names[4] = {ngx_string("X-Forwarded-Proto"), ngx_string("X-Forwarded-Host"),
+                         ngx_string("X-Forwarded-Port"), ngx_string("Forwarded")};
+    ngx_str_t values[4];
+    ngx_http_variable_value_t *v;
+    ngx_str_t port_name = ngx_string("server_port"), scheme = ngx_string("scheme");
+    u_char *query; size_t i, colon;
+    char *error = NULL;
+    query = ngx_strlchr(path.data, path.data + path.len, '?');
+    if (query) path.len = query - path.data;
+    if (!ac_only_decoded_or_merged(NULL, ctx, path, r->uri)) r->valid_unparsed_uri = 0;
+    ctx->normalized_uri = ctx->routing_uri = r->uri;
+    if (ctx->main->delete_tail_slash && ctx->routing_uri.len
+        && ctx->routing_uri.data[ctx->routing_uri.len - 1] == '/') ctx->routing_uri.len--;
+    ctx->native_variables[6] = r->request_line;
+    ctx->native_variable_set |= (uint64_t) 1 << 6;
+    v = ngx_http_get_variable(r, &ac_http_read_plan[AC_HTTP_XFF].name,
+                             ac_http_read_plan[AC_HTTP_XFF].hash);
+    if (v && !v->not_found) {
+        ctx->native_variables[33].data = v->data; ctx->native_variables[33].len = v->len;
+    }
+    host = r->headers_in.host ? r->headers_in.host->value : r->headers_in.server;
+    v = ngx_http_get_variable(r, &port_name, ngx_hash_key(port_name.data, port_name.len));
+    port = nil; if (v && !v->not_found) { port.data = v->data; port.len = v->len; }
+    for (colon = host.len; colon && host.data[colon - 1] != ':'; colon--) { }
+    if (colon && colon < host.len) {
+        for (i = colon; i < host.len && host.data[i] >= '0' && host.data[i] <= '9'; i++) { }
+        if (i == host.len) { port.data = host.data + colon; port.len = host.len - colon; }
+    }
+    v = ngx_http_get_variable(r, &scheme, ngx_hash_key(scheme.data, scheme.len));
+    value = nil; if (v && !v->not_found) { value.data = v->data; value.len = v->len; }
+    values[0] = value; values[1] = host; values[2] = port; values[3] = nil;
+    for (i = 0; i < 4; i++) {
+        /* Originals are still exposed through the same NGINX variable names. */
+        ngx_http_variable_value_t *original;
+        ngx_str_t name = ac_http_read_plan[i].name;
+        original = ngx_http_get_variable(r, &name, ac_http_read_plan[i].hash);
+        ctx->native_variables[34 + i].data = original && !original->not_found ? original->data : (u_char *) "";
+        ctx->native_variables[34 + i].len = original && !original->not_found ? original->len : 0;
+        if (ac_native_header_write(r, names[i], values[i], 0, 0, &error) != NGX_OK) return 500;
+    }
+    return NGX_OK;
 }
 
 void

@@ -1,0 +1,24 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+PASS lua-core 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native-lua 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native-c-adapter 41 semantic cases; 128 concurrent auth; keepalive; rejected requests do not proxy
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_native_key_auth.py", line 156, in <module>
+    assert value == expected, (variant, i, cases()[i], value, expected)
+AssertionError: ('native-c-pipeline', 37, ('/retry/item', [('apikey', 'demo-key')]), (200, None, {'method': 'GET', 'uri': ['/retry/item', []], 'body': '', 'headers': {'x-real-ip': '127.0.0.1', 'x-forwarded-for': '127.0.0.1', 'accept-encoding': 'identity', 'x-demo-echo': '1', 'x-forwarded-proto': 'http', 'x-forwarded-host': '127.0.0.1:9080', 'x-forwarded-port': '9080', 'x-consumer-username': 'demo-user', 'x-consumer-custom-id': 'custom-user', 'apikey': 'demo-key', 'host': '127.0.0.1:9080'}}), (502, None, b'<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href="https://apisix.apache.org/">APISIX</a>.</em></p></body>\r\n</html>\r\n'))

@@ -84,9 +84,9 @@ TRACE_PROFILE = r'''
 '''
 
 
-def function_summary(output):
+def function_summary(output, module=MODULE):
     symbols = {}
-    text = subprocess.check_output(["nm", "-an", "--defined-only", MODULE], text=True)
+    text = subprocess.check_output(["nm", "-an", "--defined-only", module], text=True)
     for row in text.splitlines():
         parts = row.split()
         if len(parts) >= 3 and parts[1] in ("t", "T"):
@@ -96,11 +96,13 @@ def function_summary(output):
         address, count, inclusive, own = row.split()
         rows.append((symbols.get(int(address, 16), address), int(count), int(inclusive), int(own)))
     total = sum(row[3] for row in rows)
-    requests = next((row[1] for row in rows if row[0] == "ac_http_prepare"), 0)
+    denominator = "ac_http_prepare" if any(row[0] == "ac_http_prepare" for row in rows) else "ac_http_prepare_native"
+    requests = next((row[1] for row in rows if row[0] == denominator), 0)
     print("Instrumented C subtrees only, including instrumentation tax; not throughput evidence")
-    print("Request denominator (ac_http_prepare):", requests)
+    print("Request denominator (" + denominator + "):", requests)
     Path(str(output) + ".functions.json").write_text(json.dumps({
         "requests": requests,
+        "request_denominator": denominator,
         "functions": [{"name": name, "calls": count, "inclusive_ns": inclusive,
                        "self_ns": own, "calls_per_request": count / requests if requests else None}
                       for name, count, inclusive, own in rows]}, indent=2))
@@ -155,13 +157,13 @@ def symbolize(output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["lua", "native"])
-    parser.add_argument("--suite", choices=["historical", "isolated-single"], default="historical")
+    parser.add_argument("--suite", choices=["historical", "isolated-single", "hybrid"], default="historical")
     parser.add_argument("--prefix", choices=["plain", "combined", "prometheus", "metrics", "auth", "limit"],
                         default="plain")
     parser.add_argument("--sampler", choices=["jit", "pc", "functions", "traces", "route", "alloc"], default="jit")
     args = parser.parse_args()
     single_plugin = None
-    if args.suite == "isolated-single":
+    if args.suite in ("isolated-single", "hybrid"):
         plugins = {"prometheus": "prometheus", "metrics": "prometheus",
                    "auth": "key-auth", "limit": "limit-count"}
         if args.prefix not in plugins:
@@ -177,7 +179,7 @@ def main():
     cpu = sorted(os.sched_getaffinity(0))
     stop(UPSTREAM)
     prepare(args.mode, benchmark=True, gateway_cpu=cpu[0], upstream_cpu=cpu[1],
-            single_plugin=single_plugin)
+            single_plugin=single_plugin, with_prometheus=args.suite == "hybrid")
     stop()
     output = f"/tmp/apisix-core-profile-{args.mode}-{args.suite}-{args.prefix}-{args.sampler}.txt"
     # The worker writes the profile, so an earlier worker's file must be removed.

@@ -1,0 +1,118 @@
+{
+  "utc": "2026-10-31T07:22:27.603266+00:00",
+  "historical_manifests": [
+    {
+      "manifest": "results/EVIDENCE_MANIFEST.json",
+      "sha256": "1ba22307f92bc1ca879843d3be0bff9e2c4a117e5c1c1371f4c10f4f9ab8593d",
+      "files_verified": 229
+    },
+    {
+      "manifest": "results/single-20261031/MANIFEST.json",
+      "sha256": "dc3bf4dd31bf0d21312bd10244caa2dde9aed43912df610c0da4dfed1046aa60",
+      "files_verified": 182
+    },
+    {
+      "manifest": "results/exhaustive-20261031/MANIFEST.json",
+      "sha256": "3344e674e3895be9149002eba65ebd70c44643097d62bc558a5eb0184a71a81d",
+      "files_verified": 698
+    }
+  ],
+  "throughput_sample_count": 11,
+  "formal_samples": 8,
+  "pre_head_review_samples": 3,
+  "all_samples_seconds": 60,
+  "all_raw_qps_and_requests_match": true,
+  "all_throughput_error_logs_empty": true,
+  "all_build_source_and_environment_hashes_match": true,
+  "selected_module_sha256": "99bb4233fa8780c7ace4395f8ff52ead0398a77b31218face9713031dbbdab5f",
+  "final_module_source_and_runtime_match_workspace": true,
+  "ordinary_build_restored": true,
+  "function_module_hashes_match": true,
+  "final_four_way_semantics_cases_each": 47,
+  "post_monitor_scope_four_way_semantics_cases_each": 47,
+  "python_syntax_files": 29,
+  "git_diff_check": true,
+  "stable_checkout_clean": true,
+  "samples": [
+    {
+      "path": "round-1-lua-core/results.json",
+      "qps": 23023.14,
+      "seconds": 60,
+      "requests": 1381781,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "round-1-native-c-adapter/results.json",
+      "qps": 28708.3,
+      "seconds": 60,
+      "requests": 1725358,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "round-1-native-lua/results.json",
+      "qps": 25076.6,
+      "seconds": 60,
+      "requests": 1504697,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-1-lua-core/results.json",
+      "qps": 23605.56,
+      "seconds": 60,
+      "requests": 1416470,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-1-native-c-adapter/results.json",
+      "qps": 28409.06,
+      "seconds": 60,
+      "requests": 1704555,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-1-native-c-pipeline/results.json",
+      "qps": 46669.37,
+      "seconds": 60,
+      "requests": 2800220,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-1-native-lua/results.json",
+      "qps": 25997.77,
+      "seconds": 60,
+      "requests": 1559959,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-2-lua-core/results.json",
+      "qps": 23458.46,
+      "seconds": 60,
+      "requests": 1407646,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-2-native-c-adapter/results.json",
+      "qps": 28794.92,
+      "seconds": 60,
+      "requests": 1727719,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-2-native-c-pipeline/results.json",
+      "qps": 46808.48,
+      "seconds": 60,
+      "requests": 2813174,
+      "host_nr_throttled": 0
+    },
+    {
+      "path": "final/round-2-native-lua/results.json",
+      "qps": 25214.73,
+      "seconds": 60,
+      "requests": 1515396,
+      "host_nr_throttled": 0
+    }
+  ],
+  "historical_git_checkpoint": "b839232031a3797a1ddcee9b20f8a81f4ef0bf72",
+  "all_historical_manifest_files_in_checkpoint": true,
+  "all_new_manifest_files_in_git_index": true
+}

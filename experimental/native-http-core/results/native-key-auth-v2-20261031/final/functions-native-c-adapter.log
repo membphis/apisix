@@ -1,0 +1,44 @@
+Native C module rebuilt function-profile
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-auth-functions.txt
+Instrumented C subtrees only, including instrumentation tax; not throughput evidence
+Request denominator (ac_http_prepare): 180830
+self%  count      inclusive_ms     self_ms   function
+ 23.1    361630          1516.3      1488.5 ac_native_body
+  5.5  13381345           351.7       351.7 ac_push
+  3.8   1446640           321.9       246.7 ac_read_var
+  3.4   1627470           303.9       218.1 ac_native_var_write
+  3.2    542475          1675.0       207.8 ac_next
+  3.0   1989130           351.2       190.5 ac_var_batch_assign
+  2.9   1627455           184.5       184.5 ac_native_header_write
+  2.7   6690710           171.9       171.9 ac_var_set
+  2.5   1265810           427.6       163.7 ac_var_assign
+  2.5    723320           254.9       161.2 ac_route_context_at
+  2.5   1989085           387.0       161.1 ac_request
+  1.9    180830           974.9       123.3 ac_forwarded
+  1.9   4339925           119.9       119.9 ac_main
+  1.7    361645           338.2       112.6 ac_leave
+  1.7    180830           142.6       106.8 ac_set_vars
+  1.5   1265750            99.9        99.9 ac_require
+  1.5    723320           116.2        97.6 ac_set_string
+  1.4   1084965           167.1        88.7 ac_script_next
+  1.4   1627470           391.1        87.2 ac_native_var_set
+  1.2    180830           178.4        79.0 ac_var_index
+  1.2    361645          1931.1        76.8 ac_enter
+  1.2    180815           137.6        76.6 ac_native_header
+  1.2    180830           251.9        76.0 ac_key_callback
+  1.2    180830           541.1        74.3 ac_upstream_prepare
+  1.1    180830           210.4        73.4 ac_peer_get
+  1.1    180815            99.8        72.8 ac_release_vars
+  1.1    180830           287.0        71.9 ac_accept_route
+  1.0    180830            83.5        66.3 ac_balance_finish_ctx
+  1.0    180830           270.6        61.9 ac_match_start
+  0.9    180830          1214.4        61.1 ac_http_prepare
+  0.9    723320           332.1        58.2 ac_route_context
+  0.8   1989130            50.8        50.8 ac_abs
+  0.8   1084965            49.4        49.4 ac_bool_field
+  0.7   1627440           182.3        47.4 ac_advance
+  0.7    542490            61.4        47.0 ac_var_batch_begin

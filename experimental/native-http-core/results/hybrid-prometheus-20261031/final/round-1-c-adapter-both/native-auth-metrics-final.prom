@@ -1,0 +1,151 @@
+# HELP apisix_bandwidth Total bandwidth in bytes consumed per service in APISIX
+# TYPE apisix_bandwidth counter
+apisix_bandwidth{type="egress",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 217
+apisix_bandwidth{type="egress",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 238418895
+apisix_bandwidth{type="ingress",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 74
+apisix_bandwidth{type="ingress",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 92792520
+# HELP apisix_http_latency HTTP request latency in milliseconds per service in APISIX
+# TYPE apisix_http_latency histogram
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="1"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="2"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="5"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="10"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="20"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="50"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="100"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="200"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="500"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="1000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="2000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="5000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="10000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="30000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="60000"} 1
+apisix_http_latency_bucket{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="+Inf"} 1
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="20"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="50"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="100"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="200"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="500"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="30000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="60000"} 1288785
+apisix_http_latency_bucket{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="+Inf"} 1288785
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="1"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="2"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="5"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="10"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="20"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="50"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="100"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="200"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="500"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="1000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="2000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="5000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="10000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="30000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="60000"} 1
+apisix_http_latency_bucket{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",le="+Inf"} 1
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1"} 1243199
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2"} 1287049
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5"} 1288684
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10"} 1288726
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="20"} 1288753
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="50"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="100"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="200"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="500"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="30000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="60000"} 1288785
+apisix_http_latency_bucket{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="+Inf"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1"} 1243795
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2"} 1286798
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5"} 1288670
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10"} 1288726
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="20"} 1288753
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="50"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="100"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="200"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="500"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="1000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="2000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="5000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="10000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="30000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="60000"} 1288785
+apisix_http_latency_bucket{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",le="+Inf"} 1288785
+apisix_http_latency_count{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 1
+apisix_http_latency_count{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 1288785
+apisix_http_latency_count{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 1
+apisix_http_latency_count{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 1288785
+apisix_http_latency_count{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 1288785
+apisix_http_latency_sum{type="apisix",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 0
+apisix_http_latency_sum{type="apisix",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 299961
+apisix_http_latency_sum{type="request",route="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model=""} 0
+apisix_http_latency_sum{type="request",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 1044235
+apisix_http_latency_sum{type="upstream",route="auth",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model=""} 1043167
+# HELP apisix_http_requests_total The total number of client requests since APISIX started
+# TYPE apisix_http_requests_total gauge
+apisix_http_requests_total 1288852
+# HELP apisix_http_status HTTP status codes per service in APISIX
+# TYPE apisix_http_status counter
+apisix_http_status{code="200",route="auth",matched_uri="/auth/*",matched_host="",service="",consumer="demo-user",node="127.0.0.1",request_type="traditional_http",request_llm_model="",llm_model="",response_source="upstream"} 1288785
+apisix_http_status{code="404",route="",matched_uri="",matched_host="",service="",consumer="",node="",request_type="traditional_http",request_llm_model="",llm_model="",response_source="apisix"} 1
+# HELP apisix_nginx_http_current_connections Number of HTTP connections
+# TYPE apisix_nginx_http_current_connections gauge
+apisix_nginx_http_current_connections{state="accepted"} 1397
+apisix_nginx_http_current_connections{state="active"} 0
+apisix_nginx_http_current_connections{state="handled"} 1397
+apisix_nginx_http_current_connections{state="reading"} 0
+apisix_nginx_http_current_connections{state="waiting"} 0
+apisix_nginx_http_current_connections{state="writing"} 0
+# HELP apisix_nginx_metric_errors_total Number of nginx-lua-prometheus errors
+# TYPE apisix_nginx_metric_errors_total counter
+apisix_nginx_metric_errors_total 0
+# HELP apisix_node_info Info of APISIX node
+# TYPE apisix_node_info gauge
+apisix_node_info{hostname="a289d0cc554f",version="3.19.0"} 1
+# HELP apisix_shared_dict_capacity_bytes The capacity of each nginx shared DICT since APISIX start
+# TYPE apisix_shared_dict_capacity_bytes gauge
+apisix_shared_dict_capacity_bytes{name="balancer-ewma"} 10485760
+apisix_shared_dict_capacity_bytes{name="balancer-ewma-last-touched-at"} 10485760
+apisix_shared_dict_capacity_bytes{name="balancer-ewma-locks"} 10485760
+apisix_shared_dict_capacity_bytes{name="etcd-cluster-health-check"} 10485760
+apisix_shared_dict_capacity_bytes{name="internal-status"} 10485760
+apisix_shared_dict_capacity_bytes{name="lrucache-lock"} 10485760
+apisix_shared_dict_capacity_bytes{name="nacos"} 67108864
+apisix_shared_dict_capacity_bytes{name="plugin-ai-rate-limiting"} 10485760
+apisix_shared_dict_capacity_bytes{name="plugin-ai-rate-limiting-reset-header"} 10485760
+apisix_shared_dict_capacity_bytes{name="prometheus-cache"} 10485760
+apisix_shared_dict_capacity_bytes{name="prometheus-metrics"} 134217728
+apisix_shared_dict_capacity_bytes{name="upstream-healthcheck"} 10485760
+apisix_shared_dict_capacity_bytes{name="upstream-slow-start"} 10485760
+apisix_shared_dict_capacity_bytes{name="worker-events"} 10485760
+# HELP apisix_shared_dict_free_space_bytes The free space of each nginx shared DICT since APISIX start
+# TYPE apisix_shared_dict_free_space_bytes gauge
+apisix_shared_dict_free_space_bytes{name="balancer-ewma"} 10412032
+apisix_shared_dict_free_space_bytes{name="balancer-ewma-last-touched-at"} 10412032
+apisix_shared_dict_free_space_bytes{name="balancer-ewma-locks"} 10412032
+apisix_shared_dict_free_space_bytes{name="etcd-cluster-health-check"} 10412032
+apisix_shared_dict_free_space_bytes{name="internal-status"} 10412032
+apisix_shared_dict_free_space_bytes{name="lrucache-lock"} 10412032
+apisix_shared_dict_free_space_bytes{name="nacos"} 66707456
+apisix_shared_dict_free_space_bytes{name="plugin-ai-rate-limiting"} 10412032
+apisix_shared_dict_free_space_bytes{name="plugin-ai-rate-limiting-reset-header"} 10412032
+apisix_shared_dict_free_space_bytes{name="prometheus-cache"} 10387456
+apisix_shared_dict_free_space_bytes{name="prometheus-metrics"} 133345280
+apisix_shared_dict_free_space_bytes{name="upstream-healthcheck"} 10412032
+apisix_shared_dict_free_space_bytes{name="upstream-slow-start"} 10412032
+apisix_shared_dict_free_space_bytes{name="worker-events"} 10412032

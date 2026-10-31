@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "lua-both": [
+      "lua",
+      "",
+      "hybrid"
+    ],
+    "c-adapter-both": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_key_auth on;",
+      "hybrid"
+    ],
+    "c-hybrid": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_pipeline on; apisix_core_lua_log_bridge on;",
+      "hybrid"
+    ],
+    "c-no-metrics": [
+      "native",
+      "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_pipeline on;",
+      "single"
+    ]
+  },
+  "orders": [
+    [
+      "lua-both",
+      "c-adapter-both",
+      "c-hybrid",
+      "c-no-metrics"
+    ],
+    [
+      "c-no-metrics",
+      "c-hybrid",
+      "c-adapter-both",
+      "lua-both"
+    ]
+  ],
+  "sample_seconds": 60,
+  "warmup_seconds": 5,
+  "scrape": "1 Hz for all three with-Prometheus paths; none for no-metrics control",
+  "tuning": "all frozen variants reported; no throughput-based selection"
+}

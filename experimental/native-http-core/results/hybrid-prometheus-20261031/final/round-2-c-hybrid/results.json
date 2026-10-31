@@ -1,0 +1,69 @@
+[
+  {
+    "mode": "native",
+    "prefix": "auth",
+    "duration_seconds": 60,
+    "suite": "hybrid",
+    "variant": "round-2-c-hybrid",
+    "plugin": "key-auth",
+    "cgroup_cpu_delta": {
+      "usage_usec": 85309556,
+      "user_usec": 40760586,
+      "system_usec": 44548970,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 85416570,
+      "user_usec": 40820715,
+      "system_usec": 44595855,
+      "nice_usec": 0,
+      "nr_periods": 603,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.35895304099904,
+    "warmup_requests": 130251,
+    "requests": 1450961,
+    "qps": 24181.3,
+    "workers": [
+      172533
+    ],
+    "worker_cpu_seconds": 59.92,
+    "worker_user_cpu_seconds": 33.370000000000005,
+    "worker_system_cpu_seconds": 26.55,
+    "worker_cpu_us_per_request": 41.29676814194179,
+    "rss_start_bytes": 20897792,
+    "rss_end_bytes": 21213184,
+    "rss_peak_bytes": 21217280,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "mean": 1324.766,
+      "p50": 1247.0,
+      "p95": 1799.0,
+      "p99": 2196.0,
+      "p999": 3453.0
+    },
+    "error_rate": 0,
+    "metric_validation": {
+      "status_counts": {
+        "200": 1581269.0,
+        "499": 3.0
+      },
+      "request_histogram_count": 1581272.0,
+      "client_completed_warmup_plus_sample": 1581212,
+      "server_request_excess": 60.0,
+      "cutoff_allowance": 128,
+      "metric_errors": [
+        0.0
+      ],
+      "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+    }
+  }
+]

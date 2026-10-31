@@ -37,6 +37,14 @@ static void *ac_create_location(ngx_conf_t *cf);
 static char *ac_merge_location(ngx_conf_t *cf, void *parent, void *child);
 
 static ngx_command_t ac_commands[] = {
+    {ngx_string("apisix_core_lua_log_bridge"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, lua_log_bridge), NULL},
+    {ngx_string("apisix_core_native_key_auth"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_key_auth), NULL},
+    {ngx_string("apisix_core_native_pipeline"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
+     ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, native_pipeline), NULL},
+    {ngx_string("apisix_core_native_balancer"), NGX_HTTP_UPS_CONF | NGX_CONF_NOARGS,
+     ac_upstream_native_directive, 0, 0, NULL},
     {ngx_string("apisix_core_balancer_peer_plan"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
      ngx_conf_set_flag_slot, NGX_HTTP_MAIN_CONF_OFFSET, offsetof(ac_main_conf_t, balancer_peer_plan), NULL},
     {ngx_string("apisix_core_sdk_cache_replay"), NGX_HTTP_MAIN_CONF | NGX_CONF_FLAG,
@@ -246,7 +254,7 @@ done:
     return retained;
 }
 
-static void
+void
 ac_cleanup(void *data)
 {
     ac_request_t *ctx = data;
@@ -329,6 +337,8 @@ ac_request(lua_State *L)
     }
     ctx = ngx_http_get_module_ctx(request, ngx_http_apisix_core_module);
     if (ctx != NULL) {
+        if (ctx->c_pipeline && !ctx->lua_log_active)
+            luaL_error(L, "C-only request cannot enter the Lua engine outside the explicit log bridge");
         return ctx;
     }
     ctx = ngx_pcalloc(request->pool, sizeof(*ctx));
@@ -350,6 +360,16 @@ ac_request(lua_State *L)
     ctx->match_opts_ref = LUA_NOREF;
     ctx->matched_ref = LUA_NOREF;
     ctx->span_ref = LUA_NOREF;
+    ac_attach_lua_context(L, ctx);
+    cleanup->data = ctx;
+    cleanup->handler = ac_cleanup;
+    ngx_http_set_ctx(request, ctx, ngx_http_apisix_core_module);
+    return ctx;
+}
+
+void
+ac_attach_lua_context(lua_State *L, ac_request_t *ctx)
+{
     if (ctx->main->request_pool_native == 1) {
         ctx->table_ref = ac_table_pool_fetch(L, ctx->main,
                                             ctx->main->request_pool_state, 32);
@@ -374,11 +394,7 @@ ac_request(lua_State *L)
     lua_setfield(L, -2, "ngx_ctx");
     lua_setfield(L, -2, "api_ctx");
     lua_pop(L, 2);
-    cleanup->data = ctx;
-    cleanup->handler = ac_cleanup;
-    ngx_http_set_ctx(request, ctx, ngx_http_apisix_core_module);
     ac_sdk_context(L, ctx);
-    return ctx;
 }
 
 int
@@ -460,6 +476,7 @@ ac_open(lua_State *L)
 {
     static const luaL_Reg functions[] = {
         {"init", ac_init}, {"init_worker", ac_init_worker},
+        {"native_log_start", ac_pipeline_log_start},
         {"shutdown", ac_shutdown}, {"context", ac_context},
         {"enter", ac_enter}, {"next", ac_next},
         {"complete", ac_complete}, {"leave", ac_leave},
@@ -533,6 +550,9 @@ ac_create_main(ngx_conf_t *cf)
         if (!main->request_pool_state || !main->matched_pool_state) return NULL;
         main->pool = cf->pool;
         main->native_filters = NGX_CONF_UNSET;
+        main->native_key_auth = NGX_CONF_UNSET;
+        main->native_pipeline = NGX_CONF_UNSET;
+        main->lua_log_bridge = NGX_CONF_UNSET;
         main->lazy_rate_json = NGX_CONF_UNSET;
         main->rate_variable_index = NGX_ERROR;
         main->log_var_plan = NGX_CONF_UNSET;
@@ -572,6 +592,14 @@ static ngx_int_t
 ac_register(ngx_conf_t *cf)
 {
     ac_main_conf_t *main = ngx_http_conf_get_module_main_conf(cf, ngx_http_apisix_core_module);
+    if (main->native_pipeline == NGX_CONF_UNSET) main->native_pipeline = 0;
+    if (main->lua_log_bridge == NGX_CONF_UNSET) main->lua_log_bridge = 0;
+    if (main->lua_log_bridge && !main->native_pipeline) {
+        ngx_conf_log_error(NGX_LOG_EMERG, cf, 0, "Lua log bridge requires native_pipeline");
+        return NGX_ERROR;
+    }
+    if (main->native_key_auth == NGX_CONF_UNSET) main->native_key_auth = 0;
+    if (main->native_pipeline) main->native_key_auth = 1;
     if (main->fused_balancer == NGX_CONF_UNSET) main->fused_balancer = 0;
     if (main->batch_vars == NGX_CONF_UNSET) main->batch_vars = 0;
     if (main->http_var_plan == NGX_CONF_UNSET) main->http_var_plan = 0;
@@ -598,6 +626,7 @@ ac_register(ngx_conf_t *cf)
     if (ac_script_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_snapshot_register(cf) != NGX_OK) return NGX_ERROR;
     if (ac_sdk_register(cf) != NGX_OK) return NGX_ERROR;
+    if (ac_pipeline_register(cf) != NGX_OK) return NGX_ERROR;
     return ac_native_filters_register(cf);
 }
 

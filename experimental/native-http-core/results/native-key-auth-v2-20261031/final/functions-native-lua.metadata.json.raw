@@ -1,0 +1,16 @@
+{
+  "mode": "native",
+  "suite": "isolated-single",
+  "prefix": "auth",
+  "sampler": "functions",
+  "source": "/stable",
+  "diagnostic_seconds": 15,
+  "metrics_scrape": false,
+  "directives": "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on;",
+  "note": "Diagnostic run only; not acceptance throughput evidence",
+  "sha256": {
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "23e8baf4fa405b352467094d5ec7678b60c0b7b758ab694591f2c959c9e64b73",
+    "/src/experimental/native-http-core/runtime.lua": "7402e0fbe6294796e82550add0e2e0e978b7773271e526f9387961f80b3b4a41",
+    "/stable/apisix/init.lua": "3cbea3eb74cada6632eeeb42e23c6a63be00dfde644dc670c673f38f735d14ca"
+  }
+}

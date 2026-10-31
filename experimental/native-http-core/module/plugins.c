@@ -96,6 +96,7 @@ ac_compile_plan(lua_State *L, ac_main_conf_t *main, ac_plan_t *plan,
         call->priority = plugin->priority;
         call->conf_ref = ac_ref(L, -2);
         call->pre_ref = LUA_NOREF;
+        call->native_ref = LUA_NOREF;
         if (lua_istable(L, meta)) {
             lua_getfield(L, meta, "filter");
             if (!lua_isnil(L, -1)) call->expression = ac_expr_compile(L, pool, -1);
@@ -136,6 +137,9 @@ ac_compile_plan(lua_State *L, ac_main_conf_t *main, ac_plan_t *plan,
         } else {
             lua_pop(L, 1);
         }
+        if (validate && main->native_key_auth == 1 && plugin->name.len == 8
+            && ngx_memcmp(plugin->name.data, "key-auth", 8) == 0)
+            ac_key_auth_compile(L, main, call, pool);
         lua_pop(L, 3);
     }
     ngx_qsort(plan->calls.elts, plan->calls.nelts, sizeof(ac_call_t), ac_compare_calls);
@@ -546,6 +550,8 @@ static int
 ac_return_call(lua_State *L, ac_request_t *ctx, ac_call_t *call, int function_ref,
     ngx_flag_t is_pre)
 {
+    if (!is_pre && ctx->phase == AC_REWRITE && call->native_ref >= 0)
+        function_ref = call->native_ref;
     ctx->active = call;
     ctx->active_pre = is_pre;
     ctx->callback_pending = 1;
@@ -743,6 +749,7 @@ ac_leave(lua_State *L)
         ac_push(L, ctx->table_ref); lua_getfield(L, -1, "ngx_ctx"); lua_remove(L, -2); lua_call(L, 1, 0); lua_pop(L, 1);
         ac_push(L, ctx->table_ref); lua_pushnil(L); lua_setfield(L, -2, "ngx_ctx"); lua_pop(L, 1);
         ctx->log_done = 1;
+        if (ctx->c_pipeline) ctx->lua_log_active = 0;
     } else {
         ac_phase_finish(L, ctx);
     }
