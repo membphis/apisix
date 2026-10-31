@@ -1,0 +1,8 @@
+routes:
+  - id: native-response-demo
+    uris: [/native/*, /plain, /stats, /capabilities]
+    upstream:
+      type: roundrobin
+      nodes:
+        "127.0.0.1:1980": 1
+#END

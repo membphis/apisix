@@ -1,0 +1,302 @@
+{
+  "passed": true,
+  "checks": 33,
+  "results": [
+    {
+      "test": "runtime filter cosocket probes",
+      "passed": true,
+      "nginx": 1027001,
+      "header_filter": "/usr/local/apisix/apisix/patch.lua:406: API disabled in the context of header_filter_by_lua*",
+      "body_filter": "/usr/local/apisix/apisix/patch.lua:406: API disabled in the context of body_filter_by_lua*",
+      "worker_pid": 33,
+      "ngx_lua": 10028
+    },
+    {
+      "test": "inline Lua injection and timer resume",
+      "passed": true,
+      "status": 202,
+      "bytes": 22,
+      "first_header_s": 0.0506
+    },
+    {
+      "test": "no early bytes and concurrent plain request",
+      "passed": true,
+      "silent_window_ms": 300,
+      "audit_total_s": 1.0023,
+      "plain_total_s": 0.0018
+    },
+    {
+      "test": "allow",
+      "passed": true,
+      "status": 201,
+      "bytes": 20,
+      "first_header_s": 1.0023,
+      "total_s": 1.0024,
+      "content_length": 20
+    },
+    {
+      "test": "deny",
+      "passed": true,
+      "status": 403,
+      "bytes": 27,
+      "first_header_s": 1.0018,
+      "total_s": 1.0019,
+      "content_length": 27
+    },
+    {
+      "test": "normalized-path",
+      "passed": true,
+      "status": 403,
+      "bytes": 27,
+      "first_header_s": 1.0011,
+      "total_s": 1.0011,
+      "content_length": 27
+    },
+    {
+      "test": "chunked",
+      "passed": true,
+      "status": 201,
+      "bytes": 20,
+      "first_header_s": 1.1534,
+      "total_s": 1.1535,
+      "content_length": 20
+    },
+    {
+      "test": "deny-chunked",
+      "passed": true,
+      "status": 403,
+      "bytes": 27,
+      "first_header_s": 1.1524,
+      "total_s": 1.1524,
+      "content_length": 27
+    },
+    {
+      "test": "utf8",
+      "passed": true,
+      "status": 201,
+      "bytes": 22,
+      "first_header_s": 1.0015,
+      "total_s": 1.0016,
+      "content_length": 22
+    },
+    {
+      "test": "empty",
+      "passed": true,
+      "status": 201,
+      "bytes": 0,
+      "first_header_s": 1.0017,
+      "total_s": 1.0017,
+      "content_length": 0
+    },
+    {
+      "test": "status-404",
+      "passed": true,
+      "status": 404,
+      "bytes": 25,
+      "first_header_s": 1.0018,
+      "total_s": 1.0019,
+      "content_length": 25
+    },
+    {
+      "test": "status-503",
+      "passed": true,
+      "status": 503,
+      "bytes": 27,
+      "first_header_s": 1.0018,
+      "total_s": 1.0018,
+      "content_length": 27
+    },
+    {
+      "test": "exact",
+      "passed": true,
+      "status": 201,
+      "bytes": 4096,
+      "first_header_s": 1.0022,
+      "total_s": 1.0023,
+      "content_length": 4096
+    },
+    {
+      "test": "sleep",
+      "passed": true,
+      "status": 201,
+      "bytes": 12,
+      "first_header_s": 1.0016,
+      "total_s": 1.0017,
+      "content_length": 12
+    },
+    {
+      "test": "output-guard",
+      "passed": true,
+      "status": 201,
+      "bytes": 13,
+      "first_header_s": 0.0011,
+      "total_s": 0.0012,
+      "content_length": 13
+    },
+    {
+      "test": "lua-error",
+      "passed": true,
+      "status": 500,
+      "bytes": 21,
+      "first_header_s": 0.0009,
+      "total_s": 0.0009,
+      "content_length": 21
+    },
+    {
+      "test": "large-length",
+      "passed": true,
+      "status": 502,
+      "bytes": 24,
+      "first_header_s": 0.0027,
+      "total_s": 0.0028,
+      "content_length": 24
+    },
+    {
+      "test": "large-chunked",
+      "passed": true,
+      "status": 502,
+      "bytes": 24,
+      "first_header_s": 0.1515,
+      "total_s": 0.1515,
+      "content_length": 24
+    },
+    {
+      "test": "timeout",
+      "passed": true,
+      "status": 504,
+      "bytes": 23,
+      "first_header_s": 1.5011,
+      "total_s": 1.5011,
+      "content_length": 23
+    },
+    {
+      "test": "audit-error",
+      "passed": true,
+      "status": 502,
+      "bytes": 14,
+      "first_header_s": 1.0023,
+      "total_s": 1.0024,
+      "content_length": 14
+    },
+    {
+      "test": "audit-invalid",
+      "passed": true,
+      "status": 502,
+      "bytes": 14,
+      "first_header_s": 1.0019,
+      "total_s": 1.002,
+      "content_length": 14
+    },
+    {
+      "test": "audit-oversize",
+      "passed": true,
+      "status": 502,
+      "bytes": 14,
+      "first_header_s": 1.002,
+      "total_s": 1.0021,
+      "content_length": 14
+    },
+    {
+      "test": "audit-trickle",
+      "passed": true,
+      "status": 504,
+      "bytes": 23,
+      "first_header_s": 1.5017,
+      "total_s": 1.5018,
+      "content_length": 23
+    },
+    {
+      "test": "audit-disconnect",
+      "passed": true,
+      "status": 502,
+      "bytes": 14,
+      "first_header_s": 1.002,
+      "total_s": 1.0021,
+      "content_length": 14
+    },
+    {
+      "test": "slow-upstream",
+      "passed": true,
+      "status": 504,
+      "bytes": 28,
+      "first_header_s": 1.2012,
+      "total_s": 1.2013,
+      "content_length": 28
+    },
+    {
+      "test": "upstream-trickle",
+      "passed": true,
+      "status": 504,
+      "bytes": 28,
+      "first_header_s": 1.2018,
+      "total_s": 1.2019,
+      "content_length": 28
+    },
+    {
+      "test": "broken",
+      "passed": true,
+      "status": 502,
+      "bytes": 22,
+      "first_header_s": 0.0013,
+      "total_s": 0.0014,
+      "content_length": 22
+    },
+    {
+      "test": "disconnect",
+      "passed": true,
+      "status": 502,
+      "bytes": 229,
+      "first_header_s": 0.0009,
+      "total_s": 0.0009,
+      "content_length": 229
+    },
+    {
+      "test": "not-text",
+      "passed": true,
+      "status": 502,
+      "bytes": 38,
+      "first_header_s": 0.0006,
+      "total_s": 0.0006,
+      "content_length": 38
+    },
+    {
+      "test": "encoded",
+      "passed": true,
+      "status": 502,
+      "bytes": 38,
+      "first_header_s": 0.0009,
+      "total_s": 0.001,
+      "content_length": 38
+    },
+    {
+      "test": "client abort during upstream",
+      "passed": true,
+      "attempts": 5,
+      "cleanup_deadline_s": 0.7,
+      "cancelled_delta": 5
+    },
+    {
+      "test": "client abort during audit",
+      "passed": true,
+      "attempts": 5,
+      "cleanup_deadline_s": 0.7,
+      "cancelled_delta": 5
+    },
+    {
+      "test": "all mock requests released",
+      "passed": true,
+      "upstream_cancelled": 8,
+      "audit_started": 22,
+      "audit_active": 0,
+      "audit_done": 14,
+      "audit_cancelled": 8,
+      "upstream_active": 0,
+      "upstream_done": 31,
+      "upstream_started": 39,
+      "worker_pid": 33
+    }
+  ],
+  "recorded_at_utc": "2026-10-31 12:54:28 UTC",
+  "source_baseline": "membphis/apisix@b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "prototype_binary_sha256": "1464f5ce70a668517668b1c5401490b0cdaa37745c3f830057f73383a9dc4b4f"
+}

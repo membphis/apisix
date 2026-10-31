@@ -1,0 +1,19 @@
+nginx: the configuration file /usr/local/apisix/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/apisix/conf/nginx.conf test is successful
+nginx version: openresty/1.27.1.2
+built by gcc 10.5.0 (GCC)
+built with OpenSSL 3.4.1 11 Feb 2025
+TLS SNI support enabled
+configure arguments: --prefix=/usr/local/openresty/nginx --with-debug --with-threads --with-http_ssl_module --with-http_v2_module --without-pcre2 --with-pcre-jit --with-http_realip_module --with-http_stub_status_module --with-stream --with-stream_ssl_module --with-stream_realip_module --with-cc-opt='-O1 -g -DAPISIX_RUNTIME_VER=1.3.2 -I/usr/local/openresty/pcre/include -I/usr/local/openresty/zlib/include -I/usr/local/openresty/openssl3/include' --with-ld-opt='-Wl,-rpath,/usr/local/openresty/luajit/lib:/usr/local/openresty/pcre/lib:/usr/local/openresty/zlib/lib:/usr/local/openresty/openssl3/lib -L/usr/local/openresty/pcre/lib -L/usr/local/openresty/zlib/lib -L/usr/local/openresty/openssl3/lib' --add-module=../ngx_devel_kit-0.3.3 --add-module=../ngx_lua-0.10.28 --add-module=../ngx_stream_lua-0.0.16 --add-module=../headers-more-nginx-module-0.37 --add-module=/src/ngx_multi_upstream_module-1.3.2 --add-module=/src/mod_dubbo-1.0.2 --add-module=/src/apisix-nginx-module-1.19.2 --add-module=/src/apisix-nginx-module-1.19.2/src/stream --add-module=/src/apisix-nginx-module-1.19.2/src/meta --add-module=/src/lua-var-nginx-module-0.5.3 --add-module=/src/lua-resty-events-0.2.0
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua version
+3.19.0
+5:worker_processes 1;
+244:    response_phase 1;
+245:    response_by_lua_block {
+289:            response_phase $native_response_enabled;
+290:response_body_limit 4k;
+291:response_collect_timeout 1200ms;
+292:response_timeout 1500ms;
+293:response_by_lua_file /demo/audit.lua;
+372:            proxy_pass      $upstream_scheme://apisix_backend$upstream_uri;
+1464f5ce70a668517668b1c5401490b0cdaa37745c3f830057f73383a9dc4b4f  /usr/local/openresty/nginx/sbin/nginx

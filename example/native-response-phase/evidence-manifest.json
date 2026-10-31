@@ -1,0 +1,18 @@
+{
+  "recorded_at_utc": "2026-10-31 12:54:28 UTC",
+  "scope": "technical feasibility prototype, not production code",
+  "apisix_source": "b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "openresty_bundle": "1.27.1.2",
+  "nginx": "1.27.1",
+  "ngx_lua": "0.10.28",
+  "lua_resty_core": "0.1.31",
+  "native_source_files": 25,
+  "binary_sha256": "1464f5ce70a668517668b1c5401490b0cdaa37745c3f830057f73383a9dc4b4f",
+  "replay_binary_identical": true,
+  "patch_sha256": "3dec43227b63a03f6391207129f7649ada9a7b321032a15a97a8ba7b78d1bff4",
+  "black_box_checks": 33,
+  "replay_black_box_checks": 33,
+  "pending_native_requests_refcount": 1,
+  "main_fd_before": 18,
+  "main_fd_after": 18
+}
