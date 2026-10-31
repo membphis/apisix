@@ -1,0 +1,6 @@
+2026/10/31 05:19:53 [warn] 88086#88086: [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+2026/10/31 05:19:53 [warn] 88089#88089: *1 [lua] plugin.lua:297: load(): new plugins: {"prometheus":true}, context: init_worker_by_lua*
+2026/10/31 05:19:53 [warn] 88089#88089: *1 [lua] plugin.lua:347: load_stream(): new plugins: {"mqtt-proxy":true,"syslog":true,"ip-restriction":true,"limit-conn":true,"traffic-split":true}, context: init_worker_by_lua*
+2026/10/31 05:19:53 [warn] 88088#88088: *2 [lua] plugin.lua:297: load(): new plugins: {"prometheus":true}, context: init_worker_by_lua*
+2026/10/31 05:19:53 [warn] 88088#88088: *2 [lua] plugin.lua:347: load_stream(): new plugins: {"mqtt-proxy":true,"syslog":true,"ip-restriction":true,"limit-conn":true,"traffic-split":true}, context: init_worker_by_lua*
+2026/10/31 05:19:56 [notice] 88092#88092: signal process started

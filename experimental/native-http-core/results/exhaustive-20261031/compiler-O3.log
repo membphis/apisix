@@ -1,0 +1,9 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=prometheus, workers=1
+{"mode": "native", "prefix": "metrics", "duration_seconds": 60, "suite": "single", "variant": "compiler-O3", "plugin": "prometheus", "cgroup_cpu_delta": {"usage_usec": 83098177, "user_usec": 42915634, "system_usec": 40182543, "nice_usec": 0, "nr_periods": 0, "nr_throttled": 0, "throttled_usec": 0, "nr_bursts": 0, "burst_usec": 0}, "host_cgroup_cpu_delta": {"usage_usec": 83144290, "user_usec": 42944829, "system_usec": 40199462, "nice_usec": 0, "nr_periods": 602, "nr_throttled": 0, "throttled_usec": 0, "nr_bursts": 0, "burst_usec": 0}, "wall_seconds": 60.40594831999988, "requests": 1226416, "qps": 20438.51, "workers": [84228], "worker_cpu_seconds": 59.959999999999994, "worker_user_cpu_seconds": 35.73, "worker_system_cpu_seconds": 24.23, "worker_cpu_us_per_request": 48.89042543476275, "rss_start_bytes": 20549632, "rss_end_bytes": 21032960, "rss_peak_bytes": 21032960, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1470.0, "p95": 2110.0, "p99": 2555.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1

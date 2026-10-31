@@ -1,0 +1,31 @@
+START verify-o2-build
+DONE verify-o2-build
+START verify-o2-core-default
+DONE verify-o2-core-default
+START verify-o2-core-servlet
+DONE verify-o2-core-servlet
+START verify-o2-core-tail
+DONE verify-o2-core-tail
+START verify-o2-core-encoded
+DONE verify-o2-core-encoded
+START verify-o2-core-trusted
+DONE verify-o2-core-trusted
+START verify-o2-core-untrusted
+DONE verify-o2-core-untrusted
+START verify-o2-demo
+DONE verify-o2-demo
+START verify-o2-http_plans
+DONE verify-o2-http_plans
+START verify-o2-route_allocations
+DONE verify-o2-route_allocations
+START verify-o2-phase_context
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tools/sweep.py", line 68, in <module>
+    verify('verify-o2')
+  File "/src/experimental/native-http-core/tools/sweep.py", line 57, in verify
+    run(tag+'-'+suite,'tests/test_'+suite+'.py',directives=ALL,extra=extra)
+  File "/src/experimental/native-http-core/tools/sweep.py", line 38, in run
+    result.check_returncode()
+  File "/usr/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['python3', '/src/experimental/native-http-core/tests/test_phase_context.py']' returned non-zero exit status 1.

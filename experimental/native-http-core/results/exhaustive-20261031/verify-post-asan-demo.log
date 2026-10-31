@@ -1,0 +1,46 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+PASS lua: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=2
+PASS lua: 2-worker shared quota, 5 accepted / 27 rejected
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=2
+PASS native: 2-worker shared quota, 5 accepted / 27 rejected
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+PASS lua: cached readonly status, false value and custom log getter preserved
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_demo.py", line 284, in <module>
+    log_variable_semantics("native")
+  File "/src/experimental/native-http-core/tests/test_demo.py", line 264, in log_variable_semantics
+    lines = [line for line in metrics().splitlines() if line.startswith("apisix_http_status{")]
+  File "/src/experimental/native-http-core/tests/test_demo.py", line 59, in metrics
+    assert code == 200, (code, body)
+AssertionError: (500, b'{"message":"Failed to retrieve metrics: no data available"}\n')

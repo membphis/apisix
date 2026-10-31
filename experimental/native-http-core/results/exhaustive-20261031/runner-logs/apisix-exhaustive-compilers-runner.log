@@ -1,0 +1,17 @@
+START build-O3
+DONE build-O3
+START compiler-check-O3
+DONE compiler-check-O3
+START compiler-O3
+DONE compiler-O3
+START build-O3-lto
+DONE build-O3-lto
+START compiler-check-O3-lto
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tools/sweep.py", line 120, in <module>
+    run('compiler-check-'+optimization,'tests/test_single.py',stable=True)
+  File "/src/experimental/native-http-core/tools/sweep.py", line 39, in run
+    result.check_returncode()
+  File "/usr/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['python3', '/src/experimental/native-http-core/tests/test_single.py']' returned non-zero exit status 1.

@@ -1,0 +1,41 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=prometheus, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-metrics-pc.txt
+2498 process-CPU PC samples; nearest ELF symbols, no call stacks
+ 36.59%    914 libc-2.31.so:writev@@GLIBC_2.2.5
+  6.93%    173 [JIT/anonymous executable]
+  3.52%     88 libluajit-5.1.so.2.1.ROLLING:lj_str_new
+  3.16%     79 libpthread-2.31.so:recv
+  2.76%     69 libc-2.31.so:__nss_database_lookup@GLIBC_2.2.5
+  2.24%     56 libluajit-5.1.so.2.1.ROLLING:lj_alloc_free
+  2.16%     54 nginx:ngx_hash_find
+  1.76%     44 libluajit-5.1.so.2.1.ROLLING:propagatemark
+  1.44%     36 libluajit-5.1.so.2.1.ROLLING:lj_tab_get
+  1.40%     35 ngx_http_apisix_core_module.so:ac_native_var_fetch
+  1.16%     29 libluajit-5.1.so.2.1.ROLLING:lj_alloc_malloc
+  1.00%     25 libc-2.31.so:epoll_wait@@GLIBC_2.3.2
+  0.96%     24 libc-2.31.so:getsockopt@@GLIBC_2.2.5
+  0.92%     23 libluajit-5.1.so.2.1.ROLLING:gc_sweep
+  0.88%     22 libluajit-5.1.so.2.1.ROLLING:hash_sparse_def
+  0.80%     20 libluajit-5.1.so.2.1.ROLLING:gc_sweepstr
+  0.72%     18 libc-2.31.so:pthread_attr_setschedparam@@GLIBC_2.2.5
+  0.68%     17 libluajit-5.1.so.2.1.ROLLING:lj_vm_exit_interp
+  0.60%     15 nginx:ngx_rbtree_insert_timer_value
+  0.48%     12 libluajit-5.1.so.2.1.ROLLING:lj_tab_free
+  0.48%     12 ngx_http_apisix_core_module.so:ac_main
+  0.48%     12 nginx:ngx_http_get_variable
+  0.44%     11 nginx:ngx_palloc
+  0.44%     11 nginx:ngx_http_parse_header_line
+  0.40%     10 libluajit-5.1.so.2.1.ROLLING:lj_BC_JLOOP
+  0.40%     10 libluajit-5.1.so.2.1.ROLLING:newtab
+  0.36%      9 libluajit-5.1.so.2.1.ROLLING:lua_rawgeti
+  0.36%      9 libluajit-5.1.so.2.1.ROLLING:lj_BC_TGETS
+  0.36%      9 libluajit-5.1.so.2.1.ROLLING:gc_traverse_trace.part.0
+  0.36%      9 ngx_http_apisix_core_module.so:ac_http_prepare
+  0.36%      9 libluajit-5.1.so.2.1.ROLLING:lua_getfield
+  0.36%      9 libluajit-5.1.so.2.1.ROLLING:lj_BC_CALL
+  0.32%      8 nginx:ngx_http_lua_copy_escaped_header
+  0.32%      8 ngx_http_apisix_core_module.so:ac_peer_get
+  0.32%      8 libluajit-5.1.so.2.1.ROLLING:lj_vm_call_dispatch_f

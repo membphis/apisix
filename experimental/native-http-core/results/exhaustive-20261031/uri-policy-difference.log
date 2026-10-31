@@ -1,0 +1,29 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=prometheus, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=prometheus, workers=1
+{
+  "source": "/stable",
+  "source_revision": "473043623c161966f3f6ef4e8f12d2d8667a12d2",
+  "stable_init_sha256": "3cbea3eb74cada6632eeeb42e23c6a63be00dfde644dc670c673f38f735d14ca",
+  "records": [
+    {
+      "mode": "lua",
+      "input_uri": "/metrics/a/../ok",
+      "forwarded_uri": "/metrics/a/../ok",
+      "status": 200
+    },
+    {
+      "mode": "native",
+      "input_uri": "/metrics/a/../ok",
+      "forwarded_uri": "/metrics/ok",
+      "status": 200
+    }
+  ],
+  "note": "Existing research-branch normalized forwarding policy is retained. Ordinary benchmark paths do not exercise this difference; not full-release equivalence."
+}

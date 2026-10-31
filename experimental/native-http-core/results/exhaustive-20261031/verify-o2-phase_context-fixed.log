@@ -1,0 +1,10 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS phase context/index: mutation restoration, plugin-name timing, concurrent yield: 
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS phase context/index: mutation restoration, plugin-name timing, concurrent yield: apisix_core_phase_context on; apisix_core_phase_index on;

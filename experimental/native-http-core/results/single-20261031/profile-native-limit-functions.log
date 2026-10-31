@@ -1,0 +1,44 @@
+Native C module rebuilt function-profile
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=limit-count, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-limit-functions.txt
+Instrumented C subtrees only, including instrumentation tax; not throughput evidence
+Request denominator (ac_http_prepare): 148507
+self%  count      inclusive_ms     self_ms   function
+ 18.9    296980          1236.6      1213.4 ac_native_body
+  7.2    148507           608.4       464.0 ac_rate_info
+  5.8   2673126           711.9       373.6 ac_var_assign
+  4.3  10543929           277.7       277.7 ac_push
+  4.0   1485019           476.6       254.7 ac_request
+  3.4   1188056           285.6       221.9 ac_read_var
+  2.7   1485070           220.6       170.6 ac_native_var_write
+  2.5   1188039           158.7       158.7 ac_native_header_write
+  2.4    445504          1155.2       155.5 ac_next
+  2.4   5643266           154.9       154.9 ac_var_set
+  1.9    148507           351.4       124.7 ac_match_start
+  1.9    148507           150.4       120.8 ac_set_vars
+  1.8    445521           174.4       116.5 ac_route_context
+  1.5    891042           116.7        94.2 ac_set_string
+  1.5    148507           182.5        93.9 ac_set_header
+  1.4    296997           277.7        91.3 ac_leave
+  1.4    148507           834.1        90.4 ac_forwarded
+  1.4   1187988            90.1        90.1 ac_require
+  1.3   3415661            85.7        85.7 ac_abs
+  1.2   1485070           300.0        79.4 ac_native_var_set
+  1.2    148507            77.7        77.7 ac_json_delay
+  1.2   2524612            77.6        77.6 ac_main
+  1.2    148490           127.0        76.0 ac_native_header
+  1.0    148490            86.1        64.4 ac_release_vars
+  1.0    148507           144.4        64.1 ac_var_index
+  1.0    148507           170.6        63.7 ac_peer_get
+  1.0    148507            77.1        61.2 ac_balance_finish_ctx
+  0.9    742518           118.0        60.3 ac_script_next
+  0.9    296997          1936.0        59.2 ac_enter
+  0.9    148507           127.4        58.9 ac_cache_hit
+  0.9    148507           205.7        57.5 ac_accept_route
+  0.9   1039549           192.9        56.3 ac_native_header_set
+  0.8    148507           392.3        54.1 ac_upstream_prepare
+  0.7    445521            75.0        44.6 ac_log
+  0.7    148507            49.8        42.4 ac_plugin_key

@@ -1,0 +1,122 @@
+a289d0cc554f936171d8043c92dc08e3727402f628432a02be106f097e44b47f
+Native C module rebuilt optimized
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "default",
+  "checks": 327,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "servlet",
+  "checks": 332,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "tail",
+  "checks": 327,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "encoded",
+  "checks": 327,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "trusted",
+  "checks": 327,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+nginx: the configuration file /tmp/apisix-http-core-test/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-test/nginx.conf test is successful
+nginx: [warn] [lua] [C]:-1: prefixsdk probe
+nginx: [warn] [lua] [C]:-1: delayed
+{
+  "profile": "untrusted",
+  "checks": 327,
+  "phase_dispatch": "passed",
+  "lua_plugin_yield": "passed",
+  "original_core_guard": "enabled"
+}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+PASS lua: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: 34 real requests, global metrics {200: 21, 404: 3, 401: 6, 429: 2, 503: 1, 504: 1}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=2
+PASS lua: 2-worker shared quota, 5 accepted / 27 rejected
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=2
+PASS native: 2-worker shared quota, 5 accepted / 27 rejected
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+PASS lua: cached readonly status, false value and custom log getter preserved
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: cached readonly status, false value and custom log getter preserved
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: filter callbacks rejected instead of skipped
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: upstream failure, client abort, injected plugin error, original-core loader guard
+PASS all scenario comparisons

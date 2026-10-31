@@ -1,0 +1,28 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-auth-jit.txt
+94%  C code
+  -- 35%  log_by_lua(nginx.conf:360):0
+  -- 31%  access_by_lua(nginx.conf:310):0
+  --  8%  runtime.lua:35
+  --  6%  key-auth.lua:110
+  --  5%  run_step
+  --  4%  balancer_by_lua(nginx.conf:163):0
+  --  3%  run
+ 3%  Interpreted
+  -- 19%  run_step
+  -- 11%  key-auth.lua:110
+  --  9%  http.lua:155
+  --  8%  log_by_lua(nginx.conf:360):0
+  --  8%  require
+  --  8%  run
+  --  8%  find_consumer
+  --  6%  request.lua:128
+  --  5%  balance
+  --  5%  access_by_lua(nginx.conf:310):0
+  --  3%  balancer_by_lua(nginx.conf:163):0
+  --  3%  tablepool.lua:34
+  --  3%  runtime.lua:18
+

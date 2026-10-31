@@ -1,0 +1,35 @@
+2026/10/31 05:03:37 [notice] 69843#69843: signal process started
+2026/10/31 05:03:37 [warn] 69846#69846: *3 [lua] _G write guard:12: __newindex(): writing a global Lua variable ('peer_plan_logged') which may lead to race conditions between concurrent requests, so prefer the use of 'local' variables
+stack traceback:
+	init_worker_by_lua:43: in function <init_worker_by_lua:39>
+	[C]: in function 'pcall'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:78: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:90: in function 'run'
+	log_by_lua(nginx.conf:422):2: in main chunk while logging request, client: 127.0.0.1, server: _, request: "GET /peer/static/ready HTTP/1.1", upstream: "http://127.0.0.1:33127/peer/static/ready", host: "127.0.0.1:9080", request_id: "5482f549ba2395ce0767f736785a3602"
+2026/10/31 05:03:38 [warn] 69846#69846: *13 [lua] _G write guard:12: writing a global Lua variable ('lfs') which may lead to race conditions between concurrent requests, so prefer the use of 'local' variables
+stack traceback:
+	[C]: at 0x7fcb9d5722f0
+	[C]: at 0x7fcbb5447150
+	[C]: in function 'pcall'
+	/tmp/apisix-http-core-demo//deps/share/lua/5.1/pl/path.lua:24: in main chunk
+	[C]: in function 'require'
+	...-http-core-demo//deps/share/lua/5.1/resty/dns/client.lua:24: in main chunk
+	[C]: at 0x7fcbb5447150
+	[C]: at 0x7fcbb3c4b570
+	[C]: in function 'start'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:28: in function <...isix-http-core-demo/native_lua/apisix/native/runtime.lua:27>
+	[C]: in function 'pcall'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:21: in function <...isix-http-core-demo/native_lua/apisix/native/runtime.lua:18>
+	[C]: in function 'pcall'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:78: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:90: in function 'run'
+	access_by_lua(nginx.conf:372):2: in main chunk, client: 127.0.0.1, server: _, request: "GET /peer/dns/value HTTP/1.1", host: "127.0.0.1:9080", request_id: "179357b20e9e6f3f8284061110dddf3c"
+2026/10/31 05:03:38 [error] 69846#69846: *16 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /peer/retry/value HTTP/1.1", upstream: "http://127.0.0.1:33157/peer/retry/value", host: "127.0.0.1:9080", request_id: "d49c66ddeebe51e23add806b38850d6b"
+2026/10/31 05:03:38 [warn] 69846#69846: *22 [lua] _G write guard:12: __newindex(): writing a global Lua variable ('peer_plan_waiting') which may lead to race conditions between concurrent requests, so prefer the use of 'local' variables
+stack traceback:
+	init_worker_by_lua:34: in function <init_worker_by_lua:14>
+	[C]: in function 'pcall'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:78: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:90: in function 'run'
+	access_by_lua(nginx.conf:372):2: in main chunk, client: 127.0.0.1, server: _, request: "GET /peer/reload/value HTTP/1.1", host: "127.0.0.1:9080", request_id: "84bf1dceafad9e3d0685dd2737d12b3e"
+2026/10/31 05:03:38 [notice] 69854#69854: signal process started

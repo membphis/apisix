@@ -1,0 +1,12 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_header_fast.py", line 127, in <module>
+    check("lua", "")
+  File "/src/experimental/native-http-core/tests/test_header_fast.py", line 109, in check
+    assert demo.request("/plain/header-fast", {"X-Initial": "initial"})[0] == 200
+AssertionError

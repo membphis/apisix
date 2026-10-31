@@ -1,0 +1,44 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=limit-count, workers=1
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Raw diagnostic evidence: /tmp/apisix-core-profile-lua-isolated-single-limit-jit.txt
+70%  C code
+  -- 41%  access_by_lua(nginx.conf:299):0
+  -- 26%  log_by_lua(nginx.conf:362):0
+  -- 18%  header_filter_by_lua(nginx.conf:354):0
+  --  6%  balancer_by_lua(nginx.conf:166):0
+  --  4%  body_filter_by_lua(nginx.conf:358):0
+  --  3%  match_route
+18%  Compiled
+  -- 18%  __newindex
+  -- 16%  __index
+  --  6%  re_match_compile
+  --  5%  get_var
+  --  3%  set_current_peer
+  --  3%  has_prefix
+  --  3%  set_var_rate_limiting_info
+  --  3%  collect_captures
+ 8%  Interpreted
+  -- 22%  http_access_phase
+  -- 11%  match_route
+  -- 11%  match
+  --  7%  __index
+  --  5%  set_upstream
+  --  4%  http_body_filter_phase
+  --  3%  _match_from_routes
+  --  3%  dispatch
+  --  3%  __newindex
+ 3%  Garbage Collector
+  -- 43%  set_header
+  -- 15%  http_balancer_phase
+  -- 10%  match_route
+  --  6%  fetch_latest_conf
+  --  6%  verify_https_client
+  --  5%  http_log_phase
+  --  5%  collect_captures
+  --  4%  http_header_filter_phase
+  --  4%  set_vars_meta
+

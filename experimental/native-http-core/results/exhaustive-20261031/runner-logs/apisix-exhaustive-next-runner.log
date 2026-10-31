@@ -1,0 +1,40 @@
+START verify-next-o2-build
+DONE verify-next-o2-build
+START verify-next-o2-core-default
+DONE verify-next-o2-core-default
+START verify-next-o2-core-servlet
+DONE verify-next-o2-core-servlet
+START verify-next-o2-core-tail
+DONE verify-next-o2-core-tail
+START verify-next-o2-core-encoded
+DONE verify-next-o2-core-encoded
+START verify-next-o2-core-trusted
+DONE verify-next-o2-core-trusted
+START verify-next-o2-core-untrusted
+DONE verify-next-o2-core-untrusted
+START verify-next-o2-demo
+DONE verify-next-o2-demo
+START verify-next-o2-http_plans
+DONE verify-next-o2-http_plans
+START verify-next-o2-route_allocations
+DONE verify-next-o2-route_allocations
+START verify-next-o2-phase_context
+DONE verify-next-o2-phase_context
+START verify-next-o2-request_pool
+DONE verify-next-o2-request_pool
+START verify-next-o2-header_fast
+DONE verify-next-o2-header_fast
+START verify-next-o2-sdk_false
+DONE verify-next-o2-sdk_false
+START verify-next-o2-matched_pool
+DONE verify-next-o2-matched_pool
+START verify-next-o2-peer_plan
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/src/experimental/native-http-core/tools/sweep.py", line 62, in verify
+    run(tag+'-'+suite,'tests/test_'+suite+'.py',directives=ALL,
+  File "/src/experimental/native-http-core/tools/sweep.py", line 39, in run
+    result.check_returncode()
+  File "/usr/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['python3', '/src/experimental/native-http-core/tests/test_peer_plan.py']' returned non-zero exit status 1.

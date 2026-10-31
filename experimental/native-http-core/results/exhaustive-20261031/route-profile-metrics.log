@@ -1,0 +1,8 @@
+Native C module rebuilt O2
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=prometheus, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-metrics-route.txt
+{"thread_cpu_ns":9990170193,"calibration_iterations":10000,"empty_interval_mean_ns":127,"clock_pair_loop_mean_ns":250,"scopes":{"collect_sort":{"calls":188258,"raw_ns":60115505,"empty_corrected_ns":36206739},"options":{"calls":188258,"raw_ns":229693379,"empty_corrected_ns":205784613},"eligibility_expr":{"calls":188258,"raw_ns":27210925,"empty_corrected_ns":3302159},"path_match":{"calls":188258,"raw_ns":26423258,"empty_corrected_ns":2514492},"accept_context":{"calls":188258,"raw_ns":122172316,"empty_corrected_ns":98263550}},"note":"Diagnostic instrumentation changes CPU cost. Calibration subtraction is approximate; compare a normal build. collect_sort includes pool allocation; eligibility_expr may call custom Lua getters; options and accept_context include Lua ABI work. Filter callbacks are excluded."}
+

@@ -1,0 +1,6 @@
+["gcc", "-shared", "-fPIC", "-O2", "-Wall", "-Wextra", "-Werror", "-I/usr/local/openresty/luajit/include/luajit-2.1", "/src/experimental/native-http-core/tools/allocator_sampler.c", "-o", "/tmp/apisix-allocator-sampler.so"]
+["gcc", "-O2", "-Wall", "-Wextra", "-Werror", "-I/usr/local/openresty/luajit/include/luajit-2.1", "/src/experimental/native-http-core/tests/test_allocator.c", "-L/usr/local/openresty/luajit/lib", "-lluajit-5.1", "-Wl,-rpath,/usr/local/openresty/luajit/lib", "-o", "/tmp/apisix-test-allocator"]
+PASS normal start/count/stop/restart and duplicate-start rejection
+PASS explicit guard finalizer restores the original allocator pair
+PASS lua_close completes without an explicit stop (not a leak check)
+{"sha256": {"/tmp/apisix-allocator-sampler.so": "7896cc4677e5d0aa25fa7e8459da436469f65e80b7fbe0daae376c67726ae1fa", "/tmp/apisix-test-allocator": "8e48bbd106a10d4c6d40b79a96b4a8a5d521c7edb4d23abad3b40e96fc568308", "/src/experimental/native-http-core/tools/allocator_sampler.c": "36fb1577609ca504598748e5979a59b85a6ee36f8bd6082fd2b72da40294322e", "/src/experimental/native-http-core/tests/test_allocator.c": "82f59b9b90e268844b93cac3393af0821a8eb90261b4fc1bbc8561588b122917"}}

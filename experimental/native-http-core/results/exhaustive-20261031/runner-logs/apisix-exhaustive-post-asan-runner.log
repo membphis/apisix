@@ -1,0 +1,24 @@
+START verify-post-asan-build
+DONE verify-post-asan-build
+START verify-post-asan-core-default
+DONE verify-post-asan-core-default
+START verify-post-asan-core-servlet
+DONE verify-post-asan-core-servlet
+START verify-post-asan-core-tail
+DONE verify-post-asan-core-tail
+START verify-post-asan-core-encoded
+DONE verify-post-asan-core-encoded
+START verify-post-asan-core-trusted
+DONE verify-post-asan-core-trusted
+START verify-post-asan-core-untrusted
+DONE verify-post-asan-core-untrusted
+START verify-post-asan-demo
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/src/experimental/native-http-core/tools/sweep.py", line 59, in verify
+    run(tag+'-demo','tests/test_demo.py',directives=ALL,extra=extra)
+  File "/src/experimental/native-http-core/tools/sweep.py", line 39, in run
+    result.check_returncode()
+  File "/usr/lib/python3.9/subprocess.py", line 460, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['python3', '/src/experimental/native-http-core/tests/test_demo.py']' returned non-zero exit status 1.

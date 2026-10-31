@@ -1,0 +1,305 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.64kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.7s
+
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/apisix-native-demo:local
+#4 DONE 0.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 443.12kB done
+#6 DONE 0.0s
+
+#7 [stage-0 1/4] FROM docker.io/library/apisix-native-demo:local
+#7 DONE 0.0s
+
+#8 [stage-0 2/4] RUN --mount=type=secret,id=proxy_ca,required=true,mode=0444     curl --fail --location --cacert /run/secrets/proxy_ca       https://openresty.org/download/openresty-1.27.1.2.tar.gz -o /tmp/openresty.tar.gz &&     tar -xzf /tmp/openresty.tar.gz -C /tmp && rm /tmp/openresty.tar.gz
+#8 1.127   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+#8 1.127                                  Dload  Upload   Total   Spent    Left  Speed
+#8 1.127   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  1 5928k    1 73728    0     0  39532      0  0:02:33  0:00:01  0:02:32 39511 34 5928k   34 2056k    0     0   715k      0  0:00:08  0:00:02  0:00:06  715k 95 5928k   95 5672k    0     0  1457k      0  0:00:04  0:00:03  0:00:01 1457k100 5928k  100 5928k    0     0  1518k      0  0:00:03  0:00:03 --:--:-- 1517k
+#8 DONE 5.2s
+
+#9 [stage-0 3/4] COPY module /opt/apisix-core-module
+#9 DONE 1.1s
+
+#10 [stage-0 4/4] RUN cd /tmp/openresty-1.27.1.2/bundle/nginx-1.27.1 &&     ./configure --with-compat --with-http_ssl_module --with-stream --with-threads       --with-cc-opt='-O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1'       --add-dynamic-module=/opt/apisix-core-module &&     make -j2 modules && mkdir -p /opt/apisix-core-module/lib &&     cp objs/ngx_http_apisix_core_module.so /opt/apisix-core-module/lib/
+#10 1.313 checking for OS
+#10 1.315  + Linux 6.18.57 x86_64
+#10 1.315 checking for C compiler ... found
+#10 1.347  + using GNU C compiler
+#10 1.349  + gcc version: 10.2.1 20210110 (Debian 10.2.1-6) 
+#10 1.350 checking for gcc -pipe switch ... found
+#10 1.377 checking for -Wl,-E switch ... found
+#10 1.410 checking for gcc builtin atomic operations ... found
+#10 1.440 checking for C99 variadic macros ... found
+#10 1.471 checking for gcc variadic macros ... found
+#10 1.499 checking for gcc builtin 64 bit byteswap ... found
+#10 1.525 checking for unistd.h ... found
+#10 1.550 checking for inttypes.h ... found
+#10 1.575 checking for limits.h ... found
+#10 1.603 checking for sys/filio.h ... not found
+#10 1.611 checking for sys/param.h ... found
+#10 1.639 checking for sys/mount.h ... found
+#10 1.669 checking for sys/statvfs.h ... found
+#10 1.699 checking for crypt.h ... found
+#10 1.727 checking for Linux specific features
+#10 1.729 checking for epoll ... found
+#10 1.758 checking for EPOLLRDHUP ... found
+#10 1.788 checking for EPOLLEXCLUSIVE ... found
+#10 1.822 checking for eventfd() ... found
+#10 1.850 checking for O_PATH ... found
+#10 1.886 checking for sendfile() ... found
+#10 1.924 checking for sendfile64() ... found
+#10 1.957 checking for sys/prctl.h ... found
+#10 1.986 checking for prctl(PR_SET_DUMPABLE) ... found
+#10 2.013 checking for prctl(PR_SET_KEEPCAPS) ... found
+#10 2.041 checking for capabilities ... found
+#10 2.069 checking for crypt_r() ... found
+#10 2.099 checking for sys/vfs.h ... found
+#10 2.129 checking for BPF sockhash ... found
+#10 2.160 checking for SO_COOKIE ... found
+#10 2.195 checking for UDP_SEGMENT ... found
+#10 2.227 checking for nobody group ... not found
+#10 2.227 checking for nogroup group ... found
+#10 2.227 checking for poll() ... found
+#10 2.252 checking for /dev/poll ... not found
+#10 2.262 checking for kqueue ... not found
+#10 2.272 checking for crypt() ... not found
+#10 2.297 checking for crypt() in libcrypt ... found
+#10 2.320 checking for F_READAHEAD ... not found
+#10 2.331 checking for posix_fadvise() ... found
+#10 2.362 checking for O_DIRECT ... found
+#10 2.390 checking for F_NOCACHE ... not found
+#10 2.401 checking for directio() ... not found
+#10 2.412 checking for statfs() ... found
+#10 2.440 checking for statvfs() ... found
+#10 2.470 checking for dlopen() ... not found
+#10 2.500 checking for dlopen() in libdl ... found
+#10 2.530 checking for sched_yield() ... found
+#10 2.560 checking for sched_setaffinity() ... found
+#10 2.591 checking for SO_SETFIB ... not found
+#10 2.614 checking for SO_REUSEPORT ... found
+#10 2.652 checking for SO_ACCEPTFILTER ... not found
+#10 2.665 checking for SO_BINDANY ... not found
+#10 2.678 checking for IP_TRANSPARENT ... found
+#10 2.711 checking for IP_BINDANY ... not found
+#10 2.729 checking for IP_BIND_ADDRESS_NO_PORT ... found
+#10 2.757 checking for IP_RECVDSTADDR ... not found
+#10 2.771 checking for IP_SENDSRCADDR ... not found
+#10 2.783 checking for IP_PKTINFO ... found
+#10 2.816 checking for IPV6_RECVPKTINFO ... found
+#10 2.849 checking for IP_MTU_DISCOVER ... found
+#10 2.884 checking for IPV6_MTU_DISCOVER ... found
+#10 2.912 checking for IP_DONTFRAG ... not found
+#10 2.925 checking for IPV6_DONTFRAG ... found
+#10 2.953 checking for TCP_DEFER_ACCEPT ... found
+#10 2.982 checking for TCP_KEEPIDLE ... found
+#10 3.013 checking for TCP_FASTOPEN ... found
+#10 3.041 checking for TCP_INFO ... found
+#10 3.071 checking for accept4() ... found
+#10 3.101 checking for int size ... 4 bytes
+#10 3.131 checking for long size ... 8 bytes
+#10 3.168 checking for long long size ... 8 bytes
+#10 3.202 checking for void * size ... 8 bytes
+#10 3.236 checking for uint32_t ... found
+#10 3.263 checking for uint64_t ... found
+#10 3.293 checking for sig_atomic_t ... found
+#10 3.321 checking for sig_atomic_t size ... 4 bytes
+#10 3.349 checking for socklen_t ... found
+#10 3.377 checking for in_addr_t ... found
+#10 3.408 checking for in_port_t ... found
+#10 3.446 checking for rlim_t ... found
+#10 3.478 checking for uintptr_t ... uintptr_t found
+#10 3.503 checking for system byte ordering ... little endian
+#10 3.525 checking for size_t size ... 8 bytes
+#10 3.554 checking for off_t size ... 8 bytes
+#10 3.584 checking for time_t size ... 8 bytes
+#10 3.614 checking for AF_INET6 ... found
+#10 3.641 checking for setproctitle() ... not found
+#10 3.669 checking for pread() ... found
+#10 3.693 checking for pwrite() ... found
+#10 3.722 checking for pwritev() ... found
+#10 3.748 checking for strerrordesc_np() ... not found
+#10 3.775 checking for sys_nerr ... found
+#10 3.804 checking for localtime_r() ... found
+#10 3.832 checking for clock_gettime(CLOCK_MONOTONIC) ... found
+#10 3.858 checking for posix_memalign() ... found
+#10 3.887 checking for memalign() ... found
+#10 3.915 checking for mmap(MAP_ANON|MAP_SHARED) ... found
+#10 3.942 checking for mmap("/dev/zero", MAP_SHARED) ... found
+#10 3.969 checking for System V shared memory ... found
+#10 3.995 checking for POSIX semaphores ... not found
+#10 4.021 checking for POSIX semaphores in libpthread ... found
+#10 4.048 checking for struct msghdr.msg_control ... found
+#10 4.076 checking for ioctl(FIONBIO) ... found
+#10 4.104 checking for ioctl(FIONREAD) ... found
+#10 4.132 checking for struct tm.tm_gmtoff ... found
+#10 4.159 checking for struct dirent.d_namlen ... not found
+#10 4.171 checking for struct dirent.d_type ... found
+#10 4.198 checking for sysconf(_SC_NPROCESSORS_ONLN) ... found
+#10 4.224 checking for sysconf(_SC_LEVEL1_DCACHE_LINESIZE) ... found
+#10 4.271 checking for openat(), fstatat() ... found
+#10 4.299 checking for getaddrinfo() ... found
+#10 4.338 checking for SOCK_CLOEXEC support ... found
+#10 4.368 checking for FD_CLOEXEC support ... found
+#10 4.404 configuring additional dynamic modules
+#10 4.404 adding module in /opt/apisix-core-module
+#10 4.404  + ngx_http_apisix_core_module was configured
+#10 4.410 checking for PCRE2 library ... not found
+#10 4.422 checking for PCRE library ... found
+#10 4.450 checking for PCRE JIT support ... found
+#10 4.478 checking for OpenSSL library ... found
+#10 4.560 checking for zlib library ... found
+#10 4.594 creating objs/Makefile
+#10 5.119 
+#10 5.119 Configuration summary
+#10 5.119   + using threads
+#10 5.119   + using system PCRE library
+#10 5.119   + using system OpenSSL library
+#10 5.119   + using system zlib library
+#10 5.119 
+#10 5.120   nginx path prefix: "/usr/local/nginx"
+#10 5.120   nginx binary file: "/usr/local/nginx/sbin/nginx"
+#10 5.120   nginx modules path: "/usr/local/nginx/modules"
+#10 5.120   nginx configuration prefix: "/usr/local/nginx/conf"
+#10 5.120   nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
+#10 5.120   nginx pid file: "/usr/local/nginx/logs/nginx.pid"
+#10 5.120   nginx error log file: "/usr/local/nginx/logs/error.log"
+#10 5.120   nginx http access log file: "/usr/local/nginx/logs/access.log"
+#10 5.120   nginx http client request body temporary files: "client_body_temp"
+#10 5.120   nginx http proxy temporary files: "proxy_temp"
+#10 5.120   nginx http fastcgi temporary files: "fastcgi_temp"
+#10 5.120   nginx http uwsgi temporary files: "uwsgi_temp"
+#10 5.120   nginx http scgi temporary files: "scgi_temp"
+#10 5.120 
+#10 5.121 make -f objs/Makefile modules
+#10 5.126 make[1]: Entering directory '/tmp/openresty-1.27.1.2/bundle/nginx-1.27.1'
+#10 5.126 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.126 	-o objs/addon/apisix-core-module/module.o \
+#10 5.126 	/opt/apisix-core-module/module.c
+#10 5.126 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.126 	-o objs/addon/apisix-core-module/native_phases.o \
+#10 5.126 	/opt/apisix-core-module/native_phases.c
+#10 5.233 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.233 	-o objs/addon/apisix-core-module/plugins.o \
+#10 5.233 	/opt/apisix-core-module/plugins.c
+#10 5.276 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.276 	-o objs/addon/apisix-core-module/routes.o \
+#10 5.276 	/opt/apisix-core-module/routes.c
+#10 5.482 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.482 	-o objs/addon/apisix-core-module/sdk.o \
+#10 5.482 	/opt/apisix-core-module/sdk.c
+#10 5.574 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.574 	-o objs/addon/apisix-core-module/schema.o \
+#10 5.574 	/opt/apisix-core-module/schema.c
+#10 5.687 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.687 	-o objs/addon/apisix-core-module/resources.o \
+#10 5.687 	/opt/apisix-core-module/resources.c
+#10 5.706 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.706 	-o objs/addon/apisix-core-module/request.o \
+#10 5.706 	/opt/apisix-core-module/request.c
+#10 5.841 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.841 	-o objs/addon/apisix-core-module/merge.o \
+#10 5.841 	/opt/apisix-core-module/merge.c
+#10 5.965 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.965 	-o objs/addon/apisix-core-module/response.o \
+#10 5.965 	/opt/apisix-core-module/response.c
+#10 5.987 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 5.987 	-o objs/addon/apisix-core-module/consumer.o \
+#10 5.987 	/opt/apisix-core-module/consumer.c
+#10 6.142 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.142 	-o objs/addon/apisix-core-module/cache.o \
+#10 6.142 	/opt/apisix-core-module/cache.c
+#10 6.158 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.158 	-o objs/addon/apisix-core-module/utils.o \
+#10 6.158 	/opt/apisix-core-module/utils.c
+#10 6.241 /opt/apisix-core-module/utils.c: In function 'ac_seed':
+#10 6.241 /opt/apisix-core-module/utils.c:98:9: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+#10 6.241    98 |         if (file) fclose(file); lua_pushnil(L); lua_pushliteral(L, "failed to read urandom"); return 2;
+#10 6.241       |         ^~
+#10 6.241 /opt/apisix-core-module/utils.c:98:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+#10 6.241    98 |         if (file) fclose(file); lua_pushnil(L); lua_pushliteral(L, "failed to read urandom"); return 2;
+#10 6.241       |                                 ^~~~~~~~~~~
+#10 6.318 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.318 	-o objs/addon/apisix-core-module/upstream.o \
+#10 6.318 	/opt/apisix-core-module/upstream.c
+#10 6.438 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.438 	-o objs/addon/apisix-core-module/instrumentation.o \
+#10 6.438 	/opt/apisix-core-module/instrumentation.c
+#10 6.568 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.568 	-o objs/addon/apisix-core-module/resolver.o \
+#10 6.568 	/opt/apisix-core-module/resolver.c
+#10 6.619 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.619 	-o objs/addon/apisix-core-module/expression.o \
+#10 6.619 	/opt/apisix-core-module/expression.c
+#10 6.734 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.734 	-o objs/addon/apisix-core-module/background.o \
+#10 6.734 	/opt/apisix-core-module/background.c
+#10 6.780 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.780 	-o objs/addon/apisix-core-module/platform.o \
+#10 6.780 	/opt/apisix-core-module/platform.c
+#10 6.885 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.885 	-o objs/addon/apisix-core-module/tracing.o \
+#10 6.885 	/opt/apisix-core-module/tracing.c
+#10 6.952 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 6.952 	-o objs/addon/apisix-core-module/http.o \
+#10 6.952 	/opt/apisix-core-module/http.c
+#10 7.019 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 7.019 	-o objs/addon/apisix-core-module/upstream_helpers.o \
+#10 7.019 	/opt/apisix-core-module/upstream_helpers.c
+#10 7.138 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 7.138 	-o objs/addon/apisix-core-module/script.o \
+#10 7.138 	/opt/apisix-core-module/script.c
+#10 7.170 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 7.170 	-o objs/addon/apisix-core-module/snapshot.o \
+#10 7.170 	/opt/apisix-core-module/snapshot.c
+#10 7.239 cc -c -fPIC -pipe  -O -W -Wall -Wpointer-arith -Wno-unused-parameter -g -O2 -I../ngx_lua-0.10.28/src/api -I/usr/local/openresty/luajit/include/luajit-2.1 -I src/core -I src/event -I src/event/modules -I src/event/quic -I src/os/unix -I objs -I src/http -I src/http/modules -I src/stream \
+#10 7.239 	-o objs/ngx_http_apisix_core_module_modules.o \
+#10 7.239 	objs/ngx_http_apisix_core_module_modules.c
+#10 7.311 cc -o objs/ngx_http_apisix_core_module.so \
+#10 7.311 objs/addon/apisix-core-module/module.o \
+#10 7.311 objs/addon/apisix-core-module/native_phases.o \
+#10 7.311 objs/addon/apisix-core-module/plugins.o \
+#10 7.311 objs/addon/apisix-core-module/routes.o \
+#10 7.311 objs/addon/apisix-core-module/sdk.o \
+#10 7.311 objs/addon/apisix-core-module/schema.o \
+#10 7.311 objs/addon/apisix-core-module/resources.o \
+#10 7.311 objs/addon/apisix-core-module/request.o \
+#10 7.311 objs/addon/apisix-core-module/merge.o \
+#10 7.311 objs/addon/apisix-core-module/response.o \
+#10 7.311 objs/addon/apisix-core-module/consumer.o \
+#10 7.311 objs/addon/apisix-core-module/cache.o \
+#10 7.311 objs/addon/apisix-core-module/utils.o \
+#10 7.311 objs/addon/apisix-core-module/upstream.o \
+#10 7.311 objs/addon/apisix-core-module/instrumentation.o \
+#10 7.311 objs/addon/apisix-core-module/resolver.o \
+#10 7.311 objs/addon/apisix-core-module/expression.o \
+#10 7.311 objs/addon/apisix-core-module/background.o \
+#10 7.311 objs/addon/apisix-core-module/platform.o \
+#10 7.311 objs/addon/apisix-core-module/tracing.o \
+#10 7.311 objs/addon/apisix-core-module/http.o \
+#10 7.311 objs/addon/apisix-core-module/upstream_helpers.o \
+#10 7.311 objs/addon/apisix-core-module/script.o \
+#10 7.311 objs/addon/apisix-core-module/snapshot.o \
+#10 7.311 objs/ngx_http_apisix_core_module_modules.o \
+#10 7.311 -shared
+#10 7.335 make[1]: Leaving directory '/tmp/openresty-1.27.1.2/bundle/nginx-1.27.1'
+#10 DONE 7.3s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.7s done
+#11 writing image sha256:71462ec95816732e4ebc68c57f88c9eda38bcc3ba280015f269eff4fcb3cadba done
+#11 naming to docker.io/library/apisix-http-core:local done
+#11 DONE 0.7s

@@ -1,0 +1,48 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=limit-count, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-limit-jit.txt
+91%  C code
+  -- 36%  log_by_lua(nginx.conf:366):0
+  -- 32%  access_by_lua(nginx.conf:316):0
+  --  9%  runtime.lua:35
+  --  4%  run_step
+  --  4%  run_rate_limit
+  --  3%  run
+  --  3%  balancer_by_lua(nginx.conf:169):0
+ 3%  Interpreted
+  -- 13%  run_rate_limit
+  -- 12%  run_step
+  --  8%  init.lua:625
+  --  8%  plugin_ctx
+  --  7%  require
+  --  5%  runtime.lua:18
+  --  5%  lrucache.lua:184
+  --  5%  balancer_by_lua(nginx.conf:169):0
+  --  5%  run
+  --  5%  access_by_lua(nginx.conf:316):0
+  --  5%  http.lua:155
+  --  4%  misc.lua:62
+  --  4%  log_by_lua(nginx.conf:366):0
+  --  4%  construct_rate_limiting_headers
+  --  4%  runtime.lua:27
+ 3%  Garbage Collector
+  -- 48%  misc.lua:62
+  -- 36%  run_rate_limit
+  -- 15%  tablepool.lua:11
+ 3%  Compiled
+  -- 14%  run_rate_limit
+  -- 13%  incr
+  --  8%  get
+  --  8%  balance
+  --  8%  ctx.lua:67
+  --  8%  gen_limit_key
+  --  6%  init.lua:625
+  --  6%  construct_rate_limiting_headers
+  --  6%  misc.lua:62
+  --  4%  get_rules
+  --  3%  tablepool.lua:11
+  --  3%  tablepool.lua:34
+  --  3%  limit-count.lua:35
+

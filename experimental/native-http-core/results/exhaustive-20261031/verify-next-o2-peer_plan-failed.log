@@ -1,0 +1,14 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_peer_plan.py", line 308, in <module>
+    main()
+  File "/src/experimental/native-http-core/tests/test_peer_plan.py", line 292, in main
+    sample("", first, second, ipv6, dns)
+  File "/src/experimental/native-http-core/tests/test_peer_plan.py", line 238, in sample
+    value = echo("ipv6")
+  File "/src/experimental/native-http-core/tests/test_peer_plan.py", line 212, in echo
+    assert status == 200, (flags, name, status, body)
+AssertionError: ('', 'ipv6', 500, b'<html>\r\n<head><title>500 Internal Server Error</title></head>\r\n<body>\r\n<center><h1>500 Internal Server Error</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href="https://apisix.apache.org/">APISIX</a>.</em></p></body>\r\n</html>\r\n')

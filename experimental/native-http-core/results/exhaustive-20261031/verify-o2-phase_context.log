@@ -1,0 +1,10 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_phase_context.py", line 97, in <module>
+    check("")
+  File "/src/experimental/native-http-core/tests/test_phase_context.py", line 71, in check
+    assert text.count(marker) == 1
+AssertionError

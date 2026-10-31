@@ -1,0 +1,37 @@
+nginx: [warn] could not build optimal variables_hash, you should increase either variables_hash_max_size: 1024 or variables_hash_bucket_size: 64; ignoring variables_hash_bucket_size
+nginx: the configuration file /tmp/apisix-log-plan-minimal.conf syntax is ok
+nginx: configuration file /tmp/apisix-log-plan-minimal.conf test is successful
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS native: cached readonly status, false value and custom log getter preserved
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_log_var_plan.py", line 80, in <module>
+    main()
+  File "/src/experimental/native-http-core/tests/test_log_var_plan.py", line 68, in main
+    assert text.count("LOG_VAR_PLAN_OBSERVER_OK") == 3, text
+AssertionError: 2026/10/31 03:36:08 [notice] 7503#7503: signal process started
+2026/10/31 03:36:08 [error] 7506#7506: *7 failed to run log_by_lua*: init_worker_by_lua:17: response bytes were not refreshed
+stack traceback:
+	[C]: in function 'step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:46: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:58: in function 'run'
+	log_by_lua(nginx.conf:403):2: in main chunk while logging request, client: 127.0.0.1, server: _, request: "GET /plain/log-plan HTTP/1.1", upstream: "http://127.0.0.1:1980/plain/log-plan", host: "127.0.0.1:9080", request_id: "404fa4c6bbcaa12cdc8e0064a647e041"
+2026/10/31 03:36:08 [error] 7506#7506: *8 failed to run log_by_lua*: init_worker_by_lua:17: response bytes were not refreshed
+stack traceback:
+	[C]: in function 'step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:46: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:58: in function 'run'
+	log_by_lua(nginx.conf:403):2: in main chunk while logging request, client: 127.0.0.1, server: _, request: "HEAD /plain/log-plan HTTP/1.1", upstream: "http://127.0.0.1:1980/plain/log-plan", host: "127.0.0.1:9080", request_id: "3c2de74b9db1700c3ad1d27d9abff365"
+2026/10/31 03:36:08 [error] 7506#7506: *9 failed to run log_by_lua*: init_worker_by_lua:17: response bytes were not refreshed
+stack traceback:
+	[C]: in function 'step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:46: in function 'run_step'
+	...isix-http-core-demo/native_lua/apisix/native/runtime.lua:58: in function 'run'
+	log_by_lua(nginx.conf:403):2: in main chunk while logging request, client: 127.0.0.1, server: _, request: "POST /plain/log-plan HTTP/1.1", upstream: "http://127.0.0.1:1980/plain/log-plan", host: "127.0.0.1:9080", request_id: "5045d9199ed68de3cfb29fd5a3c4236b"
+

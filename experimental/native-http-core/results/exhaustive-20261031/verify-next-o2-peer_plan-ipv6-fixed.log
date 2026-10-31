@@ -1,0 +1,10 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS peer plan: off static IP, scheme fallback/content equality, dynamic upstream fallback, retry, DNS, keepalive pool identity, pinned reload IPv6=PASS
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS peer plan: apisix_core_balancer_peer_plan on; static IP, scheme fallback/content equality, dynamic upstream fallback, retry, DNS, keepalive pool identity, pinned reload IPv6=PASS

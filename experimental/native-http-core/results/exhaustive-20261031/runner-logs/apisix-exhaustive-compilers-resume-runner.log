@@ -1,0 +1,8 @@
+START compiler-check-O3-lto-retry
+DONE compiler-check-O3-lto-retry
+START compiler-O3-lto
+DONE compiler-O3-lto
+START compiler-restore-o2
+DONE compiler-restore-o2
+START compiler-control-o2
+DONE compiler-control-o2
