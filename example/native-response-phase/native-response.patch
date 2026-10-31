@@ -1,0 +1,1444 @@
+diff --git a/bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua b/bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua
+--- a/bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua
++++ b/bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua
+@@ -31,6 +31,7 @@
+     [0x2000] = "exit_worker",
+     [0x4000] = "ssl_client_hello",
+     [0x8000] = "server_rewrite",
++    [0x10000] = "response",
+ }
+ 
+ 
+diff --git a/bundle/nginx-1.27.1/auto/modules b/bundle/nginx-1.27.1/auto/modules
+--- a/bundle/nginx-1.27.1/auto/modules
++++ b/bundle/nginx-1.27.1/auto/modules
+@@ -72,6 +72,7 @@
+         ngx_module_deps="src/http/ngx_http.h \
+                          src/http/ngx_http_request.h \
+                          src/http/ngx_http_config.h \
++                         src/http/ngx_http_response_phase.h \
+                          src/http/ngx_http_core_module.h \
+                          src/http/ngx_http_cache.h \
+                          src/http/ngx_http_variables.h \
+@@ -87,6 +88,7 @@
+                          src/http/ngx_http_request_body.c \
+                          src/http/ngx_http_variables.c \
+                          src/http/ngx_http_script.c \
++                         src/http/ngx_http_response_phase.c \
+                          src/http/ngx_http_upstream.c \
+                          src/http/ngx_http_upstream_round_robin.c"
+         ngx_module_libs=
+diff --git a/bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c b/bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c
+--- a/bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c
++++ b/bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c
+@@ -1009,6 +1009,7 @@
+     u->pipe->input_filter = ngx_http_proxy_copy_filter;
+     u->pipe->input_ctx = r;
+ 
++    u->response_phase_supported = 1;
+     u->input_filter_init = ngx_http_proxy_input_filter_init;
+     u->input_filter = ngx_http_proxy_non_buffered_copy_filter;
+     u->input_filter_ctx = r;
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http.c b/bundle/nginx-1.27.1/src/http/ngx_http.c
+--- a/bundle/nginx-1.27.1/src/http/ngx_http.c
++++ b/bundle/nginx-1.27.1/src/http/ngx_http.c
+@@ -398,6 +398,10 @@
+         return NGX_ERROR;
+     }
+ 
++    if (ngx_array_init(&cmcf->phases[NGX_HTTP_RESPONSE_PHASE].handlers,
++                       cf->pool, 1, sizeof(ngx_http_handler_pt)) != NGX_OK)
++    { return NGX_ERROR; }
++
+     if (ngx_array_init(&cmcf->phases[NGX_HTTP_LOG_PHASE].handlers,
+                        cf->pool, 1, sizeof(ngx_http_handler_pt))
+         != NGX_OK)
+@@ -471,6 +475,7 @@
+         + use_access;      /* post access phase */
+ 
+     for (i = 0; i < NGX_HTTP_LOG_PHASE; i++) {
++        if (i == NGX_HTTP_RESPONSE_PHASE) { continue; }
+         n += cmcf->phases[i].handlers.nelts;
+     }
+ 
+@@ -484,6 +489,7 @@
+     n = 0;
+ 
+     for (i = 0; i < NGX_HTTP_LOG_PHASE; i++) {
++        if (i == NGX_HTTP_RESPONSE_PHASE) { continue; }
+         h = cmcf->phases[i].handlers.elts;
+ 
+         switch (i) {
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http.h b/bundle/nginx-1.27.1/src/http/ngx_http.h
+--- a/bundle/nginx-1.27.1/src/http/ngx_http.h
++++ b/bundle/nginx-1.27.1/src/http/ngx_http.h
+@@ -12,6 +12,8 @@
+ #include <ngx_config.h>
+ #include <ngx_core.h>
+ 
++
++typedef struct ngx_http_response_ctx_s ngx_http_response_ctx_t;
+ 
+ typedef struct ngx_http_request_s     ngx_http_request_t;
+ typedef struct ngx_http_upstream_s    ngx_http_upstream_t;
+@@ -36,6 +38,7 @@
+ #include <ngx_http_upstream.h>
+ #include <ngx_http_upstream_round_robin.h>
+ #include <ngx_http_core_module.h>
++#include <ngx_http_response_phase.h>
+ 
+ #if (NGX_HTTP_V2)
+ #include <ngx_http_v2.h>
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_core_module.c b/bundle/nginx-1.27.1/src/http/ngx_http_core_module.c
+--- a/bundle/nginx-1.27.1/src/http/ngx_http_core_module.c
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_core_module.c
+@@ -507,6 +507,30 @@
+       offsetof(ngx_http_core_loc_conf_t, keepalive_time),
+       NULL },
+ 
++    { ngx_string("response_phase"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
++      ngx_http_set_complex_value_slot,
++      NGX_HTTP_LOC_CONF_OFFSET,
++      offsetof(ngx_http_core_loc_conf_t, response_phase), NULL },
++
++    { ngx_string("response_body_limit"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
++      ngx_conf_set_size_slot,
++      NGX_HTTP_LOC_CONF_OFFSET,
++      offsetof(ngx_http_core_loc_conf_t, response_body_limit), NULL },
++
++    { ngx_string("response_timeout"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
++      ngx_conf_set_msec_slot,
++      NGX_HTTP_LOC_CONF_OFFSET,
++      offsetof(ngx_http_core_loc_conf_t, response_timeout), NULL },
++
++    { ngx_string("response_collect_timeout"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
++      ngx_conf_set_msec_slot,
++      NGX_HTTP_LOC_CONF_OFFSET,
++      offsetof(ngx_http_core_loc_conf_t, response_collect_timeout), NULL },
++
+     { ngx_string("keepalive_timeout"),
+       NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE12,
+       ngx_http_core_keepalive,
+@@ -1864,6 +1888,11 @@
+         r->headers_out.status_line.len = 0;
+     }
+ 
++    if (r->response_ctx) {
++        if (r->response_ctx->state != NGX_HTTP_RESPONSE_COMMITTING) { return NGX_ERROR; }
++        r->response_ctx->header_calls++;
++        ngx_http_response_trace(r, "header_chain_enter");
++    }
+     return ngx_http_top_header_filter(r);
+ }
+ 
+@@ -3629,6 +3658,10 @@
+     clcf->limit_rate = NGX_CONF_UNSET_PTR;
+     clcf->limit_rate_after = NGX_CONF_UNSET_PTR;
+     clcf->keepalive_time = NGX_CONF_UNSET_MSEC;
++    clcf->response_phase = NGX_CONF_UNSET_PTR;
++    clcf->response_body_limit = NGX_CONF_UNSET_SIZE;
++    clcf->response_timeout = NGX_CONF_UNSET_MSEC;
++    clcf->response_collect_timeout = NGX_CONF_UNSET_MSEC;
+     clcf->keepalive_timeout = NGX_CONF_UNSET_MSEC;
+     clcf->keepalive_header = NGX_CONF_UNSET;
+     clcf->keepalive_requests = NGX_CONF_UNSET_UINT;
+@@ -3863,6 +3896,10 @@
+ 
+     ngx_conf_merge_msec_value(conf->keepalive_time,
+                               prev->keepalive_time, 3600000);
++    ngx_conf_merge_ptr_value(conf->response_phase, prev->response_phase, NULL);
++    ngx_conf_merge_size_value(conf->response_body_limit, prev->response_body_limit, 4096);
++    ngx_conf_merge_msec_value(conf->response_timeout, prev->response_timeout, 1500);
++    ngx_conf_merge_msec_value(conf->response_collect_timeout, prev->response_collect_timeout, 1200);
+     ngx_conf_merge_msec_value(conf->keepalive_timeout,
+                               prev->keepalive_timeout, 75000);
+     ngx_conf_merge_sec_value(conf->keepalive_header,
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_core_module.h b/bundle/nginx-1.27.1/src/http/ngx_http_core_module.h
+--- a/bundle/nginx-1.27.1/src/http/ngx_http_core_module.h
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_core_module.h
+@@ -125,6 +125,8 @@
+ 
+     NGX_HTTP_CONTENT_PHASE,
+ 
++    NGX_HTTP_RESPONSE_PHASE, /* independently resumed upstream phase */
++
+     NGX_HTTP_LOG_PHASE
+ } ngx_http_phases;
+ 
+@@ -351,6 +353,11 @@
+     ngx_array_t  *types;
+     ngx_hash_t    types_hash;
+     ngx_str_t     default_type;
++
++    ngx_http_complex_value_t *response_phase;
++    size_t response_body_limit;
++    ngx_msec_t response_timeout;
++    ngx_msec_t response_collect_timeout;
+ 
+     off_t         client_max_body_size;    /* client_max_body_size */
+     off_t         directio;                /* directio */
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_request.h b/bundle/nginx-1.27.1/src/http/ngx_http_request.h
+--- a/bundle/nginx-1.27.1/src/http/ngx_http_request.h
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_request.h
+@@ -393,6 +393,7 @@
+ #endif
+ 
+     ngx_http_upstream_t              *upstream;
++    ngx_http_response_ctx_t *response_ctx;
+     ngx_array_t                      *upstream_states;
+                                          /* of ngx_http_upstream_state_t */
+ 
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.c b/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.c
+new file mode 100644
+--- /dev/null
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.c
+@@ -0,0 +1,334 @@
++/* Technical prototype: native HTTP proxy responses, small uncompressed text.
++ * The normal header/body filter chains are entered ONLY at commit. */
++#include <ngx_config.h>
++#include <ngx_core.h>
++#include <ngx_http.h>
++
++static void ngx_http_response_collect(ngx_http_request_t *r,
++    ngx_http_upstream_t *u);
++static void ngx_http_response_timeout(ngx_event_t *ev);
++static void ngx_http_response_cleanup(void *data);
++static void ngx_http_response_commit(ngx_http_request_t *r);
++
++void
++ngx_http_response_trace(ngx_http_request_t *r, const char *event)
++{
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    if (ctx == NULL) { return; }
++    ngx_log_error(NGX_LOG_INFO, r->connection->log, 0,
++                  "native_response r=%p seq=%ui event=%s state=%ui "
++                  "header_sent=%ui header_calls=%ui count=%ui bytes=%uz uri=%V",
++                  r, ++ctx->sequence, event, ctx->state,
++                  (ngx_uint_t) r->header_sent, ctx->header_calls,
++                  (ngx_uint_t) r->main->count, ctx->body.len, &r->uri);
++}
++
++ngx_flag_t
++ngx_http_response_enabled(ngx_http_request_t *r)
++{
++    ngx_str_t v;
++    ngx_http_core_loc_conf_t *clcf;
++    clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
++    if (clcf->response_phase == NULL) { return 0; }
++    if (ngx_http_complex_value(r, clcf->response_phase, &v) != NGX_OK) {
++        return 1; /* configuration evaluation failure must not bypass audit */
++    }
++    return v.len != 0 && !(v.len == 1 && v.data[0] == '0')
++           && !(v.len == 3 && ngx_strncmp(v.data, "off", 3) == 0);
++}
++
++static void
++ngx_http_response_stop_lua(ngx_http_response_ctx_t *ctx)
++{
++    ngx_pool_cleanup_pt cleanup;
++    if (ctx->lua_cleanup) {
++        cleanup = ctx->lua_cleanup;
++        ctx->lua_cleanup = NULL;
++        cleanup(ctx->lua_data);
++        ctx->lua_data = NULL;
++    }
++}
++
++static void
++ngx_http_response_cleanup(void *data)
++{
++    ngx_http_response_ctx_t *ctx = data;
++    if (ctx->deadline.timer_set) { ngx_del_timer(&ctx->deadline); }
++    ngx_http_response_stop_lua(ctx);
++    ngx_http_response_trace(ctx->request, "cleanup");
++    ctx->state = NGX_HTTP_RESPONSE_FINISHED;
++    ctx->body.len = 0;
++    ctx->body.data = NULL;
++}
++
++ngx_int_t
++ngx_http_response_clear_headers(ngx_http_request_t *r)
++{
++    ngx_uint_t status = r->headers_out.status;
++    ngx_memzero(&r->headers_out, sizeof(r->headers_out));
++    if (ngx_list_init(&r->headers_out.headers, r->pool, 8,
++                      sizeof(ngx_table_elt_t)) != NGX_OK
++        || ngx_list_init(&r->headers_out.trailers, r->pool, 2,
++                         sizeof(ngx_table_elt_t)) != NGX_OK)
++    { return NGX_ERROR; }
++    r->headers_out.status = status;
++    r->headers_out.content_length_n = -1;
++    r->headers_out.last_modified_time = -1;
++    ngx_str_set(&r->headers_out.content_type, "text/plain; charset=utf-8");
++    r->headers_out.content_type_len = sizeof("text/plain; charset=utf-8") - 1;
++    return NGX_OK;
++}
++
++void
++ngx_http_response_fail(ngx_http_request_t *r, ngx_uint_t status, const char *body)
++{
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    if (ctx == NULL || ctx->state >= NGX_HTTP_RESPONSE_COMMITTING) { return; }
++    ngx_http_response_trace(r, "fail_closed");
++    if (ctx->deadline.timer_set) { ngx_del_timer(&ctx->deadline); }
++    ngx_http_response_stop_lua(ctx);
++    ngx_http_upstream_response_detach(r);
++    if (ngx_http_response_clear_headers(r) != NGX_OK) {
++        ctx->state = NGX_HTTP_RESPONSE_FINISHED;
++        ngx_http_upstream_response_finalize(r, NGX_ERROR);
++        return;
++    }
++    r->headers_out.status = status;
++    r->err_status = 0;
++    ctx->body.data = (u_char *) body; /* immutable, static error string */
++    ctx->body.len = ngx_strlen(body);
++    ngx_http_response_commit(r);
++}
++
++static void
++ngx_http_response_timeout(ngx_event_t *ev)
++{
++    ngx_http_request_t *r = ev->data;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    if (ctx->state == NGX_HTTP_RESPONSE_COLLECTING) {
++        ngx_http_response_fail(r, 504, "upstream collection timeout\n");
++    } else if (ctx->state == NGX_HTTP_RESPONSE_RUNNING) {
++        ngx_http_response_fail(r, 504, "response phase timeout\n");
++    }
++}
++
++static ngx_int_t
++ngx_http_response_capture(ngx_http_request_t *r)
++{
++    ngx_chain_t *cl;
++    size_t n;
++    ngx_http_upstream_t *u = r->upstream;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    for (cl = u->out_bufs; cl; cl = cl->next) {
++        n = cl->buf->last - cl->buf->pos;
++        if (n > ctx->limit - ctx->body.len) { return NGX_DECLINED; }
++        ngx_memcpy(ctx->body.data + ctx->body.len, cl->buf->pos, n);
++        ctx->body.len += n;
++        cl->buf->pos = cl->buf->last;
++    }
++    ngx_chain_update_chains(r->pool, &u->free_bufs, &u->busy_bufs,
++                           &u->out_bufs, u->output.tag);
++    u->buffer.pos = u->buffer.start;
++    u->buffer.last = u->buffer.start;
++    return NGX_OK;
++}
++
++static void
++ngx_http_response_body_complete(ngx_http_request_t *r)
++{
++    ngx_http_core_loc_conf_t *clcf;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    ngx_http_response_trace(r, "body_complete");
++    ngx_http_upstream_response_detach(r);
++    ctx->state = NGX_HTTP_RESPONSE_RUNNING;
++    clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
++    if (ctx->deadline.timer_set) { ngx_del_timer(&ctx->deadline); }
++    ngx_add_timer(&ctx->deadline, clcf->response_timeout);
++    /* This is now a response continuation, not the old upstream's writer. */
++    r->read_event_handler = ngx_http_test_reading;
++    r->write_event_handler = ngx_http_request_empty_handler;
++    ngx_http_response_trace(r, "response_enter");
++    ngx_http_response_continue(r);
++}
++
++void
++ngx_http_response_start(ngx_http_request_t *r)
++{
++    ngx_http_cleanup_t *cln;
++    ngx_http_core_loc_conf_t *clcf;
++    ngx_http_response_ctx_t *ctx;
++    ngx_http_upstream_t *u = r->upstream;
++    ssize_t preread;
++    ngx_int_t rc;
++    ngx_str_t type;
++
++    clcf = ngx_http_get_module_loc_conf(r, ngx_http_core_module);
++    ctx = ngx_pcalloc(r->pool, sizeof(*ctx));
++    if (ctx == NULL) {
++        ngx_http_upstream_response_finalize(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
++        return;
++    }
++    r->response_ctx = ctx;
++    ctx->state = NGX_HTTP_RESPONSE_COLLECTING;
++    ctx->request = r;
++    ctx->limit = clcf->response_body_limit;
++    cln = ngx_http_cleanup_add(r, 0);
++    if (cln == NULL) {
++        ngx_http_upstream_response_finalize(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
++        return;
++    }
++    cln->handler = ngx_http_response_cleanup;
++    cln->data = ctx;
++    ctx->deadline.handler = ngx_http_response_timeout;
++    ctx->deadline.data = r;
++    ctx->deadline.log = r->connection->log;
++    ngx_http_response_trace(r, "collect_start");
++
++    type = r->headers_out.content_type;
++    if (r != r->main || r->method != NGX_HTTP_GET
++        || r->http_version >= NGX_HTTP_VERSION_20 || r->header_only
++        || !u->response_phase_supported || u->upgrade || u->store || u->cacheable
++        || ctx->limit == 0 || ctx->limit > 65536
++        || type.len < 10 || ngx_strncasecmp(type.data, (u_char *) "text/plain", 10)
++        || (type.len > 10 && type.data[10] != ';' && type.data[10] != ' ')
++        || r->headers_out.content_encoding != NULL)
++    {
++        ngx_http_response_fail(r, 502, "unsupported response for native phase\n");
++        return;
++    }
++    if (u->headers_in.content_length_n > (off_t) ctx->limit) {
++        ngx_http_response_fail(r, 502, "upstream body too large\n");
++        return;
++    }
++    ctx->body.data = ngx_pnalloc(r->pool, ctx->limit);
++    if (ctx->body.data == NULL) {
++        ngx_http_response_fail(r, 500, "response allocation failure\n");
++        return;
++    }
++    if (u->input_filter_init(u->input_filter_ctx) != NGX_OK) {
++        ngx_http_response_fail(r, 502, "upstream framing failure\n");
++        return;
++    }
++    u->keepalive = 0; /* no upstream pooling in this prototype */
++    if (u->peer.connection->read->timer_set) {
++        ngx_del_timer(u->peer.connection->read);
++    }
++    ngx_add_timer(&ctx->deadline, clcf->response_collect_timeout);
++    u->read_event_handler = ngx_http_response_collect;
++    preread = u->buffer.last - u->buffer.pos;
++    u->buffer.last = u->buffer.pos;
++    if (preread) {
++        if (u->input_filter(u->input_filter_ctx, preread) != NGX_OK) {
++            ngx_http_response_fail(r, 502, "upstream framing failure\n");
++            return;
++        }
++        rc = ngx_http_response_capture(r);
++        if (rc != NGX_OK) {
++            ngx_http_response_fail(r, 502, "upstream body too large\n");
++            return;
++        }
++    } else {
++        u->buffer.pos = u->buffer.start;
++        u->buffer.last = u->buffer.start;
++    }
++    ngx_http_response_collect(r, u);
++}
++
++static void
++ngx_http_response_collect(ngx_http_request_t *r, ngx_http_upstream_t *u)
++{
++    ngx_connection_t *c = u->peer.connection;
++    ngx_buf_t *b = &u->buffer;
++    ssize_t n;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    if (ctx->state != NGX_HTTP_RESPONSE_COLLECTING) { return; }
++    for ( ;; ) {
++        if (u->length == 0) { ngx_http_response_body_complete(r); return; }
++        n = c->recv(c, b->last, b->end - b->last);
++        if (n == NGX_AGAIN) {
++            if (ngx_handle_read_event(c->read, 0) != NGX_OK) {
++                ngx_http_response_fail(r, 502, "upstream event failure\n");
++            }
++            return;
++        }
++        if (n == 0 && u->length == -1) {
++            ngx_http_response_body_complete(r);
++            return;
++        }
++        if (n <= 0) {
++            ngx_http_response_fail(r, 502, "upstream read failure\n");
++            return;
++        }
++        u->state->bytes_received += n;
++        u->state->response_length += n;
++        if (u->input_filter(u->input_filter_ctx, n) != NGX_OK) {
++            ngx_http_response_fail(r, 502, "upstream framing failure\n");
++            return;
++        }
++        if (ngx_http_response_capture(r) != NGX_OK) {
++            ngx_http_response_fail(r, 502, "upstream body too large\n");
++            return;
++        }
++    }
++}
++
++void
++ngx_http_response_continue(ngx_http_request_t *r)
++{
++    ngx_http_handler_pt *handlers;
++    ngx_http_core_main_conf_t *cmcf;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    ngx_int_t rc;
++    if (ctx == NULL || ctx->state != NGX_HTTP_RESPONSE_RUNNING) { return; }
++    cmcf = ngx_http_get_module_main_conf(r, ngx_http_core_module);
++    handlers = cmcf->phases[NGX_HTTP_RESPONSE_PHASE].handlers.elts;
++    if (cmcf->phases[NGX_HTTP_RESPONSE_PHASE].handlers.nelts == 0) {
++        ngx_http_response_fail(r, 500, "no native response handler\n");
++        return;
++    }
++    while (ctx->handler < cmcf->phases[NGX_HTTP_RESPONSE_PHASE].handlers.nelts) {
++        rc = handlers[ctx->handler](r);
++        if (rc == NGX_AGAIN || rc == NGX_DONE) {
++            ngx_http_response_trace(r, "yield");
++            return;
++        }
++        if (rc != NGX_OK && rc != NGX_DECLINED) {
++            ngx_http_response_fail(r, 500, "response Lua failure\n");
++            return;
++        }
++        ctx->handler++;
++    }
++    ngx_http_response_trace(r, "response_leave");
++    ngx_http_response_commit(r);
++}
++
++static void
++ngx_http_response_commit(ngx_http_request_t *r)
++{
++    ngx_int_t rc;
++    ngx_buf_t *b;
++    ngx_chain_t out;
++    ngx_http_response_ctx_t *ctx = r->response_ctx;
++    if (ctx->deadline.timer_set) { ngx_del_timer(&ctx->deadline); }
++    ngx_http_response_stop_lua(ctx);
++    ctx->state = NGX_HTTP_RESPONSE_COMMITTING;
++    ngx_http_clear_content_length(r);
++    r->headers_out.content_length_n = ctx->body.len;
++    r->write_event_handler = ngx_http_request_empty_handler;
++    ngx_http_response_trace(r, "commit");
++    b = ngx_calloc_buf(r->pool);
++    if (b == NULL) { ngx_http_upstream_response_finalize(r, NGX_ERROR); return; }
++    b->pos = ctx->body.data;
++    b->last = ctx->body.data + ctx->body.len;
++    b->memory = ctx->body.len != 0;
++    b->sync = ctx->body.len == 0;
++    b->last_buf = 1;
++    b->last_in_chain = 1;
++    out.buf = b;
++    out.next = NULL;
++    rc = ngx_http_send_header(r);
++    if (rc == NGX_OK && !r->header_only) { rc = ngx_http_output_filter(r, &out); }
++    /* The supplied buffer already carries last_buf: upstream must not add EOF. */
++    ctx->state = NGX_HTTP_RESPONSE_FINISHED;
++    ngx_http_upstream_response_finalize(r, rc);
++}
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.h b/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.h
+new file mode 100644
+--- /dev/null
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_response_phase.h
+@@ -0,0 +1,34 @@
++/* Technical prototype only; not a supported Nginx API. */
++#ifndef _NGX_HTTP_RESPONSE_PHASE_H_INCLUDED_
++#define _NGX_HTTP_RESPONSE_PHASE_H_INCLUDED_
++
++#define NGX_HTTP_RESPONSE_COLLECTING  1
++#define NGX_HTTP_RESPONSE_RUNNING     2
++#define NGX_HTTP_RESPONSE_COMMITTING  3
++#define NGX_HTTP_RESPONSE_FINISHED    4
++
++struct ngx_http_response_ctx_s {
++    ngx_uint_t          state;
++    ngx_uint_t          handler;
++    ngx_uint_t          sequence;
++    ngx_uint_t          header_calls;
++    size_t              limit;
++    ngx_str_t           body;
++    ngx_event_t         deadline;
++    ngx_http_request_t *request;
++    ngx_pool_cleanup_pt lua_cleanup;
++    void               *lua_data;
++};
++
++ngx_flag_t ngx_http_response_enabled(ngx_http_request_t *r);
++void ngx_http_response_start(ngx_http_request_t *r);
++void ngx_http_response_continue(ngx_http_request_t *r);
++void ngx_http_response_trace(ngx_http_request_t *r, const char *event);
++ngx_int_t ngx_http_response_clear_headers(ngx_http_request_t *r);
++void ngx_http_response_fail(ngx_http_request_t *r, ngx_uint_t status,
++    const char *body);
++/* Bridges to the existing, private upstream lifecycle functions. */
++void ngx_http_upstream_response_detach(ngx_http_request_t *r);
++void ngx_http_upstream_response_finalize(ngx_http_request_t *r, ngx_int_t rc);
++
++#endif
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_upstream.c b/bundle/nginx-1.27.1/src/http/ngx_http_upstream.c
+--- a/bundle/nginx-1.27.1/src/http/ngx_http_upstream.c
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_upstream.c
+@@ -3128,6 +3128,11 @@
+     ngx_connection_t          *c;
+     ngx_http_core_loc_conf_t  *clcf;
+ 
++    if (ngx_http_response_enabled(r)) {
++        ngx_http_response_start(r);
++        return;
++    }
++
+     rc = ngx_http_send_header(r);
+ 
+     if (rc == NGX_ERROR || rc > NGX_OK || r->post_action) {
+@@ -4763,6 +4768,11 @@
+ 
+     r->connection->log->action = "sending to client";
+ 
++    if (r->response_ctx && r->response_ctx->state == NGX_HTTP_RESPONSE_FINISHED) {
++        ngx_http_finalize_request(r, rc);
++        return;
++    }
++
+     if (!u->header_sent
+         || rc == NGX_HTTP_REQUEST_TIME_OUT
+         || rc == NGX_HTTP_CLIENT_CLOSED_REQUEST)
+@@ -6965,3 +6975,41 @@
+ 
+     return NGX_CONF_OK;
+ }
++
++/* Research response-stage bridges: detach the peer without finalizing r. */
++void
++ngx_http_upstream_response_detach(ngx_http_request_t *r)
++{
++    ngx_http_upstream_t *u = r->upstream;
++    ngx_connection_t *c = u->peer.connection;
++    u->keepalive = 0;
++    if (u->state) {
++        if (u->state->response_time == (ngx_msec_t) -1) {
++            u->state->response_time = ngx_current_msec - u->start_time;
++        }
++        if (c) { u->state->bytes_sent = c->sent; }
++    }
++    if (u->peer.free && u->peer.sockaddr) {
++        u->peer.free(&u->peer, u->peer.data, 0);
++        u->peer.sockaddr = NULL;
++    }
++    if (c) {
++#if (NGX_HTTP_SSL)
++        if (c->ssl) {
++            c->ssl->no_wait_shutdown = 1;
++            c->ssl->no_send_shutdown = 1;
++            (void) ngx_ssl_shutdown(c);
++        }
++#endif
++        if (c->pool) { ngx_destroy_pool(c->pool); }
++        ngx_close_connection(c);
++        u->peer.connection = NULL;
++    }
++    if (u->pipe) { u->pipe->upstream = NULL; }
++}
++
++void
++ngx_http_upstream_response_finalize(ngx_http_request_t *r, ngx_int_t rc)
++{
++    ngx_http_upstream_finalize_request(r, r->upstream, rc);
++}
+diff --git a/bundle/nginx-1.27.1/src/http/ngx_http_upstream.h b/bundle/nginx-1.27.1/src/http/ngx_http_upstream.h
+--- a/bundle/nginx-1.27.1/src/http/ngx_http_upstream.h
++++ b/bundle/nginx-1.27.1/src/http/ngx_http_upstream.h
+@@ -395,6 +395,7 @@
+     unsigned                         cache_status:3;
+ #endif
+ 
++    unsigned response_phase_supported:1;
+     unsigned                         buffering:1;
+     unsigned                         keepalive:1;
+     unsigned                         upgrade:1;
+diff --git a/bundle/ngx_lua-0.10.28/config b/bundle/ngx_lua-0.10.28/config
+--- a/bundle/ngx_lua-0.10.28/config
++++ b/bundle/ngx_lua-0.10.28/config
+@@ -260,6 +260,7 @@
+             $ngx_addon_dir/src/ngx_http_lua_exception.c \
+             $ngx_addon_dir/src/ngx_http_lua_util.c \
+             $ngx_addon_dir/src/ngx_http_lua_cache.c \
++            $ngx_addon_dir/src/ngx_http_lua_responseby.c \
+             $ngx_addon_dir/src/ngx_http_lua_contentby.c \
+             $ngx_addon_dir/src/ngx_http_lua_server_rewriteby.c \
+             $ngx_addon_dir/src/ngx_http_lua_rewriteby.c \
+@@ -325,6 +326,7 @@
+             $ngx_addon_dir/src/ngx_http_lua_exception.h \
+             $ngx_addon_dir/src/ngx_http_lua_util.h \
+             $ngx_addon_dir/src/ngx_http_lua_cache.h \
++            $ngx_addon_dir/src/ngx_http_lua_responseby.h \
+             $ngx_addon_dir/src/ngx_http_lua_contentby.h \
+             $ngx_addon_dir/src/ngx_http_lua_server_rewriteby.c \
+             $ngx_addon_dir/src/ngx_http_lua_rewriteby.h \
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c
+@@ -236,7 +236,7 @@
+     ngx_http_lua_loc_conf_t     *llcf;
+     ngx_http_lua_ctx_t          *ctx;
+     ngx_int_t                    rc;
+-    uint16_t                     old_context;
++    uint32_t                     old_context;
+     ngx_pool_cleanup_t          *cln;
+     ngx_chain_t                 *out;
+     ngx_chain_t                 *cl, *ln;
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h
+@@ -138,6 +138,7 @@
+ 
+ 
+ /* must be within 16 bit */
++#define NGX_HTTP_LUA_CONTEXT_RESPONSE           0x10000
+ #define NGX_HTTP_LUA_CONTEXT_SET                0x0001
+ #define NGX_HTTP_LUA_CONTEXT_REWRITE            0x0002
+ #define NGX_HTTP_LUA_CONTEXT_ACCESS             0x0004
+@@ -391,6 +392,11 @@
+ 
+     ngx_http_handler_pt     rewrite_handler;
+     ngx_http_handler_pt     access_handler;
++    ngx_http_handler_pt     response_handler;
++    u_char *response_chunkname;
++    ngx_http_complex_value_t response_src;
++    u_char *response_src_key;
++    int response_src_ref;
+     ngx_http_handler_pt     content_handler;
+     ngx_http_handler_pt     log_handler;
+     ngx_http_handler_pt     header_filter_handler;
+@@ -624,7 +630,7 @@
+ 
+     int                      uthreads; /* number of active user threads */
+ 
+-    uint16_t                 context;   /* the current running directive context
++    uint32_t                 context;   /* the current running directive context
+                                            (or running phase) for the current
+                                            Lua chunk */
+ 
+@@ -660,6 +666,9 @@
+     unsigned         entered_server_rewrite_phase:1;
+     unsigned         entered_rewrite_phase:1;
+     unsigned         entered_access_phase:1;
++    unsigned         entered_response_phase:1;
++    unsigned response_done:1;
++    ngx_int_t response_rc;
+     unsigned         entered_content_phase:1;
+ 
+     unsigned         buffering:1; /* HTTP 1.0 response body buffering flag */
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c
+@@ -114,7 +114,7 @@
+     luaL_argcheck(L, lua_isfunction(L, 1) && !lua_iscfunction(L, 1), 1,
+                   "Lua function expected");
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     vm = ngx_http_lua_get_lua_vm(r, ctx);
+ 
+@@ -202,7 +202,7 @@
+         return luaL_error(L, "no request ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     p_coctx = ctx->cur_co_ctx;
+     if (p_coctx == NULL) {
+@@ -258,7 +258,7 @@
+         return luaL_error(L, "no request ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     coctx = ctx->cur_co_ctx;
+ 
+@@ -415,7 +415,7 @@
+         return luaL_error(L, "no request ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     coctx = ngx_http_lua_get_co_ctx(co, ctx);
+     if (coctx == NULL) {
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c
+@@ -1,3 +1,4 @@
++#include "ngx_http_lua_responseby.h"
+ 
+ /*
+  * Copyright (C) Xiaozhe Wang (chaoslawful)
+@@ -1994,3 +1995,106 @@
+ 
+ 
+ /* vi:set ft=c ts=4 sw=4 et fdm=marker: */
++
++char *
++ngx_http_lua_response_by_lua_block(ngx_conf_t *cf, ngx_command_t *cmd,
++    void *conf)
++{
++    char        *rv;
++    ngx_conf_t   save;
++
++    save = *cf;
++    cf->handler = ngx_http_lua_response_by_lua;
++    cf->handler_conf = conf;
++
++    rv = ngx_http_lua_conf_lua_block_parse(cf, cmd);
++
++    *cf = save;
++
++    return rv;
++}
++
++
++char *
++ngx_http_lua_response_by_lua(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
++{
++    size_t                       chunkname_len;
++    u_char                      *cache_key = NULL, *chunkname;
++    ngx_str_t                   *value;
++    ngx_http_lua_main_conf_t    *lmcf;
++    ngx_http_lua_loc_conf_t     *llcf = conf;
++
++    ngx_http_compile_complex_value_t         ccv;
++
++    dd("enter");
++
++    /*  must specify a content handler */
++    if (cmd->post == NULL) {
++        return NGX_CONF_ERROR;
++    }
++
++    if (llcf->response_handler) {
++        return "is duplicate";
++    }
++
++    value = cf->args->elts;
++
++    dd("value[0]: %.*s", (int) value[0].len, value[0].data);
++    dd("value[1]: %.*s", (int) value[1].len, value[1].data);
++
++    if (value[1].len == 0) {
++        /*  Oops...Invalid location conf */
++        ngx_conf_log_error(NGX_LOG_ERR, cf, 0,
++                           "invalid location config: no runnable Lua code");
++        return NGX_CONF_ERROR;
++    }
++
++    if (cmd->post == ngx_http_lua_response_handler_inline) {
++        chunkname = ngx_http_lua_gen_chunk_name(cf, "response_by_lua",
++                                                sizeof("response_by_lua") - 1,
++                                                &chunkname_len);
++        if (chunkname == NULL) {
++            return NGX_CONF_ERROR;
++        }
++
++        cache_key = ngx_http_lua_gen_chunk_cache_key(cf, "response_by_lua",
++                                                     value[1].data,
++                                                     value[1].len);
++        if (cache_key == NULL) {
++            return NGX_CONF_ERROR;
++        }
++
++        /* Don't eval nginx variables for inline lua code */
++        llcf->response_src.value = value[1];
++        llcf->response_chunkname = chunkname;
++
++    } else {
++        ngx_memzero(&ccv, sizeof(ngx_http_compile_complex_value_t));
++        ccv.cf = cf;
++        ccv.value = &value[1];
++        ccv.complex_value = &llcf->response_src;
++
++        if (ngx_http_compile_complex_value(&ccv) != NGX_OK) {
++            return NGX_CONF_ERROR;
++        }
++
++        if (llcf->response_src.lengths == NULL) {
++            /* no variable found */
++            cache_key = ngx_http_lua_gen_file_cache_key(cf, value[1].data,
++                                                        value[1].len);
++            if (cache_key == NULL) {
++                return NGX_CONF_ERROR;
++            }
++        }
++    }
++
++    llcf->response_src_key = cache_key;
++    llcf->response_handler = (ngx_http_handler_pt) cmd->post;
++
++    lmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_lua_module);
++
++    lmcf->requires_capture_filter = 1;
++
++    return NGX_CONF_OK;
++}
++
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c
+@@ -240,7 +240,7 @@
+     ngx_http_lua_ctx_t          *ctx;
+     ngx_int_t                    rc;
+     ngx_pool_cleanup_t          *cln;
+-    uint16_t                     old_context;
++    uint32_t                     old_context;
+ 
+     ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+                    "lua header filter for user lua code, uri \"%V\"", &r->uri);
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c
+@@ -19,6 +19,7 @@
+ #include "ngx_http_lua_rewriteby.h"
+ #include "ngx_http_lua_accessby.h"
+ #include "ngx_http_lua_logby.h"
++#include "ngx_http_lua_responseby.h"
+ #include "ngx_http_lua_util.h"
+ #include "ngx_http_lua_headerfilterby.h"
+ #include "ngx_http_lua_bodyfilterby.h"
+@@ -352,6 +353,16 @@
+       0,
+       (void *) ngx_http_lua_access_handler_inline },
+ 
++    { ngx_string("response_by_lua_block"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_BLOCK|NGX_CONF_NOARGS,
++      ngx_http_lua_response_by_lua_block, NGX_HTTP_LOC_CONF_OFFSET, 0,
++      (void *) ngx_http_lua_response_handler_inline },
++
++    { ngx_string("response_by_lua_file"),
++      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
++      ngx_http_lua_response_by_lua, NGX_HTTP_LOC_CONF_OFFSET, 0,
++      (void *) ngx_http_lua_response_handler_file },
++
+     /* content_by_lua "<inline script>" */
+     { ngx_string("content_by_lua"),
+       NGX_HTTP_LOC_CONF|NGX_HTTP_LIF_CONF|NGX_CONF_TAKE1,
+@@ -797,6 +808,9 @@
+     }
+ 
+     cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
++    h = ngx_array_push(&cmcf->phases[NGX_HTTP_RESPONSE_PHASE].handlers);
++    if (h == NULL) { return NGX_ERROR; }
++    *h = ngx_http_lua_response_handler;
+ 
+     if (lmcf->requires_server_rewrite) {
+         h = ngx_array_push(
+@@ -1424,6 +1438,7 @@
+     conf->rewrite_src_ref = LUA_REFNIL;
+     conf->access_src_ref = LUA_REFNIL;
+     conf->content_src_ref = LUA_REFNIL;
++    conf->response_src_ref = LUA_REFNIL;
+     conf->header_filter_src_ref = LUA_REFNIL;
+     conf->body_filter_src_ref = LUA_REFNIL;
+     conf->log_src_ref = LUA_REFNIL;
+@@ -1461,6 +1476,14 @@
+         conf->access_src_ref = prev->access_src_ref;
+         conf->access_src_key = prev->access_src_key;
+         conf->access_chunkname = prev->access_chunkname;
++    }
++
++    if (conf->response_src.value.len == 0) {
++        conf->response_src = prev->response_src;
++        conf->response_handler = prev->response_handler;
++        conf->response_src_ref = prev->response_src_ref;
++        conf->response_src_key = prev->response_src_key;
++        conf->response_chunkname = prev->response_chunkname;
+     }
+ 
+     if (conf->content_src.value.len == 0) {
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.c
+new file mode 100644
+--- /dev/null
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.c
+@@ -0,0 +1,236 @@
++/* A separate yieldable context. Never pretends to be content_by_lua. */
++#include "ngx_http_lua_responseby.h"
++#include "ngx_http_lua_util.h"
++#include "ngx_http_lua_cache.h"
++
++static void
++ngx_http_lua_response_cleanup(void *data)
++{
++    ngx_http_lua_ctx_t *ctx = data;
++    ctx->entered_response_phase = 0;
++    if (ctx->cleanup) { ngx_http_lua_request_cleanup_handler(ctx); }
++}
++
++void
++ngx_http_lua_response_wev_handler(ngx_http_request_t *r)
++{
++    ngx_int_t rc;
++    ngx_http_lua_ctx_t *ctx;
++    if (r->response_ctx == NULL
++        || r->response_ctx->state != NGX_HTTP_RESPONSE_RUNNING) { return; }
++    ctx = ngx_http_get_module_ctx(r, ngx_http_lua_module);
++    if (ctx == NULL || !ctx->entered_response_phase) { return; }
++    ngx_http_response_trace(r, "resume");
++    rc = ctx->resume_handler(r);
++    if (rc == NGX_AGAIN || rc == NGX_DONE) {
++        ngx_http_response_trace(r, "yield");
++        return;
++    }
++    ctx->response_done = 1;
++    ctx->response_rc = rc;
++    ngx_http_response_continue(r);
++}
++
++ngx_int_t
++ngx_http_lua_response_by_chunk(lua_State *L, ngx_http_request_t *r)
++{
++    int co_ref;
++    ngx_int_t rc;
++    lua_State *co;
++    ngx_pool_cleanup_t *cln;
++    ngx_http_lua_ctx_t *ctx = ngx_http_get_module_ctx(r, ngx_http_lua_module);
++    if (ctx == NULL) {
++        ctx = ngx_http_lua_create_ctx(r);
++        if (ctx == NULL) { return NGX_ERROR; }
++    } else {
++        ngx_http_lua_reset_ctx(r, L, ctx);
++    }
++    ctx->context = NGX_HTTP_LUA_CONTEXT_RESPONSE;
++    ctx->entered_response_phase = 1;
++    ctx->response_done = 0;
++    co = ngx_http_lua_new_thread(r, L, &co_ref);
++    if (co == NULL) { return NGX_ERROR; }
++    lua_xmove(L, co, 1);
++#ifndef OPENRESTY_LUAJIT
++    ngx_http_lua_get_globals_table(co);
++    lua_setfenv(co, -2);
++#endif
++    ngx_http_lua_set_req(co, r);
++    ctx->cur_co_ctx = &ctx->entry_co_ctx;
++    ctx->cur_co_ctx->co = co;
++    ctx->cur_co_ctx->co_ref = co_ref;
++#ifdef NGX_LUA_USE_ASSERT
++    ctx->cur_co_ctx->co_top = 1;
++#endif
++    ngx_http_lua_attach_co_ctx_to_L(co, ctx->cur_co_ctx);
++    if (ctx->cleanup == NULL) {
++        cln = ngx_pool_cleanup_add(r->pool, 0);
++        if (cln == NULL) { return NGX_ERROR; }
++        cln->handler = ngx_http_lua_request_cleanup_handler;
++        cln->data = ctx;
++        ctx->cleanup = &cln->handler;
++    }
++    r->response_ctx->lua_cleanup = ngx_http_lua_response_cleanup;
++    r->response_ctx->lua_data = ctx;
++    r->write_event_handler = ngx_http_lua_response_wev_handler;
++    rc = ngx_http_lua_run_thread(L, r, ctx, 0);
++    if (rc == NGX_AGAIN) { return NGX_AGAIN; }
++    if (rc == NGX_DONE) {
++        /* ngx_lua documents NGX_DONE as an additional request reference. */
++        ngx_http_lua_finalize_request(r, NGX_DONE);
++        return NGX_AGAIN;
++    }
++    ctx->response_done = 1;
++    ctx->response_rc = rc;
++    ctx->entered_response_phase = 0;
++    return rc;
++}
++
++ngx_int_t
++ngx_http_lua_response_handler(ngx_http_request_t *r)
++{
++    ngx_http_lua_ctx_t *ctx;
++    ngx_http_lua_loc_conf_t *llcf;
++    ctx = ngx_http_get_module_ctx(r, ngx_http_lua_module);
++    if (ctx && ctx->entered_response_phase) {
++        if (!ctx->response_done) { return NGX_AGAIN; }
++        ctx->entered_response_phase = 0;
++        return ctx->response_rc;
++    }
++    llcf = ngx_http_get_module_loc_conf(r, ngx_http_lua_module);
++    if (llcf->response_handler == NULL) { return NGX_ERROR; }
++    return llcf->response_handler(r);
++}
++
++static ngx_http_request_t *
++ngx_http_lua_response_request(lua_State *L)
++{
++    ngx_http_request_t *r = ngx_http_lua_get_req(L);
++    ngx_http_lua_ctx_t *ctx;
++    if (r == NULL) { luaL_error(L, "no request"); return NULL; }
++    ctx = ngx_http_get_module_ctx(r, ngx_http_lua_module);
++    if (ctx == NULL || ctx->context != NGX_HTTP_LUA_CONTEXT_RESPONSE
++        || r->response_ctx == NULL
++        || r->response_ctx->state != NGX_HTTP_RESPONSE_RUNNING)
++    { luaL_error(L, "API requires native response phase"); return NULL; }
++    return r;
++}
++
++static int
++ngx_http_lua_response_get_body(lua_State *L)
++{
++    ngx_http_request_t *r = ngx_http_lua_response_request(L);
++    lua_pushlstring(L, (char *) r->response_ctx->body.data,
++                   r->response_ctx->body.len);
++    return 1;
++}
++
++static int
++ngx_http_lua_response_set_body(lua_State *L)
++{
++    size_t len;
++    const char *body = luaL_checklstring(L, 1, &len);
++    ngx_http_request_t *r = ngx_http_lua_response_request(L);
++    if (len > r->response_ctx->limit) {
++        return luaL_error(L, "replacement response body too large");
++    }
++    ngx_memcpy(r->response_ctx->body.data, body, len);
++    r->response_ctx->body.len = len;
++    return 0;
++}
++
++static int
++ngx_http_lua_response_clear_headers(lua_State *L)
++{
++    ngx_http_request_t *r = ngx_http_lua_response_request(L);
++    if (ngx_http_response_clear_headers(r) != NGX_OK) {
++        return luaL_error(L, "response header allocation failure");
++    }
++    return 0;
++}
++
++void
++ngx_http_lua_inject_response_api(lua_State *L)
++{
++    lua_createtable(L, 0, 3);
++    lua_pushcfunction(L, ngx_http_lua_response_get_body);
++    lua_setfield(L, -2, "get_body");
++    lua_pushcfunction(L, ngx_http_lua_response_set_body);
++    lua_setfield(L, -2, "set_body");
++    lua_pushcfunction(L, ngx_http_lua_response_clear_headers);
++    lua_setfield(L, -2, "clear_headers");
++    lua_setfield(L, -2, "response");
++}
++
++/* Inline/file code-cache loaders are adapted from contentby.c by adapt.py. */
++
++ngx_int_t
++ngx_http_lua_response_handler_file(ngx_http_request_t *r)
++{
++    lua_State                       *L;
++    ngx_int_t                        rc;
++    u_char                          *script_path;
++    ngx_http_lua_loc_conf_t         *llcf;
++    ngx_str_t                        eval_src;
++
++    llcf = ngx_http_get_module_loc_conf(r, ngx_http_lua_module);
++
++    if (ngx_http_complex_value(r, &llcf->response_src, &eval_src) != NGX_OK) {
++        return NGX_ERROR;
++    }
++
++    script_path = ngx_http_lua_rebase_path(r->pool, eval_src.data,
++                                           eval_src.len);
++
++    if (script_path == NULL) {
++        return NGX_ERROR;
++    }
++
++    L = ngx_http_lua_get_lua_vm(r, NULL);
++
++    /*  load Lua script file (w/ cache)        sp = 1 */
++    rc = ngx_http_lua_cache_loadfile(r->connection->log, L, script_path,
++                                     &llcf->response_src_ref,
++                                     llcf->response_src_key);
++    if (rc != NGX_OK) {
++        if (rc < NGX_HTTP_SPECIAL_RESPONSE) {
++            return NGX_HTTP_INTERNAL_SERVER_ERROR;
++        }
++
++        return rc;
++    }
++
++    /*  make sure we have a valid code chunk */
++    ngx_http_lua_assert(lua_isfunction(L, -1));
++
++    return ngx_http_lua_response_by_chunk(L, r);
++}
++
++
++ngx_int_t
++ngx_http_lua_response_handler_inline(ngx_http_request_t *r)
++{
++    lua_State                   *L;
++    ngx_int_t                    rc;
++    ngx_http_lua_loc_conf_t     *llcf;
++
++    llcf = ngx_http_get_module_loc_conf(r, ngx_http_lua_module);
++
++    L = ngx_http_lua_get_lua_vm(r, NULL);
++
++    /*  load Lua inline script (w/ cache) sp = 1 */
++    rc = ngx_http_lua_cache_loadbuffer(r->connection->log, L,
++                                       llcf->response_src.value.data,
++                                       llcf->response_src.value.len,
++                                       &llcf->response_src_ref,
++                                       llcf->response_src_key,
++                                       (const char *)
++                                       llcf->response_chunkname);
++    if (rc != NGX_OK) {
++        return NGX_HTTP_INTERNAL_SERVER_ERROR;
++    }
++
++    return ngx_http_lua_response_by_chunk(L, r);
++}
++
++
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.h b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.h
+new file mode 100644
+--- /dev/null
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.h
+@@ -0,0 +1,15 @@
++/* Technical prototype only. */
++#ifndef _NGX_HTTP_LUA_RESPONSEBY_H_INCLUDED_
++#define _NGX_HTTP_LUA_RESPONSEBY_H_INCLUDED_
++#include "ngx_http_lua_common.h"
++
++ngx_int_t ngx_http_lua_response_handler(ngx_http_request_t *r);
++ngx_int_t ngx_http_lua_response_handler_inline(ngx_http_request_t *r);
++ngx_int_t ngx_http_lua_response_handler_file(ngx_http_request_t *r);
++ngx_int_t ngx_http_lua_response_by_chunk(lua_State *L, ngx_http_request_t *r);
++void ngx_http_lua_response_wev_handler(ngx_http_request_t *r);
++void ngx_http_lua_inject_response_api(lua_State *L);
++char *ngx_http_lua_response_by_lua(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
++char *ngx_http_lua_response_by_lua_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
++
++#endif
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c
+@@ -1,3 +1,4 @@
++#include "ngx_http_lua_responseby.h"
+ 
+ /*
+  * Copyright (C) Xiaozhe Wang (chaoslawful)
+@@ -52,7 +53,7 @@
+         return luaL_error(L, "no request ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     coctx = ctx->cur_co_ctx;
+     if (coctx == NULL) {
+@@ -126,7 +127,11 @@
+ 
+     ctx->cur_co_ctx = coctx;
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        ctx->resume_handler = ngx_http_lua_sleep_resume;
++        ngx_http_lua_response_wev_handler(r);
++
++    } else if (ctx->entered_content_phase) {
+         (void) ngx_http_lua_sleep_resume(r);
+ 
+     } else {
+@@ -212,6 +217,8 @@
+         return ngx_http_lua_run_posted_threads(c, vm, r, ctx, nreqs);
+     }
+ 
++    if (ctx->entered_response_phase) { return rc; }
++
+     if (ctx->entered_content_phase) {
+         ngx_http_lua_finalize_request(r, rc);
+         return NGX_DONE;
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c
+@@ -1,3 +1,4 @@
++#include "ngx_http_lua_responseby.h"
+ 
+ /*
+  * Copyright (C) Yichun Zhang (agentzh)
+@@ -431,7 +432,7 @@
+         return luaL_error(L, "no ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     lua_createtable(L, 7 /* narr */, 1 /* nrec */);
+     lua_pushlightuserdata(L, ngx_http_lua_lightudata_mask(
+@@ -801,7 +802,10 @@
+ 
+     dd("setting data to %p", u);
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++    } else if (ctx->entered_content_phase) {
+         r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+     } else {
+@@ -861,7 +865,7 @@
+         return luaL_error(L, "no ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     luaL_checktype(L, 1, LUA_TTABLE);
+ 
+@@ -925,7 +929,7 @@
+         return luaL_error(L, "no ctx found");
+     }
+ 
+-    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_YIELDABLE);
++    ngx_http_lua_check_context(L, ctx, NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE);
+ 
+     luaL_checktype(L, 1, LUA_TTABLE);
+ 
+@@ -1567,7 +1571,10 @@
+ 
+     dd("setting data to %p", u);
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++    } else if (ctx->entered_content_phase) {
+         r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+     } else {
+@@ -1860,7 +1867,10 @@
+ 
+         c->ssl->handler = ngx_http_lua_tls_handshake_handler;
+ 
+-        if (ctx->entered_content_phase) {
++        if (ctx->entered_response_phase) {
++            r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++        } else if (ctx->entered_content_phase) {
+             r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+         } else {
+@@ -2218,7 +2228,10 @@
+     coctx->cleanup = ngx_http_lua_coctx_cleanup;
+     coctx->data = u;
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++    } else if (ctx->entered_content_phase) {
+         r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+     } else {
+@@ -3115,7 +3128,10 @@
+         ctx->writing_raw_req_socket = 1;
+     }
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++    } else if (ctx->entered_content_phase) {
+         r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+     } else {
+@@ -4092,7 +4108,11 @@
+ 
+     c = r->connection;
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        ctx->resume_handler = ngx_http_lua_socket_tcp_conn_op_resume;
++        ngx_http_lua_response_wev_handler(r);
++
++    } else if (ctx->entered_content_phase) {
+         (void) ngx_http_lua_socket_tcp_conn_op_resume(r);
+ 
+     } else {
+@@ -4245,7 +4265,11 @@
+ 
+     c = r->connection;
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        ctx->resume_handler = ngx_http_lua_socket_tcp_conn_op_resume;
++        ngx_http_lua_response_wev_handler(r);
++
++    } else if (ctx->entered_content_phase) {
+         (void) ngx_http_lua_socket_tcp_conn_op_resume(r);
+ 
+     } else {
+@@ -4698,7 +4722,10 @@
+     coctx->cleanup = ngx_http_lua_coctx_cleanup;
+     coctx->data = u;
+ 
+-    if (ctx->entered_content_phase) {
++    if (ctx->entered_response_phase) {
++        r->write_event_handler = ngx_http_lua_response_wev_handler;
++
++    } else if (ctx->entered_content_phase) {
+         r->write_event_handler = ngx_http_lua_content_wev_handler;
+ 
+     } else {
+@@ -6220,6 +6247,8 @@
+         return ngx_http_lua_run_posted_threads(c, vm, r, ctx, nreqs);
+     }
+ 
++    if (ctx->entered_response_phase) { return rc; }
++
+     if (ctx->entered_content_phase) {
+         ngx_http_lua_finalize_request(r, rc);
+         return NGX_DONE;
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c
+@@ -14,6 +14,7 @@
+ #include "nginx.h"
+ #include "ngx_meta_lua_api.h"
+ #include "ngx_http_lua_directive.h"
++#include "ngx_http_lua_responseby.h"
+ #include "ngx_http_lua_util.h"
+ #include "ngx_http_lua_exception.h"
+ #include "ngx_http_lua_pcrefix.h"
+@@ -849,6 +850,7 @@
+     ngx_http_lua_inject_sleep_api(L);
+ 
+     ngx_http_lua_inject_req_api(log, L);
++    ngx_http_lua_inject_response_api(L);
+     ngx_http_lua_inject_resp_header_api(L);
+     ngx_http_lua_create_headers_metatable(log, L);
+     ngx_meta_lua_inject_shdict_api(L, cycle, &ngx_http_lua_module);
+@@ -1013,6 +1015,8 @@
+     ctx->entered_rewrite_phase = 0;
+     ctx->entered_access_phase = 0;
+     ctx->entered_content_phase = 0;
++    ctx->entered_response_phase = 0;
++    ctx->response_done = 0;
+ 
+     ctx->exit_code = 0;
+     ctx->exited = 0;
+diff --git a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h
+--- a/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h
++++ b/bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h
+@@ -41,6 +41,9 @@
+                                 | NGX_HTTP_LUA_CONTEXT_SSL_CERT              \
+                                 | NGX_HTTP_LUA_CONTEXT_SSL_SESS_FETCH)
+ 
++
++#define NGX_HTTP_LUA_CONTEXT_RESPONSE_YIELDABLE \
++    (NGX_HTTP_LUA_CONTEXT_YIELDABLE | NGX_HTTP_LUA_CONTEXT_RESPONSE)
+ 
+ /* key in Lua vm registry for all the "ngx.ctx" tables */
+ #define ngx_http_lua_ctx_tables_key  "ngx_lua_ctx_tables"
+@@ -66,7 +69,7 @@
+                                                  "ssl_session_store_by_lua*" \
+      : (c) == NGX_HTTP_LUA_CONTEXT_SSL_SESS_FETCH ?                          \
+                                                  "ssl_session_fetch_by_lua*" \
+-     : "(unknown)")
++     : (c) == NGX_HTTP_LUA_CONTEXT_RESPONSE ? "response_by_lua*" : "(unknown)")
+ 
+ 
+ #define ngx_http_lua_check_context(L, ctx, flags)                            \

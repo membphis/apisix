@@ -1,0 +1,3483 @@
+{
+  "passed": true,
+  "native_requests": 58,
+  "completed_lua_phases": 18,
+  "fail_closed_requests": 10,
+  "cancelled_before_headers": 30,
+  "yield_events": 71,
+  "resume_events": 54,
+  "header_chain_called_at_most_once": true,
+  "pending_request_count_always_one": true,
+  "intentional_or_fixture_error_lines": 2,
+  "traces": [
+    {
+      "uri": "/block",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 22
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/deny",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 27
+        }
+      ]
+    },
+    {
+      "uri": "/native/deny",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 32
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 27
+        }
+      ]
+    },
+    {
+      "uri": "/native/chunked",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/deny-chunked",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 43
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 27
+        }
+      ]
+    },
+    {
+      "uri": "/native/utf8",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 22
+        }
+      ]
+    },
+    {
+      "uri": "/native/empty",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "uri": "/native/status-404",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 25
+        }
+      ]
+    },
+    {
+      "uri": "/native/status-503",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 27
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 27
+        }
+      ]
+    },
+    {
+      "uri": "/native/exact",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 4096
+        }
+      ]
+    },
+    {
+      "uri": "/native/sleep",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "uri": "/native/output-guard",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 13
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 13
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 13
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 13
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 13
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "uri": "/native/lua-error",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 10
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 10
+        },
+        {
+          "event": "fail_closed",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 10
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 21
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 21
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 21
+        }
+      ]
+    },
+    {
+      "uri": "/native/large-length",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 24
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 24
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 24
+        }
+      ]
+    },
+    {
+      "uri": "/native/large-chunked",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 4096
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 24
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 24
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 24
+        }
+      ]
+    },
+    {
+      "uri": "/native/timeout",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "fail_closed",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 23
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 23
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 23
+        }
+      ]
+    },
+    {
+      "uri": "/native/audit-error",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 36
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "uri": "/native/audit-invalid",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "uri": "/native/audit-oversize",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 39
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "uri": "/native/audit-trickle",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "fail_closed",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 23
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 23
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 23
+        }
+      ]
+    },
+    {
+      "uri": "/native/audit-disconnect",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 41
+        },
+        {
+          "event": "response_leave",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 14
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 28
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 28
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 28
+        }
+      ]
+    },
+    {
+      "uri": "/native/upstream-trickle",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 28
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 28
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 28
+        }
+      ]
+    },
+    {
+      "uri": "/native/broken",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 19
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 22
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 22
+        }
+      ]
+    },
+    {
+      "uri": "/native/not-text",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 38
+        }
+      ]
+    },
+    {
+      "uri": "/native/encoded",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "fail_closed",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "commit",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "header_chain_enter",
+          "state": 3,
+          "header_sent": 0,
+          "header_calls": 1,
+          "count": 1,
+          "bytes": 38
+        },
+        {
+          "event": "cleanup",
+          "state": 4,
+          "header_sent": 1,
+          "header_calls": 1,
+          "count": 0,
+          "bytes": 38
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/slow-upstream",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "cleanup",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    },
+    {
+      "uri": "/native/allow",
+      "events": [
+        {
+          "event": "collect_start",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 0
+        },
+        {
+          "event": "body_complete",
+          "state": 1,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "response_enter",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "resume",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "yield",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        },
+        {
+          "event": "cleanup",
+          "state": 2,
+          "header_sent": 0,
+          "header_calls": 0,
+          "count": 1,
+          "bytes": 20
+        }
+      ]
+    }
+  ],
+  "recorded_at_utc": "2026-10-31 12:54:28 UTC",
+  "source_baseline": "membphis/apisix@b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "prototype_binary_sha256": "1464f5ce70a668517668b1c5401490b0cdaa37745c3f830057f73383a9dc4b4f"
+}

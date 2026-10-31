@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "worker_pid": 33,
+  "fd_before": 18,
+  "fd_after": 18,
+  "extra_client_aborts": 20,
+  "cancelled_per_stage": 10,
+  "max_observed_cleanup_s": 0.0012,
+  "upstream_active": 0,
+  "audit_active": 0,
+  "recorded_at_utc": "2026-10-31 12:54:28 UTC",
+  "source_baseline": "membphis/apisix@b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "prototype_binary_sha256": "1464f5ce70a668517668b1c5401490b0cdaa37745c3f830057f73383a9dc4b4f"
+}

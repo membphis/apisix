@@ -1,0 +1,49 @@
+apisix:
+  node_listen: 9080
+  enable_admin: false
+  enable_control: false
+  extra_lua_path: /demo/?.lua;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/lualib/?/init.lua
+  extra_lua_cpath: /usr/local/openresty/lualib/?.so
+  lua_module_hook: native_hook
+  ssl:
+    enable: false
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
+plugins: []
+stream_plugins: []
+nginx_config:
+  worker_processes: 1
+  worker_rlimit_nofile: 16384
+  error_log_level: info
+  http_configuration_snippet: |
+    map $uri $native_response_enabled {
+        default 0;
+        ~^/native/ 1;
+    }
+    include /demo/mock.conf;
+  http_server_configuration_snippet: |
+    location = /block {
+        proxy_pass http://127.0.0.1:1980/native/allow;
+        response_phase 1;
+        response_by_lua_block {
+            assert(ngx.get_phase() == "response" and not ngx.headers_sent)
+            assert(ngx.response.get_body() == "hello from upstream\n")
+            ngx.sleep(0.05)
+            assert(ngx.get_phase() == "response" and not ngx.headers_sent)
+            ngx.status = 202
+            ngx.header["X-Block-Lua"] = ngx.get_phase()
+            ngx.response.set_body("native block response\n")
+        }
+        header_filter_by_lua_block {
+            assert(ngx.status == 202)
+            ngx.header["X-Block-Observer"] = ngx.get_phase()
+        }
+    }
+  http_server_location_configuration_snippet: |
+    response_phase $native_response_enabled;
+    response_body_limit 4k;
+    response_collect_timeout 1200ms;
+    response_timeout 1500ms;
+    response_by_lua_file /demo/audit.lua;

@@ -1,0 +1,80 @@
+Extracted from actual C trace and Lua observer logs; full logs are in the materials archive.
+
+/block cancelled=False
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=20
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=6 event=response_leave state=2 header_sent=0 header_calls=0 count=1 bytes=22
+seq=7 event=commit state=3 header_sent=0 header_calls=0 count=1 bytes=22
+seq=8 event=header_chain_enter state=3 header_sent=0 header_calls=1 count=1 bytes=22
+seq=9 event=cleanup state=4 header_sent=1 header_calls=1 count=0 bytes=22
+
+/native/allow cancelled=False
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=20
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=6 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=7 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=8 event=response_leave state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=9 event=commit state=3 header_sent=0 header_calls=0 count=1 bytes=20
+seq=10 event=header_chain_enter state=3 header_sent=0 header_calls=1 count=1 bytes=20
+seq=11 event=cleanup state=4 header_sent=1 header_calls=1 count=0 bytes=20
+
+/native/deny cancelled=False
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=32
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=32
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=32
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=32
+seq=6 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=32
+seq=7 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=32
+seq=8 event=response_leave state=2 header_sent=0 header_calls=0 count=1 bytes=27
+seq=9 event=commit state=3 header_sent=0 header_calls=0 count=1 bytes=27
+seq=10 event=header_chain_enter state=3 header_sent=0 header_calls=1 count=1 bytes=27
+seq=11 event=cleanup state=4 header_sent=1 header_calls=1 count=0 bytes=27
+
+/native/sleep cancelled=False
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=12
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=12
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=12
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=12
+seq=6 event=response_leave state=2 header_sent=0 header_calls=0 count=1 bytes=12
+seq=7 event=commit state=3 header_sent=0 header_calls=0 count=1 bytes=12
+seq=8 event=header_chain_enter state=3 header_sent=0 header_calls=1 count=1 bytes=12
+seq=9 event=cleanup state=4 header_sent=1 header_calls=1 count=0 bytes=12
+
+/native/timeout cancelled=False
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=38
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=38
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=38
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=38
+seq=6 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=38
+seq=7 event=fail_closed state=2 header_sent=0 header_calls=0 count=1 bytes=38
+seq=8 event=commit state=3 header_sent=0 header_calls=0 count=1 bytes=23
+seq=9 event=header_chain_enter state=3 header_sent=0 header_calls=1 count=1 bytes=23
+seq=10 event=cleanup state=4 header_sent=1 header_calls=1 count=0 bytes=23
+
+/native/slow-upstream cancelled=True
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=cleanup state=1 header_sent=0 header_calls=0 count=1 bytes=6
+
+/native/allow cancelled=True
+seq=1 event=collect_start state=1 header_sent=0 header_calls=0 count=1 bytes=0
+seq=2 event=body_complete state=1 header_sent=0 header_calls=0 count=1 bytes=20
+seq=3 event=response_enter state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=4 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=5 event=resume state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=6 event=yield state=2 header_sent=0 header_calls=0 count=1 bytes=20
+seq=7 event=cleanup state=2 header_sent=0 header_calls=0 count=1 bytes=20
+
+Original header-filter observation and Lua timer evidence:
+2026/10/31 12:45:48 [info] 33#33: *1988 [lua] native_hook.lua:6: http_header_filter_phase(): native_header_observer phase=header_filter status=403 upstream_status=201 while reading response header from upstream, client: 172.17.0.1, server: _, request: "GET /native/deny HTTP/1.1", upstream: "http://127.0.0.1:1980/native/deny", host: "127.0.0.1:19090", request_id: "262667c7067e36e60bc7b2112274f4a2"
+2026/10/31 12:45:49 [info] 33#33: *2010 [lua] native_hook.lua:6: http_header_filter_phase(): native_header_observer phase=header_filter status=403 upstream_status=201 while reading response header from upstream, client: 172.17.0.1, server: _, request: "GET /%6Eative/deny HTTP/1.1", upstream: "http://127.0.0.1:1980/%6Eative/deny", host: "127.0.0.1:19090", request_id: "f4760e18ed0862d82f78b8acc69d4f48"
+2026/10/31 12:45:51 [info] 33#33: *2076 [lua] native_hook.lua:6: http_header_filter_phase(): native_header_observer phase=header_filter status=403 upstream_status=201 while reading response header from upstream, client: 172.17.0.1, server: _, request: "GET /native/deny-chunked HTTP/1.1", upstream: "http://127.0.0.1:1980/native/deny-chunked", host: "127.0.0.1:19090", request_id: "f1fe2fbf8bdca59a1dcf61b49bc0eefd"
+2026/10/31 12:45:57 [info] 33#33: *2252 [lua] audit.lua:20: native_response_lua resumed_after_sleep phase=response while reading response header from upstream, client: 172.17.0.1, server: _, request: "GET /native/sleep HTTP/1.1", upstream: "http://127.0.0.1:1980/native/sleep", host: "127.0.0.1:19090", request_id: "f571ffa644d47558947885ec841d9495"

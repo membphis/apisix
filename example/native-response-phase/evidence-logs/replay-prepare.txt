@@ -1,0 +1,60 @@
+verified openresty-1.27.1.2.tar.gz
+verified apisix-nginx-module-1.19.2.tar.gz
+verified ngx_multi_upstream_module-1.3.2.tar.gz
+verified mod_dubbo-1.0.2.tar.gz
+verified lua-var-nginx-module-v0.5.3.tar.gz
+verified lua-resty-events-0.2.0.tar.gz
+checking file bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua
+checking file bundle/nginx-1.27.1/auto/modules
+checking file bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c
+checking file bundle/nginx-1.27.1/src/http/ngx_http.c
+checking file bundle/nginx-1.27.1/src/http/ngx_http.h
+checking file bundle/nginx-1.27.1/src/http/ngx_http_core_module.c
+checking file bundle/nginx-1.27.1/src/http/ngx_http_core_module.h
+checking file bundle/nginx-1.27.1/src/http/ngx_http_request.h
+checking file bundle/nginx-1.27.1/src/http/ngx_http_response_phase.c
+checking file bundle/nginx-1.27.1/src/http/ngx_http_response_phase.h
+checking file bundle/nginx-1.27.1/src/http/ngx_http_upstream.c
+checking file bundle/nginx-1.27.1/src/http/ngx_http_upstream.h
+checking file bundle/ngx_lua-0.10.28/config
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.h
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c
+checking file bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h
+patching file bundle/lua-resty-core-0.1.31/lib/resty/core/phase.lua
+patching file bundle/nginx-1.27.1/auto/modules
+patching file bundle/nginx-1.27.1/src/http/modules/ngx_http_proxy_module.c
+patching file bundle/nginx-1.27.1/src/http/ngx_http.c
+patching file bundle/nginx-1.27.1/src/http/ngx_http.h
+patching file bundle/nginx-1.27.1/src/http/ngx_http_core_module.c
+patching file bundle/nginx-1.27.1/src/http/ngx_http_core_module.h
+patching file bundle/nginx-1.27.1/src/http/ngx_http_request.h
+patching file bundle/nginx-1.27.1/src/http/ngx_http_response_phase.c
+patching file bundle/nginx-1.27.1/src/http/ngx_http_response_phase.h
+patching file bundle/nginx-1.27.1/src/http/ngx_http_upstream.c
+patching file bundle/nginx-1.27.1/src/http/ngx_http_upstream.h
+patching file bundle/ngx_lua-0.10.28/config
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_bodyfilterby.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_common.h
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_coroutine.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_directive.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_headerfilterby.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_module.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_responseby.h
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_sleep.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_socket_tcp.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.c
+patching file bundle/ngx_lua-0.10.28/src/ngx_http_lua_util.h
+verified and prepared lua-resty-websocket v0.2.0
+verified and prepared lua-resty-http v0.2.4
+verified and prepared lua-resty-redis-cluster v1.3.3
+Prepared native prototype: /workspace/native-response-clean-replay
