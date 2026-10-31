@@ -1,0 +1,186 @@
+[
+  {
+    "mode": "lua",
+    "prefix": "plain",
+    "duration_seconds": 60,
+    "wall_seconds": 60.40215066900055,
+    "requests": 1104676,
+    "qps": 18408.5,
+    "workers": [
+      1590
+    ],
+    "worker_cpu_seconds": 59.97,
+    "worker_cpu_us_per_request": 54.28741096937021,
+    "rss_start_bytes": 34451456,
+    "rss_end_bytes": 35454976,
+    "rss_peak_bytes": 35483648,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1587.0,
+      "p95": 2724.0,
+      "p99": 3584.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "native",
+    "prefix": "plain",
+    "duration_seconds": 60,
+    "wall_seconds": 60.46010069900149,
+    "requests": 784406,
+    "qps": 13071.11,
+    "workers": [
+      1690
+    ],
+    "worker_cpu_seconds": 59.980000000000004,
+    "worker_cpu_us_per_request": 76.465503833474,
+    "rss_start_bytes": 21700608,
+    "rss_end_bytes": 21946368,
+    "rss_peak_bytes": 22007808,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 2259.0,
+      "p95": 3483.0,
+      "p99": 4140.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "lua",
+    "prefix": "auth",
+    "duration_seconds": 60,
+    "wall_seconds": 60.42010121200292,
+    "requests": 947386,
+    "qps": 15787.14,
+    "workers": [
+      1790
+    ],
+    "worker_cpu_seconds": 59.98,
+    "worker_cpu_us_per_request": 63.311047450563976,
+    "rss_start_bytes": 34009088,
+    "rss_end_bytes": 34914304,
+    "rss_peak_bytes": 34938880,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1850.0,
+      "p95": 3322.0,
+      "p99": 4551.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "native",
+    "prefix": "auth",
+    "duration_seconds": 60,
+    "wall_seconds": 60.48266179100028,
+    "requests": 620941,
+    "qps": 10346.8,
+    "workers": [
+      1890
+    ],
+    "worker_cpu_seconds": 60.0,
+    "worker_cpu_us_per_request": 96.627537882021,
+    "rss_start_bytes": 22585344,
+    "rss_end_bytes": 22900736,
+    "rss_peak_bytes": 23023616,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 2838.0,
+      "p95": 4291.0,
+      "p99": 5092.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "lua",
+    "prefix": "limit",
+    "duration_seconds": 60,
+    "wall_seconds": 60.43947737199778,
+    "requests": 850506,
+    "qps": 14171.54,
+    "workers": [
+      1990
+    ],
+    "worker_cpu_seconds": 59.989999999999995,
+    "worker_cpu_us_per_request": 70.53448182611292,
+    "rss_start_bytes": 34865152,
+    "rss_end_bytes": 35655680,
+    "rss_peak_bytes": 35700736,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 2030.0,
+      "p95": 4048.0,
+      "p99": 5485.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "native",
+    "prefix": "limit",
+    "duration_seconds": 60,
+    "wall_seconds": 60.55911958499928,
+    "requests": 591332,
+    "qps": 9853.36,
+    "workers": [
+      2090
+    ],
+    "worker_cpu_seconds": 59.989999999999995,
+    "worker_cpu_us_per_request": 101.44893224110989,
+    "rss_start_bytes": 22593536,
+    "rss_end_bytes": 22716416,
+    "rss_peak_bytes": 22855680,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 2988.0,
+      "p95": 4606.0,
+      "p99": 5581.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "lua",
+    "prefix": "combined",
+    "duration_seconds": 60,
+    "wall_seconds": 60.45648459699805,
+    "requests": 788058,
+    "qps": 13131.86,
+    "workers": [
+      2190
+    ],
+    "worker_cpu_seconds": 59.99,
+    "worker_cpu_us_per_request": 76.12383860071213,
+    "rss_start_bytes": 34709504,
+    "rss_end_bytes": 35635200,
+    "rss_peak_bytes": 35700736,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 2182.0,
+      "p95": 4322.0,
+      "p99": 5766.0
+    },
+    "error_rate": 0
+  },
+  {
+    "mode": "native",
+    "prefix": "combined",
+    "duration_seconds": 60,
+    "wall_seconds": 60.54235737699855,
+    "requests": 474540,
+    "qps": 7906.56,
+    "workers": [
+      2290
+    ],
+    "worker_cpu_seconds": 60.02,
+    "worker_cpu_us_per_request": 126.4803810005479,
+    "rss_start_bytes": 23060480,
+    "rss_end_bytes": 23482368,
+    "rss_peak_bytes": 23478272,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 3761.0,
+      "p95": 5578.0,
+      "p99": 6822.0
+    },
+    "error_rate": 0
+  }
+]

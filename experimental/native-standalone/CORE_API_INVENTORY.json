@@ -1,0 +1,804 @@
+{
+  "baseline": "b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
+  "plugin_lua_files": 224,
+  "literal_direct_core_modules": 43,
+  "literal_transitive_core_modules": 84,
+  "modules": {
+    "apisix.balancer.priority": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai-proxy-multi.lua"
+      ]
+    },
+    "apisix.balancer.roundrobin": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/chaitin-waf.lua"
+      ]
+    },
+    "apisix.constants": {
+      "literal_imports": 3,
+      "plugin_files": [
+        "apisix/plugins/ext-plugin-post-resp.lua",
+        "apisix/plugins/ext-plugin/init.lua",
+        "apisix/plugins/saml-auth.lua"
+      ]
+    },
+    "apisix.consumer": {
+      "literal_imports": 9,
+      "plugin_files": [
+        "apisix/plugins/basic-auth.lua",
+        "apisix/plugins/hmac-auth.lua",
+        "apisix/plugins/jwe-decrypt.lua",
+        "apisix/plugins/jwt-auth.lua",
+        "apisix/plugins/key-auth.lua",
+        "apisix/plugins/ldap-auth-advanced.lua",
+        "apisix/plugins/ldap-auth.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/wolf-rbac.lua"
+      ]
+    },
+    "apisix.control.v1": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/prometheus/exporter.lua"
+      ]
+    },
+    "apisix.core": {
+      "literal_imports": 193,
+      "plugin_files": [
+        "apisix/plugins/acl.lua",
+        "apisix/plugins/ai-aliyun-content-moderation.lua",
+        "apisix/plugins/ai-aws-content-moderation.lua",
+        "apisix/plugins/ai-cache.lua",
+        "apisix/plugins/ai-cache/embeddings/base.lua",
+        "apisix/plugins/ai-cache/key.lua",
+        "apisix/plugins/ai-cache/schema.lua",
+        "apisix/plugins/ai-cache/semantic.lua",
+        "apisix/plugins/ai-lakera-guard.lua",
+        "apisix/plugins/ai-lakera-guard/client.lua",
+        "apisix/plugins/ai-lakera-guard/schema.lua",
+        "apisix/plugins/ai-prompt-decorator.lua",
+        "apisix/plugins/ai-prompt-guard.lua",
+        "apisix/plugins/ai-prompt-template.lua",
+        "apisix/plugins/ai-protocols/anthropic-messages.lua",
+        "apisix/plugins/ai-protocols/bedrock-converse.lua",
+        "apisix/plugins/ai-protocols/binding.lua",
+        "apisix/plugins/ai-protocols/converters/anthropic-messages-to-openai-chat.lua",
+        "apisix/plugins/ai-protocols/converters/openai-embeddings-to-vertex-predict.lua",
+        "apisix/plugins/ai-protocols/openai-chat.lua",
+        "apisix/plugins/ai-protocols/openai-embeddings.lua",
+        "apisix/plugins/ai-protocols/openai-responses.lua",
+        "apisix/plugins/ai-providers/base.lua",
+        "apisix/plugins/ai-providers/bedrock.lua",
+        "apisix/plugins/ai-providers/vertex-ai.lua",
+        "apisix/plugins/ai-proxy-multi.lua",
+        "apisix/plugins/ai-proxy.lua",
+        "apisix/plugins/ai-proxy/base.lua",
+        "apisix/plugins/ai-proxy/embedding.lua",
+        "apisix/plugins/ai-proxy/merge.lua",
+        "apisix/plugins/ai-rag.lua",
+        "apisix/plugins/ai-rag/embeddings/azure_openai.lua",
+        "apisix/plugins/ai-rag/vector-search/azure_ai_search.lua",
+        "apisix/plugins/ai-rate-limiting.lua",
+        "apisix/plugins/ai-request-rewrite.lua",
+        "apisix/plugins/ai-transport/auth-aws.lua",
+        "apisix/plugins/ai-transport/auth.lua",
+        "apisix/plugins/ai-transport/aws-eventstream.lua",
+        "apisix/plugins/ai-transport/http.lua",
+        "apisix/plugins/ai.lua",
+        "apisix/plugins/api-breaker.lua",
+        "apisix/plugins/attach-consumer-label.lua",
+        "apisix/plugins/authz-casbin.lua",
+        "apisix/plugins/authz-casdoor.lua",
+        "apisix/plugins/authz-keycloak.lua",
+        "apisix/plugins/basic-auth.lua",
+        "apisix/plugins/batch-requests.lua",
+        "apisix/plugins/body-transformer.lua",
+        "apisix/plugins/brotli.lua",
+        "apisix/plugins/cas-auth.lua",
+        "apisix/plugins/chaitin-waf.lua",
+        "apisix/plugins/clickhouse-logger.lua",
+        "apisix/plugins/client-control.lua",
+        "apisix/plugins/consumer-restriction.lua",
+        "apisix/plugins/cors.lua",
+        "apisix/plugins/csrf.lua",
+        "apisix/plugins/data-mask.lua",
+        "apisix/plugins/datadog.lua",
+        "apisix/plugins/degraphql.lua",
+        "apisix/plugins/dingtalk-auth.lua",
+        "apisix/plugins/dubbo-proxy.lua",
+        "apisix/plugins/echo.lua",
+        "apisix/plugins/elasticsearch-logger.lua",
+        "apisix/plugins/error-log-logger.lua",
+        "apisix/plugins/error-page.lua",
+        "apisix/plugins/example-plugin.lua",
+        "apisix/plugins/exit-transformer.lua",
+        "apisix/plugins/ext-plugin-post-req.lua",
+        "apisix/plugins/ext-plugin-post-resp.lua",
+        "apisix/plugins/ext-plugin-pre-req.lua",
+        "apisix/plugins/ext-plugin/helper.lua",
+        "apisix/plugins/ext-plugin/init.lua",
+        "apisix/plugins/fault-injection.lua",
+        "apisix/plugins/feishu-auth.lua",
+        "apisix/plugins/file-logger.lua",
+        "apisix/plugins/forward-auth.lua",
+        "apisix/plugins/gm.lua",
+        "apisix/plugins/google-cloud-logging.lua",
+        "apisix/plugins/graphql-limit-count.lua",
+        "apisix/plugins/graphql-limit-count/cost.lua",
+        "apisix/plugins/graphql-limit-count/decorations.lua",
+        "apisix/plugins/graphql-limit-count/introspection.lua",
+        "apisix/plugins/graphql-proxy-cache.lua",
+        "apisix/plugins/grpc-transcode.lua",
+        "apisix/plugins/grpc-transcode/proto.lua",
+        "apisix/plugins/grpc-transcode/request.lua",
+        "apisix/plugins/grpc-transcode/response.lua",
+        "apisix/plugins/grpc-transcode/util.lua",
+        "apisix/plugins/grpc-web.lua",
+        "apisix/plugins/gzip.lua",
+        "apisix/plugins/hmac-auth.lua",
+        "apisix/plugins/http-dubbo.lua",
+        "apisix/plugins/http-logger.lua",
+        "apisix/plugins/inspect.lua",
+        "apisix/plugins/ip-restriction.lua",
+        "apisix/plugins/ip-restriction/init.lua",
+        "apisix/plugins/jwe-decrypt.lua",
+        "apisix/plugins/jwt-auth.lua",
+        "apisix/plugins/jwt-auth/parser.lua",
+        "apisix/plugins/kafka-logger.lua",
+        "apisix/plugins/kafka-proxy.lua",
+        "apisix/plugins/key-auth.lua",
+        "apisix/plugins/lago.lua",
+        "apisix/plugins/ldap-auth-advanced.lua",
+        "apisix/plugins/ldap-auth.lua",
+        "apisix/plugins/limit-conn.lua",
+        "apisix/plugins/limit-conn/init.lua",
+        "apisix/plugins/limit-conn/limit-conn-redis-cluster.lua",
+        "apisix/plugins/limit-conn/limit-conn-redis.lua",
+        "apisix/plugins/limit-conn/util.lua",
+        "apisix/plugins/limit-count/delayed-syncer.lua",
+        "apisix/plugins/limit-count/init.lua",
+        "apisix/plugins/limit-count/limit-count-local.lua",
+        "apisix/plugins/limit-count/limit-count-redis-cluster.lua",
+        "apisix/plugins/limit-count/limit-count-redis-sentinel.lua",
+        "apisix/plugins/limit-count/limit-count-redis.lua",
+        "apisix/plugins/limit-count/sliding-window/store/redis.lua",
+        "apisix/plugins/limit-count/util.lua",
+        "apisix/plugins/limit-req.lua",
+        "apisix/plugins/limit-req/limit-req-redis.lua",
+        "apisix/plugins/limit-req/util.lua",
+        "apisix/plugins/log-rotate.lua",
+        "apisix/plugins/loggly.lua",
+        "apisix/plugins/loki-logger.lua",
+        "apisix/plugins/mocking.lua",
+        "apisix/plugins/multi-auth.lua",
+        "apisix/plugins/node-status.lua",
+        "apisix/plugins/oas-validator.lua",
+        "apisix/plugins/ocsp-stapling.lua",
+        "apisix/plugins/opa.lua",
+        "apisix/plugins/opa/helper.lua",
+        "apisix/plugins/openapi-to-mcp.lua",
+        "apisix/plugins/openapi-to-mcp/cache.lua",
+        "apisix/plugins/openapi-to-mcp/fetch.lua",
+        "apisix/plugins/openapi-to-mcp/json_pretty.lua",
+        "apisix/plugins/openapi-to-mcp/jsonrpc.lua",
+        "apisix/plugins/openapi-to-mcp/openapi/loader.lua",
+        "apisix/plugins/openapi-to-mcp/openapi/ref.lua",
+        "apisix/plugins/openapi-to-mcp/openapi/schema.lua",
+        "apisix/plugins/openapi-to-mcp/server.lua",
+        "apisix/plugins/openapi-to-mcp/session.lua",
+        "apisix/plugins/openapi-to-mcp/tools/generator.lua",
+        "apisix/plugins/openapi-to-mcp/tools/handler.lua",
+        "apisix/plugins/openapi-to-mcp/transport/sse.lua",
+        "apisix/plugins/openapi-to-mcp/transport/streamable_http.lua",
+        "apisix/plugins/openid-connect.lua",
+        "apisix/plugins/opentelemetry.lua",
+        "apisix/plugins/openwhisk.lua",
+        "apisix/plugins/prometheus.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/prometheus/process_metrics.lua",
+        "apisix/plugins/proxy-buffering.lua",
+        "apisix/plugins/proxy-cache/disk_handler.lua",
+        "apisix/plugins/proxy-cache/init.lua",
+        "apisix/plugins/proxy-cache/memory.lua",
+        "apisix/plugins/proxy-cache/memory_handler.lua",
+        "apisix/plugins/proxy-cache/util.lua",
+        "apisix/plugins/proxy-control.lua",
+        "apisix/plugins/proxy-mirror.lua",
+        "apisix/plugins/proxy-rewrite.lua",
+        "apisix/plugins/public-api.lua",
+        "apisix/plugins/real-ip.lua",
+        "apisix/plugins/redirect.lua",
+        "apisix/plugins/referer-restriction.lua",
+        "apisix/plugins/request-decompress.lua",
+        "apisix/plugins/request-id.lua",
+        "apisix/plugins/request-validation.lua",
+        "apisix/plugins/response-rewrite.lua",
+        "apisix/plugins/rocketmq-logger.lua",
+        "apisix/plugins/saml-auth.lua",
+        "apisix/plugins/server-info.lua",
+        "apisix/plugins/serverless/generic-upstream.lua",
+        "apisix/plugins/serverless/init.lua",
+        "apisix/plugins/skywalking-logger.lua",
+        "apisix/plugins/skywalking.lua",
+        "apisix/plugins/sls-logger.lua",
+        "apisix/plugins/splunk-hec-logging.lua",
+        "apisix/plugins/syslog.lua",
+        "apisix/plugins/syslog/init.lua",
+        "apisix/plugins/tcp-logger.lua",
+        "apisix/plugins/tencent-cloud-cls.lua",
+        "apisix/plugins/tencent-cloud-cls/cls-sdk.lua",
+        "apisix/plugins/traffic-label.lua",
+        "apisix/plugins/traffic-split.lua",
+        "apisix/plugins/ua-restriction.lua",
+        "apisix/plugins/udp-logger.lua",
+        "apisix/plugins/uri-blocker.lua",
+        "apisix/plugins/websocket-proxy.lua",
+        "apisix/plugins/wolf-rbac.lua",
+        "apisix/plugins/workflow.lua",
+        "apisix/plugins/zipkin.lua",
+        "apisix/plugins/zipkin/codec.lua",
+        "apisix/plugins/zipkin/reporter.lua"
+      ]
+    },
+    "apisix.core.config_etcd": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/server-info.lua"
+      ]
+    },
+    "apisix.core.config_local": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/ext-plugin/helper.lua",
+        "apisix/plugins/graphql-limit-count.lua"
+      ]
+    },
+    "apisix.core.config_util": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/grpc-transcode/proto.lua"
+      ]
+    },
+    "apisix.core.event": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai.lua"
+      ]
+    },
+    "apisix.core.json": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/wolf-rbac.lua"
+      ]
+    },
+    "apisix.core.log": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/limit-count/sliding-window/sliding-window.lua",
+        "apisix/plugins/limit-count/sliding-window/store/shared-dict.lua"
+      ]
+    },
+    "apisix.core.table": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai-transport/sse.lua"
+      ]
+    },
+    "apisix.core.utils": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/log-rotate.lua",
+        "apisix/plugins/tencent-cloud-cls/cls-sdk.lua"
+      ]
+    },
+    "apisix.events": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ext-plugin/init.lua"
+      ]
+    },
+    "apisix.global_rules": {
+      "literal_imports": 3,
+      "plugin_files": [
+        "apisix/plugins/ai.lua",
+        "apisix/plugins/prometheus/exporter.lua"
+      ]
+    },
+    "apisix.healthcheck_manager": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai-proxy-multi.lua"
+      ]
+    },
+    "apisix.http.service": {
+      "literal_imports": 7,
+      "plugin_files": [
+        "apisix/plugins/datadog.lua",
+        "apisix/plugins/graphql-limit-count/decorations.lua",
+        "apisix/plugins/graphql-limit-count/introspection.lua",
+        "apisix/plugins/graphql-proxy-cache.lua",
+        "apisix/plugins/opa/helper.lua",
+        "apisix/plugins/prometheus/exporter.lua"
+      ]
+    },
+    "apisix.inspect": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/inspect.lua"
+      ]
+    },
+    "apisix.plugin": {
+      "literal_imports": 28,
+      "plugin_files": [
+        "apisix/plugins/ai-providers/base.lua",
+        "apisix/plugins/ai-proxy-multi.lua",
+        "apisix/plugins/authz-casbin.lua",
+        "apisix/plugins/azure-functions.lua",
+        "apisix/plugins/batch-requests.lua",
+        "apisix/plugins/chaitin-waf.lua",
+        "apisix/plugins/cors.lua",
+        "apisix/plugins/datadog.lua",
+        "apisix/plugins/error-log-logger.lua",
+        "apisix/plugins/error-page.lua",
+        "apisix/plugins/example-plugin.lua",
+        "apisix/plugins/file-logger.lua",
+        "apisix/plugins/graphql-proxy-cache.lua",
+        "apisix/plugins/inspect.lua",
+        "apisix/plugins/limit-conn/init.lua",
+        "apisix/plugins/limit-count/init.lua",
+        "apisix/plugins/limit-req.lua",
+        "apisix/plugins/log-rotate.lua",
+        "apisix/plugins/loggly.lua",
+        "apisix/plugins/multi-auth.lua",
+        "apisix/plugins/oas-validator.lua",
+        "apisix/plugins/opentelemetry.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/redirect.lua",
+        "apisix/plugins/server-info.lua",
+        "apisix/plugins/skywalking.lua",
+        "apisix/plugins/workflow.lua",
+        "apisix/plugins/zipkin.lua"
+      ]
+    },
+    "apisix.plugin_config": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/graphql-proxy-cache.lua"
+      ]
+    },
+    "apisix.resource": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai-proxy-multi.lua"
+      ]
+    },
+    "apisix.router": {
+      "literal_imports": 4,
+      "plugin_files": [
+        "apisix/plugins/ai.lua",
+        "apisix/plugins/graphql-proxy-cache.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/public-api.lua"
+      ]
+    },
+    "apisix.schema_def": {
+      "literal_imports": 9,
+      "plugin_files": [
+        "apisix/plugins/ai-proxy/schema.lua",
+        "apisix/plugins/basic-auth.lua",
+        "apisix/plugins/grpc-transcode.lua",
+        "apisix/plugins/hmac-auth.lua",
+        "apisix/plugins/jwt-auth.lua",
+        "apisix/plugins/key-auth.lua",
+        "apisix/plugins/ldap-auth-advanced.lua",
+        "apisix/plugins/ldap-auth.lua",
+        "apisix/plugins/traffic-split.lua"
+      ]
+    },
+    "apisix.secret": {
+      "literal_imports": 9,
+      "plugin_files": [
+        "apisix/plugins/ai-proxy-multi.lua",
+        "apisix/plugins/ai-proxy.lua",
+        "apisix/plugins/jwt-auth.lua",
+        "apisix/plugins/oas-validator.lua",
+        "apisix/plugins/openid-connect.lua",
+        "apisix/plugins/proxy-rewrite.lua",
+        "apisix/plugins/redirect.lua",
+        "apisix/plugins/request-validation.lua",
+        "apisix/plugins/response-rewrite.lua"
+      ]
+    },
+    "apisix.ssl": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/gm.lua"
+      ]
+    },
+    "apisix.ssl.router.radixtree_sni": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/gm.lua",
+        "apisix/plugins/ocsp-stapling.lua"
+      ]
+    },
+    "apisix.stream.xrpc": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/prometheus/exporter.lua"
+      ]
+    },
+    "apisix.timers": {
+      "literal_imports": 3,
+      "plugin_files": [
+        "apisix/plugins/error-log-logger.lua",
+        "apisix/plugins/log-rotate.lua",
+        "apisix/plugins/server-info.lua"
+      ]
+    },
+    "apisix.upstream": {
+      "literal_imports": 4,
+      "plugin_files": [
+        "apisix/plugins/example-plugin.lua",
+        "apisix/plugins/graphql-limit-count/introspection.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/traffic-split.lua"
+      ]
+    },
+    "apisix.utils.auth": {
+      "literal_imports": 5,
+      "plugin_files": [
+        "apisix/plugins/basic-auth.lua",
+        "apisix/plugins/hmac-auth.lua",
+        "apisix/plugins/jwt-auth.lua",
+        "apisix/plugins/key-auth.lua",
+        "apisix/plugins/ldap-auth-advanced.lua"
+      ]
+    },
+    "apisix.utils.batch-processor": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/error-log-logger.lua",
+        "apisix/plugins/zipkin/reporter.lua"
+      ]
+    },
+    "apisix.utils.batch-processor-manager": {
+      "literal_imports": 18,
+      "plugin_files": [
+        "apisix/plugins/clickhouse-logger.lua",
+        "apisix/plugins/datadog.lua",
+        "apisix/plugins/elasticsearch-logger.lua",
+        "apisix/plugins/google-cloud-logging.lua",
+        "apisix/plugins/http-logger.lua",
+        "apisix/plugins/kafka-logger.lua",
+        "apisix/plugins/lago.lua",
+        "apisix/plugins/loggly.lua",
+        "apisix/plugins/loki-logger.lua",
+        "apisix/plugins/rocketmq-logger.lua",
+        "apisix/plugins/skywalking-logger.lua",
+        "apisix/plugins/sls-logger.lua",
+        "apisix/plugins/splunk-hec-logging.lua",
+        "apisix/plugins/syslog.lua",
+        "apisix/plugins/syslog/init.lua",
+        "apisix/plugins/tcp-logger.lua",
+        "apisix/plugins/tencent-cloud-cls.lua",
+        "apisix/plugins/udp-logger.lua"
+      ]
+    },
+    "apisix.utils.content-decode": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/response-rewrite.lua"
+      ]
+    },
+    "apisix.utils.google-cloud-oauth": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/ai-transport/auth.lua",
+        "apisix/plugins/google-cloud-logging.lua"
+      ]
+    },
+    "apisix.utils.gzip": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/request-decompress.lua"
+      ]
+    },
+    "apisix.utils.http": {
+      "literal_imports": 1,
+      "plugin_files": [
+        "apisix/plugins/ai-transport/http.lua"
+      ]
+    },
+    "apisix.utils.log-sanitize": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/ai-providers/base.lua",
+        "apisix/plugins/ai-proxy/base.lua"
+      ]
+    },
+    "apisix.utils.log-util": {
+      "literal_imports": 18,
+      "plugin_files": [
+        "apisix/plugins/clickhouse-logger.lua",
+        "apisix/plugins/datadog.lua",
+        "apisix/plugins/elasticsearch-logger.lua",
+        "apisix/plugins/file-logger.lua",
+        "apisix/plugins/google-cloud-logging.lua",
+        "apisix/plugins/http-logger.lua",
+        "apisix/plugins/kafka-logger.lua",
+        "apisix/plugins/loggly.lua",
+        "apisix/plugins/loki-logger.lua",
+        "apisix/plugins/prometheus/exporter.lua",
+        "apisix/plugins/rocketmq-logger.lua",
+        "apisix/plugins/skywalking-logger.lua",
+        "apisix/plugins/sls-logger.lua",
+        "apisix/plugins/splunk-hec-logging.lua",
+        "apisix/plugins/syslog.lua",
+        "apisix/plugins/tcp-logger.lua",
+        "apisix/plugins/tencent-cloud-cls.lua",
+        "apisix/plugins/udp-logger.lua"
+      ]
+    },
+    "apisix.utils.redis": {
+      "literal_imports": 3,
+      "plugin_files": [
+        "apisix/plugins/ai-cache.lua",
+        "apisix/plugins/limit-conn/limit-conn-redis.lua",
+        "apisix/plugins/limit-req/limit-req-redis.lua"
+      ]
+    },
+    "apisix.utils.redis-schema": {
+      "literal_imports": 4,
+      "plugin_files": [
+        "apisix/plugins/ai-cache/schema.lua",
+        "apisix/plugins/limit-conn.lua",
+        "apisix/plugins/limit-count/init.lua",
+        "apisix/plugins/limit-req.lua"
+      ]
+    },
+    "apisix.utils.rediscluster": {
+      "literal_imports": 3,
+      "plugin_files": [
+        "apisix/plugins/limit-conn/limit-conn-redis-cluster.lua",
+        "apisix/plugins/limit-count/limit-count-redis-cluster.lua",
+        "apisix/plugins/limit-req/limit-req-redis-cluster.lua"
+      ]
+    },
+    "apisix.utils.rfc5424": {
+      "literal_imports": 2,
+      "plugin_files": [
+        "apisix/plugins/sls-logger.lua",
+        "apisix/plugins/syslog/init.lua"
+      ]
+    }
+  },
+  "literal_core_dependency_closure": [
+    "apisix.admin.v3_adapter",
+    "apisix.api_router",
+    "apisix.balancer.priority",
+    "apisix.balancer.roundrobin",
+    "apisix.cli.config",
+    "apisix.cli.file",
+    "apisix.cli.schema",
+    "apisix.cli.util",
+    "apisix.constants",
+    "apisix.consumer",
+    "apisix.control.v1",
+    "apisix.core",
+    "apisix.core.config_etcd",
+    "apisix.core.config_local",
+    "apisix.core.config_util",
+    "apisix.core.config_yaml",
+    "apisix.core.ctx",
+    "apisix.core.data_encryption",
+    "apisix.core.dns.client",
+    "apisix.core.env",
+    "apisix.core.etcd",
+    "apisix.core.event",
+    "apisix.core.id",
+    "apisix.core.io",
+    "apisix.core.ip",
+    "apisix.core.json",
+    "apisix.core.log",
+    "apisix.core.lrucache",
+    "apisix.core.math",
+    "apisix.core.os",
+    "apisix.core.profile",
+    "apisix.core.pubsub",
+    "apisix.core.request",
+    "apisix.core.resolver",
+    "apisix.core.response",
+    "apisix.core.schema",
+    "apisix.core.string",
+    "apisix.core.table",
+    "apisix.core.timer",
+    "apisix.core.utils",
+    "apisix.core.version",
+    "apisix.core.websocket",
+    "apisix.debug",
+    "apisix.discovery.init",
+    "apisix.events",
+    "apisix.global_rules",
+    "apisix.healthcheck_manager",
+    "apisix.http.route",
+    "apisix.http.service",
+    "apisix.inspect",
+    "apisix.inspect.dbg",
+    "apisix.plugin",
+    "apisix.plugin_config",
+    "apisix.resource",
+    "apisix.router",
+    "apisix.schema_def",
+    "apisix.secret",
+    "apisix.ssl",
+    "apisix.ssl.router.radixtree_sni",
+    "apisix.stream.router.ip_port",
+    "apisix.stream.xrpc",
+    "apisix.stream.xrpc.metrics",
+    "apisix.stream.xrpc.runner",
+    "apisix.timers",
+    "apisix.tracer",
+    "apisix.upstream",
+    "apisix.utils.auth",
+    "apisix.utils.batch-processor",
+    "apisix.utils.batch-processor-manager",
+    "apisix.utils.content-decode",
+    "apisix.utils.google-cloud-oauth",
+    "apisix.utils.gzip",
+    "apisix.utils.http",
+    "apisix.utils.log-sanitize",
+    "apisix.utils.log-util",
+    "apisix.utils.noop_span",
+    "apisix.utils.redis",
+    "apisix.utils.redis-schema",
+    "apisix.utils.rediscluster",
+    "apisix.utils.rfc5424",
+    "apisix.utils.router",
+    "apisix.utils.span",
+    "apisix.utils.upstream",
+    "apisix.wasm"
+  ],
+  "core_sdk_member_references": {
+    "base": 1,
+    "config": 1,
+    "config.local_conf": 14,
+    "config.new": 2,
+    "config.type": 1,
+    "config_etcd": 1,
+    "config_local": 2,
+    "config_util": 1,
+    "config_util.parse_time_unit": 1,
+    "ctx.register_var": 1,
+    "etcd.get": 1,
+    "etcd.keepalive": 1,
+    "etcd.server_version": 1,
+    "etcd.set": 1,
+    "event": 1,
+    "id.gen_uuid_v4": 1,
+    "id.get": 2,
+    "io.get_file": 1,
+    "ip.create_ip_matcher": 3,
+    "ip.validate_cidr_or_ip": 3,
+    "json": 4,
+    "json.array_mt": 11,
+    "json.canonical_encode": 3,
+    "json.decode": 63,
+    "json.delay_encode": 39,
+    "json.encode": 129,
+    "json.null": 7,
+    "log": 3,
+    "log.debug": 26,
+    "log.delay_exec": 1,
+    "log.emerg": 1,
+    "log.error": 383,
+    "log.info": 216,
+    "log.notice": 4,
+    "log.warn": 219,
+    "lrucache": 2,
+    "lrucache.global": 1,
+    "lrucache.new": 42,
+    "lrucache.plugin_ctx": 17,
+    "lrucache.plugin_ctx_id": 3,
+    "os.setenv": 1,
+    "os.waitpid": 1,
+    "regex": 5,
+    "request.add_header": 2,
+    "request.get_body": 27,
+    "request.get_host": 5,
+    "request.get_http_version": 1,
+    "request.get_ip": 1,
+    "request.get_json_request_body_table": 12,
+    "request.get_method": 19,
+    "request.get_port": 1,
+    "request.get_post_args": 1,
+    "request.get_remote_client_ip": 6,
+    "request.get_remote_client_port": 1,
+    "request.get_scheme": 3,
+    "request.get_uri_args": 15,
+    "request.header": 49,
+    "request.headers": 19,
+    "request.set_header": 56,
+    "request.set_uri_args": 7,
+    "resolver.parse_domain": 2,
+    "resolver.parse_domain_all": 1,
+    "response.add_header": 11,
+    "response.clear_header_as_body_modified": 3,
+    "response.exit": 43,
+    "response.exit_insert_callback": 1,
+    "response.get_response_source": 4,
+    "response.get_upstream_status": 1,
+    "response.hold_body_chunk": 4,
+    "response.set_header": 108,
+    "response.set_response_source": 1,
+    "schema": 1,
+    "schema.TYPE_CONSUMER": 7,
+    "schema.TYPE_METADATA": 31,
+    "schema.check": 168,
+    "schema.host_def": 2,
+    "schema.ip_def": 3,
+    "schema.method_schema": 2,
+    "schema.proto": 1,
+    "schema.ssl.properties.gm": 4,
+    "schema.ssl.properties.ocsp_stapling": 3,
+    "schema.upstream_hash_header_schema": 1,
+    "schema.upstream_hash_vars_combinations_schema": 1,
+    "schema.upstream_hash_vars_schema": 1,
+    "schema.uri_def": 7,
+    "schema.valid": 2,
+    "sleep": 4,
+    "string.byte": 1,
+    "string.compress_script": 5,
+    "string.decode_args": 4,
+    "string.encode_args": 3,
+    "string.find": 21,
+    "string.format": 5,
+    "string.has_prefix": 18,
+    "string.has_suffix": 2,
+    "string.rfind_char": 1,
+    "string.sub": 4,
+    "table": 2,
+    "table.array_find": 5,
+    "table.clear": 3,
+    "table.clone": 21,
+    "table.concat": 14,
+    "table.deep_eq": 2,
+    "table.deepcopy": 14,
+    "table.insert": 117,
+    "table.insert_tail": 9,
+    "table.isarray": 3,
+    "table.isempty": 4,
+    "table.merge": 1,
+    "table.new": 23,
+    "table.nkeys": 1,
+    "table.sort": 2,
+    "table.try_read_attr": 50,
+    "tablepool.fetch": 4,
+    "tablepool.release": 4,
+    "utils": 2,
+    "utils.check_https": 20,
+    "utils.check_tls_bool": 19,
+    "utils.escape_uri_control_chars": 3,
+    "utils.generate_uuid_v7": 1,
+    "utils.gethostname": 7,
+    "utils.parse_addr": 5,
+    "utils.parse_ipv4": 4,
+    "utils.parse_ipv6": 4,
+    "utils.resolve_var": 26,
+    "utils.resolve_var_with_captures": 1,
+    "utils.set_var_rate_limiting_info": 1,
+    "utils.sleep": 1,
+    "utils.split_uri": 1,
+    "utils.uri_safe_encode": 5,
+    "utils.validate_header_field": 1,
+    "utils.validate_header_value": 2,
+    "version.VERSION": 3,
+    "websocket.client.get_frame": 1,
+    "websocket.client.set_frame_data": 1,
+    "websocket.upstream.get_frame": 1,
+    "websocket.upstream.set_frame_data": 1
+  },
+  "limits": "Conservative literal-require and core.member scan, not a Lua AST or proof of a complete dynamic dependency surface."
+}

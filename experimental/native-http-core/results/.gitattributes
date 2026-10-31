@@ -1,0 +1,5 @@
+# Raw rendered configurations and profiler output retain their measured bytes.
+# Source snapshots, scripts and Markdown keep normal whitespace checks.
+*-nginx.conf -whitespace
+profile-*.txt -whitespace
+profile-*.txt.maps -whitespace

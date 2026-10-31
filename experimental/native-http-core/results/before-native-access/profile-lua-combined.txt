@@ -1,0 +1,35 @@
+54%  C code
+  -- 41%  access_by_lua(nginx.conf:319):0
+  -- 24%  log_by_lua(nginx.conf:382):0
+  -- 13%  header_filter_by_lua(nginx.conf:374):0
+  -- 10%  set_var_rate_limiting_info
+  --  5%  balancer_by_lua(nginx.conf:168):0
+  --  4%  body_filter_by_lua(nginx.conf:378):0
+29%  Compiled
+  -- 13%  incr
+  --  8%  __index
+  --  8%  __newindex
+  --  5%  lookup_or_create
+  --  4%  get_var
+  --  4%  re_match_compile
+  --  4%  set_var_rate_limiting_info
+  --  3%  run_global_rules
+  --  3%  get_headers
+10%  Garbage Collector
+  -- 69%  observe
+  -- 15%  set_var_rate_limiting_info
+  --  5%  get_headers
+ 6%  Interpreted
+  -- 16%  http_access_phase
+  -- 11%  match
+  --  7%  __index
+  --  6%  match_route
+  --  5%  gen_arr
+  --  5%  dispatch
+  --  4%  __newindex
+  --  4%  re_match
+  --  4%  collect_captures
+  --  4%  set_upstream
+  --  4%  get_enabled_label_values_for_metric
+  --  4%  get_last_upstream_token
+  --  3%  _match_from_routes

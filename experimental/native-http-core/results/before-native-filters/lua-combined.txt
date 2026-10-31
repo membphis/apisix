@@ -1,0 +1,14 @@
+Running 1m test @ http://127.0.0.1:9080/combined/benchmark
+  2 threads and 32 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.38ms  820.17us  18.07ms   90.08%
+    Req/Sec     6.84k   769.48     8.87k    68.50%
+  Latency Distribution
+     50%    2.13ms
+     75%    2.48ms
+     90%    3.17ms
+     99%    5.69ms
+  816607 requests in 1.00m, 215.62MB read
+Requests/sec:  13606.42
+Transfer/sec:      3.59MB
+percentiles_us p50=2129.000 p95=4233.000 p99=5688.000
