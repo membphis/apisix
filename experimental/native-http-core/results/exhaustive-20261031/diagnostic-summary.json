@@ -1,0 +1,43 @@
+{
+  "combo": {
+    "control_before_qps": 20550.02,
+    "selected_qps": 20913.26,
+    "control_after_qps": 20649.3,
+    "delta_percent": 1.522355223338634
+  },
+  "allocations": [
+    {
+      "variant": "alloc-base",
+      "accepted_requests": 197217,
+      "new_calls_per_request": 130.85634098480355,
+      "all_calls_per_request": 261.6405330169306,
+      "requested_new_bytes_per_request": 8121.85243665607,
+      "positive_growth_bytes_per_request": 8122.909911417372,
+      "allocator_restored": true,
+      "failed_calls": 0,
+      "counters_exact": true
+    },
+    {
+      "variant": "alloc-selected",
+      "accepted_requests": 206978,
+      "new_calls_per_request": 124.90310081264676,
+      "all_calls_per_request": 249.7862719709341,
+      "requested_new_bytes_per_request": 6940.472030843858,
+      "positive_growth_bytes_per_request": 6940.913314458541,
+      "allocator_restored": true,
+      "failed_calls": 0,
+      "counters_exact": true
+    },
+    {
+      "variant": "alloc-lua",
+      "accepted_requests": 183914,
+      "new_calls_per_request": 126.1214480681188,
+      "all_calls_per_request": 251.92573159193972,
+      "requested_new_bytes_per_request": 7033.6082625575,
+      "positive_growth_bytes_per_request": 7035.240068727775,
+      "allocator_restored": true,
+      "failed_calls": 0,
+      "counters_exact": true
+    }
+  ]
+}

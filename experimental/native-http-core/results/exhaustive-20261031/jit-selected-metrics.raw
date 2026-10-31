@@ -1,0 +1,30 @@
+82%  C code
+  -- 41%  log_by_lua(nginx.conf:380):0
+  -- 29%  access_by_lua(nginx.conf:330):0
+  -- 10%  run
+  --  8%  runtime.lua:35
+  --  4%  balancer_by_lua(nginx.conf:165):0
+ 9%  Compiled
+  -- 40%  incr
+  -- 19%  lookup_or_create
+  -- 14%  observe
+  --  8%  exporter.lua:725
+  --  5%  gen_arr
+  --  3%  extra_labels
+  --  3%  var.lua:68
+  --  3%  ctx.lua:67
+ 6%  Garbage Collector
+  -- 78%  observe
+  -- 16%  lookup_or_create
+ 4%  Interpreted
+  -- 22%  gen_arr
+  -- 13%  exporter.lua:725
+  -- 11%  var.lua:68
+  --  7%  require
+  --  7%  get_enabled_label_values_for_metric
+  --  5%  http.lua:155
+  --  4%  balancer_by_lua(nginx.conf:165):0
+  --  3%  __index
+  --  3%  tablepool.lua:11
+  --  3%  run
+  --  3%  log_by_lua(nginx.conf:380):0

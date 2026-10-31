@@ -39,10 +39,10 @@ def request(path, headers=None, method="GET", body=None, port=9080):
         conn.close()
 
 
-def ready():
+def ready(path="/plain/ready", expected=200, headers=None):
     for _ in range(100):
         try:
-            if request("/plain/ready")[0] == 200:
+            if request(path, headers=headers)[0] == expected:
                 return
         except (OSError, http.client.HTTPException):
             pass
@@ -260,8 +260,16 @@ def log_variable_semantics(mode):
     path.write_text(text.replace(marker, before + marker + after))
     subprocess.run([NGINX, "-p", str(ROOT), "-c", "conf/nginx.conf"], env=NGINX_ENV, check=True)
     ready()
+    lines = []
     for _ in range(60):
-        lines = [line for line in metrics().splitlines() if line.startswith("apisix_http_status{")]
+        code, _, body = request("/apisix/prometheus/metrics", port=9091)
+        # The exporter populates its response cache asynchronously. A ready
+        # proxy does not imply its first collection timer has fired yet.
+        if code == 500 and json.loads(body).get("message") == "Failed to retrieve metrics: no data available":
+            time.sleep(0.1)
+            continue
+        assert code == 200, (code, body)
+        lines = [line for line in body.decode().splitlines() if line.startswith("apisix_http_status{")]
         if any('code="299"' in line and 'request_llm_model="custom-model"' in line
                and 'llm_model="<non-scalar>"' in line for line in lines):
             break

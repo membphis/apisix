@@ -1,0 +1,498 @@
+{
+  "verified_utc": "2026-10-31T06:07:55.036104+00:00",
+  "historical_manifests": [
+    {
+      "manifest": "experimental/native-http-core/results/EVIDENCE_MANIFEST.json",
+      "sha256": "1ba22307f92bc1ca879843d3be0bff9e2c4a117e5c1c1371f4c10f4f9ab8593d",
+      "verified_files": 229
+    },
+    {
+      "manifest": "experimental/native-http-core/results/single-20261031/MANIFEST.json",
+      "sha256": "dc3bf4dd31bf0d21312bd10244caa2dde9aed43912df610c0da4dfed1046aa60",
+      "verified_files": 182
+    }
+  ],
+  "throughput_samples": [
+    {
+      "label": "combo-control-0",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20550.02,
+      "requests": 1233076,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "combo-control-1",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20649.3,
+      "requests": 1239039,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "combo-selected",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20913.26,
+      "requests": 1254885,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "compiler-O3",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20438.51,
+      "requests": 1226416,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "compiler-O3-lto",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19908.05,
+      "requests": 1194575,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "compiler-O3-lto-local",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19631.14,
+      "requests": 1177956,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "compiler-control-o2",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19854.88,
+      "requests": 1191360,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "compiler-local-control-o2",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20834.6,
+      "requests": 1250190,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-auth-0",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 23393.09,
+      "requests": 1403845,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-auth-3",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 24018.46,
+      "requests": 1441206,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-metrics-0",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19543.74,
+      "requests": 1172819,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-metrics-10",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19691.81,
+      "requests": 1181638,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-metrics-3",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19889.97,
+      "requests": 1193575,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-metrics-6",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20370.0,
+      "requests": 1222389,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "control-metrics-9",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20267.92,
+      "requests": 1216268,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-balancer_peer_plan",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20300.97,
+      "requests": 1218154,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-control-0",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20260.52,
+      "requests": 1215755,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-control-2",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19919.63,
+      "requests": 1195268,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-matched-control-0",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20402.76,
+      "requests": 1224319,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-matched-control-1",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20972.76,
+      "requests": 1258402,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-matched_pool",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20625.35,
+      "requests": 1237601,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "extra-request_pool_native",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20532.88,
+      "requests": 1232051,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "lua",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 18929.49,
+      "requests": 1135932,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20299.48,
+      "requests": 1218056,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 25258.4,
+      "requests": 1515590,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "lua",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 24287.5,
+      "requests": 1457345,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "lua",
+      "prefix": "limit",
+      "seconds": 60,
+      "qps": 23339.54,
+      "requests": 1400512,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-1",
+      "mode": "native",
+      "prefix": "limit",
+      "seconds": 60,
+      "qps": 24707.44,
+      "requests": 1482529,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20693.48,
+      "requests": 1241667,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "lua",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19098.09,
+      "requests": 1147793,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "lua",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 24901.93,
+      "requests": 1496601,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 25884.72,
+      "requests": 1555664,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "native",
+      "prefix": "limit",
+      "seconds": 60,
+      "qps": 24985.73,
+      "requests": 1499381,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "final-round-2",
+      "mode": "lua",
+      "prefix": "limit",
+      "seconds": 60,
+      "qps": 23183.36,
+      "requests": 1391147,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-batch_vars",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20219.26,
+      "requests": 1213297,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-header_scratch",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 24518.56,
+      "requests": 1471213,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-http_var_plan",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20003.68,
+      "requests": 1200384,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-lazy_meta_matches",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19794.21,
+      "requests": 1187795,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-lazy_route_opts",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20372.69,
+      "requests": 1222423,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-native_var_writes",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19848.5,
+      "requests": 1191046,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-phase_context",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20090.8,
+      "requests": 1205526,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-phase_index",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20069.92,
+      "requests": 1204280,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-plain_uri",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 19750.76,
+      "requests": 1185201,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-request_header_flags",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 24482.56,
+      "requests": 1469091,
+      "host_nr_throttled": 1,
+      "host_throttled_usec": 34227
+    },
+    {
+      "label": "screen-request_pool",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20387.22,
+      "requests": 1223299,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-route_candidates",
+      "mode": "native",
+      "prefix": "metrics",
+      "seconds": 60,
+      "qps": 20137.06,
+      "requests": 1208304,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    },
+    {
+      "label": "screen-sdk_cache_replay",
+      "mode": "native",
+      "prefix": "auth",
+      "seconds": 60,
+      "qps": 23966.34,
+      "requests": 1438080,
+      "host_nr_throttled": 0,
+      "host_throttled_usec": 0
+    }
+  ],
+  "sample_count": 47,
+  "raw_wrk_matches": true,
+  "all_sample_error_logs_empty": true,
+  "all_sample_build_source_hashes_match_environment": true,
+  "final_pair_environments_equal_except_variant": true,
+  "final_selected_binary_matches": true,
+  "current_module_and_runtime_match_final_pair": true,
+  "python_syntax_files": 26,
+  "stable_checkout_clean": true,
+  "git_diff_check_passed": true,
+  "tracked_changes_only_under_experimental_native_http_core": true
+}

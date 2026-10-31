@@ -1,0 +1,93 @@
+{
+  "scope": "Read-only source review, not a compiled or runtime validation",
+  "container": "apisix-http-core-dev",
+  "openresty": "1.27.1.2",
+  "luajit_source": "2.1-20250117",
+  "source_root": "/tmp/openresty-1.27.1.2/bundle/LuaJIT-2.1-20250117/src",
+  "files": {
+    "lj_api.c": {
+      "sha256": "f1f13a82751a4500d2880088d7b4f8718eb8e06e1dd454fd724a4a50cee23ddc",
+      "excerpts": [
+        {
+          "first_line": 1336,
+          "last_line": 1348,
+          "source": "LUA_API lua_Alloc lua_getallocf(lua_State *L, void **ud)\n{\n  global_State *g = G(L);\n  if (ud) *ud = g->allocd;\n  return g->allocf;\n}\n\nLUA_API void lua_setallocf(lua_State *L, lua_Alloc f, void *ud)\n{\n  global_State *g = G(L);\n  g->allocd = ud;\n  g->allocf = f;\n}"
+        }
+      ]
+    },
+    "lj_gc.c": {
+      "sha256": "26a224c986672c626ec79006e34b43448a8ea8410b0393521c77de7026853e71",
+      "excerpts": [
+        {
+          "first_line": 861,
+          "last_line": 889,
+          "source": "void *lj_mem_realloc(lua_State *L, void *p, GCSize osz, GCSize nsz)\n{\n  global_State *g = G(L);\n  lj_assertG((osz == 0) == (p == NULL), \"realloc API violation\");\n  p = g->allocf(g->allocd, p, osz, nsz);\n  if (p == NULL && nsz > 0)\n    lj_err_mem(L);\n  lj_assertG((nsz == 0) == (p == NULL), \"allocf API violation\");\n  lj_assertG(checkptrGC(p),\n\t     \"allocated memory address %p outside required range\", p);\n  g->gc.total = (g->gc.total - osz) + nsz;\n  return p;\n}\n\n/* Allocate new GC object and link it to the root set. */\nvoid * LJ_FASTCALL lj_mem_newgco(lua_State *L, GCSize size)\n{\n  global_State *g = G(L);\n  GCobj *o = (GCobj *)g->allocf(g->allocd, NULL, 0, size);\n  if (o == NULL)\n    lj_err_mem(L);\n  lj_assertG(checkptrGC(o),\n\t     \"allocated memory address %p outside required range\", o);\n  g->gc.total += size;\n  setgcrefr(o->gch.nextgc, g->gc.root);\n  setgcref(g->gc.root, o);\n  newwhite(g, o);\n  return o;\n}"
+        }
+      ]
+    },
+    "lj_gc.h": {
+      "sha256": "8836dae798e78e088713bad0a78a8c9e7c20016273bb8a50479ff095975501c9",
+      "excerpts": [
+        {
+          "first_line": 119,
+          "last_line": 123,
+          "source": "static LJ_AINLINE void lj_mem_free(global_State *g, void *p, size_t osize)\n{\n  g->gc.total -= (GCSize)osize;\n  g->allocf(g->allocd, p, osize, 0);\n}"
+        }
+      ]
+    },
+    "lj_state.c": {
+      "sha256": "5bee03251990cc9063c480199ba69d66bc02f9cb70684597895b27ddd618aca9",
+      "excerpts": [
+        {
+          "first_line": 231,
+          "last_line": 236,
+          "source": "#ifndef LUAJIT_USE_SYSMALLOC\n  if (g->allocf == lj_alloc_f)\n    lj_alloc_destroy(g->allocd);\n  else\n#endif\n    g->allocf(g->allocd, G2GG(g), sizeof(GG_State), 0);"
+        },
+        {
+          "first_line": 322,
+          "last_line": 350,
+          "source": "LUA_API void lua_close(lua_State *L)\n{\n  global_State *g = G(L);\n  int i;\n  L = mainthread(g);  /* Only the main thread can be closed. */\n#if LJ_HASPROFILE\n  luaJIT_profile_stop(L);\n#endif\n  setgcrefnull(g->cur_L);\n  lj_func_closeuv(L, tvref(L->stack));\n  lj_gc_separateudata(g, 1);  /* Separate udata which have GC metamethods. */\n#if LJ_HASJIT\n  G2J(g)->flags &= ~JIT_F_ON;\n  G2J(g)->state = LJ_TRACE_IDLE;\n  lj_dispatch_update(g);\n#endif\n  for (i = 0;;) {\n    hook_enter(g);\n    L->status = LUA_OK;\n    L->base = L->top = tvref(L->stack) + 1 + LJ_FR2;\n    L->cframe = NULL;\n    if (lj_vm_cpcall(L, NULL, NULL, cpfinalize) == LUA_OK) {\n      if (++i >= 10) break;\n      lj_gc_separateudata(g, 1);  /* Separate udata again. */\n      if (gcref(g->gc.mmudata) == NULL)  /* Until nothing is left to do. */\n\tbreak;\n    }\n  }\n  close_state(L);"
+        }
+      ]
+    },
+    "lj_mcode.c": {
+      "sha256": "cd00e9b6d76e2b11af8a069bd7572655d3ebe9ee4b404feda8b5d3bde8a13e0b",
+      "excerpts": [
+        {
+          "first_line": 110,
+          "last_line": 128,
+          "source": "static void *mcode_alloc_at(jit_State *J, uintptr_t hint, size_t sz, int prot)\n{\n  void *p = mmap((void *)hint, sz, prot|MCPROT_CREATE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);\n  if (p == MAP_FAILED) {\n    if (!hint) lj_trace_err(J, LJ_TRERR_MCODEAL);\n    p = NULL;\n  }\n  return p;\n}\n\nstatic void mcode_free(jit_State *J, void *p, size_t sz)\n{\n  UNUSED(J);\n  munmap(p, sz);\n}\n\nstatic int mcode_setprot(void *p, size_t sz, int prot)\n{\n  return mprotect(p, sz, prot);"
+        }
+      ]
+    },
+    "lua.h": {
+      "sha256": "b923f7ee66a65fdacea3112d5743656ede6c0eafa1412ae172d47236e54a713e",
+      "excerpts": [
+        {
+          "first_line": 67,
+          "last_line": 67,
+          "source": "typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);"
+        },
+        {
+          "first_line": 248,
+          "last_line": 249,
+          "source": "LUA_API lua_Alloc (lua_getallocf) (lua_State *L, void **ud);\nLUA_API void lua_setallocf (lua_State *L, lua_Alloc f, void *ud);"
+        }
+      ]
+    }
+  },
+  "additional_read_only_observations": [
+    "lj_asm.c:1137-1172: compiled SNEW/TNEW/TDUP call lj_str_new/lj_tab_new1/lj_tab_dup helpers.",
+    "lj_asm_x86.h:1835,1904: compiled cdata calls allocation helpers.",
+    "src/*.c and src/*.h allocator callback/userdata grep found uses only in lj_api, lj_gc, lj_state and declarations in lj_obj/lua headers.",
+    "Installed /usr/local/openresty/luajit/include/luajit-2.1/lua.h:67,248-249 exposes lua_Alloc and lua_getallocf/lua_setallocf.",
+    "nm -D /usr/local/openresty/nginx/sbin/nginx: 0000000000237830 D ngx_stat_requests.",
+    "nginx-1.27.1/src/event/ngx_event.h:475 declares extern ngx_atomic_t *ngx_stat_requests."
+  ],
+  "limitations": [
+    "Copies are from the OpenResty source bundle used for research; exact installed libluajit build patches were not independently reconstructed.",
+    "Allocator callbacks count VM heap requests, not physical malloc calls, live heap, RSS, external C/FFI or NGINX memory, or JIT executable mappings.",
+    "Normal stop and userdata finalizer restoration require package.loadlib lifetime and no concurrent allocator replacement or manual DSO unload.",
+    "No sampler compile, standalone execution, or load was performed in this read-only review."
+  ]
+}

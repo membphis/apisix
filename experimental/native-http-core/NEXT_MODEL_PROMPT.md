@@ -1,5 +1,13 @@
 # 交给下一个模型的提示词
 
+> 最新研究请先读 [16项候选、证据与研究边界](EXHAUSTIVE_20261031.md)；
+> [上一轮单插件报告](EXPERIMENTS_20261031.md) 与本文历史正文继续保留，不改写旧结果。
+> 当前口径是稳定版 APISIX 3.19.0、路由独立启用 Prometheus / key-auth / local limit-count，双方排除 `ai`；每个压力样本仍为60秒。
+> 本轮首批13项加追加3项，共16个运行时开关，另测O3、O3-lto及O3-lto-local；模块ASan/UBSan、扩展池生命周期及稳定源O2单插件验证已完成，证据见最新报告。
+> [最终两轮60秒配对已完成](EXHAUSTIVE_20261031.md#最终两轮稳定lua配对)：均值提升为Prometheus +7.80%、key-auth +3.97%、local limit-count +6.81%，均未达30%–40%目标；两轮不证明统计显著性或绝对性能极限。
+> 组合与分配/JIT等诊断、URI策略差异专项均已完成，原始证据和限制见最新报告；历史正文保持原样。
+> [新的sweep重现方法](README.md#latest-sweep-reproduction) 使用独立输出目录与label；下文全局Prometheus的历史口径和数字不替代当前单插件结果。
+
 请在我的仓库 `https://github.com/membphis/apisix` 的 `apisix-next-v4-llm` 分支上，继续研究 APISIX 核心的 ngx C module 实现，深挖插件不改时的底层性能优化。
 
 先阅读 `experimental/native-http-core/HANDOFF_TEMP.md`、`SCENARIOS.md`、`RESULTS.md`、`README.md`、`DESIGN_CONTEXT.md`，再检查实际代码和原始证据。不要把交接文档中的假设当成已验证结论，也不要直接重做已经实施的优化。

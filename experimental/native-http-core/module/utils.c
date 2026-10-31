@@ -184,6 +184,14 @@ ac_null_field(lua_State *L, int dest, int source, const char *name, const char *
 
 typedef struct { int kind; int64_t number; } ac_rate_atom_t;
 
+/* Request-pool scalar snapshot: never retain a Lua table or Lua string pointer.
+ * The plugin can mutate/reuse its detail table immediately after this call. */
+struct ac_rate_snapshot_s {
+    ac_rate_atom_t limit, remaining, reset, size_ms, now, cost, count, created, start, end;
+    ngx_str_t key;
+    int decision; /* zero is the stable release's four-field diagnostic shape */
+};
+
 /* Integer values up to 14 digits also retain the pinned cjson encoder's
  * numeric precision. Other scalar shapes use the general encoder below. */
 static int
@@ -219,22 +227,81 @@ ac_rate_write_atom(u_char *out, ac_rate_atom_t atom)
     return ngx_cpymem(out, "null", 4);
 }
 
-/* The API exposes a JSON string, not the intermediate tables. Serialize the
- * fixed-window shape in C and materialize its Lua view only when it is read. */
+/* Shared by eager and lazy paths so encoding content stays identical. */
+static ngx_int_t
+ac_rate_encode(ngx_http_request_t *r, const ac_rate_snapshot_t *snapshot,
+    ngx_str_t *json, u_char *buffer, size_t capacity)
+{
+    size_t escaped = ngx_escape_json(NULL, snapshot->key.data, snapshot->key.len);
+    size_t key_length = snapshot->key.len;
+    u_char *out;
+    /* Fixed field names and bounded integer atoms use less than 1 KiB. */
+    if (key_length > NGX_MAX_SIZE_T_VALUE - 1024
+        || escaped > NGX_MAX_SIZE_T_VALUE - key_length - 1024) return NGX_DECLINED;
+    json->data = buffer && key_length + escaped + 1024 <= capacity ? buffer
+        : ngx_pnalloc(r->pool, key_length + escaped + 1024);
+    if (!json->data) return NGX_ERROR;
+    out = json->data;
+#define AC_RATE_TEXT(value) out = ngx_cpymem(out, value, sizeof(value) - 1)
+    AC_RATE_TEXT("{\"rate_limiting_key\":\"");
+    out = (u_char *) ngx_escape_json(out, snapshot->key.data, key_length);
+    AC_RATE_TEXT("\",\"rate_limiting_limit\":"); out = ac_rate_write_atom(out, snapshot->limit);
+    AC_RATE_TEXT(",\"rate_limiting_remaining\":"); out = ac_rate_write_atom(out, snapshot->remaining);
+    AC_RATE_TEXT(",\"rate_limiting_reset\":"); out = ac_rate_write_atom(out, snapshot->reset);
+    if (snapshot->decision) {
+        AC_RATE_TEXT(",\"window_type\":\"fixed\",\"window_size_ms\":"); out = ac_rate_write_atom(out, snapshot->size_ms);
+        AC_RATE_TEXT(",\"decision\":");
+        if (snapshot->decision == 1) { AC_RATE_TEXT("\"allowed\""); }
+        else if (snapshot->decision == 2) { AC_RATE_TEXT("\"rejected\""); }
+        else { AC_RATE_TEXT("\"error\""); }
+        if (snapshot->decision != 3) {
+            if (snapshot->cost.kind) { AC_RATE_TEXT(",\"cost\":"); out = ac_rate_write_atom(out, snapshot->cost); }
+            AC_RATE_TEXT(",\"evaluated_at_ms\":"); out = ac_rate_write_atom(out, snapshot->now);
+            AC_RATE_TEXT(",\"current_window\":{\"start_ms\":"); out = ac_rate_write_atom(out, snapshot->start);
+            AC_RATE_TEXT(",\"end_ms\":"); out = ac_rate_write_atom(out, snapshot->end);
+            AC_RATE_TEXT(",\"count\":"); out = ac_rate_write_atom(out, snapshot->count);
+            AC_RATE_TEXT(",\"created\":"); out = ac_rate_write_atom(out, snapshot->created);
+            AC_RATE_TEXT("}");
+        }
+    }
+    AC_RATE_TEXT("}");
+#undef AC_RATE_TEXT
+    json->len = out - json->data; *out = '\0';
+    return NGX_OK;
+}
+
+ngx_int_t
+ac_rate_materialize(ac_request_t *ctx, ngx_str_t *result)
+{
+    ngx_int_t status = ac_rate_encode(ctx->request, ctx->rate_snapshot, result, NULL, 0);
+    if (status != NGX_OK) return NGX_ERROR;
+    ctx->native_variables[ctx->main->rate_variable_slot] = *result;
+    ctx->rate_snapshot = NULL;
+    return NGX_OK;
+}
+
+/* Keep the original eager path for rollback. With the opt-in directive,
+ * capture supported scalar shapes now and encode on the first NGINX read. */
 static int
 ac_rate_fixed(lua_State *L)
 {
     ngx_http_request_t *r = ngx_http_lua_get_request(L);
     ac_request_t *native;
-    ac_rate_atom_t limit, remaining, reset, size_ms, now, cost, count, created, start, end;
+    ac_rate_atom_t limit, remaining, reset, size_ms = {0}, now = {0}, cost = {0},
+        count = {0}, created = {0}, start = {0}, end = {0};
+    ac_rate_snapshot_t snapshot;
     lua_Number size, seconds;
     const char *key, *text;
-    size_t key_length, length, escaped;
+    size_t key_length, length;
     ngx_str_t json;
-    u_char *out, buffer[2048];
-    int top = lua_gettop(L), decision, is_native = 0;
+    ngx_int_t encoded;
+    u_char buffer[2048];
+    int top = lua_gettop(L), decision = 0, is_native = 0;
+    int basic = lua_isnoneornil(L, 6);
     if (!r || r->connection->fd == (ngx_socket_t) -1
-        || lua_type(L, 2) != LUA_TSTRING || !lua_istable(L, 6)) return 0;
+        || lua_type(L, 2) != LUA_TSTRING || (!basic && !lua_istable(L, 6))) return 0;
+    if (basic && ac_main()->lazy_rate_json != 1) return 0;
+    if (basic) goto parse_numbers;
     if (lua_getmetatable(L, 6)) { lua_pop(L, 1); return 0; }
     lua_getfield(L, 6, "window_type"); text = lua_tolstring(L, -1, &length);
     if (!text || length != 5 || ngx_memcmp(text, "fixed", 5)) goto fallback;
@@ -245,11 +312,12 @@ ac_rate_fixed(lua_State *L)
         : text && length == 5 && !ngx_memcmp(text, "error", 5) ? 3 : 0;
     if (!decision) goto fallback;
     lua_pop(L, 1);
+parse_numbers:
     if (!ac_rate_integer(floor(lua_tonumber(L, 3)), &limit)
         || !ac_rate_integer(floor(lua_tonumber(L, 4)), &remaining)
         || !ac_rate_integer(floor(lua_tonumber(L, 5)), &reset)
-        || !ac_rate_atom(L, 6, "window_size", 1, &size_ms)) goto fallback;
-    if (decision != 3) {
+        || (!basic && !ac_rate_atom(L, 6, "window_size", 1, &size_ms))) goto fallback;
+    if (decision && decision != 3) {
         lua_getfield(L, 6, "delayed_sync");
         if (lua_toboolean(L, -1)) goto fallback;
         lua_pop(L, 1);
@@ -268,37 +336,11 @@ ac_rate_fixed(lua_State *L)
         }
     }
     key = lua_tolstring(L, 2, &key_length);
-    escaped = ngx_escape_json(NULL, (u_char *) key, key_length);
-    /* Fixed field names and bounded integer atoms use less than 1 KiB. */
-    if (key_length > NGX_MAX_SIZE_T_VALUE - 1024
-        || escaped > NGX_MAX_SIZE_T_VALUE - key_length - 1024) goto fallback;
-    json.data = key_length + escaped + 1024 <= sizeof(buffer) ? buffer
-        : ngx_pnalloc(r->pool, key_length + escaped + 1024);
-    if (!json.data) return luaL_error(L, "rate limit JSON allocation failed");
-    out = json.data;
-#define AC_RATE_TEXT(value) out = ngx_cpymem(out, value, sizeof(value) - 1)
-    AC_RATE_TEXT("{\"rate_limiting_key\":\"");
-    out = (u_char *) ngx_escape_json(out, (u_char *) key, key_length);
-    AC_RATE_TEXT("\",\"rate_limiting_limit\":"); out = ac_rate_write_atom(out, limit);
-    AC_RATE_TEXT(",\"rate_limiting_remaining\":"); out = ac_rate_write_atom(out, remaining);
-    AC_RATE_TEXT(",\"rate_limiting_reset\":"); out = ac_rate_write_atom(out, reset);
-    AC_RATE_TEXT(",\"window_type\":\"fixed\",\"window_size_ms\":"); out = ac_rate_write_atom(out, size_ms);
-    AC_RATE_TEXT(",\"decision\":");
-    if (decision == 1) { AC_RATE_TEXT("\"allowed\""); }
-    else if (decision == 2) { AC_RATE_TEXT("\"rejected\""); }
-    else { AC_RATE_TEXT("\"error\""); }
-    if (decision != 3) {
-        if (cost.kind) { AC_RATE_TEXT(",\"cost\":"); out = ac_rate_write_atom(out, cost); }
-        AC_RATE_TEXT(",\"evaluated_at_ms\":"); out = ac_rate_write_atom(out, now);
-        AC_RATE_TEXT(",\"current_window\":{\"start_ms\":"); out = ac_rate_write_atom(out, start);
-        AC_RATE_TEXT(",\"end_ms\":"); out = ac_rate_write_atom(out, end);
-        AC_RATE_TEXT(",\"count\":"); out = ac_rate_write_atom(out, count);
-        AC_RATE_TEXT(",\"created\":"); out = ac_rate_write_atom(out, created);
-        AC_RATE_TEXT("}");
-    }
-    AC_RATE_TEXT("}");
-#undef AC_RATE_TEXT
-    json.len = out - json.data; *out = '\0';
+    snapshot.limit = limit; snapshot.remaining = remaining; snapshot.reset = reset;
+    snapshot.size_ms = size_ms; snapshot.now = now; snapshot.cost = cost;
+    snapshot.count = count; snapshot.created = created; snapshot.start = start; snapshot.end = end;
+    snapshot.key.data = (u_char *) key; snapshot.key.len = key_length;
+    snapshot.decision = decision;
     native = ngx_http_get_module_ctx(r, ngx_http_apisix_core_module);
     if (native) { ac_push(L, native->table_ref); is_native = lua_rawequal(L, 1, -1); lua_pop(L, 1); }
     if (is_native) {
@@ -311,6 +353,34 @@ ac_rate_fixed(lua_State *L)
         if (!lua_isnil(L, -1)) is_native = 0;
         lua_pop(L, 2);
     }
+    if (is_native && native->main->lazy_rate_json == 1) {
+        ac_rate_snapshot_t *pending;
+        ngx_uint_t slot = native->main->rate_variable_slot;
+        ngx_int_t index = native->main->rate_variable_index;
+        if (key_length > NGX_MAX_SIZE_T_VALUE - sizeof(*pending)) goto fallback;
+        pending = ngx_palloc(r->pool, sizeof(*pending) + key_length);
+        if (!pending) return luaL_error(L, "rate limit snapshot allocation failed");
+        *pending = snapshot;
+        pending->key.data = (u_char *) (pending + 1);
+        ngx_memcpy(pending->key.data, key, key_length);
+        native->rate_snapshot = pending;
+        native->native_variables[slot].data = NULL;
+        native->native_variables[slot].len = 0;
+        native->native_variable_set |= (uint64_t) 1 << slot;
+        /* An earlier observer may have filled the indexed NGINX slot. */
+        if (index >= 0) {
+            r->variables[index].valid = 0;
+            r->variables[index].not_found = 0;
+            r->variables[index].no_cacheable = 1;
+        }
+        lua_getfield(L, 1, "var"); lua_getfield(L, -1, "_cache");
+        lua_pushnil(L); lua_setfield(L, -2, "rate_limiting_info");
+        lua_settop(L, top); return 1;
+    }
+    if (basic) goto fallback;
+    encoded = ac_rate_encode(r, &snapshot, &json, buffer, sizeof(buffer));
+    if (encoded == NGX_DECLINED) goto fallback;
+    if (encoded != NGX_OK) return luaL_error(L, "rate limit JSON allocation failed");
     if (is_native) {
         ac_native_var_set(L, r, "rate_limiting_info", json);
         lua_getfield(L, 1, "var"); lua_getfield(L, -1, "_cache");

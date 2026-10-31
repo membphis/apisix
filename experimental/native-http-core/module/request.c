@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 #include "engine.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,6 +21,52 @@ extern int ngx_http_lua_ffi_req_set_header(ngx_http_request_t *r,
 extern int ngx_http_lua_ffi_set_resp_header(ngx_http_request_t *r,
     const char *key, size_t key_len, int is_nil, const char *value, size_t value_len,
     void *mvals, size_t mvals_len, int override, char **error);
+/* Same exported functions used by the pinned resty.apisix.request wrapper. */
+extern ngx_int_t ngx_http_apisix_is_request_header_set(ngx_http_request_t *r);
+extern void ngx_http_apisix_clear_request_header(ngx_http_request_t *r);
+
+/* Compile only this bounded, statically known read plan. Dynamic SDK keys still
+ * use the normal lookup path, and the caller checks Lua caches/getters first. */
+static const ngx_str_t ac_log_index_names[] = {
+    ngx_string("request_length"), ngx_string("bytes_sent"),
+    ngx_string("request_type"), ngx_string("request_llm_model"), ngx_string("llm_model")
+};
+
+ngx_int_t
+ac_request_variables(ngx_conf_t *cf)
+{
+    ac_main_conf_t *root = ngx_http_conf_get_module_main_conf(cf, ngx_http_apisix_core_module);
+    ngx_http_core_main_conf_t *core;
+    ngx_http_variable_t *variable;
+    ngx_hash_key_t *keys;
+    ngx_str_t name;
+    ngx_uint_t i, j;
+
+    if (root->log_var_plan != 1) return NGX_OK;
+    core = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
+    keys = core->variables_keys->keys.elts;
+    for (i = 0; i < sizeof(ac_log_index_names) / sizeof(ac_log_index_names[0]); i++) {
+        root->log_var_indexes[i] = NGX_ERROR;
+        name = ac_log_index_names[i];
+        root->log_var_hashes[i] = ngx_hash_key(name.data, name.len);
+        /* Some minimal configs do not declare the optional metric labels. Do
+         * not introduce an unknown indexed variable that prevents startup. */
+        for (j = 0; j < core->variables_keys->keys.nelts; j++) {
+            if (keys[j].key.len == name.len
+                && ngx_memcmp(keys[j].key.data, name.data, name.len) == 0) {
+                variable = keys[j].value;
+                /* Adding an index changes globally observable caching for a
+                 * cacheable variable such as bytes_sent. Keep named lookup for
+                 * those fields, including configs that already index them. */
+                if (!(variable->flags & NGX_HTTP_VAR_NOCACHEABLE)) break;
+                root->log_var_indexes[i] = ngx_http_get_variable_index(cf, &name);
+                if (root->log_var_indexes[i] == NGX_ERROR) return NGX_ERROR;
+                break;
+            }
+        }
+    }
+    return NGX_OK;
+}
 
 ngx_int_t
 ac_native_header_write(ngx_http_request_t *r, ngx_str_t name,
@@ -47,14 +94,28 @@ ac_native_header_set(lua_State *L, ngx_http_request_t *r, ngx_str_t name,
 }
 
 static void
+ac_native_time_fetch(lua_State *L, ngx_http_request_t *r, int timing)
+{
+    u_char buffer[1025];
+    int count = timing < 0 ? ngx_http_lua_var_ffi_request_time(r, buffer)
+                          : ngx_http_lua_var_ffi_upstream_response_time(r, buffer, timing);
+    if (count < 0) lua_pushnil(L);
+    else if (count == 0) lua_pushnumber(L, 0);
+    else {
+        if ((size_t) count >= sizeof(buffer)) { luaL_error(L, "native timing result too long"); return; }
+        buffer[count] = '\0'; lua_pushnumber(L, strtod((char *) buffer, NULL));
+    }
+}
+
+static void
 ac_native_var_fetch(lua_State *L, ngx_http_request_t *r, const char *key,
     size_t length)
 {
     ngx_str_t value = ngx_null_string, name;
     ngx_http_variable_value_t *variable;
     off_t number;
-    u_char buffer[1025], lower[128], *data;
-    int count, timing;
+    u_char lower[128], *data;
+    int timing;
     size_t i;
     if (ngx_strcmp(key, "status") == 0) {
         lua_pushinteger(L, ngx_http_lua_ffi_get_resp_status(r)); return;
@@ -71,14 +132,7 @@ ac_native_var_fetch(lua_State *L, ngx_http_request_t *r, const char *key,
             : ngx_strcmp(key, "upstream_header_time") == 0 ? 1
             : ngx_strcmp(key, "upstream_connect_time") == 0 ? 2 : -1;
         if (timing >= 0 || ngx_strcmp(key, "request_time") == 0) {
-            count = timing < 0 ? ngx_http_lua_var_ffi_request_time(r, buffer)
-                              : ngx_http_lua_var_ffi_upstream_response_time(r, buffer, timing);
-            if (count < 0) lua_pushnil(L);
-            else if (count == 0) lua_pushnumber(L, 0);
-            else {
-                if ((size_t) count >= sizeof(buffer)) { luaL_error(L, "native timing result too long"); return; }
-                buffer[count] = '\0'; lua_pushnumber(L, strtod((char *) buffer, NULL));
-            }
+            ac_native_time_fetch(L, r, timing);
             return;
         }
         data = length <= sizeof(lower) ? lower : ngx_pnalloc(r->pool, length);
@@ -100,6 +154,46 @@ ac_native_var_fetch(lua_State *L, ngx_http_request_t *r, const char *key,
     }
     if (value.data) lua_pushlstring(L, (char *) value.data, value.len);
     else lua_pushnil(L);
+}
+
+static void
+ac_log_var_fetch(lua_State *L, ac_request_t *ctx, ac_main_conf_t *root,
+    ngx_uint_t field)
+{
+    /* Slots correspond to ac_prefetch_log_vars' seven-field plan. */
+    static const int slots[] = {-1, 0, 1, -1, 2, 3, 4};
+    ngx_http_variable_value_t *value;
+    ngx_str_t variable;
+    ngx_int_t index;
+    off_t number;
+    int slot = slots[field];
+
+    if (field == 0) {
+        lua_pushinteger(L, ngx_http_lua_ffi_get_resp_status(ctx->request));
+        return;
+    }
+    if (field == 3) {
+        ac_native_time_fetch(L, ctx->request, 0);
+        return;
+    }
+    index = root->log_var_indexes[slot];
+    if (index == NGX_ERROR) {
+        variable = ac_log_index_names[slot];
+        value = ngx_http_get_variable(ctx->request, &variable, root->log_var_hashes[slot]);
+    } else {
+        /* get_indexed_variable alone would reuse stale noncacheable values.
+         * Match named lookup for every safely indexed field. */
+        value = ngx_http_get_flushed_variable(ctx->request, (ngx_uint_t) index);
+    }
+    if (!value || value->not_found) {
+        lua_pushnil(L);
+    } else if (slot < 2) {
+        number = ngx_atoof(value->data, value->len);
+        if (number == NGX_ERROR) lua_pushnil(L);
+        else lua_pushnumber(L, (lua_Number) number);
+    } else {
+        lua_pushlstring(L, (char *) value->data, value->len);
+    }
 }
 
 void
@@ -129,7 +223,8 @@ ac_prefetch_log_vars(lua_State *L, ac_request_t *ctx)
             lua_getfield(L, getters, names[i]); cached = !lua_isnil(L, -1); lua_pop(L, 1);
             if (cached) continue;
         }
-        ac_native_var_fetch(L, ctx->request, names[i], ngx_strlen(names[i]));
+        if (root->log_var_plan == 1) ac_log_var_fetch(L, ctx, root, i);
+        else ac_native_var_fetch(L, ctx->request, names[i], ngx_strlen(names[i]));
         lua_setfield(L, cache, names[i]);
     }
 done:
@@ -188,24 +283,58 @@ ac_io_call(lua_State *L, int state, lua_CFunction resume, int callable, int args
 }
 
 static int
-ac_headers(lua_State *L)
+ac_request_headers_changed(lua_State *L, ngx_http_request_t *r)
 {
-    int ctx;
-    lua_settop(L, 1);
-    ctx = ac_arg_context(L, 1);
+    int changed;
+    if (ac_main()->request_header_flags == 1 && r)
+        return ngx_http_apisix_is_request_header_set(r) == 1;
     ac_require(L, "resty.apisix.request");
     lua_getfield(L, -1, "is_request_header_set");
     lua_call(L, 0, 1);
-    if (lua_toboolean(L, -1)) {
-        lua_pop(L, 1);
-        lua_getfield(L, -1, "clear_request_header");
-        lua_call(L, 0, 0);
-        lua_pushnil(L);
-        lua_setfield(L, ctx, "headers");
-    } else lua_pop(L, 1);
+    changed = lua_toboolean(L, -1);
+    lua_pop(L, 2);
+    return changed;
+}
+
+static void
+ac_request_headers_clear(lua_State *L, ngx_http_request_t *r)
+{
+    if (ac_main()->request_header_flags == 1 && r) {
+        ngx_http_apisix_clear_request_header(r);
+        return;
+    }
+    ac_require(L, "resty.apisix.request");
+    lua_getfield(L, -1, "clear_request_header");
+    lua_call(L, 0, 0);
     lua_pop(L, 1);
+}
+
+static int
+ac_headers_for_context(lua_State *L, int ctx)
+{
+    ngx_http_request_t *r;
+    if (ac_main()->request_header_flags == 1 && (r = ngx_http_lua_get_request(L)) != NULL) {
+        if (ngx_http_apisix_is_request_header_set(r) == 1) {
+            ngx_http_apisix_clear_request_header(r);
+            lua_pushnil(L);
+            lua_setfield(L, ctx, "headers");
+        }
+    } else {
+        /* Keep the original single module lookup on the control path. */
+        ac_require(L, "resty.apisix.request");
+        lua_getfield(L, -1, "is_request_header_set");
+        lua_call(L, 0, 1);
+        if (lua_toboolean(L, -1)) {
+            lua_pop(L, 1);
+            lua_getfield(L, -1, "clear_request_header");
+            lua_call(L, 0, 0);
+            lua_pushnil(L);
+            lua_setfield(L, ctx, "headers");
+        } else lua_pop(L, 1);
+        lua_pop(L, 1);
+    }
     lua_getfield(L, ctx, "headers");
-    if (lua_isnil(L, -1)) {
+    if (!lua_toboolean(L, -1)) {
         lua_pop(L, 1);
         ac_ngx(L, "req", "get_headers");
         lua_call(L, 0, 1);
@@ -216,15 +345,41 @@ ac_headers(lua_State *L)
 }
 
 static int
+ac_headers(lua_State *L)
+{
+    lua_settop(L, 1);
+    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
+        lua_pushnil(L);
+        lua_replace(L, 1);
+    }
+    return ac_headers_for_context(L, ac_arg_context(L, 1));
+}
+
+static int
 ac_header(lua_State *L)
 {
     lua_settop(L, 2);
-    lua_pushcfunction(L, ac_headers);
-    lua_pushvalue(L, 1);
-    lua_call(L, 1, 1);
+    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
+        lua_pushnil(L);
+        lua_replace(L, 1);
+    }
+    if (ac_main()->sdk_cache_replay == 1) {
+        /* No temporary C closure or nested Lua VM call on a replay miss. */
+        ac_headers_for_context(L, ac_arg_context(L, 1));
+    } else {
+        lua_pushcfunction(L, ac_headers);
+        lua_pushvalue(L, 1);
+        lua_call(L, 1, 1);
+    }
     lua_pushvalue(L, 2);
     lua_gettable(L, -2);
-    if (lua_istable(L, -1)) lua_rawgeti(L, -1, 1);
+    if (lua_istable(L, -1)) {
+        /* Match Lua's `type(value) == "table" and value[1] or value`:
+         * honor __index and keep the original table when element 1 is false/nil. */
+        lua_pushinteger(L, 1);
+        lua_gettable(L, -2);
+        if (!lua_toboolean(L, -1)) lua_pop(L, 1);
+    }
     return 1;
 }
 
@@ -235,7 +390,7 @@ ac_modify_header(lua_State *L)
     int cache, changed;
     size_t length, i;
     const u_char *raw;
-    u_char *lower, var_buffer[128], *var_key;
+    u_char *lower, lower_buffer[128], var_buffer[128], *var_key;
     ngx_http_request_t *r = ngx_http_lua_get_request(L);
     lua_settop(L, 3);
     if (lua_type(L, 1) == LUA_TSTRING) {
@@ -248,13 +403,14 @@ ac_modify_header(lua_State *L)
     }
     if (lua_type(L, name) != LUA_TSTRING) return luaL_error(L, "invalid header name: expected string");
     raw = (u_char *) lua_tolstring(L, name, &length);
-    lower = ngx_pnalloc(r->pool, length + 6);
+    /* Only temporary cache keys use this buffer; Lua strings copy their bytes.
+     * Header values and NGINX-owned header names retain their existing paths. */
+    lower = ac_main()->header_scratch == 1 && length <= sizeof(lower_buffer) - 6
+        ? lower_buffer : ngx_pnalloc(r->pool, length + 6);
     if (!lower) return luaL_error(L, "header cache allocation failed");
     ngx_memcpy(lower, "http_", 5);
     for (i = 0; i < length; i++) lower[5 + i] = ngx_tolower(raw[i]);
-    ac_require(L, "resty.apisix.request");
-    lua_getfield(L, -1, "is_request_header_set"); lua_call(L, 0, 1);
-    changed = lua_toboolean(L, -1); lua_pop(L, 2);
+    changed = ac_request_headers_changed(L, r);
     if (lua_isnil(L, value) || lua_isstring(L, value)) {
         ngx_str_t header, field = ngx_null_string;
         header.data = (u_char *) raw; header.len = length;
@@ -284,8 +440,7 @@ ac_modify_header(lua_State *L)
     }
     lua_pop(L, 1);
     if (!changed) {
-        ac_require(L, "resty.apisix.request");
-        lua_getfield(L, -1, "clear_request_header"); lua_call(L, 0, 0); lua_pop(L, 1);
+        ac_request_headers_clear(L, r);
         lua_getfield(L, ctx, "headers"); cache = lua_gettop(L);
         if (lua_istable(L, cache)) {
             lua_pushlstring(L, (char *) lower + 5, length); lua_rawget(L, cache);
@@ -310,9 +465,13 @@ ac_uri_args(lua_State *L)
 {
     int ctx;
     lua_settop(L, 1);
+    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
+        lua_pushnil(L);
+        lua_replace(L, 1);
+    }
     ctx = ac_arg_context(L, 1);
     lua_getfield(L, ctx, "req_uri_args");
-    if (lua_isnil(L, -1)) {
+    if (!lua_toboolean(L, -1)) {
         lua_pop(L, 1);
         ac_ngx(L, "req", "get_uri_args");
         lua_pushinteger(L, 0);
@@ -328,6 +487,10 @@ ac_set_uri_args(lua_State *L)
 {
     int ctx;
     lua_settop(L, 2);
+    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
+        lua_pushnil(L);
+        lua_replace(L, 1);
+    }
     ctx = ac_arg_context(L, 1);
     lua_pushnil(L);
     lua_setfield(L, ctx, "req_uri_args");
@@ -340,7 +503,7 @@ ac_set_uri_args(lua_State *L)
 static int
 ac_body_too_large(lua_State *L, lua_Number size, lua_Number max)
 {
-    if (max < 0 || size <= max) return 0;
+    if (!(size > max)) return 0;
     lua_pushnil(L);
     lua_pushfstring(L, "request size %f is greater than the maximum size %f allowed", size, max);
     lua_pushliteral(L, "too_large");
@@ -414,7 +577,7 @@ ac_body_finish(lua_State *L)
     mode = (int) lua_tointeger(L, -1);
     lua_pop(L, 1);
     lua_getfield(L, state, "max");
-    max = lua_isnil(L, -1) ? -1 : lua_tonumber(L, -1);
+    max = lua_isnil(L, -1) ? HUGE_VAL : lua_tonumber(L, -1);
     lua_pop(L, 1);
     lua_getfield(L, state, "ctx");
     ctx = lua_gettop(L);
@@ -509,16 +672,22 @@ static int
 ac_body_start(lua_State *L)
 {
     int mode = (int) lua_tointeger(L, lua_upvalueindex(1));
-    int ctx, state, maxarg, ctarg, result;
+    int ctx, ctxarg, state, maxarg, ctarg, result;
     lua_Number max;
     const char *ct;
     lua_settop(L, 3);
-    ctx = ac_arg_context(L, mode == 0 ? 2 : mode == 3 ? 4 : 1);
+    ctxarg = mode == 0 ? 2 : mode == 3 ? 4 : 1;
+    if (lua_isboolean(L, ctxarg) && !lua_toboolean(L, ctxarg)) {
+        lua_pushnil(L);
+        lua_replace(L, ctxarg);
+    }
+    ctx = ac_arg_context(L, ctxarg);
     maxarg = mode == 0 || mode == 3 ? 1 : 3;
-    max = lua_isnil(L, maxarg) ? -1 : luaL_checknumber(L, maxarg);
+    /* Only nil/false disable the limit; negative numbers remain limits. */
+    max = !lua_toboolean(L, maxarg) ? HUGE_VAL : luaL_checknumber(L, maxarg);
     if (mode == 1) {
         lua_getfield(L, ctx, "req_post_args");
-        if (!lua_isnil(L, -1)) return ac_done(L, 1);
+        if (lua_toboolean(L, -1)) return ac_done(L, 1);
         lua_pop(L, 1);
     }
     lua_newtable(L);
@@ -535,7 +704,8 @@ ac_body_start(lua_State *L)
         ctarg = lua_gettop(L);
         lua_getfield(L, ctx, "_request_body_table");
         if (!lua_isnil(L, -1)) {
-            if (!lua_isnil(L, ctarg)) {
+            /* Unlike the other SDK caches, a false parsed body is a hit. */
+            if (lua_toboolean(L, ctarg)) {
                 lua_getfield(L, ctx, "_request_body_type");
                 if (!lua_equal(L, -1, ctarg)) {
                     lua_pushnil(L);
@@ -545,10 +715,17 @@ ac_body_start(lua_State *L)
                 }
                 lua_pop(L, 1);
             }
+            if (mode == 3 && !lua_toboolean(L, -1)) {
+                /* The JSON convenience wrapper maps a false cached body to
+                 * nil, { message = nil }, which is an empty error table. */
+                lua_pushnil(L);
+                lua_newtable(L);
+                return ac_done(L, 2);
+            }
             return ac_done(L, 1);
         }
         lua_pop(L, 1);
-        if (lua_isnil(L, ctarg)) {
+        if (!lua_toboolean(L, ctarg)) {
             lua_pushcfunction(L, ac_header);
             lua_pushvalue(L, ctx);
             lua_pushliteral(L, "Content-Type");
@@ -566,7 +743,7 @@ ac_body_start(lua_State *L)
         lua_pushstring(L, ct);
         lua_setfield(L, state, "ct");
     }
-    if (mode != 1 && max >= 0) {
+    if (mode != 1 && lua_toboolean(L, maxarg)) {
         lua_getfield(L, ctx, "var");
         lua_getfield(L, -1, "http_content_length");
         if (lua_isnumber(L, -1) && lua_tonumber(L, -1) > max) {
@@ -590,11 +767,15 @@ ac_request_var(lua_State *L)
     int numeric = lua_toboolean(L, lua_upvalueindex(2));
     int ctx;
     lua_settop(L, 1);
+    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
+        lua_pushnil(L);
+        lua_replace(L, 1);
+    }
     ctx = ac_arg_context(L, 1);
     lua_getfield(L, ctx, "var");
     if (ngx_strcmp(name, "realip_remote_addr") == 0) {
         lua_getfield(L, -1, name);
-        if (lua_isnil(L, -1)) {
+        if (!lua_toboolean(L, -1)) {
             lua_pop(L, 1);
             name = "remote_addr";
             lua_getfield(L, -1, name);
@@ -603,7 +784,7 @@ ac_request_var(lua_State *L)
     if (numeric) {
         if (lua_isnumber(L, -1)) lua_pushnumber(L, lua_tonumber(L, -1));
         else lua_pushnil(L);
-    } else if (lua_isnil(L, -1)) lua_pushliteral(L, "");
+    } else if (!lua_toboolean(L, -1)) lua_pushliteral(L, "");
     return 1;
 }
 
@@ -819,7 +1000,7 @@ ac_set_vars(lua_State *L)
     lua_call(L, 3, 1);
     var = lua_gettop(L);
     lua_getfield(L, var, "_cache");
-    if (lua_isnil(L, -1)) {
+    if (!lua_toboolean(L, -1)) {
         lua_pop(L, 1);
         lua_newtable(L);
         lua_setfield(L, var, "_cache");
@@ -902,9 +1083,21 @@ ac_request_open(lua_State *L)
         {"get_remote_client_port", "remote_port", 1}, {"get_scheme", "scheme", 0},
         {"get_host", "host", 0}, {"get_port", "server_port", 1}
     };
-    int i;
+    int i, module;
     lua_newtable(L);
+    module = lua_gettop(L);
     luaL_register(L, NULL, functions);
+    if (ac_main()->sdk_cache_replay == 1) {
+        static const char *replay[] = {"headers", "header", NULL};
+        for (i = 0; replay[i]; i++) {
+            ac_require(L, "apisix.native.runtime");
+            lua_getfield(L, -1, i == 0 ? "cached_headers" : "cached_header");
+            lua_remove(L, -2);
+            lua_getfield(L, module, replay[i]);
+            lua_call(L, 1, 1);
+            lua_setfield(L, module, replay[i]);
+        }
+    }
     lua_pushboolean(L, 0); lua_pushcclosure(L, ac_modify_header, 1); lua_setfield(L, -2, "set_header");
     lua_pushboolean(L, 1); lua_pushcclosure(L, ac_modify_header, 1); lua_setfield(L, -2, "add_header");
     for (i = 0; i < 4; i++) {

@@ -1,5 +1,13 @@
 # APISIX next v4 llm：临时研究记录与模型交接
 
+> 最新研究请先读 [16项候选、证据与研究边界](EXHAUSTIVE_20261031.md)；
+> [上一轮单插件报告](EXPERIMENTS_20261031.md) 与本文历史正文继续保留，不改写旧结果。
+> 当前口径是稳定版 APISIX 3.19.0、路由独立启用 Prometheus / key-auth / local limit-count，双方排除 `ai`；每个压力样本仍为60秒。
+> 本轮首批13项加追加3项，共16个运行时开关，另测O3、O3-lto及O3-lto-local；模块ASan/UBSan、扩展池生命周期及稳定源O2单插件验证已完成，证据见最新报告。
+> [最终两轮60秒配对已完成](EXHAUSTIVE_20261031.md#最终两轮稳定lua配对)：均值提升为Prometheus +7.80%、key-auth +3.97%、local limit-count +6.81%，均未达30%–40%目标；两轮不证明统计显著性或绝对性能极限。
+> 组合与分配/JIT等诊断、URI策略差异专项均已完成，原始证据和限制见最新报告；历史正文保持原样。
+> [新的sweep重现方法](README.md#latest-sweep-reproduction) 使用独立输出目录与label；下文全局Prometheus的历史口径和数字不替代当前单插件结果。
+
 记录日期：2026-10-31（UTC）。这是用户要求随代码提交的临时 Markdown，供后续模型继续研究。
 分支：`apisix-next-v4-llm`（用户命名“apisix next v4 llm”的合法 Git 写法）；项目：`membphis/apisix`。
 源码基线：`b31e828c6f6b588ae954bf69c8432c08fb73bb7e`（APISIX 3.19.0 源码）。

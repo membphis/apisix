@@ -1,0 +1,917 @@
+{
+  "source_branch_head": "cd0fb07a1c5970ebcb6e0e3c073639c8e8c256a0",
+  "stable_commit": "473043623c161966f3f6ef4e8f12d2d8667a12d2",
+  "note": "Final binary, module-source snapshot and runtime match final/environment.json. Historical evidence remains unchanged. See report for partial final.log control-session issue.",
+  "files": [
+    {
+      "path": "audit/native-nginx-variables.c",
+      "bytes": 68720,
+      "sha256": "68edfa4e4e02fc9fae07c7fa73dd541998de15aaaf766b1b4833c9d0745211a9"
+    },
+    {
+      "path": "audit/native-ngxvar-http-v052.lua",
+      "bytes": 4530,
+      "sha256": "28ed9377412d7fc256dc958b66de7300014db38165aa0e68e77c82b81fa0fcca"
+    },
+    {
+      "path": "audit/native-ngxvar.c",
+      "bytes": 4148,
+      "sha256": "435d55e11fca82150ddc9107f44682104fd155566b5372a560a28befd0c721ea"
+    },
+    {
+      "path": "audit/sources.json",
+      "bytes": 674,
+      "sha256": "5580ea44ac077c84523fe4034c19f682e4c27af5ebc09a73006289b7a65152e5"
+    },
+    {
+      "path": "balance-off/environment.json",
+      "bytes": 15726,
+      "sha256": "ec84b9522d1064169658ed2de1ef80e5fc753c18d1a52b66d2e79994ec4a039e"
+    },
+    {
+      "path": "balance-off/native-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "balance-off/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "balance-off/native-auth-nginx.conf",
+      "bytes": 13120,
+      "sha256": "e95818b2b2adccdb444f10ccb356d543457f721a8ac81cda250a819b6b41d53a"
+    },
+    {
+      "path": "balance-off/native-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "balance-off/native-auth.txt",
+      "bytes": 486,
+      "sha256": "ce578204a9f7c77ac9730f2da77cefc9b45a2062a7d3cc0160678141299037a9"
+    },
+    {
+      "path": "balance-off/results.json",
+      "bytes": 1205,
+      "sha256": "b01b53f146c4faf2ba3d7598794587b8d4dfbb3f35042cf00a04de96e6e6aed0"
+    },
+    {
+      "path": "balance-off.log",
+      "bytes": 1559,
+      "sha256": "73d5a8f4eb19d4d577b3ad0400dcadf5f8c4e8326a516f7723e3d5725430df5b"
+    },
+    {
+      "path": "balance-on/environment.json",
+      "bytes": 15755,
+      "sha256": "b269b9eb6eb7cb8942fc6c5f34436efd07746b7cebf995e9c2db1e0b82d5bd9a"
+    },
+    {
+      "path": "balance-on/native-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "balance-on/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "balance-on/native-auth-nginx.conf",
+      "bytes": 13151,
+      "sha256": "ef32906ff702418d7e3b21b106586f96bce7258c005db1ff16265e6f994cc950"
+    },
+    {
+      "path": "balance-on/native-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "balance-on/native-auth.txt",
+      "bytes": 486,
+      "sha256": "ee0d93f90488e927b29b3d9afe6582efee53af2df8dc9ae9579aef763e4762b6"
+    },
+    {
+      "path": "balance-on/results.json",
+      "bytes": 1215,
+      "sha256": "de273d938b89cb62e856fd61aba5c58bd558df62e35342fbea59ff69ccd34dee"
+    },
+    {
+      "path": "balance-on.log",
+      "bytes": 1569,
+      "sha256": "4cac6ac0db4c3ad153b566e5084a11d898b32101de57bc0f8a3dda378a0f8a9f"
+    },
+    {
+      "path": "build-core.log",
+      "bytes": 21996,
+      "sha256": "4ed0c801761c2087eb27f24e463757cf55f929751e23bc27e023324a8674e1a4"
+    },
+    {
+      "path": "build-runtime.log",
+      "bytes": 74528,
+      "sha256": "b5149072b2e5fdc4d27ae44de848ca33934df3a6ac5b5acd10fff8a9c6c377a9"
+    },
+    {
+      "path": "final/environment.json",
+      "bytes": 15750,
+      "sha256": "ed75defa2f0bc81dfbc73a4a545ed4a470f5d82d72d1431f6262c3e0cd3e05d2"
+    },
+    {
+      "path": "final/lua-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "final/lua-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/lua-auth-nginx.conf",
+      "bytes": 13048,
+      "sha256": "5cf594164484f8585ebccfb8f2ab9b45dab934185b416ed462fb10bfc1efc7aa"
+    },
+    {
+      "path": "final/lua-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "final/lua-auth.txt",
+      "bytes": 486,
+      "sha256": "27203716c29f32e8bbaa222279c69dce23aa698f6298afcd0cbbd7111ed23cb5"
+    },
+    {
+      "path": "final/lua-limit-config.yaml",
+      "bytes": 683,
+      "sha256": "1ae9c3bc041047becd1903787303ac252bc1da8151759933534af973c5b0fb98"
+    },
+    {
+      "path": "final/lua-limit-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/lua-limit-nginx.conf",
+      "bytes": 13367,
+      "sha256": "d15a7826643c9c6d044ab9f1ee307ea64a253e38a6220624601bf2936fd19c84"
+    },
+    {
+      "path": "final/lua-limit-resources.json",
+      "bytes": 373,
+      "sha256": "3aad7a08d88c43c45f0e8299922f40fa278f8f227e5e93ee284100145fd4c3cf"
+    },
+    {
+      "path": "final/lua-limit.txt",
+      "bytes": 487,
+      "sha256": "519852bc17364028718c03d21a8ed37d77654322bdd2f1741ea557bca1a3c18f"
+    },
+    {
+      "path": "final/lua-metrics-config.yaml",
+      "bytes": 816,
+      "sha256": "6d9dc8fee378003ea98e8104dcf7239b519717ab21827fcb7fe52c6d0be2876b"
+    },
+    {
+      "path": "final/lua-metrics-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/lua-metrics-nginx.conf",
+      "bytes": 13556,
+      "sha256": "0d97b68f17152b45dd3d3e659377aec0cdd211c43b96b1dfac5059c307fb8e51"
+    },
+    {
+      "path": "final/lua-metrics-resources.json",
+      "bytes": 257,
+      "sha256": "a586c228a3533129f9171deb3fdccf4299c80f0bb88a737ef94f01af99054119"
+    },
+    {
+      "path": "final/lua-metrics.txt",
+      "bytes": 489,
+      "sha256": "b0ec3ac9107de64ddc08d7ec0ff94bcb37ae87dc64e9d1d740b19aa8eaaeba0f"
+    },
+    {
+      "path": "final/native-auth-config.yaml",
+      "bytes": 680,
+      "sha256": "29e4265088efbeb14bd3360fda462b91a2b011e68eee2b6956a806eb766d973f"
+    },
+    {
+      "path": "final/native-auth-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/native-auth-nginx.conf",
+      "bytes": 13151,
+      "sha256": "c7ec79c40f276af4994d6c99a24f66e79648c3aa9aca0987b90fcea70f9db9bf"
+    },
+    {
+      "path": "final/native-auth-resources.json",
+      "bytes": 421,
+      "sha256": "d09dfbc42dfcdd5247640c66f7fa92c0f5999c5866408eec2263c08f599a818f"
+    },
+    {
+      "path": "final/native-auth.txt",
+      "bytes": 486,
+      "sha256": "ea8b81f3d603cde8beefb83435fc173e89c616ddac5d0327b589f67993a3f44a"
+    },
+    {
+      "path": "final/native-limit-config.yaml",
+      "bytes": 683,
+      "sha256": "1ae9c3bc041047becd1903787303ac252bc1da8151759933534af973c5b0fb98"
+    },
+    {
+      "path": "final/native-limit-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/native-limit-nginx.conf",
+      "bytes": 13470,
+      "sha256": "7a9442bc5f16166a6a85b9c648b563f5395cdce94acfb2e988e0611f31b02fb4"
+    },
+    {
+      "path": "final/native-limit-resources.json",
+      "bytes": 373,
+      "sha256": "3aad7a08d88c43c45f0e8299922f40fa278f8f227e5e93ee284100145fd4c3cf"
+    },
+    {
+      "path": "final/native-limit.txt",
+      "bytes": 487,
+      "sha256": "4c248de99ea45e48138982bcfa10d37e3ceae6540068ef6bcc9ca3a4324de829"
+    },
+    {
+      "path": "final/native-metrics-config.yaml",
+      "bytes": 816,
+      "sha256": "6d9dc8fee378003ea98e8104dcf7239b519717ab21827fcb7fe52c6d0be2876b"
+    },
+    {
+      "path": "final/native-metrics-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "final/native-metrics-nginx.conf",
+      "bytes": 13659,
+      "sha256": "e3440a0ec5d3a56940a15569b4573867d20a035f02fc47dd1cd11efd00f52b3b"
+    },
+    {
+      "path": "final/native-metrics-resources.json",
+      "bytes": 257,
+      "sha256": "a586c228a3533129f9171deb3fdccf4299c80f0bb88a737ef94f01af99054119"
+    },
+    {
+      "path": "final/native-metrics.txt",
+      "bytes": 489,
+      "sha256": "220cf3f8b0713132be890c1fc09ba29288d9f0ec0ccfb3c3f70fffe71d4f7067"
+    },
+    {
+      "path": "final/results.json",
+      "bytes": 7229,
+      "sha256": "7788f32558c3f6e9dbb6c48a31361231effb7edf3395175977ac0601d005866e"
+    },
+    {
+      "path": "final.log",
+      "bytes": 421,
+      "sha256": "9fc156b55b6f6aa494f2a9e624a24514e527bca09a3631b030ce0189655b0ee3"
+    },
+    {
+      "path": "host.json",
+      "bytes": 261,
+      "sha256": "f220b975f15603f8c14a02b45cb14760b6d33b45fdc725bfcd6509e96d435858"
+    },
+    {
+      "path": "json-off/environment.json",
+      "bytes": 15723,
+      "sha256": "20868385781cbae42a6553f81d9df5eea187a67b74c237565b68c2ba3c8a64d3"
+    },
+    {
+      "path": "json-off/native-limit-config.yaml",
+      "bytes": 683,
+      "sha256": "1ae9c3bc041047becd1903787303ac252bc1da8151759933534af973c5b0fb98"
+    },
+    {
+      "path": "json-off/native-limit-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "json-off/native-limit-nginx.conf",
+      "bytes": 13439,
+      "sha256": "a0e9bef8b593c069a3e483e831b5b1b36aaba92d4b5b3cf1de823f7c1c869fd8"
+    },
+    {
+      "path": "json-off/native-limit-resources.json",
+      "bytes": 373,
+      "sha256": "3aad7a08d88c43c45f0e8299922f40fa278f8f227e5e93ee284100145fd4c3cf"
+    },
+    {
+      "path": "json-off/native-limit.txt",
+      "bytes": 487,
+      "sha256": "112d6c4e7ec34ebdfa04a4c41eb5861d808043bd5bfa5b9612cb2bdcc3dc3077"
+    },
+    {
+      "path": "json-off/results.json",
+      "bytes": 1205,
+      "sha256": "616b4e7656a55d91e4ad2455b1a0cd7386a3db202d4510cdf3d17cfc871a4dc4"
+    },
+    {
+      "path": "json-off.log",
+      "bytes": 1562,
+      "sha256": "e4786efc6fda252e2b304fa85c3ea678d77b65f54d14a2846a6f9f719b28f954"
+    },
+    {
+      "path": "json-on/environment.json",
+      "bytes": 15752,
+      "sha256": "e96c1d45e4bcf21a3c1e13e82a79caed180b0632b0ff1b3d884c57b35255d57a"
+    },
+    {
+      "path": "json-on/native-limit-config.yaml",
+      "bytes": 683,
+      "sha256": "1ae9c3bc041047becd1903787303ac252bc1da8151759933534af973c5b0fb98"
+    },
+    {
+      "path": "json-on/native-limit-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "json-on/native-limit-nginx.conf",
+      "bytes": 13470,
+      "sha256": "7a9442bc5f16166a6a85b9c648b563f5395cdce94acfb2e988e0611f31b02fb4"
+    },
+    {
+      "path": "json-on/native-limit-resources.json",
+      "bytes": 373,
+      "sha256": "3aad7a08d88c43c45f0e8299922f40fa278f8f227e5e93ee284100145fd4c3cf"
+    },
+    {
+      "path": "json-on/native-limit.txt",
+      "bytes": 487,
+      "sha256": "1a557b22e96bbf701391f84e43af8de60e5e3a6c0b80efce1a9dd1e2fde128ad"
+    },
+    {
+      "path": "json-on/results.json",
+      "bytes": 1218,
+      "sha256": "b2138107b204b32dfef4a1fd109de55bc69465d225f871a3de903e693b5e6c6e"
+    },
+    {
+      "path": "json-on.log",
+      "bytes": 1575,
+      "sha256": "68a81b5bec10069e73bcaa35f04b892b849b0553450615775d19a1fb4f6e7b5f"
+    },
+    {
+      "path": "module-source/background.c",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "module-source/cache.c",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "module-source/config",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "module-source/consumer.c",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "module-source/engine.h",
+      "bytes": 11722,
+      "sha256": "d6dbdd9a91d66aa6b2aa32457d224ec237963745f897835739192afa8c4af3a8"
+    },
+    {
+      "path": "module-source/expression.c",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "module-source/http.c",
+      "bytes": 13243,
+      "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa"
+    },
+    {
+      "path": "module-source/instrumentation.c",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "module-source/merge.c",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "module-source/module.c",
+      "bytes": 14194,
+      "sha256": "980e644f912d2b7d47588ca8940af5222ad39b898e359c7e32a9fad32bd31528"
+    },
+    {
+      "path": "module-source/native_phases.c",
+      "bytes": 3341,
+      "sha256": "3a39c04d5a5b8d4c0039f1cdb60a1f727fa9b115d8eff0268ece19444abd8e45"
+    },
+    {
+      "path": "module-source/platform.c",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "module-source/plugins.c",
+      "bytes": 25614,
+      "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015"
+    },
+    {
+      "path": "module-source/redis_data.h",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "module-source/request.c",
+      "bytes": 36248,
+      "sha256": "f5215046db88aeb9fa1dd1b90aa5d85fe6cf4a42848cf344745494625ef3dcd3"
+    },
+    {
+      "path": "module-source/resolver.c",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "module-source/resources.c",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "module-source/response.c",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "module-source/routes.c",
+      "bytes": 22996,
+      "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac"
+    },
+    {
+      "path": "module-source/schema.c",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "module-source/schema_data.h",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "module-source/script.c",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "module-source/sdk.c",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "module-source/snapshot.c",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "module-source/tracing.c",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "module-source/upstream.c",
+      "bytes": 36956,
+      "sha256": "2627285b68304535339d14896e22785c17ea30881e12103b493451d11c2e9054"
+    },
+    {
+      "path": "module-source/upstream_helpers.c",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "module-source/utils.c",
+      "bytes": 28901,
+      "sha256": "b99169eef5ddfcf392f73a39a442f3a76768e97fd550894db98f9fa758fd1c55"
+    },
+    {
+      "path": "module.so",
+      "bytes": 1540408,
+      "sha256": "36fac92f9ef321d8e20db4b9555f668240a2b5614f1977a5ca9ed17e660d1b8a"
+    },
+    {
+      "path": "profile-lua-limit-jit.log",
+      "bytes": 1592,
+      "sha256": "7e432d7d38fb301d0a830f2848056d15d6a004556e7bc19cebe11c751e7c6387"
+    },
+    {
+      "path": "profile-lua-limit-jit.metadata.json.raw",
+      "bytes": 631,
+      "sha256": "dba428255e4ba8ec11215bbfd6ba4f8a17de287dc90d9fa20905100cb2a7a08b"
+    },
+    {
+      "path": "profile-lua-limit-jit.nginx.conf.raw",
+      "bytes": 13674,
+      "sha256": "e96d36bc1db313ddb0aa7f8d53dae2d8ed4a776cef95a0968e1b83f076dd085e"
+    },
+    {
+      "path": "profile-lua-limit-jit.raw",
+      "bytes": 956,
+      "sha256": "143ebd2193ed945516cd48959bb1820b1f925a0b5d7f410bc5de2197828a9b5f"
+    },
+    {
+      "path": "profile-lua-limit-jit.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "2d3f94dc8891bd315287a171afc814a1417b55c0f6475f28d4ef636dab8e43d2"
+    },
+    {
+      "path": "profile-lua-prometheus-jit.log",
+      "bytes": 1371,
+      "sha256": "5b219d8405df66c0624cba1ed9f8ff25ed5842f4244776c74f788a73443dd684"
+    },
+    {
+      "path": "profile-lua-prometheus-jit.metadata.json.raw",
+      "bytes": 636,
+      "sha256": "f97f645c2b60d49bbb12d0a3442550481ed786d454d87589b6bf055715930960"
+    },
+    {
+      "path": "profile-lua-prometheus-jit.nginx.conf.raw",
+      "bytes": 13868,
+      "sha256": "76ab792be0c8c229142f58a260e88650c26c5fca67c419dc4bab14dada201658"
+    },
+    {
+      "path": "profile-lua-prometheus-jit.raw",
+      "bytes": 731,
+      "sha256": "4441cac455092eece09da1f8d95838dac169dd4312135fd6f017d85be7337fce"
+    },
+    {
+      "path": "profile-lua-prometheus-jit.wrk.txt.raw",
+      "bytes": 334,
+      "sha256": "4269b6c0798f09e19d15476eb9592034d0a9fcfcc1dec52c446c897cf45c922c"
+    },
+    {
+      "path": "profile-native-limit-functions.functions.json.raw",
+      "bytes": 17013,
+      "sha256": "dae1614e28c61daa0686f00ce26b000cd3216a6fde85e68c40140669f63a17fe"
+    },
+    {
+      "path": "profile-native-limit-functions.log",
+      "bytes": 2637,
+      "sha256": "b8f8324b3b5fe3980f8bc656116cdda9c531d74283170288f1246bd5dceaacf1"
+    },
+    {
+      "path": "profile-native-limit-functions.metadata.json.raw",
+      "bytes": 640,
+      "sha256": "39badd3afa9e93bd6f488780ce1ff29b11f3be835a6a8933a9e973f978d84008"
+    },
+    {
+      "path": "profile-native-limit-functions.nginx.conf.raw",
+      "bytes": 13905,
+      "sha256": "ccf1c0e8111a696a6bb5390c229323e80612116028d144a8a69dc5de521f0c58"
+    },
+    {
+      "path": "profile-native-limit-functions.raw",
+      "bytes": 3186,
+      "sha256": "70c2ce66bf0b8edee3cf7758cc9703cac1be46974af3b7fba1c7839868881fdd"
+    },
+    {
+      "path": "profile-native-limit-functions.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "6ca0ef5db2f32185d706c6906939ebb6c808241557cb72cf1c567305ed379545"
+    },
+    {
+      "path": "profile-native-limit-jit.log",
+      "bytes": 1395,
+      "sha256": "9d601dac60b384862202468b3adf8eda2c4f01f187dee0e78398bd664c32a93c"
+    },
+    {
+      "path": "profile-native-limit-jit.metadata.json.raw",
+      "bytes": 634,
+      "sha256": "bc7db680c3419a80371cc89e100dd14bd2cdb8623b3e5543bf9164bc5908468f"
+    },
+    {
+      "path": "profile-native-limit-jit.nginx.conf.raw",
+      "bytes": 13749,
+      "sha256": "1a8835fb4d46938e08a951769cd29d0fc1c0ee3969e8badae3c0b3113dfbf00c"
+    },
+    {
+      "path": "profile-native-limit-jit.raw",
+      "bytes": 1011,
+      "sha256": "8291e6505c802489968024ca5d6e89bbcf9fee11e1203a9a99b32723c9fd469b"
+    },
+    {
+      "path": "profile-native-limit-jit.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "896bad673a98bd95f7a73d020c74948ef181bc47739a76342166e78f18cadd71"
+    },
+    {
+      "path": "profile-native-limit-traces.log",
+      "bytes": 2139,
+      "sha256": "482c5c208c9998e13c036e0f3a9aaf514341005e80292a54c19bd59de5711c91"
+    },
+    {
+      "path": "profile-native-limit-traces.metadata.json.raw",
+      "bytes": 637,
+      "sha256": "ee3c6b60f577c4b7b5209552b56f155bd9aa9b5f8db3f5d8d8b70e4de8867bc0"
+    },
+    {
+      "path": "profile-native-limit-traces.nginx.conf.raw",
+      "bytes": 16838,
+      "sha256": "ed68b7c9c819ffb34e0474a9a0f38d6978b1b4436867315a06c1705fa0856b6a"
+    },
+    {
+      "path": "profile-native-limit-traces.raw",
+      "bytes": 1752,
+      "sha256": "e3e600e8f55495481f453daf32df95c3e1b383f163ef6d54e881c24169c1bf44"
+    },
+    {
+      "path": "profile-native-limit-traces.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "4500f2a6bb2450314898b4d85f0e7e058181ff1052673ca3179f5a2c628b858b"
+    },
+    {
+      "path": "profile-native-prometheus-functions.functions.json.raw",
+      "bytes": 15860,
+      "sha256": "2c3cf60293a5f08289040e52bf88abe73918ce8785a95292e5af9266aac07f21"
+    },
+    {
+      "path": "profile-native-prometheus-functions.log",
+      "bytes": 2661,
+      "sha256": "0c8da164d561846fae21125b494943c2c95b1557da85b098aced096b4e29e9af"
+    },
+    {
+      "path": "profile-native-prometheus-functions.metadata.json.raw",
+      "bytes": 645,
+      "sha256": "45b29b01d4216297b45524b0cdf8a1264cc3fdebf32c2a47f9b77edca6892213"
+    },
+    {
+      "path": "profile-native-prometheus-functions.nginx.conf.raw",
+      "bytes": 14099,
+      "sha256": "6d3c69441530216d270458f04d040aefe9be33ea279432131dbf8e08317c3d30"
+    },
+    {
+      "path": "profile-native-prometheus-functions.raw",
+      "bytes": 2900,
+      "sha256": "17ebaee6f8957951de5061b9277dfc185badadbf4bdce7e28b84053c3dd15a88"
+    },
+    {
+      "path": "profile-native-prometheus-functions.wrk.txt.raw",
+      "bytes": 334,
+      "sha256": "e5f5bd38e060feaacd12157db23eee4780055b9ee8cf6d525ed3593c4e92f786"
+    },
+    {
+      "path": "profile-native-prometheus-jit.log",
+      "bytes": 1135,
+      "sha256": "a8d0940bda36445a3e3961a0f06422b06cb1e21ba3c90334c332056d77412a81"
+    },
+    {
+      "path": "profile-native-prometheus-jit.metadata.json.raw",
+      "bytes": 639,
+      "sha256": "fe888a7aaeb9dee92a1be0fe15236ad532adbb0ace2d247f21b700bb2efec2dd"
+    },
+    {
+      "path": "profile-native-prometheus-jit.nginx.conf.raw",
+      "bytes": 13943,
+      "sha256": "d6fa43a910bcce3dd8ccf974962e43bbce9908be1054adcd2e3cde1dcda050ee"
+    },
+    {
+      "path": "profile-native-prometheus-jit.raw",
+      "bytes": 747,
+      "sha256": "f77fc734eb71b7bffa660e0c05756d13fbfbc3863f29e032687220ee2f8abb9c"
+    },
+    {
+      "path": "profile-native-prometheus-jit.wrk.txt.raw",
+      "bytes": 334,
+      "sha256": "30b56d8973a707928ff41e687e76e945a93882cf920e9993ff1ec5d2de6f2c50"
+    },
+    {
+      "path": "profile-native-prometheus-traces.log",
+      "bytes": 5294,
+      "sha256": "48ee17511bb412448ee58114edd031778a5bdc59f9ad11b7c82c9e8713cf0b70"
+    },
+    {
+      "path": "profile-native-prometheus-traces.metadata.json.raw",
+      "bytes": 642,
+      "sha256": "aab070f9071c8fecb9bafb3615ec498157b7cac5d6e23316a304310a750407fe"
+    },
+    {
+      "path": "profile-native-prometheus-traces.nginx.conf.raw",
+      "bytes": 17032,
+      "sha256": "4ef313e4a872c2f58e7e1bb00d7a70ae49a53beac9d15fc4899f80690524a590"
+    },
+    {
+      "path": "profile-native-prometheus-traces.raw",
+      "bytes": 4903,
+      "sha256": "d6cc1bd9380e78a4318b62c7d4204c18c0a915e75b994282d33202a101656071"
+    },
+    {
+      "path": "profile-native-prometheus-traces.wrk.txt.raw",
+      "bytes": 334,
+      "sha256": "41918dea90decfe71a79fdf3dca50bb826bbcba1f4bac1becdc3022785869999"
+    },
+    {
+      "path": "profile-selected-limit-jit.log",
+      "bytes": 1448,
+      "sha256": "966bc5bf8dffb3e4921206dfd34db1d4bf2f31fc0f16b93bafaf02e8e38a03ff"
+    },
+    {
+      "path": "profile-selected-limit-jit.metadata.json.raw",
+      "bytes": 664,
+      "sha256": "a370a7c1c014d82900fa36deca4a08e2b59e67b4a64460eac28901206ca1a415"
+    },
+    {
+      "path": "profile-selected-limit-jit.nginx.conf.raw",
+      "bytes": 13780,
+      "sha256": "61a0f9723d63a26ed5290ff6976948b9443fadac541d6feb28f2ff8ced127533"
+    },
+    {
+      "path": "profile-selected-limit-jit.raw",
+      "bytes": 1064,
+      "sha256": "875142f003cce54e69afd8f6af04dcff7baa3e10f0b4ae21f696f10edfef47c2"
+    },
+    {
+      "path": "profile-selected-limit-jit.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "63f4b7570d49fbb8af07c6eed0b1f1ddc90e2dfda62d5781b855b4e69e0ae4a8"
+    },
+    {
+      "path": "profile-selected-limit-traces.log",
+      "bytes": 2185,
+      "sha256": "23374da891eae8f38dfaef41d3e409b920691d97c243760dda1e91cafe2f1b66"
+    },
+    {
+      "path": "profile-selected-limit-traces.metadata.json.raw",
+      "bytes": 667,
+      "sha256": "8de0d43d434120a378f4e4effd80a5ac6a574eba734688bb5bafe20bdb5351cb"
+    },
+    {
+      "path": "profile-selected-limit-traces.nginx.conf.raw",
+      "bytes": 16869,
+      "sha256": "0fc47d21be4952f776ef440a387afa2f982ea6b13c6c7c33a38f7a58b099e686"
+    },
+    {
+      "path": "profile-selected-limit-traces.raw",
+      "bytes": 1798,
+      "sha256": "a6777846cea73a81a1d1dff0a81bb58535afa5af298dcc4483e986504e007c2c"
+    },
+    {
+      "path": "profile-selected-limit-traces.wrk.txt.raw",
+      "bytes": 332,
+      "sha256": "3ea2bfe47215dad0a141e3f261442e58458e04ca8eaba87b4e9d881381a5c909"
+    },
+    {
+      "path": "release.json",
+      "bytes": 2291,
+      "sha256": "b9ac178a147d4d29ec88fa71eb864ab40bef29875365b24b8213ae950e7048c0"
+    },
+    {
+      "path": "restore-optimized.log",
+      "bytes": 34,
+      "sha256": "209e068e098b993a65699651fbedc665f604c0c9cd153bb947b7b653bbe0e2ab"
+    },
+    {
+      "path": "run-research.py",
+      "bytes": 2830,
+      "sha256": "9189e87f6e0371def3101091f116bb9b4312d4e515da963209683886d0f88009"
+    },
+    {
+      "path": "runtime.lua",
+      "bytes": 2394,
+      "sha256": "ecdc800566e74a9060fb687aa9bfadb9ffab1b5c1cd076b69788422da3cc38ca"
+    },
+    {
+      "path": "var-off/environment.json",
+      "bytes": 15722,
+      "sha256": "deb461f9c698b312cf762991daa44f8ee4cb49ac0c173914996404c179d97fd2"
+    },
+    {
+      "path": "var-off/native-metrics-config.yaml",
+      "bytes": 816,
+      "sha256": "6d9dc8fee378003ea98e8104dcf7239b519717ab21827fcb7fe52c6d0be2876b"
+    },
+    {
+      "path": "var-off/native-metrics-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "var-off/native-metrics-nginx.conf",
+      "bytes": 13628,
+      "sha256": "1f450e5f13e110ef328c013a89ff13dded1627a2b9c4c466e635240f27d80c5f"
+    },
+    {
+      "path": "var-off/native-metrics-resources.json",
+      "bytes": 257,
+      "sha256": "a586c228a3533129f9171deb3fdccf4299c80f0bb88a737ef94f01af99054119"
+    },
+    {
+      "path": "var-off/native-metrics.txt",
+      "bytes": 489,
+      "sha256": "1c74d9a74131317b4a13e51736aa9e12eea6b0d84fe9f2c570ff894ef7ade490"
+    },
+    {
+      "path": "var-off/results.json",
+      "bytes": 1198,
+      "sha256": "8d0be997cb98e0bb00e6213a384eeceb3c3070f5fa5118962972b85d642a92f4"
+    },
+    {
+      "path": "var-off.log",
+      "bytes": 1554,
+      "sha256": "bc3f4e77502d41b1364c9a2d08c4f7f630e0cdc14754d1c4d8be1f6b3b4846b2"
+    },
+    {
+      "path": "var-on/environment.json",
+      "bytes": 15749,
+      "sha256": "34648ab3f4f6b4da0403fcf4315c62ab9dbebc2e0e22040b5b3d2a462166fb1f"
+    },
+    {
+      "path": "var-on/native-metrics-config.yaml",
+      "bytes": 816,
+      "sha256": "6d9dc8fee378003ea98e8104dcf7239b519717ab21827fcb7fe52c6d0be2876b"
+    },
+    {
+      "path": "var-on/native-metrics-error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "var-on/native-metrics-nginx.conf",
+      "bytes": 13657,
+      "sha256": "172a5e877d0c2a19eba8b34abdd97d289d53d82dc1cdc70659afd65a822d79a2"
+    },
+    {
+      "path": "var-on/native-metrics-resources.json",
+      "bytes": 257,
+      "sha256": "a586c228a3533129f9171deb3fdccf4299c80f0bb88a737ef94f01af99054119"
+    },
+    {
+      "path": "var-on/native-metrics.txt",
+      "bytes": 489,
+      "sha256": "35930ee6107500573303545daaa3de0324f1a654e6eda9d9b7f0cd319e323ac2"
+    },
+    {
+      "path": "var-on/results.json",
+      "bytes": 1203,
+      "sha256": "f9b1b46059b575327c4b509e4504b8daf61580d624fbdeacbce43131df6c3e2b"
+    },
+    {
+      "path": "var-on.log",
+      "bytes": 1559,
+      "sha256": "88b9a8eb71d6c3f0c310a4157f7a5178f7baf952c6296507d6f22746f1dac33a"
+    },
+    {
+      "path": "verify-log-plan-failed-1.log",
+      "bytes": 3199,
+      "sha256": "f75114ed1cb679597c17807161a0e8299930d482ea2c64db5fa8d5e2d23066ea"
+    },
+    {
+      "path": "verify-log-plan-fixed.log",
+      "bytes": 1130,
+      "sha256": "e91d58aaa717c8cdbc525812d1d41005ac4a8c19d6d26bc0a3ef048d66d2511d"
+    },
+    {
+      "path": "verify-log-plan-indexed.log",
+      "bytes": 1154,
+      "sha256": "783110b3f6d5515628c490e5bc4ca8df2551619b2ddf03a5eba98ca30bdb69bd"
+    },
+    {
+      "path": "verify-log-plan.log",
+      "bytes": 1154,
+      "sha256": "783110b3f6d5515628c490e5bc4ca8df2551619b2ddf03a5eba98ca30bdb69bd"
+    },
+    {
+      "path": "verify-off.log",
+      "bytes": 6727,
+      "sha256": "271277aa7dca372612d56b1dfe713423719dba8b6d99373acafc3b085ee4f63b"
+    },
+    {
+      "path": "verify-on.log",
+      "bytes": 6662,
+      "sha256": "cfd06ed260be9ef6717a28e7f38b061cd2c3b24a73d09cbb1db804dbc9730559"
+    },
+    {
+      "path": "verify-sanitizers.log",
+      "bytes": 6670,
+      "sha256": "f977536a4d3b072971eb08615f2bdfd4baafacf911bff9924f3c7863369298a5"
+    },
+    {
+      "path": "verify-single-off.log",
+      "bytes": 3145,
+      "sha256": "a714c99dc539abf9885298ecb5ad1f0a8eca9016f5ea5cbeb880390e69a7689a"
+    },
+    {
+      "path": "verify-single-on.log",
+      "bytes": 3145,
+      "sha256": "a714c99dc539abf9885298ecb5ad1f0a8eca9016f5ea5cbeb880390e69a7689a"
+    }
+  ]
+}

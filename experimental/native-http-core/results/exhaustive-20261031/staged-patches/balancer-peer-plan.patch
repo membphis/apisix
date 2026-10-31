@@ -1,0 +1,160 @@
+--- a/experimental/native-http-core/module/upstream.c
++++ b/experimental/native-http-core/module/upstream.c
+@@ -16,6 +16,16 @@
+     long connect_timeout, long send_timeout, long read_timeout, char **error);
+ extern int ngx_http_lua_ffi_balancer_recreate_request(ngx_http_request_t *r, char **error);
+ 
++/* Immutable node description, allocated with the configuration generation.
++ * Snapshot ownership pins its strings/address bytes until request cleanup. */
++typedef struct {
++    ngx_str_t ip;
++    ngx_str_t scheme;
++    ngx_str_t sockaddr;
++    in_port_t port;
++    ngx_uint_t pool_key;
++} ac_peer_plan_t;
++
+ typedef struct ac_node_s {
+     ngx_addr_t address;
+     ngx_str_t host;
+@@ -28,6 +38,7 @@
+     ngx_msec_t checked;
+     double ewma;
+     struct ac_node_s *origin;
++    ac_peer_plan_t *peer_plan;
+ } ac_node_t;
+ 
+ struct ac_upstream_s {
+@@ -103,6 +114,50 @@
+ }
+ 
+ static void
++ac_peer_plan_compile(lua_State *L, ac_main_conf_t *main, ac_upstream_t *upstream,
++    ac_node_t *node)
++{
++    ac_peer_plan_t *plan;
++    u_char ip[NGX_SOCKADDR_STRLEN], pool[NGX_SOCKADDR_STRLEN + 64], *end;
++    size_t length;
++    /* DNS has no resolved address at configuration time. Runtime upstream.set
++     * disables this experiment in its scratch configuration as well. */
++    if (main->balancer_peer_plan != 1 || !node->address.sockaddr
++        || !node->address.socklen) return;
++    length = ngx_sock_ntop(node->address.sockaddr, node->address.socklen,
++                          ip, sizeof(ip), 0);
++    if (!length) return;
++    plan = ngx_pcalloc(main->pool, sizeof(*plan));
++    if (!plan) { luaL_error(L, "native peer plan allocation failed"); return; }
++    plan->ip.data = ngx_pnalloc(main->pool, length);
++    plan->sockaddr.data = ngx_pnalloc(main->pool, node->address.socklen);
++    if (!plan->ip.data || !plan->sockaddr.data) {
++        luaL_error(L, "native peer plan bytes allocation failed"); return;
++    }
++    ngx_memcpy(plan->ip.data, ip, length); plan->ip.len = length;
++    ngx_memcpy(plan->sockaddr.data, node->address.sockaddr, node->address.socklen);
++    plan->sockaddr.len = node->address.socklen;
++    plan->scheme = upstream->scheme;
++    plan->port = node->port;
++    /* Preserve the existing pool bytes/hash exactly; the live scheme is
++     * checked again in balance_finish after every before_proxy callback. */
++    end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &plan->scheme,
++                       length, ip, (ngx_uint_t) plan->port);
++    plan->pool_key = ngx_crc32_long(pool, end - pool);
++    node->peer_plan = plan;
++}
++
++static ngx_flag_t
++ac_peer_plan_address_matches(ac_node_t *node)
++{
++    ac_peer_plan_t *plan = node->peer_plan;
++    return plan && node->address.sockaddr && plan->port == node->port
++        && plan->sockaddr.len == node->address.socklen
++        && ngx_memcmp(plan->sockaddr.data, node->address.sockaddr,
++                      plan->sockaddr.len) == 0;
++}
++
++static void
+ ac_add_node(lua_State *L, ac_main_conf_t *main, ac_upstream_t *upstream,
+     ngx_str_t host, in_port_t port, ngx_int_t weight, ngx_int_t priority)
+ {
+@@ -126,6 +181,7 @@
+     if (!parsed.naddrs) upstream->domain = 1;
+     else node->address = parsed.addrs[0];
+     node->address.name = endpoint;
++    ac_peer_plan_compile(L, main, upstream, node);
+ }
+ 
+ static ac_upstream_t *
+@@ -510,8 +566,16 @@
+     }
+     ac_push(L, peer->ctx->table_ref);
+     u_char ip[NGX_SOCKADDR_STRLEN];
+-    size_t length = ngx_sock_ntop(selected->address.sockaddr, selected->address.socklen, ip, sizeof(ip), 0);
+-    lua_pushlstring(L, (char *) ip, length); lua_setfield(L, -2, "balancer_ip");
++    ngx_str_t address;
++    if (peer->ctx->main->balancer_peer_plan == 1
++        && ac_peer_plan_address_matches(selected)) {
++        address = selected->peer_plan->ip;
++    } else {
++        address.data = ip;
++        address.len = ngx_sock_ntop(selected->address.sockaddr, selected->address.socklen,
++                                   ip, sizeof(ip), 0);
++    }
++    lua_pushlstring(L, (char *) address.data, address.len); lua_setfield(L, -2, "balancer_ip");
+     lua_pushinteger(L, selected->port); lua_setfield(L, -2, "balancer_port");
+     ac_set_string(L, -1, "upstream_unresolved_host", selected->host);
+     lua_pop(L, 1);
+@@ -674,6 +738,9 @@
+     luaL_checktype(L, 4, LUA_TTABLE);
+     ac_upstream_cleanup(L, ctx);
+     scratch.pool = ctx->request->pool;
++    /* A dynamically installed request-owned upstream keeps the old path;
++     * descriptors are only worthwhile for configuration-owned static peers. */
++    scratch.balancer_peer_plan = 0;
+     lua_pushnil(L);
+     ctx->upstream = ac_compile_upstream(L, &scratch, 4, -1);
+     ctx->upstream_owned = 1;
+@@ -722,10 +789,11 @@
+ ac_balance_finish_ctx(lua_State *L, ac_request_t *ctx)
+ {
+     ac_peer_t *peer = ctx->native_peer;
+-    ngx_uint_t retries;
++    ngx_uint_t retries, pool_key;
+     u_char ip[NGX_SOCKADDR_STRLEN];
+     u_char pool[NGX_SOCKADDR_STRLEN + 64], *end;
+-    size_t length;
++    ngx_str_t address;
++    ac_peer_plan_t *plan;
+     char *error = NULL;
+     if (!peer || !peer->selected) { lua_pushinteger(L, 502); return 1; }
+     if (!ctx->balance_attempts) {
+@@ -743,12 +811,25 @@
+         if (ngx_http_lua_ffi_balancer_recreate_request(ctx->request, &error) != NGX_OK)
+             return luaL_error(L, "failed to recreate proxy request: %s", error ? error : "unknown error");
+     }
+-    length = ngx_sock_ntop(peer->selected->address.sockaddr, peer->selected->address.socklen, ip, sizeof(ip), 0);
+-    end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &ctx->upstream_scheme, length, ip,
+-                       (ngx_uint_t) peer->selected->port);
++    plan = peer->selected->peer_plan;
++    if (ctx->main->balancer_peer_plan == 1
++        && ac_peer_plan_address_matches(peer->selected)
++        && ctx->upstream_scheme.len == plan->scheme.len
++        && (!plan->scheme.len || ngx_memcmp(ctx->upstream_scheme.data,
++                                           plan->scheme.data, plan->scheme.len) == 0)) {
++        address = plan->ip;
++        pool_key = plan->pool_key;
++    } else {
++        address.data = ip;
++        address.len = ngx_sock_ntop(peer->selected->address.sockaddr,
++                                   peer->selected->address.socklen, ip, sizeof(ip), 0);
++        end = ngx_snprintf(pool, sizeof(pool), "%V#%*s#%ui", &ctx->upstream_scheme,
++                           address.len, ip, (ngx_uint_t) peer->selected->port);
++        pool_key = ngx_crc32_long(pool, end - pool);
++    }
+     if (!peer->upstream->keepalive_size) return luaL_error(L, "native keepalive pool size must be positive");
+-    if (ngx_http_lua_ffi_balancer_set_current_peer(ctx->request, ip, length, peer->selected->port,
+-                ngx_crc32_long(pool, end - pool), (unsigned int) peer->upstream->keepalive_size, &error) != NGX_OK)
++    if (ngx_http_lua_ffi_balancer_set_current_peer(ctx->request, address.data, address.len, peer->selected->port,
++                pool_key, (unsigned int) peer->upstream->keepalive_size, &error) != NGX_OK)
+         return luaL_error(L, "failed to set native current peer: %s", error ? error : "unknown error");
+     if (ngx_http_lua_ffi_balancer_enable_keepalive(ctx->request,
+                 (unsigned long) (peer->upstream->keepalive_idle * 1000),

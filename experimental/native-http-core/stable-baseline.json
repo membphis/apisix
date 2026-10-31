@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-31",
+  "release_url": "https://github.com/apache/apisix/releases/tag/3.19.0",
+  "release_api": "https://api.github.com/repos/apache/apisix/releases/latest",
+  "tag": "3.19.0",
+  "published_at": "2026-09-28T05:13:59Z",
+  "commit": "473043623c161966f3f6ef4e8f12d2d8667a12d2",
+  "same_source_for_both_modes": true,
+  "excluded_plugin": "ai",
+  "runtime_note": "Use shared pinned runtime; the builder installs nginx-lua-prometheus-api7 1.1.0-1 whereas the 3.19.0 release rockspec declares 1.0.0-1. This comparison controls the runtime, not an unmodified distribution image.",
+  "tree_sha256": {
+    "apisix": "ab00fc1754586dbb72820e581dc505ad0731c7f4df3ce2beae7c5af284b043e5",
+    "conf": "2e4f236c86d884df62bd4dba2949fe5e9145998723ee6e9495d898e40bc585ab",
+    "bin": "777d39b299af5b9816d8708797ea615967ec43dc46d0b1848c03338bdc5f9d8e"
+  }
+}

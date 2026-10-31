@@ -1,0 +1,8 @@
+Running 15s test @ http://127.0.0.1:9080/limit/profile
+  2 threads and 32 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.94ms  484.09us  22.64ms   81.35%
+    Req/Sec     8.30k     1.32k   11.64k    65.67%
+  247794 requests in 15.00s, 65.43MB read
+Requests/sec:  16517.62
+Transfer/sec:      4.36MB
