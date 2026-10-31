@@ -144,6 +144,13 @@ records those quantities separately at fixed offered load. It also exposes
 asymmetric probe/JIT perturbation, so it **does not establish a clean core-only
 speedup factor**. See [the measurement method](tools/core_cost/README.md).
 
+The subsequent [subtraction / plugin-amplification experiment](results/subtraction-v6-20261031T0925Z/REPORT.md)
+uses the same frozen v6 core without request timing probes: pure NGINX and
+no-plugin APISIX baselines, original limit-count, and repeated rate-limit calls.
+It reports worker CPU, normal-GC-inclusive differences, positive-k fits and
+actual latency; addon/integration cost is distinct from function self time.
+See [the method and reproduction steps](tools/subtraction/README.md).
+
 The implementation is separate from the earlier small partial experiment.
 Its measurements are not evidence for this implementation.
 

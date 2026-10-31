@@ -1,0 +1,50 @@
+{
+  "id": "nginx-after",
+  "mode": "nginx",
+  "kind": "pure",
+  "duration_seconds": 60,
+  "requests": 180000,
+  "rate": 3000,
+  "worker_cpu_seconds": 4.11,
+  "cpu_us_per_request": 22.833333333333336,
+  "worker_cpu_utilization": 0.0685,
+  "rss_end_bytes": 11714560,
+  "load": {
+    "requested_rate": 3000,
+    "duration_seconds": 60,
+    "connections": 32,
+    "target_requests": 180000,
+    "completed": 180000,
+    "wall_seconds": 60.000955244999204,
+    "observed_rps": 2999.9522385104387,
+    "scheduled_latency_us": {
+      "mean": 718.8087223981662,
+      "p50": 682.086669257842,
+      "p95": 1265.2746663661674,
+      "p99": 1374.4509997195564,
+      "max": 17828.46066635102
+    },
+    "wire_latency_us": {
+      "mean": 196.68502423066604,
+      "p50": 182.58999625686556,
+      "p95": 268.2670019567013,
+      "p99": 455.8060027193278,
+      "max": 16812.388006655965
+    },
+    "driver_lateness_us": {
+      "mean": 522.1236981675052,
+      "p50": 466.1686689360067,
+      "p95": 1053.1933294259943,
+      "p99": 1093.6796679743566,
+      "max": 14595.495333196595
+    },
+    "errors": [],
+    "all_slots_completed": true,
+    "schedule_drained_within_one_second": true
+  },
+  "error_rate": 0,
+  "one_upstream_per_request": true,
+  "workers": [
+    9633
+  ]
+}

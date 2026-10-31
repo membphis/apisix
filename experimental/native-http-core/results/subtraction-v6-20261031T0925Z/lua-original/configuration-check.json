@@ -1,0 +1,38 @@
+{
+  "case": {
+    "id": "lua-original",
+    "mode": "lua",
+    "kind": "original"
+  },
+  "enabled_plugins": [
+    "limit-count"
+  ],
+  "global_plugins": [],
+  "prometheus": false,
+  "key_auth": false,
+  "ai": false,
+  "validated_iterations_per_request": 1,
+  "response_headers": [
+    {
+      "content-type": "text/plain; charset=utf-8",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "x-ratelimit-limit": "1000000000",
+      "x-ratelimit-remaining": "999999999",
+      "x-ratelimit-reset": "600",
+      "date": "Sat, 31 Oct 2026 09:28:32 GMT",
+      "server": "APISIX/3.19.0"
+    },
+    {
+      "content-type": "text/plain; charset=utf-8",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "x-ratelimit-limit": "1000000000",
+      "x-ratelimit-remaining": "999999998",
+      "x-ratelimit-reset": "599.99",
+      "date": "Sat, 31 Oct 2026 09:28:32 GMT",
+      "server": "APISIX/3.19.0"
+    }
+  ],
+  "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8"
+}

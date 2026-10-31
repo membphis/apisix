@@ -1,0 +1,124 @@
+{
+  "started_utc": "2026-10-31T09:23:51.385349+00:00",
+  "source_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
+  "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "available_cpus": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "rate": 3000,
+  "sample_seconds": 60,
+  "warmup_seconds": 5,
+  "plan": [
+    {
+      "id": "nginx-before",
+      "mode": "nginx",
+      "kind": "pure"
+    },
+    {
+      "id": "lua-none-before",
+      "mode": "lua",
+      "kind": "none"
+    },
+    {
+      "id": "native-none-before",
+      "mode": "native",
+      "kind": "none"
+    },
+    {
+      "id": "native-original",
+      "mode": "native",
+      "kind": "original"
+    },
+    {
+      "id": "lua-original",
+      "mode": "lua",
+      "kind": "original"
+    },
+    {
+      "id": "lua-loop-0",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 0
+    },
+    {
+      "id": "native-loop-0",
+      "mode": "native",
+      "kind": "loop",
+      "k": 0
+    },
+    {
+      "id": "native-loop-1",
+      "mode": "native",
+      "kind": "loop",
+      "k": 1
+    },
+    {
+      "id": "lua-loop-1",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 1
+    },
+    {
+      "id": "lua-loop-2",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 2
+    },
+    {
+      "id": "native-loop-2",
+      "mode": "native",
+      "kind": "loop",
+      "k": 2
+    },
+    {
+      "id": "native-loop-4",
+      "mode": "native",
+      "kind": "loop",
+      "k": 4
+    },
+    {
+      "id": "lua-loop-4",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 4
+    },
+    {
+      "id": "lua-loop-8",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 8
+    },
+    {
+      "id": "native-loop-8",
+      "mode": "native",
+      "kind": "loop",
+      "k": 8
+    },
+    {
+      "id": "native-none-after",
+      "mode": "native",
+      "kind": "none"
+    },
+    {
+      "id": "lua-none-after",
+      "mode": "lua",
+      "kind": "none"
+    },
+    {
+      "id": "nginx-after",
+      "mode": "nginx",
+      "kind": "pure"
+    }
+  ],
+  "runner_sha256": "8a2e7b0b920a80db3660930438d966722dce966401cc4a7d349450b87ebf7a41",
+  "driver_sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb",
+  "original_plugin_sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7",
+  "clock_probes": false,
+  "allocator_probes": false,
+  "gc_probes": false,
+  "normal_gc": true
+}

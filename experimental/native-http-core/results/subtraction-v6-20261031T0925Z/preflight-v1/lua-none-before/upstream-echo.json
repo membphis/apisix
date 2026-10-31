@@ -1,0 +1,1 @@
+{"method":"GET","uri":"\/limit\/echo","body":"","connection":"2","headers":{"x-forwarded-proto":"http","x-forwarded-host":"127.0.0.1:9080","x-forwarded-port":"9080","x-demo-echo":"1","host":"127.0.0.1:9080","accept-encoding":"identity","x-real-ip":"127.0.0.1","x-forwarded-for":"127.0.0.1"}}

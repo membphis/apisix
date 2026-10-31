@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-10-31T09:29:04Z",
+  "registration_scope": "Analysis method fixed while the 18-sample run was in progress; early baseline observations were already visible. This is not a preregistered trial.",
+  "baseline": "Arithmetic mean of before/after worker CPU per completed request for each implementation. Report both endpoints and signed drift.",
+  "addon": "APISIX no-plugin CPU minus pure NGINX CPU. Includes VM entry/exit, dynamic upstream adaptation, normal worker GC and background work; not function self time.",
+  "sensitivity": "Enumerate both NGINX endpoints and both no-plugin endpoints for each implementation. The resulting range is baseline sensitivity, not a confidence interval.",
+  "fit": "Unweighted OLS on positive k=1,2,4,8, separately for Lua and native. Report residuals and leave-one-out prediction errors. k=0 is an independent empty-callback control, not a fit point.",
+  "slope": "Incremental repeated rate-limit path, including SDK, header updates, GC and loop/JIT effects; not pure plugin business CPU. Intercept is an extrapolation, not a direct core measurement.",
+  "injection_check": "Compare loop k=1 against the original unmodified plugin implementation; never assume their costs are identical.",
+  "latency": "Compare actual send-to-body and scheduled-arrival-to-body latency at the same fixed offered rate. Do not subtract percentile latency into components.",
+  "gc": "Normal GC remains on and is included in process CPU. This method cannot uniquely separate core-caused GC CPU or GC pauses.",
+  "diagnostic_thresholds": {
+    "baseline_drift_abs_percent": 5.0,
+    "fit_max_abs_relative_residual_percent": 5.0,
+    "fit_loo_max_abs_relative_prediction_error_percent": 10.0,
+    "loop1_vs_original_abs_percent": 5.0,
+    "worker_utilization_fraction": 0.7
+  },
+  "threshold_scope": "Diagnostic warnings for interpretation, not user acceptance gates or statistical significance tests. No extra samples are selected based on a desired effect size."
+}
