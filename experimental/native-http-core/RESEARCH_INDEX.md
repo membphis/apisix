@@ -27,7 +27,8 @@
 | v2 | `apisix-next-v4-llm-native-plugins-v2` | [`caf19a14`](https://github.com/membphis/apisix/commit/caf19a144cc6f9caedcf875a2649f7e30eb78b7e) | C key-auth、旧适配器对照、完整 C 请求路径 |
 | v3 | `apisix-next-v4-llm-native-plugins-v3-hybrid` | [`0afeb689`](https://github.com/membphis/apisix/commit/0afeb689cd007f5f9800785c254f4e1dbaec2c89) | 同一 worker 中 C 请求路径＋未修改的 Lua Prometheus |
 
-本专项研究 PR 以 v1 分支为比较基线，head 使用 v3 分支，因此包含 v2、v3 实现及后续说明文档。
+本专项 [Draft PR #1](https://github.com/membphis/apisix/pull/1) 以 v1 分支为比较基线，
+head 使用 v3 分支，因此包含 v2、v3 实现及后续说明文档。
 这是固定检查点上的增量研究评审，不是向 APISIX 官方主干提交的生产替换方案，也不执行合并。
 后续对本专项的文档完善和小步改动继续追加 commit；新的实验另建证据目录，不覆盖旧样本。
 

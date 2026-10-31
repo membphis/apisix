@@ -2,7 +2,8 @@
 
 > Research review: [stage index, paired results and evidence](RESEARCH_INDEX.md),
 > and [direct C plugins, mixed execution and gradual migration](NATIVE_PLUGIN_MIGRATION.md).
-> The v3 research PR compares against the fixed v1 checkpoint and includes v2/v3;
+> [Draft research PR #1](https://github.com/membphis/apisix/pull/1)
+> compares against the fixed v1 checkpoint and includes v2/v3;
 > the parallel `apisix-next-v4-llm` line remains separate.
 
 > Latest: [C key-auth with unchanged Lua Prometheus](HYBRID_PROMETHEUS_20261031.md).
