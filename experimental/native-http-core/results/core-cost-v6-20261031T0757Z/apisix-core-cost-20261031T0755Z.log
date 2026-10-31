@@ -1,0 +1,19 @@
+START lua control
+nginx: [emerg] dlopen() "/tmp/native-core-cost.so" failed (/tmp/native-core-cost.so: undefined symbol: ac_cost_finish) in /tmp/apisix-http-core-demo/conf/nginx.conf:1
+Traceback (most recent call last):
+  File "/tmp/core-cost-run.py", line 171, in <module>
+    main()
+  File "/tmp/core-cost-run.py", line 46, in main
+    demo.prepare(args.mode, fixture=FIXTURE, enabled_plugins=['limit-count'],
+  File "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/tools/demo.py", line 102, in prepare
+    stop()
+  File "/tmp/apisix-v6-limit-only-frozen/experimental/native-http-core/tools/demo.py", line 33, in stop
+    subprocess.run([NGINX, "-p", str(prefix), "-c", "conf/nginx.conf", "-s", "quit"], env=NGINX_ENV, check=True)
+  File "/usr/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/local/openresty/nginx/sbin/nginx', '-p', '/tmp/apisix-http-core-demo', '-c', 'conf/nginx.conf', '-s', 'quit']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "/usr/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python3', '/tmp/core-cost-run.py', 'lua', '--out', '/tmp/apisix-core-cost-20261031T0755Z/lua-control']' returned non-zero exit status 1.

@@ -139,6 +139,11 @@ the ratio of mean QPS is +12.81%, with zero observed errors. Exact preparation,
 sampler and runtime snapshots plus reproduction steps are in the
 [version record](results/limit-only-v6-20261031T0644Z/PROVENANCE.md).
 
+The later [inner-core CPU / GC / latency diagnostic](results/core-cost-v6-20261031T0757Z/REPORT.md)
+records those quantities separately at fixed offered load. It also exposes
+asymmetric probe/JIT perturbation, so it **does not establish a clean core-only
+speedup factor**. See [the measurement method](tools/core_cost/README.md).
+
 The implementation is separate from the earlier small partial experiment.
 Its measurements are not evidence for this implementation.
 

@@ -10,6 +10,10 @@
 
 请在我的仓库 `https://github.com/membphis/apisix` 的 `apisix-next-v4-llm` 分支上，继续研究 APISIX 核心的 ngx C module 实现，深挖插件不改时的底层性能优化。
 
+用户另要求纯核心CPU/额外GC/Latency分开比较。[已做专项](results/core-cost-v6-20261031T0757Z/REPORT.md)包含八个一分钟样本、归属探针和校准。
+目前wrapper/JIT探针税不对称，尚未证明净核心倍率；不要将约18%原始或20%扣空估计当结论。
+下一步可研究更低层、保留JIT形状的VM/GC step探针；GC采样是整个VM估计，不是核心因果分摊。
+
 先阅读 `experimental/native-http-core/HANDOFF_TEMP.md`、`SCENARIOS.md`、`RESULTS.md`、`README.md`、`DESIGN_CONTEXT.md`，再检查实际代码和原始证据。不要把交接文档中的假设当成已验证结论，也不要直接重做已经实施的优化。
 
 ## 目标和约束

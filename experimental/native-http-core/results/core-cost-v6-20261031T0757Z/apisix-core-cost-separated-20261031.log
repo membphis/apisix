@@ -1,0 +1,64 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+PASS scoped preflight lua True
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS scoped preflight native True
+START native-timing
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+{"requested_rate": 8000, "duration_seconds": 5, "connections": 32, "target_requests": 40000, "completed": 40000, "wall_seconds": 5.000162534000992, "observed_rps": 7999.739954051674, "scheduled_latency_us": {"mean": 246.80686566643942, "p50": 207.8560064546764, "p95": 405.9550046804361, "p99": 1400.3790056449361, "max": 3757.8690025839023}, "wire_latency_us": {"mean": 190.70469634461355, "p50": 163.8229950913228, "p95": 310.64100039657205, "p99": 731.8960051634349, "max": 3038.958995603025}, "driver_lateness_us": {"mean": 56.10216932182084, "p50": 36.136007111053914, "p95": 118.5120054287836, "p99": 582.6050037285313, "max": 1670.7090035197325}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+{"requested_rate": 8000, "duration_seconds": 60, "connections": 32, "target_requests": 480000, "completed": 480000, "wall_seconds": 60.00015030900249, "observed_rps": 7999.979958849874, "scheduled_latency_us": {"mean": 335.1847429221303, "p50": 189.79300512000918, "p95": 1227.7030036784708, "p99": 1843.38100370951, "max": 19921.426006476395}, "wire_latency_us": {"mean": 231.63850985589679, "p50": 154.60899885511026, "p95": 615.001998085063, "p99": 1176.8999975174665, "max": 19888.52900103666}, "driver_lateness_us": {"mean": 103.54623306622507, "p50": 27.08000101847574, "p95": 548.4470093506388, "p99": 1099.6510027325712, "max": 16030.382001190446}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS 60-second diagnostic native True
+DONE native-timing
+START lua-timing
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+{"requested_rate": 8000, "duration_seconds": 5, "connections": 32, "target_requests": 40000, "completed": 40000, "wall_seconds": 5.0001579800009495, "observed_rps": 7999.7472399846865, "scheduled_latency_us": {"mean": 389.2212804015751, "p50": 219.53800751361996, "p95": 425.57300184853375, "p99": 3824.34600032866, "max": 23730.569002509583}, "wire_latency_us": {"mean": 238.90113433880597, "p50": 174.12700253771618, "p95": 332.542993419338, "p99": 1797.829994757194, "max": 23161.60100599518}, "driver_lateness_us": {"mean": 150.32014606276786, "p50": 42.2850062022917, "p95": 114.98100502649322, "p99": 922.9070055880584, "max": 19731.541004148312}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+{"requested_rate": 8000, "duration_seconds": 60, "connections": 32, "target_requests": 480000, "completed": 480000, "wall_seconds": 60.00032946799911, "observed_rps": 7999.956071174671, "scheduled_latency_us": {"mean": 401.8734157044953, "p50": 213.76400400185958, "p95": 653.2080005854368, "p99": 6596.754006750416, "max": 24728.879005124327}, "wire_latency_us": {"mean": 274.5292574822944, "p50": 164.50399562017992, "p95": 504.0059986640699, "p99": 3417.6289991592057, "max": 17779.51599797234}, "driver_lateness_us": {"mean": 127.34415822219616, "p50": 41.159997635986656, "p95": 128.37199756177142, "p99": 2728.3570016152225, "max": 20730.08099978324}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS 60-second diagnostic lua True
+DONE lua-timing
+START lua-gc
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+{"requested_rate": 8000, "duration_seconds": 5, "connections": 32, "target_requests": 40000, "completed": 40000, "wall_seconds": 5.000129059008032, "observed_rps": 7999.793510917005, "scheduled_latency_us": {"mean": 355.9835312456905, "p50": 212.7450061379932, "p95": 596.5320015093312, "p99": 2230.2960060187615, "max": 21137.41200446384}, "wire_latency_us": {"mean": 234.82605683675123, "p50": 167.4779996392317, "p95": 455.455003248062, "p99": 1478.7500040256418, "max": 20728.866998979356}, "driver_lateness_us": {"mean": 121.15747440893765, "p50": 38.996004150249064, "p95": 150.59699944686145, "p99": 918.5480012092739, "max": 17138.62300675828}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+{"requested_rate": 8000, "duration_seconds": 60, "connections": 32, "target_requests": 480000, "completed": 480000, "wall_seconds": 60.00015639500634, "observed_rps": 7999.979147386842, "scheduled_latency_us": {"mean": 364.36534660651404, "p50": 192.30100588174537, "p95": 1181.5680045401677, "p99": 1894.8409997392446, "max": 57883.21800355334}, "wire_latency_us": {"mean": 231.25509550974485, "p50": 154.81899754377082, "p95": 593.6890011071227, "p99": 1277.9730022884905, "max": 57841.53599961428}, "driver_lateness_us": {"mean": 133.11025109675697, "p50": 31.590003345627338, "p95": 465.6100063584745, "p99": 1097.9630023939535, "max": 53886.90300605958}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS 60-second diagnostic lua False
+DONE lua-gc
+START native-gc
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+{"requested_rate": 8000, "duration_seconds": 5, "connections": 32, "target_requests": 40000, "completed": 40000, "wall_seconds": 5.000103289996332, "observed_rps": 7999.834739419822, "scheduled_latency_us": {"mean": 305.27320306082277, "p50": 194.39999596215785, "p95": 488.1100030615926, "p99": 2467.8949994267896, "max": 18206.540997198317}, "wire_latency_us": {"mean": 216.072921803057, "p50": 158.27400056878105, "p95": 365.11100188363343, "p99": 1401.6759960213676, "max": 18177.567995735444}, "driver_lateness_us": {"mean": 89.20028125776298, "p50": 28.265996661502868, "p95": 127.76500079780817, "p99": 947.44600210106, "max": 14210.137000191025}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+{"requested_rate": 8000, "duration_seconds": 60, "connections": 32, "target_requests": 480000, "completed": 480000, "wall_seconds": 60.00012703700486, "observed_rps": 7999.983061768548, "scheduled_latency_us": {"mean": 405.23871045613436, "p50": 194.9600045918487, "p95": 1403.1120008439757, "p99": 1754.8579999129288, "max": 24066.291000053752}, "wire_latency_us": {"mean": 253.47056398936257, "p50": 158.1940014148131, "p95": 603.1719967722893, "p99": 1075.1619993243366, "max": 23452.38599809818}, "driver_lateness_us": {"mean": 151.76814646676658, "p50": 31.297007808461785, "p95": 882.6900011627004, "p99": 1102.1060054190457, "max": 20136.244005698245}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS 60-second diagnostic native False
+DONE native-gc

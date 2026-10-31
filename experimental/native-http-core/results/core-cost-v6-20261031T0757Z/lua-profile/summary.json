@@ -1,0 +1,134 @@
+{
+  "mode": "lua",
+  "profile": true,
+  "rate": 8000,
+  "duration_seconds": 60,
+  "workers": [
+    7838
+  ],
+  "requests": 480000,
+  "worker_cpu_seconds": 38.49,
+  "worker_cpu_us_per_request": 80.1875,
+  "module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "source_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
+  "artifact_sha256": {
+    "/tmp/core-cost-run.py": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926",
+    "/tmp/core-cost-load.py": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb",
+    "/tmp/core_cost_hooks.lua": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e",
+    "/tmp/core-cost-sampler.so": "fb14def79ee86484021ab85bfa183ca0bd956b18e4e5f55555a76f126bbbf244",
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+    "/tmp/native-core-cost.so": "f1496abcb2944af9cba5a81aff489197bb7fd8248086c50bd5a607d346f76a6c"
+  },
+  "load": {
+    "requested_rate": 8000,
+    "duration_seconds": 60,
+    "connections": 32,
+    "target_requests": 480000,
+    "completed": 480000,
+    "wall_seconds": 60.000203887997486,
+    "observed_rps": 7999.972815026047,
+    "scheduled_latency_us": {
+      "mean": 355.52915674455363,
+      "p50": 214.76999972946942,
+      "p95": 786.078002420254,
+      "p99": 3845.657003694214,
+      "max": 16965.19100369187
+    },
+    "wire_latency_us": {
+      "mean": 259.87908722223017,
+      "p50": 164.19299936387688,
+      "p95": 591.7570015299134,
+      "p99": 2599.5940013672225,
+      "max": 16525.988998182584
+    },
+    "driver_lateness_us": {
+      "mean": 95.65006952231435,
+      "p50": 42.4899990321137,
+      "p95": 152.87000132957473,
+      "p99": 1027.559002977796,
+      "max": 13235.03000458004
+    },
+    "errors": [],
+    "all_slots_completed": true,
+    "schedule_drained_within_one_second": true
+  },
+  "scope": {
+    "accepted": 480000,
+    "completed": 480000,
+    "sampled_completed": 7500,
+    "stride": 64,
+    "invalid": 0,
+    "missing": 0,
+    "pending": 0,
+    "scope_switches": 9600000,
+    "gc_cpu_samples": 561,
+    "total_cpu_samples": 10356,
+    "gc_callback_scope_samples": [
+      43,
+      387,
+      131
+    ],
+    "core_cpu": {
+      "sample_total_ns": 232369826,
+      "mean_ns": 30982.643,
+      "p50_ns": 28132,
+      "p95_ns": 49844,
+      "p99_ns": 75124
+    },
+    "core_active_wall": {
+      "sample_total_ns": 228978597,
+      "mean_ns": 30530.48,
+      "p50_ns": 27761,
+      "p95_ns": 49043,
+      "p99_ns": 73190
+    },
+    "plugin_cpu": {
+      "sample_total_ns": 44207824,
+      "mean_ns": 5894.377,
+      "p50_ns": 4704,
+      "p95_ns": 12162,
+      "p99_ns": 30124
+    },
+    "plugin_active_wall": {
+      "sample_total_ns": 43796014,
+      "mean_ns": 5839.469,
+      "p50_ns": 4665,
+      "p95_ns": 11950,
+      "p99_ns": 30096
+    },
+    "allocator": [
+      {
+        "calls": 17063963,
+        "new_calls": 11041676,
+        "resize_calls": 162,
+        "free_calls": 6022125,
+        "failed": 0,
+        "requested_new_bytes": 345748079,
+        "successful_growth_bytes": 345767471
+      },
+      {
+        "calls": 17390059,
+        "new_calls": 7238890,
+        "resize_calls": 539,
+        "free_calls": 10150630,
+        "failed": 0,
+        "requested_new_bytes": 813585172,
+        "successful_growth_bytes": 813803412
+      },
+      {
+        "calls": 10786967,
+        "new_calls": 4320013,
+        "resize_calls": 56,
+        "free_calls": 6466898,
+        "failed": 0,
+        "requested_new_bytes": 387841104,
+        "successful_growth_bytes": 387841104
+      }
+    ],
+    "plugin_entries": 480000,
+    "sdk_entries": 4320000,
+    "allocator_restored": true,
+    "gc_sampling_interval_us": 1000
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "lua": {
+    "core_cpu_raw_us_per_sampled_request": 31.790747,
+    "empty_shape_cpu_us": 2.195845,
+    "core_cpu_approx_after_empty_us": 29.594902,
+    "core_sample_cpu_total_ns": 238430602,
+    "core_cpu_window_extrapolated_seconds_raw": 15.25955856,
+    "core_active_wall_us": {
+      "mean": 31.341508,
+      "p50": 27.482,
+      "p95": 54.712,
+      "p99": 76.072
+    },
+    "vm_gc_cpu_fraction_sample_estimate": 0.048152295632698766,
+    "vm_gc_cpu_us_per_request_sample_estimate": 3.208146696528556,
+    "gc_effective_samples_per_worker_cpu_second": 251.31332082551592,
+    "core_tagged_allocator_new_calls_per_request": 15.081020833333334,
+    "core_tagged_allocator_requested_new_bytes_per_request": 1694.9691083333332,
+    "plugin_tagged_allocator_requested_new_bytes_per_request": 808.0023,
+    "all_vm_requested_new_bytes_per_request": 3223.27990625,
+    "control_worker_cpu_us_per_request": 68.64583333333333,
+    "wire_latency_control_us": {
+      "mean": 222.45117712830736,
+      "p50": 154.27900507347658,
+      "p95": 576.4939996879548,
+      "p99": 1279.0640030289069,
+      "max": 15396.69799967669
+    },
+    "scheduled_latency_control_us": {
+      "mean": 315.2697234149179,
+      "p50": 189.07999765360728,
+      "p95": 1038.1500032963231,
+      "p99": 1905.6360033573583,
+      "max": 20563.88400524156
+    },
+    "driver_lateness_control_us": {
+      "mean": 92.8185462866014,
+      "p50": 26.460002118255943,
+      "p95": 335.76600253582,
+      "p99": 1032.695006870199,
+      "max": 16564.976001973264
+    },
+    "observed_cpu_overhead_percent": {
+      "profile": 16.813353566009106,
+      "timing": 20.273141122913497,
+      "gc": -2.9438543247344184
+    }
+  },
+  "native": {
+    "core_cpu_raw_us_per_sampled_request": 26.084657,
+    "empty_shape_cpu_us": 2.316506,
+    "core_cpu_approx_after_empty_us": 23.768151,
+    "core_sample_cpu_total_ns": 195634927,
+    "core_cpu_window_extrapolated_seconds_raw": 12.52063536,
+    "core_active_wall_us": {
+      "mean": 25.652483,
+      "p50": 21.925,
+      "p95": 44.987,
+      "p99": 71.86
+    },
+    "vm_gc_cpu_fraction_sample_estimate": 0.045403271291596166,
+    "vm_gc_cpu_us_per_request_sample_estimate": 2.6939274299680394,
+    "gc_effective_samples_per_worker_cpu_second": 124.50842696629213,
+    "core_tagged_allocator_new_calls_per_request": 21.023789583333333,
+    "core_tagged_allocator_requested_new_bytes_per_request": 2438.2693583333335,
+    "plugin_tagged_allocator_requested_new_bytes_per_request": 808.0,
+    "all_vm_requested_new_bytes_per_request": 3414.3309479166664,
+    "control_worker_cpu_us_per_request": 59.666666666666664,
+    "wire_latency_control_us": {
+      "mean": 261.78965593286756,
+      "p50": 162.4509968678467,
+      "p95": 617.7160030347295,
+      "p99": 905.8029972948134,
+      "max": 23977.450997335836
+    },
+    "scheduled_latency_control_us": {
+      "mean": 425.9717380183592,
+      "p50": 201.45500457147136,
+      "p95": 1428.3519994933158,
+      "p99": 1670.4670124454424,
+      "max": 24468.350005918182
+    },
+    "driver_lateness_control_us": {
+      "mean": 164.18208208547378,
+      "p50": 33.146003261208534,
+      "p95": 893.7260063248686,
+      "p99": 1103.1040048692375,
+      "max": 20695.841005363036
+    },
+    "observed_cpu_overhead_percent": {
+      "profile": 13.023743016759814,
+      "timing": 12.325418994413395,
+      "gc": -0.5586592178770888
+    }
+  },
+  "core_raw_change_percent": -17.948901924198257,
+  "core_after_empty_approx_change_percent": -19.68836051560502,
+  "core_after_empty_approx_saved_us": 5.826751000000002,
+  "timing_worker_cpu_drift_difference_us": 6.562499999999993,
+  "clean_core_speedup_established": false
+}

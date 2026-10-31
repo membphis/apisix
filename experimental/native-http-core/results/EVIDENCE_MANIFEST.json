@@ -1,5 +1,5 @@
 {
-  "recorded_utc": "2026-10-31T06:53:57.846444+00:00",
+  "recorded_utc": "2026-10-31T08:33:56.260905+00:00",
   "branch": "apisix-next-v4-llm",
   "source_baseline": "b31e828c6f6b588ae954bf69c8432c08fb73bb7e",
   "final_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
@@ -12,8 +12,8 @@
     },
     {
       "path": "experimental/native-http-core/results/README.md",
-      "bytes": 2488,
-      "sha256": "1e4dae69ad80f348756b9d4733f3b68e89d947e075a8ba00185f61b20e46800a"
+      "bytes": 2654,
+      "sha256": "359577f4e064d69ae002dd6c2dcaeda9e70c67ca17471d386e1064f73f9eead2"
     },
     {
       "path": "experimental/native-http-core/results/apisix-native-access-sample.json",
@@ -949,6 +949,846 @@
       "path": "experimental/native-http-core/results/benchmark-final.log",
       "bytes": 7123,
       "sha256": "8d78116a2ca182f05db1affaf613d75d2fd70b61a18e4bcddb0e4bdda72932fd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/PROVENANCE.md",
+      "bytes": 2355,
+      "sha256": "ad6351483fe2923b918941092c6ddc2f3f1ca5ed7d3abf0c7667f8862731a5e4"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/REPORT.md",
+      "bytes": 5994,
+      "sha256": "566fcc0ac46617a36c7a185f97350ece989167116974ea466eda3b6e90bd974f"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/analysis.json",
+      "bytes": 3674,
+      "sha256": "46fe1022f1dcafae9d2c5f0325bb7e049b6e3fb4ff58bf5788ee6f5041025b32"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/apisix-core-cost-20261031T0755Z.log",
+      "bytes": 1416,
+      "sha256": "5f6be470fd648b35e7f3688f7701e22590bbe9fcc161860de2fc66e2b1e78ba0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/apisix-core-cost-20261031T0757Z.log",
+      "bytes": 8173,
+      "sha256": "18231fede93179b20dd090411c521b53da0d04d755869f0ea7c5f28856f3a7a6"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/apisix-core-cost-separated-20261031.log",
+      "bytes": 9903,
+      "sha256": "f76f8ba9b4f44a98b45a3f35a3bc9495072fa2a82be1a536ab710ad0b2aa5097"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/calibration-lua.json",
+      "bytes": 1163,
+      "sha256": "cb0c8794c065b6a1095bccb4eb4c0814513e3d6d39ce0739fda0970515a2a1c1"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/calibration-native.json",
+      "bytes": 1163,
+      "sha256": "29e5a78ec819c095d6a15664fe7e49e39b2e2c26a8465dd9410c3bd03b81654e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-driver-verify-2.log",
+      "bytes": 738,
+      "sha256": "50dace5d9c701fb01f12417d8748cd1a59396060fbc76ebd4abc94973a6654ea"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-driver-verify.log",
+      "bytes": 3508,
+      "sha256": "5b29e601edc9d0c027902d178a8db5d88c19ab9cae972087fa0602196e6a2016"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/attribution-probes.json",
+      "bytes": 6771,
+      "sha256": "b02c41577cada342ee696280ddd82666c588d806bf607916ead3e4ed6f025cf8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/boundary-counts.json",
+      "bytes": 1173,
+      "sha256": "7a16571e9754ff94544a4c6c0e81ae0f674e3b03a93ee1defec3050aaeb51d99"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/native.json",
+      "bytes": 7956,
+      "sha256": "e30425c91507d27ea9f00c62eca7fb000229de141315528b7210c7130070c601"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/nginx.conf",
+      "bytes": 14026,
+      "sha256": "48ef78b7332d508b18abbc501ea642725b8ed27811e0a0c97877dbca07fd3e11"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-lua-attribution/scope.json",
+      "bytes": 1157,
+      "sha256": "2d54ea85265326f6b50e712390e080fb3d3253c122d85a5b975a93e5b7158502"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/attribution-probes.json",
+      "bytes": 6760,
+      "sha256": "f004b066f5bed534cfe2d9103b67edcf52e2be81e6ef259deebf96af424b2f21"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/boundary-counts.json",
+      "bytes": 1160,
+      "sha256": "5e4ee660dc541310ff9b40742a1a155d9283ad0548ee8eb3ca0012dba90e0455"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/native.json",
+      "bytes": 7956,
+      "sha256": "f5f0599d90296691187bb3f59b7b2319fb83e50abc670f49e5d63cfdc55d167b"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/nginx.conf",
+      "bytes": 14069,
+      "sha256": "3437d1e242f3e492634b9393c7c0158cf82d6193f292df271189e3072ce297dc"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/core-cost-verify-native-attribution/scope.json",
+      "bytes": 1159,
+      "sha256": "a84d68ca3636724608d182c5b02cae7f0ca2c2d1adebd1e304a2d540efe969df"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/background.c",
+      "bytes": 8663,
+      "sha256": "6a3eb269941b85246a9e197217ad6ac6d1e125780bae687074d61f46009dd46a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/cache.c",
+      "bytes": 16447,
+      "sha256": "ec905c7b266ef0008f2020f202b58aad4838505f0ebd6d11165be061e1243cce"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/config",
+      "bytes": 1539,
+      "sha256": "edefa0941d96594a3f4622bf3f75254fc2697f63d48b541cbde5d6d6ade49598"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/consumer.c",
+      "bytes": 15392,
+      "sha256": "3cb88e5a1475caf65c404f240a188e78ee2ea629684a10f19d8a06b16450bde0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/engine.h",
+      "bytes": 11247,
+      "sha256": "30f6575bc10edee3d1178a8c88edf1206e4949f7ffa29067f3f99f3f10752bee"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/expression.c",
+      "bytes": 8923,
+      "sha256": "31c3a4515818fa4c5246569b77dd390f39846a925fe7d7a1cbaa09a2b7973f1a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/http.c",
+      "bytes": 13243,
+      "sha256": "cff20186394b25bbf539e210875173da7a81636bf2e3ac04710a50f6b8fba6aa"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/instrumentation.c",
+      "bytes": 7914,
+      "sha256": "11ce922cb12566a837c9715901697243373c461393d9951d7771e11067ce9654"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/merge.c",
+      "bytes": 13353,
+      "sha256": "445abe6c6636d79d7fe75e69eaa47deeb988e52f4b4ae097e0a1a8cef79703f0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/module.c",
+      "bytes": 13433,
+      "sha256": "48f740b33f7a586e9dfb472844ad28d06e1629b0d230476b71bed19c2f05d7fc"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/native_phases.c",
+      "bytes": 3609,
+      "sha256": "8026f4d16238bc3bf281f1fa7b0f8b322b4782700b1abb0184aaa3589cc456d0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/platform.c",
+      "bytes": 12592,
+      "sha256": "138a0717d8f8e2201848aefb57bc7829f6d3fc07aaefd396fd788bf28a8fa087"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/plugins.c",
+      "bytes": 25614,
+      "sha256": "9bb4ffd36f1be2ca6dc6f906030d6418219ea5934ae3333a7d1912a48cbcc015"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/redis_data.h",
+      "bytes": 8196,
+      "sha256": "3f85827991343a5d9acab6b067e2f3874771faeb63a27886d49662f47548ae06"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/request.c",
+      "bytes": 32747,
+      "sha256": "21231321a5f1aa36ad5b66b20321ae3411a23df564fb1a12f839b243f2a6741b"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resolver.c",
+      "bytes": 14813,
+      "sha256": "4b5a7240025db8b20c9e5b2905502a78160737191c52fab6ff8b581e817d8043"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/resources.c",
+      "bytes": 15528,
+      "sha256": "bd08fa2ae783f4e9353a13da19ba1a8ecfba1963dc2706f82bfca94111552ff8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/response.c",
+      "bytes": 15847,
+      "sha256": "88b3b992869c1b3ce74b528930c1a7471dfd0a5826fe64707cd78a73f549cf63"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/routes.c",
+      "bytes": 22996,
+      "sha256": "8ac6a54e0e076dba29b4e17b870303f673db6a1f0e312e51c9b6bd591a62d4ac"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema.c",
+      "bytes": 6063,
+      "sha256": "96d1f13c266b32a2b8750c8837bb6c59459761fcefdb84fd24a67ad851b64a60"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/schema_data.h",
+      "bytes": 50549,
+      "sha256": "8e282e7c78c0779dfd5619700575475989009d85caed1443d05782d0c370f478"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/script.c",
+      "bytes": 2948,
+      "sha256": "c1a9d4fa60c887690baefa791d6b325fb37fae5586aa0af516644fb624846662"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/sdk.c",
+      "bytes": 18294,
+      "sha256": "1b2f976fd48c918b63d24614a6442d80ce662018ef3f9cff9600766fd3df3f0f"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/snapshot.c",
+      "bytes": 9307,
+      "sha256": "8f10c963bb86588fc362aecc5598713187610ba8727a2199b1229738cc536884"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/tracing.c",
+      "bytes": 10285,
+      "sha256": "ef5e7190fbd1607860f632f19349df1abeefe5b544cbce1cebba0c65181a27f4"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream.c",
+      "bytes": 35425,
+      "sha256": "a7ebdbe640cd84cd7e3d2cf46adebbd1628f7ebce122e92993d9be79930f0ea9"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/upstream_helpers.c",
+      "bytes": 12388,
+      "sha256": "0288cbcf7cb5db1376d97d271825550daa855dad650ffd64c76a69992b9900b3"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/diagnostic-module-source/utils.c",
+      "bytes": 25566,
+      "sha256": "663af53c2abfd63f3065c9ec01ba29699134d70aa21c42f8c20698360d3d3a46"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core-cost-load.py",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core-cost-run.py",
+      "bytes": 9311,
+      "sha256": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core-cost-sampler.so",
+      "bytes": 22640,
+      "sha256": "fb14def79ee86484021ab85bfa183ca0bd956b18e4e5f55555a76f126bbbf244"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/core_cost_hooks.lua",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-combined/native-core-cost.so",
+      "bytes": 1527416,
+      "sha256": "f1496abcb2944af9cba5a81aff489197bb7fd8248086c50bd5a607d346f76a6c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-calibrate.lua",
+      "bytes": 1196,
+      "sha256": "ee0545c21bfcae5cdba6b8e76d18b6aaa190f3881560da4e716e1ae0776a6e52"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-load.py",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-run.py",
+      "bytes": 10299,
+      "sha256": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core-cost-sampler.so",
+      "bytes": 22728,
+      "sha256": "3dcbe446fe45ad764e432aad8c70dc762e9ce07c93b544feb91184281e18b5e7"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/core_cost_hooks.lua",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/harness-separated/native-core-cost.so",
+      "bytes": 1527416,
+      "sha256": "f1496abcb2944af9cba5a81aff489197bb7fd8248086c50bd5a607d346f76a6c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/artifacts.json",
+      "bytes": 620,
+      "sha256": "88d429eaaafada2edef98ad975f6e7bc75ba83c237a42c197c959a73c71eb823"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/load.json",
+      "bytes": 842,
+      "sha256": "c096e07e2d2719b0122a2adf32dc108c07ac343606c0e6386bf8c26e67b40ea9"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/native.json",
+      "bytes": 7956,
+      "sha256": "fc4c115f66febab01fa51f449ec6b23d778fa8c9841847ddf5682fa5083ced8d"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/nginx.conf",
+      "bytes": 13369,
+      "sha256": "23e913622847f74176a215ae747bf6800dca39acbcb1a54317da85b0e7299716"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/summary.json",
+      "bytes": 2047,
+      "sha256": "3bed6d5372ab699b5a57ee83cebf7c0a9ad4cef52a9d041be6ab4f087a42ff35"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-control/warmup.json",
+      "bytes": 843,
+      "sha256": "91fc382dc48f889785b0aee1818c93b532bc29fcfeb0c80c926df89a46530e2f"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/load.json",
+      "bytes": 847,
+      "sha256": "df2bc80473952c074e5a17afd3e31971a58ff1c5e717d198c5cf0ab7252acc47"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/native.json",
+      "bytes": 7956,
+      "sha256": "6490d977effe7e9ceef66ffb45011ac4897aab4f26a7dfa9579e825ee7ddd005"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/nginx.conf",
+      "bytes": 13980,
+      "sha256": "6a1eeb53dbbafe13a2f1f18ac331edc575dc89de890264c0eb6d350de49dfb3d"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/scope.json",
+      "bytes": 1072,
+      "sha256": "484cb870d20d654ab2ea9776be5e81da60ccadf7757cc6b58f7c546c4ac9dd74"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/summary.json",
+      "bytes": 3793,
+      "sha256": "7235a3f198995c27e8846d9e1278354d92677f51b21975f2029d505e22636c4d"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-gc/warmup.json",
+      "bytes": 840,
+      "sha256": "833ec7200177a3c6decb253cfe1a9b94f8b7a6641d16bf9a8d9bd072d4da68a0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/artifacts.json",
+      "bytes": 620,
+      "sha256": "88d429eaaafada2edef98ad975f6e7bc75ba83c237a42c197c959a73c71eb823"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/load.json",
+      "bytes": 843,
+      "sha256": "0cf97f4920b804a1e6238457cc67fb87f2105d9e895f088266461576c70fcd09"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/native.json",
+      "bytes": 7956,
+      "sha256": "7ffdef27c97b19f63198c1894390cd6efa39d42244550217000aa38c28de2b4e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/nginx.conf",
+      "bytes": 14039,
+      "sha256": "7aec21a39d8830d6baa831b65973d1363d4f96485af2e3a1b4ea496f4ea000dc"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/scope.json",
+      "bytes": 1255,
+      "sha256": "00a0861908126e1d332500c16ed38561d604ffbbecc2c5a1a9c94e03610b77a2"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/summary.json",
+      "bytes": 3876,
+      "sha256": "520b4cd3d7f2440581f3f6aeef937d57a42970c09336ff03f728930ac053bdee"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-profile/warmup.json",
+      "bytes": 840,
+      "sha256": "1bb2e16d9af3fa112a356346c37771537dd94f11ec38c8c5643a99052560961c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/load.json",
+      "bytes": 845,
+      "sha256": "caac660268a044cf1e31bf528075bbdf90f7d8469763255892134289fcd10f4c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/native.json",
+      "bytes": 7956,
+      "sha256": "c5de019f507a90d2a1daf5f4d8c4bc1a7f315ba501c7f4fb9d328342816df936"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/nginx.conf",
+      "bytes": 14052,
+      "sha256": "246aa011a5772bb71a7b74c9dc23c4edb0272772c01586e0618ecdd46b0a05e5"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/scope.json",
+      "bytes": 1183,
+      "sha256": "4857d44341e591eb5225c30c9dea5aae906f50c7b377d92d92181f419037a9b8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/summary.json",
+      "bytes": 3908,
+      "sha256": "f6346b833bd66c2205ed13daf4b6c543eaac44f88438a1f2d9659b2887c32466"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing/warmup.json",
+      "bytes": 841,
+      "sha256": "e8da5b8cee29b61f103002045dc1e8f851df864d1a258fd02d5e3409dd0e5fe8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/attribution-probes.json",
+      "bytes": 6856,
+      "sha256": "e86f1f22c022d50abbda4d3f171a85656e34011cc90a06f108326d1bdad3706a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/boundary-counts.json",
+      "bytes": 1170,
+      "sha256": "8d230782231111d3e4e5407f4a0c64971f2bd3db2286dfe974ea383869b38c53"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/native.json",
+      "bytes": 7956,
+      "sha256": "3fa076bd9c95bca2f662ababf2235efc9e82f52ee7cdd5138e01770e4ffdea49"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/nginx.conf",
+      "bytes": 14057,
+      "sha256": "08ede689b85e2aa170293f6e206e6c8ace8f6f35b79287ea7c88e67513597212"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/lua-timing-verify/scope.json",
+      "bytes": 1171,
+      "sha256": "91af4712c8355411014d17d03f5c38099f48294c80612a658114e778545b7438"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/artifacts.json",
+      "bytes": 620,
+      "sha256": "88d429eaaafada2edef98ad975f6e7bc75ba83c237a42c197c959a73c71eb823"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/load.json",
+      "bytes": 848,
+      "sha256": "850a8807f401c4e4f4b6ce328a2117b73a4939e71b56654465aa2eea3080f5d1"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/native.json",
+      "bytes": 7956,
+      "sha256": "8a1678d3a6ca2a3428872a5748ae7b3e7e929e91e349305d113e75eddd538501"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/nginx.conf",
+      "bytes": 13440,
+      "sha256": "af68f051592b2a5adaa7c4d244b7454432e1f78b3a18a52d72a281be6ca969af"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/summary.json",
+      "bytes": 2044,
+      "sha256": "8bc307bad623fef9d35e1a4b81b2096cb28c607eaa3918498421cd41be268b28"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-control/warmup.json",
+      "bytes": 838,
+      "sha256": "fd60806e79b769851a6881a16b991a478f7ff539445c7576777509a133d3d465"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/load.json",
+      "bytes": 847,
+      "sha256": "860400c9a7dec3a7dc83f7923dbfc91066d729950bb9b15dbd2241c61f6ea826"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/native.json",
+      "bytes": 7956,
+      "sha256": "87b017b76f1bacbbd6eb94889d4e6ec1ee0ac543d94db9823caeb91daf605278"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/nginx.conf",
+      "bytes": 14054,
+      "sha256": "b04714404f681e45ad7e7a697c613f07150b6a6fb1a6cc5601d57697019781b6"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/scope.json",
+      "bytes": 1072,
+      "sha256": "19399dd43b088f229ca6f4e5518671fa79aceacec989c36460681fc11b89579c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/summary.json",
+      "bytes": 3784,
+      "sha256": "07719a094d538abe0aa4cd7b8ad578766eb08044d5632b964494b3927d5d2c3a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-gc/warmup.json",
+      "bytes": 842,
+      "sha256": "8a620af6582028f5955f8aec2e71a4539d5529e0c5c5c43e5828d276ad97aa65"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/artifacts.json",
+      "bytes": 620,
+      "sha256": "88d429eaaafada2edef98ad975f6e7bc75ba83c237a42c197c959a73c71eb823"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/load.json",
+      "bytes": 844,
+      "sha256": "7301c9cc44c91a992f5f253b41bf9a99d934e8fbc92ccbfeda57d2bbd18d6647"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/native.json",
+      "bytes": 7956,
+      "sha256": "41ac1a030c8331d6a946dc201fcabae9dde42780bcca0a39cb3b14cc08f77e04"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/nginx.conf",
+      "bytes": 14082,
+      "sha256": "d5a25ff14e8d124b5294c3e97f15ba5b09cd392354fba325b81a4ef75dda7678"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/scope.json",
+      "bytes": 1241,
+      "sha256": "af0390e518fc7b836dad28daa784957e7defe072b42a3e78744466aaf01afed8"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/summary.json",
+      "bytes": 3890,
+      "sha256": "6b2efe92b5afa48944f9d4a8a0ca178693011a0e4ffc834192c151885a996260"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-profile/warmup.json",
+      "bytes": 842,
+      "sha256": "015ed917fcf988d2ddb0357cd2053e30624779f987b286b4cbb201445a3a0b14"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/error.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/load.json",
+      "bytes": 844,
+      "sha256": "86dfa3f31938f3c9617efa0abdec7887b0fdea834db518a991d9d307d2e7d368"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/native.json",
+      "bytes": 7956,
+      "sha256": "fe2f6085652062a8735db34ba967e61db8d7720a6a95669ddac561f1079ae8a0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/nginx.conf",
+      "bytes": 14095,
+      "sha256": "bbbf97106d8714757e159a9a32f7d92fbb8526f1b124164dba1033bbc18abc28"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/scope.json",
+      "bytes": 1181,
+      "sha256": "7bc4ce114380a5ff7a72142535d84e47d0cc8afa4e0cd320be532def6b6f327a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/summary.json",
+      "bytes": 3896,
+      "sha256": "85239bd663d1ef1ba3b58f7f81dbb9f33778251f38a6a86c4c573effddf411b6"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing/warmup.json",
+      "bytes": 841,
+      "sha256": "0803faa92bf161fcfe52b26129916ec0b9732698adba53892c145171dc91d0d9"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/apisix.json",
+      "bytes": 941,
+      "sha256": "c7a27a81b2851248cc9ed294551ffa33703d856fd98c5d229385fd592ce57e9c"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/artifacts.json",
+      "bytes": 620,
+      "sha256": "761457837833144e148b30ac0366740ef0a6a1005ba975fcaf6ff75d68cdadbd"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/attribution-probes.json",
+      "bytes": 6841,
+      "sha256": "0d3c38724b03d6e5d0e45a93e0518442342e276ccbc44cbfbc98ff8b328238cc"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/boundary-counts.json",
+      "bytes": 1162,
+      "sha256": "03ee1eae5dc60ffabda46b65e32134d2621cf9c68116adb6e31bf89710a892b0"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/config.yaml",
+      "bytes": 747,
+      "sha256": "b2d1a42547395f4f14141a904ae2c3e940a91496fedbe396c30e3acc6d585929"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/native.json",
+      "bytes": 7956,
+      "sha256": "7da45aab467fff3ce2b44fe7c5037927a9398389e18fb84dee6a5ce3ba132102"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/nginx.conf",
+      "bytes": 14100,
+      "sha256": "e7b38b0a339ccad934880aa9312618667cc116be6ae5f8de2d184135a3f520de"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/native-timing-verify/scope.json",
+      "bytes": 1173,
+      "sha256": "a631dd58e52094a776bdd25b0069f6fa042ace3237715a7c17b3da524267056e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/calibrate.lua",
+      "bytes": 1182,
+      "sha256": "c5255cbabf6600142f17c38f65c7e4bbcb30b138fa55448196d801edc9300788"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/hooks.lua",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/load.py",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/run.py",
+      "bytes": 9311,
+      "sha256": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-combined/sampler.c",
+      "bytes": 10367,
+      "sha256": "05303352c571ab07687249de459199d105960cbf1296de72352aee99a59e5a8a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/analyze.py",
+      "bytes": 12012,
+      "sha256": "a7e2657040b9f4acf6b19291da76f4800e3ffe73411db75ffd9afa6e21269065"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/calibrate.lua",
+      "bytes": 1196,
+      "sha256": "ee0545c21bfcae5cdba6b8e76d18b6aaa190f3881560da4e716e1ae0776a6e52"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/hooks.lua",
+      "bytes": 4646,
+      "sha256": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/load.py",
+      "bytes": 5070,
+      "sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/run.py",
+      "bytes": 10299,
+      "sha256": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a"
+    },
+    {
+      "path": "experimental/native-http-core/results/core-cost-v6-20261031T0757Z/source-separated/sampler.c",
+      "bytes": 10765,
+      "sha256": "9dde553151e87a13eee5169b29df58403e50b30131bd9c7a60e7cd08b080a7dd"
     },
     {
       "path": "experimental/native-http-core/results/environment.json",
@@ -4974,5 +5814,6 @@
   "latest_recheck": "limit-recheck-20261031T0617Z",
   "historical_v6_reproduction_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
   "preserved_remote_research_commit": "1aa6d5f6",
-  "latest_limit_only_v6": "limit-only-v6-20261031T0644Z"
+  "latest_limit_only_v6": "limit-only-v6-20261031T0644Z",
+  "core_cost_diagnostic": "core-cost-v6-20261031T0757Z"
 }

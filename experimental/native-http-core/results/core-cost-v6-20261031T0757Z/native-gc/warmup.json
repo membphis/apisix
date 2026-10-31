@@ -1,0 +1,33 @@
+{
+  "requested_rate": 8000,
+  "duration_seconds": 5,
+  "connections": 32,
+  "target_requests": 40000,
+  "completed": 40000,
+  "wall_seconds": 5.000103289996332,
+  "observed_rps": 7999.834739419822,
+  "scheduled_latency_us": {
+    "mean": 305.27320306082277,
+    "p50": 194.39999596215785,
+    "p95": 488.1100030615926,
+    "p99": 2467.8949994267896,
+    "max": 18206.540997198317
+  },
+  "wire_latency_us": {
+    "mean": 216.072921803057,
+    "p50": 158.27400056878105,
+    "p95": 365.11100188363343,
+    "p99": 1401.6759960213676,
+    "max": 18177.567995735444
+  },
+  "driver_lateness_us": {
+    "mean": 89.20028125776298,
+    "p50": 28.265996661502868,
+    "p95": 127.76500079780817,
+    "p99": 947.44600210106,
+    "max": 14210.137000191025
+  },
+  "errors": [],
+  "all_slots_completed": true,
+  "schedule_drained_within_one_second": true
+}
