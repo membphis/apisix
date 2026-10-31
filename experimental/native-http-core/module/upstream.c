@@ -565,6 +565,13 @@ ac_peer_get(ngx_peer_connection_t *pc, void *data, lua_State *L)
         if (L) ac_var_assign(L, peer->ctx, "upstream_host", host, 1);
     }
     if (!L) {
+        if (peer->ctx->main->lua_log_bridge) {
+            peer->ctx->balancer_ip.data = ngx_pnalloc(peer->ctx->request->pool, NGX_SOCKADDR_STRLEN);
+            if (!peer->ctx->balancer_ip.data) return NGX_ERROR;
+            peer->ctx->balancer_ip.len = ngx_sock_ntop(selected->address.sockaddr,
+                selected->address.socklen, peer->ctx->balancer_ip.data, NGX_SOCKADDR_STRLEN, 0);
+            peer->ctx->balancer_port = selected->port;
+        }
         peer->ctx->native_variables[3] = selected->host;
         peer->ctx->native_variable_set |= (uint64_t) 1 << 3;
         return NGX_OK;
@@ -605,6 +612,8 @@ ac_peer_free(ngx_peer_connection_t *pc, void *data, ngx_uint_t state)
 void
 ac_upstream_log(lua_State *L, ac_request_t *ctx)
 {
+    if (ctx->upstream_logged) return;
+    ctx->upstream_logged = 1;
     ngx_http_upstream_t *u = ctx->request->upstream;
     ac_node_t *nodes;
     ngx_uint_t i;

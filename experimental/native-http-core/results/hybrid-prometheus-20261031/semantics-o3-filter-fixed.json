@@ -1,0 +1,8177 @@
+{
+  "lua-both": {
+    "answers": [
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "empty-key-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "empty",
+                ""
+              ],
+              [
+                "flag",
+                ""
+              ],
+              [
+                "v",
+                "a b"
+              ],
+              [
+                "v",
+                "c&d"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "escaped-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "x0",
+                "1"
+              ],
+              [
+                "x1",
+                "1"
+              ],
+              [
+                "x10",
+                "1"
+              ],
+              [
+                "x100",
+                "1"
+              ],
+              [
+                "x101",
+                "1"
+              ],
+              [
+                "x102",
+                "1"
+              ],
+              [
+                "x103",
+                "1"
+              ],
+              [
+                "x104",
+                "1"
+              ],
+              [
+                "x105",
+                "1"
+              ],
+              [
+                "x106",
+                "1"
+              ],
+              [
+                "x107",
+                "1"
+              ],
+              [
+                "x108",
+                "1"
+              ],
+              [
+                "x109",
+                "1"
+              ],
+              [
+                "x11",
+                "1"
+              ],
+              [
+                "x110",
+                "1"
+              ],
+              [
+                "x111",
+                "1"
+              ],
+              [
+                "x112",
+                "1"
+              ],
+              [
+                "x113",
+                "1"
+              ],
+              [
+                "x114",
+                "1"
+              ],
+              [
+                "x115",
+                "1"
+              ],
+              [
+                "x116",
+                "1"
+              ],
+              [
+                "x117",
+                "1"
+              ],
+              [
+                "x118",
+                "1"
+              ],
+              [
+                "x119",
+                "1"
+              ],
+              [
+                "x12",
+                "1"
+              ],
+              [
+                "x13",
+                "1"
+              ],
+              [
+                "x14",
+                "1"
+              ],
+              [
+                "x15",
+                "1"
+              ],
+              [
+                "x16",
+                "1"
+              ],
+              [
+                "x17",
+                "1"
+              ],
+              [
+                "x18",
+                "1"
+              ],
+              [
+                "x19",
+                "1"
+              ],
+              [
+                "x2",
+                "1"
+              ],
+              [
+                "x20",
+                "1"
+              ],
+              [
+                "x21",
+                "1"
+              ],
+              [
+                "x22",
+                "1"
+              ],
+              [
+                "x23",
+                "1"
+              ],
+              [
+                "x24",
+                "1"
+              ],
+              [
+                "x25",
+                "1"
+              ],
+              [
+                "x26",
+                "1"
+              ],
+              [
+                "x27",
+                "1"
+              ],
+              [
+                "x28",
+                "1"
+              ],
+              [
+                "x29",
+                "1"
+              ],
+              [
+                "x3",
+                "1"
+              ],
+              [
+                "x30",
+                "1"
+              ],
+              [
+                "x31",
+                "1"
+              ],
+              [
+                "x32",
+                "1"
+              ],
+              [
+                "x33",
+                "1"
+              ],
+              [
+                "x34",
+                "1"
+              ],
+              [
+                "x35",
+                "1"
+              ],
+              [
+                "x36",
+                "1"
+              ],
+              [
+                "x37",
+                "1"
+              ],
+              [
+                "x38",
+                "1"
+              ],
+              [
+                "x39",
+                "1"
+              ],
+              [
+                "x4",
+                "1"
+              ],
+              [
+                "x40",
+                "1"
+              ],
+              [
+                "x41",
+                "1"
+              ],
+              [
+                "x42",
+                "1"
+              ],
+              [
+                "x43",
+                "1"
+              ],
+              [
+                "x44",
+                "1"
+              ],
+              [
+                "x45",
+                "1"
+              ],
+              [
+                "x46",
+                "1"
+              ],
+              [
+                "x47",
+                "1"
+              ],
+              [
+                "x48",
+                "1"
+              ],
+              [
+                "x49",
+                "1"
+              ],
+              [
+                "x5",
+                "1"
+              ],
+              [
+                "x50",
+                "1"
+              ],
+              [
+                "x51",
+                "1"
+              ],
+              [
+                "x52",
+                "1"
+              ],
+              [
+                "x53",
+                "1"
+              ],
+              [
+                "x54",
+                "1"
+              ],
+              [
+                "x55",
+                "1"
+              ],
+              [
+                "x56",
+                "1"
+              ],
+              [
+                "x57",
+                "1"
+              ],
+              [
+                "x58",
+                "1"
+              ],
+              [
+                "x59",
+                "1"
+              ],
+              [
+                "x6",
+                "1"
+              ],
+              [
+                "x60",
+                "1"
+              ],
+              [
+                "x61",
+                "1"
+              ],
+              [
+                "x62",
+                "1"
+              ],
+              [
+                "x63",
+                "1"
+              ],
+              [
+                "x64",
+                "1"
+              ],
+              [
+                "x65",
+                "1"
+              ],
+              [
+                "x66",
+                "1"
+              ],
+              [
+                "x67",
+                "1"
+              ],
+              [
+                "x68",
+                "1"
+              ],
+              [
+                "x69",
+                "1"
+              ],
+              [
+                "x7",
+                "1"
+              ],
+              [
+                "x70",
+                "1"
+              ],
+              [
+                "x71",
+                "1"
+              ],
+              [
+                "x72",
+                "1"
+              ],
+              [
+                "x73",
+                "1"
+              ],
+              [
+                "x74",
+                "1"
+              ],
+              [
+                "x75",
+                "1"
+              ],
+              [
+                "x76",
+                "1"
+              ],
+              [
+                "x77",
+                "1"
+              ],
+              [
+                "x78",
+                "1"
+              ],
+              [
+                "x79",
+                "1"
+              ],
+              [
+                "x8",
+                "1"
+              ],
+              [
+                "x80",
+                "1"
+              ],
+              [
+                "x81",
+                "1"
+              ],
+              [
+                "x82",
+                "1"
+              ],
+              [
+                "x83",
+                "1"
+              ],
+              [
+                "x84",
+                "1"
+              ],
+              [
+                "x85",
+                "1"
+              ],
+              [
+                "x86",
+                "1"
+              ],
+              [
+                "x87",
+                "1"
+              ],
+              [
+                "x88",
+                "1"
+              ],
+              [
+                "x89",
+                "1"
+              ],
+              [
+                "x9",
+                "1"
+              ],
+              [
+                "x90",
+                "1"
+              ],
+              [
+                "x91",
+                "1"
+              ],
+              [
+                "x92",
+                "1"
+              ],
+              [
+                "x93",
+                "1"
+              ],
+              [
+                "x94",
+                "1"
+              ],
+              [
+                "x95",
+                "1"
+              ],
+              [
+                "x96",
+                "1"
+              ],
+              [
+                "x97",
+                "1"
+              ],
+              [
+                "x98",
+                "1"
+              ],
+              [
+                "x99",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/keep/item",
+            [
+              [
+                "apikey",
+                "demo-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "demo-key"
+          },
+          "uri": [
+            "/keep/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"native-test\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "wrong"
+          },
+          "uri": [
+            "/anonkeep/item",
+            [
+              [
+                "apikey",
+                "wrong"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid user authorization"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/disabled/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/a%2Fb",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth//item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "content-length": "13",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "demo-key"
+          },
+          "uri": [
+            "/method/item",
+            []
+          ],
+          "method": "POST",
+          "body": "key-auth-body"
+        }
+      ],
+      [
+        200,
+        null,
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        404,
+        null,
+        ""
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "native.example",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "native.example",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "demo-key"
+          },
+          "uri": [
+            "/host/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "demo-key"
+          },
+          "uri": [
+            "/retry/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        502,
+        null,
+        "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-pad-14": "1",
+            "x-pad-15": "1",
+            "x-pad-16": "1",
+            "x-pad-17": "1",
+            "x-pad-18": "1",
+            "x-pad-19": "1",
+            "x-pad-20": "1",
+            "x-pad-21": "1",
+            "host": "127.0.0.1:9080",
+            "x-pad-23": "1",
+            "x-real-ip": "127.0.0.1",
+            "x-pad-25": "1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-pad-28": "1",
+            "x-pad-29": "1",
+            "x-pad-30": "1",
+            "x-pad-31": "1",
+            "x-pad-32": "1",
+            "x-pad-33": "1",
+            "x-pad-34": "1",
+            "x-pad-35": "1",
+            "x-pad-36": "1",
+            "x-pad-37": "1",
+            "x-pad-38": "1",
+            "x-pad-39": "1",
+            "x-pad-40": "1",
+            "x-pad-41": "1",
+            "x-pad-42": "1",
+            "x-pad-43": "1",
+            "x-pad-44": "1",
+            "x-pad-45": "1",
+            "x-pad-46": "1",
+            "x-pad-47": "1",
+            "x-pad-48": "1",
+            "x-pad-49": "1",
+            "x-pad-50": "1",
+            "x-pad-51": "1",
+            "x-pad-52": "1",
+            "x-pad-53": "1",
+            "x-pad-54": "1",
+            "x-pad-55": "1",
+            "x-pad-56": "1",
+            "x-pad-57": "1",
+            "x-pad-58": "1",
+            "x-pad-59": "1",
+            "x-pad-60": "1",
+            "x-pad-61": "1",
+            "x-pad-62": "1",
+            "x-pad-63": "1",
+            "x-pad-64": "1",
+            "x-pad-65": "1",
+            "x-pad-66": "1",
+            "x-pad-67": "1",
+            "x-pad-68": "1",
+            "x-pad-69": "1",
+            "x-pad-70": "1",
+            "x-pad-71": "1",
+            "x-pad-72": "1",
+            "x-pad-73": "1",
+            "x-pad-74": "1",
+            "x-pad-75": "1",
+            "x-pad-76": "1",
+            "x-pad-77": "1",
+            "x-pad-78": "1",
+            "x-pad-79": "1",
+            "x-pad-80": "1",
+            "x-pad-81": "1",
+            "x-pad-82": "1",
+            "x-pad-83": "1",
+            "x-pad-84": "1",
+            "x-pad-85": "1",
+            "x-pad-86": "1",
+            "x-pad-87": "1",
+            "x-pad-88": "1",
+            "x-pad-89": "1",
+            "x-pad-90": "1",
+            "x-pad-91": "1",
+            "x-pad-92": "1",
+            "x-demo-echo": "1",
+            "x-pad-94": "1",
+            "x-pad-93": "1",
+            "x-pad-27": "1",
+            "x-pad-26": "1",
+            "x-pad-24": "1",
+            "x-pad-22": "1",
+            "x-pad-0": "1",
+            "x-pad-1": "1",
+            "x-pad-2": "1",
+            "x-pad-3": "1",
+            "x-pad-4": "1",
+            "x-pad-5": "1",
+            "x-pad-6": "1",
+            "x-pad-7": "1",
+            "x-pad-8": "1",
+            "x-pad-9": "1",
+            "x-pad-10": "1",
+            "x-pad-11": "1",
+            "x-pad-12": "1",
+            "x-pad-13": "1"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "apikey": "demo-key"
+          },
+          "uri": [
+            "/named/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "skip",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        503,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "code",
+                "503"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ]
+    ],
+    "status_series": [
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/disabled/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "disabled"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        12.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/keep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "keep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/method/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "method"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            "native.example"
+          ],
+          [
+            "matched_uri",
+            "/host/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "host"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "empty-key-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "escaped-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anonkeep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anonkeep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        9.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/bad-anon/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "bad-anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "404"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            ""
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            ""
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        5.0
+      ],
+      [
+        [
+          [
+            "code",
+            "502"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/no-retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "no-retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "503"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "504"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/timeout/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "timeout"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ]
+    ],
+    "expected_status": {
+      "200": 28,
+      "401": 12,
+      "404": 5,
+      "502": 1,
+      "504": 2,
+      "503": 1
+    },
+    "histogram_counts": {
+      "apisix": 49.0,
+      "request": 49.0,
+      "upstream": 32.0
+    },
+    "bandwidth": {
+      "egress": 23459.0,
+      "ingress": 10381.0
+    }
+  },
+  "c-adapter-both": {
+    "answers": [
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "empty-key-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "empty",
+                ""
+              ],
+              [
+                "flag",
+                ""
+              ],
+              [
+                "v",
+                "a b"
+              ],
+              [
+                "v",
+                "c&d"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "escaped-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "x0",
+                "1"
+              ],
+              [
+                "x1",
+                "1"
+              ],
+              [
+                "x10",
+                "1"
+              ],
+              [
+                "x100",
+                "1"
+              ],
+              [
+                "x101",
+                "1"
+              ],
+              [
+                "x102",
+                "1"
+              ],
+              [
+                "x103",
+                "1"
+              ],
+              [
+                "x104",
+                "1"
+              ],
+              [
+                "x105",
+                "1"
+              ],
+              [
+                "x106",
+                "1"
+              ],
+              [
+                "x107",
+                "1"
+              ],
+              [
+                "x108",
+                "1"
+              ],
+              [
+                "x109",
+                "1"
+              ],
+              [
+                "x11",
+                "1"
+              ],
+              [
+                "x110",
+                "1"
+              ],
+              [
+                "x111",
+                "1"
+              ],
+              [
+                "x112",
+                "1"
+              ],
+              [
+                "x113",
+                "1"
+              ],
+              [
+                "x114",
+                "1"
+              ],
+              [
+                "x115",
+                "1"
+              ],
+              [
+                "x116",
+                "1"
+              ],
+              [
+                "x117",
+                "1"
+              ],
+              [
+                "x118",
+                "1"
+              ],
+              [
+                "x119",
+                "1"
+              ],
+              [
+                "x12",
+                "1"
+              ],
+              [
+                "x13",
+                "1"
+              ],
+              [
+                "x14",
+                "1"
+              ],
+              [
+                "x15",
+                "1"
+              ],
+              [
+                "x16",
+                "1"
+              ],
+              [
+                "x17",
+                "1"
+              ],
+              [
+                "x18",
+                "1"
+              ],
+              [
+                "x19",
+                "1"
+              ],
+              [
+                "x2",
+                "1"
+              ],
+              [
+                "x20",
+                "1"
+              ],
+              [
+                "x21",
+                "1"
+              ],
+              [
+                "x22",
+                "1"
+              ],
+              [
+                "x23",
+                "1"
+              ],
+              [
+                "x24",
+                "1"
+              ],
+              [
+                "x25",
+                "1"
+              ],
+              [
+                "x26",
+                "1"
+              ],
+              [
+                "x27",
+                "1"
+              ],
+              [
+                "x28",
+                "1"
+              ],
+              [
+                "x29",
+                "1"
+              ],
+              [
+                "x3",
+                "1"
+              ],
+              [
+                "x30",
+                "1"
+              ],
+              [
+                "x31",
+                "1"
+              ],
+              [
+                "x32",
+                "1"
+              ],
+              [
+                "x33",
+                "1"
+              ],
+              [
+                "x34",
+                "1"
+              ],
+              [
+                "x35",
+                "1"
+              ],
+              [
+                "x36",
+                "1"
+              ],
+              [
+                "x37",
+                "1"
+              ],
+              [
+                "x38",
+                "1"
+              ],
+              [
+                "x39",
+                "1"
+              ],
+              [
+                "x4",
+                "1"
+              ],
+              [
+                "x40",
+                "1"
+              ],
+              [
+                "x41",
+                "1"
+              ],
+              [
+                "x42",
+                "1"
+              ],
+              [
+                "x43",
+                "1"
+              ],
+              [
+                "x44",
+                "1"
+              ],
+              [
+                "x45",
+                "1"
+              ],
+              [
+                "x46",
+                "1"
+              ],
+              [
+                "x47",
+                "1"
+              ],
+              [
+                "x48",
+                "1"
+              ],
+              [
+                "x49",
+                "1"
+              ],
+              [
+                "x5",
+                "1"
+              ],
+              [
+                "x50",
+                "1"
+              ],
+              [
+                "x51",
+                "1"
+              ],
+              [
+                "x52",
+                "1"
+              ],
+              [
+                "x53",
+                "1"
+              ],
+              [
+                "x54",
+                "1"
+              ],
+              [
+                "x55",
+                "1"
+              ],
+              [
+                "x56",
+                "1"
+              ],
+              [
+                "x57",
+                "1"
+              ],
+              [
+                "x58",
+                "1"
+              ],
+              [
+                "x59",
+                "1"
+              ],
+              [
+                "x6",
+                "1"
+              ],
+              [
+                "x60",
+                "1"
+              ],
+              [
+                "x61",
+                "1"
+              ],
+              [
+                "x62",
+                "1"
+              ],
+              [
+                "x63",
+                "1"
+              ],
+              [
+                "x64",
+                "1"
+              ],
+              [
+                "x65",
+                "1"
+              ],
+              [
+                "x66",
+                "1"
+              ],
+              [
+                "x67",
+                "1"
+              ],
+              [
+                "x68",
+                "1"
+              ],
+              [
+                "x69",
+                "1"
+              ],
+              [
+                "x7",
+                "1"
+              ],
+              [
+                "x70",
+                "1"
+              ],
+              [
+                "x71",
+                "1"
+              ],
+              [
+                "x72",
+                "1"
+              ],
+              [
+                "x73",
+                "1"
+              ],
+              [
+                "x74",
+                "1"
+              ],
+              [
+                "x75",
+                "1"
+              ],
+              [
+                "x76",
+                "1"
+              ],
+              [
+                "x77",
+                "1"
+              ],
+              [
+                "x78",
+                "1"
+              ],
+              [
+                "x79",
+                "1"
+              ],
+              [
+                "x8",
+                "1"
+              ],
+              [
+                "x80",
+                "1"
+              ],
+              [
+                "x81",
+                "1"
+              ],
+              [
+                "x82",
+                "1"
+              ],
+              [
+                "x83",
+                "1"
+              ],
+              [
+                "x84",
+                "1"
+              ],
+              [
+                "x85",
+                "1"
+              ],
+              [
+                "x86",
+                "1"
+              ],
+              [
+                "x87",
+                "1"
+              ],
+              [
+                "x88",
+                "1"
+              ],
+              [
+                "x89",
+                "1"
+              ],
+              [
+                "x9",
+                "1"
+              ],
+              [
+                "x90",
+                "1"
+              ],
+              [
+                "x91",
+                "1"
+              ],
+              [
+                "x92",
+                "1"
+              ],
+              [
+                "x93",
+                "1"
+              ],
+              [
+                "x94",
+                "1"
+              ],
+              [
+                "x95",
+                "1"
+              ],
+              [
+                "x96",
+                "1"
+              ],
+              [
+                "x97",
+                "1"
+              ],
+              [
+                "x98",
+                "1"
+              ],
+              [
+                "x99",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/keep/item",
+            [
+              [
+                "apikey",
+                "demo-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/keep/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"native-test\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "wrong",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anonkeep/item",
+            [
+              [
+                "apikey",
+                "wrong"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid user authorization"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/disabled/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/a%2Fb",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth//item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "content-length": "13",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "x-demo-echo": "1"
+          },
+          "uri": [
+            "/method/item",
+            []
+          ],
+          "method": "POST",
+          "body": "key-auth-body"
+        }
+      ],
+      [
+        200,
+        null,
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        404,
+        null,
+        ""
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "native.example",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "native.example",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/host/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/retry/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        502,
+        null,
+        "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-pad-48": "1",
+            "x-pad-49": "1",
+            "x-pad-50": "1",
+            "x-pad-51": "1",
+            "x-pad-52": "1",
+            "x-pad-53": "1",
+            "x-pad-54": "1",
+            "x-pad-55": "1",
+            "host": "127.0.0.1:9080",
+            "x-pad-57": "1",
+            "x-real-ip": "127.0.0.1",
+            "x-pad-59": "1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-pad-62": "1",
+            "x-pad-63": "1",
+            "x-pad-64": "1",
+            "x-pad-65": "1",
+            "x-pad-66": "1",
+            "x-pad-67": "1",
+            "x-pad-68": "1",
+            "x-pad-69": "1",
+            "x-pad-70": "1",
+            "x-pad-71": "1",
+            "x-pad-72": "1",
+            "x-pad-73": "1",
+            "x-pad-74": "1",
+            "x-pad-75": "1",
+            "x-pad-76": "1",
+            "x-pad-77": "1",
+            "x-pad-78": "1",
+            "x-pad-79": "1",
+            "x-pad-80": "1",
+            "x-pad-81": "1",
+            "x-pad-82": "1",
+            "x-pad-83": "1",
+            "x-pad-84": "1",
+            "x-pad-85": "1",
+            "x-pad-86": "1",
+            "x-pad-87": "1",
+            "x-pad-88": "1",
+            "x-pad-89": "1",
+            "x-pad-90": "1",
+            "x-pad-91": "1",
+            "x-pad-92": "1",
+            "x-pad-93": "1",
+            "x-pad-94": "1",
+            "x-pad-61": "1",
+            "x-pad-60": "1",
+            "x-pad-58": "1",
+            "x-pad-56": "1",
+            "x-pad-19": "1",
+            "x-pad-0": "1",
+            "x-pad-1": "1",
+            "x-pad-2": "1",
+            "x-pad-3": "1",
+            "x-pad-4": "1",
+            "x-pad-5": "1",
+            "x-pad-6": "1",
+            "x-pad-7": "1",
+            "x-pad-8": "1",
+            "x-pad-9": "1",
+            "x-pad-10": "1",
+            "x-pad-11": "1",
+            "x-pad-12": "1",
+            "x-pad-13": "1",
+            "x-pad-14": "1",
+            "x-pad-15": "1",
+            "x-pad-16": "1",
+            "x-pad-17": "1",
+            "x-pad-18": "1",
+            "x-demo-echo": "1",
+            "x-pad-20": "1",
+            "x-pad-21": "1",
+            "x-pad-22": "1",
+            "x-pad-23": "1",
+            "x-pad-24": "1",
+            "x-pad-25": "1",
+            "x-pad-26": "1",
+            "x-pad-27": "1",
+            "x-pad-28": "1",
+            "x-pad-29": "1",
+            "x-pad-30": "1",
+            "x-pad-31": "1",
+            "x-pad-32": "1",
+            "x-pad-33": "1",
+            "x-pad-34": "1",
+            "x-pad-35": "1",
+            "x-pad-36": "1",
+            "x-pad-37": "1",
+            "x-pad-38": "1",
+            "x-pad-39": "1",
+            "x-pad-40": "1",
+            "x-pad-41": "1",
+            "x-pad-42": "1",
+            "x-pad-43": "1",
+            "x-pad-44": "1",
+            "x-pad-45": "1",
+            "x-pad-46": "1",
+            "x-pad-47": "1"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/named/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "skip",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        503,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "code",
+                "503"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ]
+    ],
+    "status_series": [
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/disabled/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "disabled"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        12.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/keep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "keep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/method/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "method"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            "native.example"
+          ],
+          [
+            "matched_uri",
+            "/host/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "host"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "empty-key-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "escaped-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anonkeep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anonkeep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        9.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/bad-anon/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "bad-anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "404"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            ""
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            ""
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        5.0
+      ],
+      [
+        [
+          [
+            "code",
+            "502"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/no-retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "no-retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "503"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "504"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/timeout/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "timeout"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ]
+    ],
+    "expected_status": {
+      "200": 28,
+      "401": 12,
+      "404": 5,
+      "502": 1,
+      "504": 2,
+      "503": 1
+    },
+    "histogram_counts": {
+      "apisix": 49.0,
+      "request": 49.0,
+      "upstream": 32.0
+    },
+    "bandwidth": {
+      "egress": 23306.0,
+      "ingress": 10381.0
+    }
+  },
+  "c-hybrid": {
+    "answers": [
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "empty-key-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "empty",
+                ""
+              ],
+              [
+                "flag",
+                ""
+              ],
+              [
+                "v",
+                "a b"
+              ],
+              [
+                "v",
+                "c&d"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "escaped-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "x0",
+                "1"
+              ],
+              [
+                "x1",
+                "1"
+              ],
+              [
+                "x10",
+                "1"
+              ],
+              [
+                "x100",
+                "1"
+              ],
+              [
+                "x101",
+                "1"
+              ],
+              [
+                "x102",
+                "1"
+              ],
+              [
+                "x103",
+                "1"
+              ],
+              [
+                "x104",
+                "1"
+              ],
+              [
+                "x105",
+                "1"
+              ],
+              [
+                "x106",
+                "1"
+              ],
+              [
+                "x107",
+                "1"
+              ],
+              [
+                "x108",
+                "1"
+              ],
+              [
+                "x109",
+                "1"
+              ],
+              [
+                "x11",
+                "1"
+              ],
+              [
+                "x110",
+                "1"
+              ],
+              [
+                "x111",
+                "1"
+              ],
+              [
+                "x112",
+                "1"
+              ],
+              [
+                "x113",
+                "1"
+              ],
+              [
+                "x114",
+                "1"
+              ],
+              [
+                "x115",
+                "1"
+              ],
+              [
+                "x116",
+                "1"
+              ],
+              [
+                "x117",
+                "1"
+              ],
+              [
+                "x118",
+                "1"
+              ],
+              [
+                "x119",
+                "1"
+              ],
+              [
+                "x12",
+                "1"
+              ],
+              [
+                "x13",
+                "1"
+              ],
+              [
+                "x14",
+                "1"
+              ],
+              [
+                "x15",
+                "1"
+              ],
+              [
+                "x16",
+                "1"
+              ],
+              [
+                "x17",
+                "1"
+              ],
+              [
+                "x18",
+                "1"
+              ],
+              [
+                "x19",
+                "1"
+              ],
+              [
+                "x2",
+                "1"
+              ],
+              [
+                "x20",
+                "1"
+              ],
+              [
+                "x21",
+                "1"
+              ],
+              [
+                "x22",
+                "1"
+              ],
+              [
+                "x23",
+                "1"
+              ],
+              [
+                "x24",
+                "1"
+              ],
+              [
+                "x25",
+                "1"
+              ],
+              [
+                "x26",
+                "1"
+              ],
+              [
+                "x27",
+                "1"
+              ],
+              [
+                "x28",
+                "1"
+              ],
+              [
+                "x29",
+                "1"
+              ],
+              [
+                "x3",
+                "1"
+              ],
+              [
+                "x30",
+                "1"
+              ],
+              [
+                "x31",
+                "1"
+              ],
+              [
+                "x32",
+                "1"
+              ],
+              [
+                "x33",
+                "1"
+              ],
+              [
+                "x34",
+                "1"
+              ],
+              [
+                "x35",
+                "1"
+              ],
+              [
+                "x36",
+                "1"
+              ],
+              [
+                "x37",
+                "1"
+              ],
+              [
+                "x38",
+                "1"
+              ],
+              [
+                "x39",
+                "1"
+              ],
+              [
+                "x4",
+                "1"
+              ],
+              [
+                "x40",
+                "1"
+              ],
+              [
+                "x41",
+                "1"
+              ],
+              [
+                "x42",
+                "1"
+              ],
+              [
+                "x43",
+                "1"
+              ],
+              [
+                "x44",
+                "1"
+              ],
+              [
+                "x45",
+                "1"
+              ],
+              [
+                "x46",
+                "1"
+              ],
+              [
+                "x47",
+                "1"
+              ],
+              [
+                "x48",
+                "1"
+              ],
+              [
+                "x49",
+                "1"
+              ],
+              [
+                "x5",
+                "1"
+              ],
+              [
+                "x50",
+                "1"
+              ],
+              [
+                "x51",
+                "1"
+              ],
+              [
+                "x52",
+                "1"
+              ],
+              [
+                "x53",
+                "1"
+              ],
+              [
+                "x54",
+                "1"
+              ],
+              [
+                "x55",
+                "1"
+              ],
+              [
+                "x56",
+                "1"
+              ],
+              [
+                "x57",
+                "1"
+              ],
+              [
+                "x58",
+                "1"
+              ],
+              [
+                "x59",
+                "1"
+              ],
+              [
+                "x6",
+                "1"
+              ],
+              [
+                "x60",
+                "1"
+              ],
+              [
+                "x61",
+                "1"
+              ],
+              [
+                "x62",
+                "1"
+              ],
+              [
+                "x63",
+                "1"
+              ],
+              [
+                "x64",
+                "1"
+              ],
+              [
+                "x65",
+                "1"
+              ],
+              [
+                "x66",
+                "1"
+              ],
+              [
+                "x67",
+                "1"
+              ],
+              [
+                "x68",
+                "1"
+              ],
+              [
+                "x69",
+                "1"
+              ],
+              [
+                "x7",
+                "1"
+              ],
+              [
+                "x70",
+                "1"
+              ],
+              [
+                "x71",
+                "1"
+              ],
+              [
+                "x72",
+                "1"
+              ],
+              [
+                "x73",
+                "1"
+              ],
+              [
+                "x74",
+                "1"
+              ],
+              [
+                "x75",
+                "1"
+              ],
+              [
+                "x76",
+                "1"
+              ],
+              [
+                "x77",
+                "1"
+              ],
+              [
+                "x78",
+                "1"
+              ],
+              [
+                "x79",
+                "1"
+              ],
+              [
+                "x8",
+                "1"
+              ],
+              [
+                "x80",
+                "1"
+              ],
+              [
+                "x81",
+                "1"
+              ],
+              [
+                "x82",
+                "1"
+              ],
+              [
+                "x83",
+                "1"
+              ],
+              [
+                "x84",
+                "1"
+              ],
+              [
+                "x85",
+                "1"
+              ],
+              [
+                "x86",
+                "1"
+              ],
+              [
+                "x87",
+                "1"
+              ],
+              [
+                "x88",
+                "1"
+              ],
+              [
+                "x89",
+                "1"
+              ],
+              [
+                "x9",
+                "1"
+              ],
+              [
+                "x90",
+                "1"
+              ],
+              [
+                "x91",
+                "1"
+              ],
+              [
+                "x92",
+                "1"
+              ],
+              [
+                "x93",
+                "1"
+              ],
+              [
+                "x94",
+                "1"
+              ],
+              [
+                "x95",
+                "1"
+              ],
+              [
+                "x96",
+                "1"
+              ],
+              [
+                "x97",
+                "1"
+              ],
+              [
+                "x98",
+                "1"
+              ],
+              [
+                "x99",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/keep/item",
+            [
+              [
+                "apikey",
+                "demo-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/keep/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "second-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/custom/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"native-test\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "keep",
+                "yes"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anon/item",
+            [
+              [
+                "apikey",
+                "second-key"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "guest",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "wrong",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/anonkeep/item",
+            [
+              [
+                "apikey",
+                "wrong"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Invalid user authorization"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/disabled/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/a%2Fb",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth//item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "content-length": "13",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics",
+            "x-demo-echo": "1"
+          },
+          "uri": [
+            "/method/item",
+            []
+          ],
+          "method": "POST",
+          "body": "key-auth-body"
+        }
+      ],
+      [
+        200,
+        null,
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        ""
+      ],
+      [
+        404,
+        null,
+        ""
+      ],
+      [
+        404,
+        null,
+        {
+          "error_msg": "404 Route Not Found"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "native.example",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "native.example",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/host/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/retry/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        502,
+        null,
+        "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        504,
+        null,
+        "<html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>openresty</center>\r\n<p><em>Powered by <a href=\"https://apisix.apache.org/\">APISIX</a>.</em></p></body>\r\n</html>\r\n"
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-pad-48": "1",
+            "x-pad-49": "1",
+            "x-pad-50": "1",
+            "x-pad-51": "1",
+            "x-pad-52": "1",
+            "x-pad-53": "1",
+            "x-pad-54": "1",
+            "x-pad-55": "1",
+            "host": "127.0.0.1:9080",
+            "x-pad-57": "1",
+            "x-real-ip": "127.0.0.1",
+            "x-pad-59": "1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-pad-62": "1",
+            "x-pad-63": "1",
+            "x-pad-64": "1",
+            "x-pad-65": "1",
+            "x-pad-66": "1",
+            "x-pad-67": "1",
+            "x-pad-68": "1",
+            "x-pad-69": "1",
+            "x-pad-70": "1",
+            "x-pad-71": "1",
+            "x-pad-72": "1",
+            "x-pad-73": "1",
+            "x-pad-74": "1",
+            "x-pad-75": "1",
+            "x-pad-76": "1",
+            "x-pad-77": "1",
+            "x-pad-78": "1",
+            "x-pad-79": "1",
+            "x-pad-80": "1",
+            "x-pad-81": "1",
+            "x-pad-82": "1",
+            "x-pad-83": "1",
+            "x-pad-84": "1",
+            "x-pad-85": "1",
+            "x-pad-86": "1",
+            "x-pad-87": "1",
+            "x-pad-88": "1",
+            "x-pad-89": "1",
+            "x-pad-90": "1",
+            "x-pad-91": "1",
+            "x-pad-92": "1",
+            "x-pad-93": "1",
+            "x-pad-94": "1",
+            "x-pad-61": "1",
+            "x-pad-60": "1",
+            "x-pad-58": "1",
+            "x-pad-56": "1",
+            "x-pad-19": "1",
+            "x-pad-0": "1",
+            "x-pad-1": "1",
+            "x-pad-2": "1",
+            "x-pad-3": "1",
+            "x-pad-4": "1",
+            "x-pad-5": "1",
+            "x-pad-6": "1",
+            "x-pad-7": "1",
+            "x-pad-8": "1",
+            "x-pad-9": "1",
+            "x-pad-10": "1",
+            "x-pad-11": "1",
+            "x-pad-12": "1",
+            "x-pad-13": "1",
+            "x-pad-14": "1",
+            "x-pad-15": "1",
+            "x-pad-16": "1",
+            "x-pad-17": "1",
+            "x-pad-18": "1",
+            "x-demo-echo": "1",
+            "x-pad-20": "1",
+            "x-pad-21": "1",
+            "x-pad-22": "1",
+            "x-pad-23": "1",
+            "x-pad-24": "1",
+            "x-pad-25": "1",
+            "x-pad-26": "1",
+            "x-pad-27": "1",
+            "x-pad-28": "1",
+            "x-pad-29": "1",
+            "x-pad-30": "1",
+            "x-pad-31": "1",
+            "x-pad-32": "1",
+            "x-pad-33": "1",
+            "x-pad-34": "1",
+            "x-pad-35": "1",
+            "x-pad-36": "1",
+            "x-pad-37": "1",
+            "x-pad-38": "1",
+            "x-pad-39": "1",
+            "x-pad-40": "1",
+            "x-pad-41": "1",
+            "x-pad-42": "1",
+            "x-pad-43": "1",
+            "x-pad-44": "1",
+            "x-pad-45": "1",
+            "x-pad-46": "1",
+            "x-pad-47": "1"
+          },
+          "uri": [
+            "/auth/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "apikey": "demo-key",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/named/item",
+            []
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        401,
+        "apikey realm=\"key\"",
+        {
+          "message": "Missing API key in request"
+        }
+      ],
+      [
+        200,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "skip",
+                "1"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ],
+      [
+        503,
+        null,
+        {
+          "headers": {
+            "x-forwarded-proto": "http",
+            "x-forwarded-host": "127.0.0.1:9080",
+            "x-forwarded-port": "9080",
+            "x-demo-echo": "1",
+            "x-consumer-username": "demo-user",
+            "x-consumer-custom-id": "custom-user",
+            "host": "127.0.0.1:9080",
+            "x-real-ip": "127.0.0.1",
+            "x-forwarded-for": "127.0.0.1",
+            "accept-encoding": "identity",
+            "x-demo-probe": "semantics"
+          },
+          "uri": [
+            "/auth/item",
+            [
+              [
+                "code",
+                "503"
+              ]
+            ]
+          ],
+          "method": "GET",
+          "body": ""
+        }
+      ]
+    ],
+    "status_series": [
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/disabled/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "disabled"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        12.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/keep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "keep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/method/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "method"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            "native.example"
+          ],
+          [
+            "matched_uri",
+            "/host/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "host"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "empty-key-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "escaped-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anon/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "guest"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/anonkeep/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "anonkeep"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "200"
+          ],
+          [
+            "consumer",
+            "second-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        9.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/bad-anon/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "bad-anon"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/custom/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "custom"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "401"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/named/*"
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            "named-route"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "404"
+          ],
+          [
+            "consumer",
+            ""
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            ""
+          ],
+          [
+            "node",
+            ""
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "apisix"
+          ],
+          [
+            "route",
+            ""
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        5.0
+      ],
+      [
+        [
+          [
+            "code",
+            "502"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/no-retry/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "no-retry"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "503"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/auth/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "upstream"
+          ],
+          [
+            "route",
+            "auth"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        1.0
+      ],
+      [
+        [
+          [
+            "code",
+            "504"
+          ],
+          [
+            "consumer",
+            "demo-user"
+          ],
+          [
+            "llm_model",
+            ""
+          ],
+          [
+            "matched_host",
+            ""
+          ],
+          [
+            "matched_uri",
+            "/timeout/*"
+          ],
+          [
+            "node",
+            "127.0.0.1"
+          ],
+          [
+            "probe",
+            "semantics"
+          ],
+          [
+            "request_llm_model",
+            ""
+          ],
+          [
+            "request_type",
+            "traditional_http"
+          ],
+          [
+            "response_source",
+            "nginx"
+          ],
+          [
+            "route",
+            "timeout"
+          ],
+          [
+            "service",
+            ""
+          ]
+        ],
+        2.0
+      ]
+    ],
+    "expected_status": {
+      "200": 28,
+      "401": 12,
+      "404": 5,
+      "502": 1,
+      "504": 2,
+      "503": 1
+    },
+    "histogram_counts": {
+      "apisix": 49.0,
+      "request": 49.0,
+      "upstream": 32.0
+    },
+    "bandwidth": {
+      "egress": 23100.0,
+      "ingress": 10381.0
+    }
+  }
+}

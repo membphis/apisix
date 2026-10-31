@@ -1,0 +1,8 @@
+Running 15s test @ http://127.0.0.1:9080/auth/profile
+  2 threads and 32 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.66ms  448.66us  21.02ms   88.94%
+    Req/Sec     9.73k     1.00k   20.22k    79.40%
+  291277 requests in 15.10s, 51.39MB read
+Requests/sec:  19290.72
+Transfer/sec:      3.40MB

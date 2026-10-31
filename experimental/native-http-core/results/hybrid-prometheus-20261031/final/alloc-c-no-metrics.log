@@ -1,0 +1,6 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=key-auth, workers=1
+Raw diagnostic evidence: /tmp/apisix-core-profile-native-isolated-single-auth-alloc.txt
+{"freed_bytes":0,"relative_bytes":2744,"relative_peak_bytes":2744,"counters_exact":true,"counter_saturated":false,"allocator_restored":true,"scope":"VM allocator requests; byte balance and peak are relative to start, not live heap","normalization":"NGINX accepted requests across this master; includes background HTTP and in-flight boundary effects, not completed wrk requests","window_wall_seconds":10,"positive_growth_bytes":2744,"calls":43,"new_calls":42,"realloc_calls":1,"free_calls":0,"failed_calls":0,"requested_new_bytes":2288,"requested_realloc_bytes":840,"accepted_requests":489549}

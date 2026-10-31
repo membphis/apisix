@@ -252,6 +252,7 @@ ac_key_auth_run(ac_request_t *ctx, ac_key_auth_conf_t *conf, ngx_str_t *body)
     ac_key_consumer_t *consumer = NULL;
     const char *message = NULL;
     ngx_int_t rc = ac_key_execute(ctx, conf, &consumer, &message);
+    if (rc == NGX_OK) ctx->native_consumer = consumer;
     if (rc == NGX_OK) ngx_log_error(NGX_LOG_INFO, ctx->request->connection->log, 0, "hit key-auth rewrite");
     if (rc == 401) {
         size_t length = ngx_strlen(message);
@@ -277,15 +278,24 @@ ac_key_callback(lua_State *L)
         return 2;
     }
     ngx_log_error(NGX_LOG_INFO, ctx->request->connection->log, 0, "hit key-auth rewrite");
+    ctx->native_consumer = c;
+    ac_key_auth_publish(L, ctx);
+    /* Invalidate the ordinary SDK's cached headers after direct C mutations. */
+    ac_push(L, ctx->table_ref); lua_pushnil(L); lua_setfield(L, -2, "headers"); lua_pop(L, 1);
+    return 0;
+}
+
+void
+ac_key_auth_publish(lua_State *L, ac_request_t *ctx)
+{
+    ac_key_consumer_t *c = ctx->native_consumer;
+    if (!c) return;
     ac_push(L, ctx->table_ref);
     ac_push(L, c->ref); lua_setfield(L, -2, "consumer");
     ac_push(L, c->ref); lua_getfield(L, -1, "consumer_name"); lua_setfield(L, -3, "consumer_name");
     lua_getfield(L, -1, "group_id"); lua_setfield(L, -3, "consumer_group_id"); lua_pop(L, 1);
     ac_push(L, c->group_ref); lua_getfield(L, -1, "conf_version"); lua_setfield(L, -3, "consumer_ver");
     lua_pop(L, 2);
-    /* Invalidate the ordinary SDK's cached headers after direct C mutations. */
-    ac_push(L, ctx->table_ref); lua_pushnil(L); lua_setfield(L, -2, "headers"); lua_pop(L, 1);
-    return 0;
 }
 
 void

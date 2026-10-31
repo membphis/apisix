@@ -1,0 +1,121 @@
+{
+  "recorded_utc": "2026-10-31T09:37:11.661044+00:00",
+  "branch": "apisix-next-v4-llm-native-plugins-v3-hybrid",
+  "parent_commit": "caf19a144cc6f9caedcf875a2649f7e30eb78b7e",
+  "historical_manifests": [
+    {
+      "manifest": "experimental/native-http-core/results/EVIDENCE_MANIFEST.json",
+      "files_verified": 229,
+      "sha256": "1ba22307f92bc1ca879843d3be0bff9e2c4a117e5c1c1371f4c10f4f9ab8593d"
+    },
+    {
+      "manifest": "experimental/native-http-core/results/single-20261031/MANIFEST.json",
+      "files_verified": 182,
+      "sha256": "dc3bf4dd31bf0d21312bd10244caa2dde9aed43912df610c0da4dfed1046aa60"
+    },
+    {
+      "manifest": "experimental/native-http-core/results/exhaustive-20261031/MANIFEST.json",
+      "files_verified": 698,
+      "sha256": "3344e674e3895be9149002eba65ebd70c44643097d62bc558a5eb0184a71a81d"
+    },
+    {
+      "manifest": "experimental/native-http-core/results/native-key-auth-v2-20261031/MANIFEST.json",
+      "files_verified": 295,
+      "sha256": "b6aa53d1b667224101d014f8594ac20f08fb24c4971666e926685887cc0cdf2c"
+    }
+  ],
+  "historical_files_verified": 1404,
+  "module_sha256": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406",
+  "module_sources_verified": 30,
+  "current_runtime_matches_archived_snapshot": true,
+  "restored_o3_build_matches_formal_build": true,
+  "live_container_module_sha256_observed": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406",
+  "live_container_process_check": "Only the upstream fixture master/worker remained; no gateway master. Read-only docker exec check at finalization.",
+  "stable_commit": "473043623c161966f3f6ef4e8f12d2d8667a12d2",
+  "stable_checkout_clean": true,
+  "original_apisix_lua_sources_unchanged": true,
+  "raw_benchmark_reanalysis_matches_saved_summary": true,
+  "formal_samples": 8,
+  "formal_sample_seconds": 60,
+  "formal_samples_with_metrics": 6,
+  "same_function_resources_identical": true,
+  "response_or_socket_errors": 0,
+  "nonempty_formal_nginx_error_logs": 0,
+  "cpu_throttled_formal_samples": 0,
+  "metric_count_cutoff_excess": [
+    60.0,
+    60.0,
+    61.0,
+    62.0,
+    59.0,
+    60.0
+  ],
+  "metric_export_errors": 0,
+  "allocator_diagnostics_verified": 3,
+  "function_count_diagnostics_verified": 2,
+  "asan_and_o3_hybrid": {
+    "variants": 3,
+    "semantic_cases_each": 50,
+    "lifecycle_and_two_worker_markers_present": true
+  },
+  "asan_v2_regression": {
+    "variants": 4,
+    "semantic_cases_each": 47,
+    "lifecycle_markers_present": true
+  },
+  "asan_core_profiles": [
+    {
+      "profile": "default",
+      "checks": 327,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    },
+    {
+      "profile": "tail",
+      "checks": 327,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    },
+    {
+      "profile": "encoded",
+      "checks": 327,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    },
+    {
+      "profile": "servlet",
+      "checks": 332,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    },
+    {
+      "profile": "trusted",
+      "checks": 327,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    },
+    {
+      "profile": "untrusted",
+      "checks": 327,
+      "phase_dispatch": "passed",
+      "lua_plugin_yield": "passed",
+      "original_core_guard": "enabled"
+    }
+  ],
+  "asan_core_check_total": 1967,
+  "sanitizer_limit": "Only native module instrumented; other DSOs/runtime not instrumented, leak checks disabled.",
+  "driver_events_successful": 25,
+  "final_harness_files_copied": 40,
+  "python_files_ast_checked": 32,
+  "git_diff_check": "passed",
+  "preserved_failures": [
+    "root semantics-o3.log: incorrect filter fixture query parameter",
+    "root semantics-o3-lifecycle.log: stable Lua watcher same-second mtime fixture"
+  ],
+  "limitations": "Two reversed-order rounds, no statistical-significance claim; per-run percentiles not pooled; P99.9 outliers unassigned. Closed-loop at each achieved throughput. Common pinned runtime not stock release image. No-metrics is cost reference only. Log-only key-auth/Prometheus compatibility scope; readonly versioned config contract."
+}

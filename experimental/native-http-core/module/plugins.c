@@ -749,6 +749,7 @@ ac_leave(lua_State *L)
         ac_push(L, ctx->table_ref); lua_getfield(L, -1, "ngx_ctx"); lua_remove(L, -2); lua_call(L, 1, 0); lua_pop(L, 1);
         ac_push(L, ctx->table_ref); lua_pushnil(L); lua_setfield(L, -2, "ngx_ctx"); lua_pop(L, 1);
         ctx->log_done = 1;
+        if (ctx->c_pipeline) ctx->lua_log_active = 0;
     } else {
         ac_phase_finish(L, ctx);
     }

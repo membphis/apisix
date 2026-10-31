@@ -1,0 +1,635 @@
+{
+  "sample_count": 8,
+  "module_sha256": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406",
+  "means": {
+    "lua-both": {
+      "qps": 16768.035,
+      "cpu_us": 59.58889534293111,
+      "peak_rss_mib": 33.087890625,
+      "latencies_us": {
+        "mean": 1957.6135,
+        "p50": 1739.5,
+        "p95": 3048.5,
+        "p99": 4036.5,
+        "p999": 25222.5
+      }
+    },
+    "c-adapter-both": {
+      "qps": 19749.6,
+      "cpu_us": 50.57080678569402,
+      "peak_rss_mib": 20.22265625,
+      "latencies_us": {
+        "mean": 1628.02,
+        "p50": 1533.0,
+        "p95": 2145.5,
+        "p99": 2604.0,
+        "p999": 4592.5
+      }
+    },
+    "c-hybrid": {
+      "qps": 24294.765,
+      "cpu_us": 41.09927160540508,
+      "peak_rss_mib": 19.865234375,
+      "latencies_us": {
+        "mean": 1319.507,
+        "p50": 1240.0,
+        "p95": 1781.5,
+        "p99": 2183.0,
+        "p999": 3717.0
+      }
+    },
+    "c-no-metrics": {
+      "qps": 47623.56,
+      "cpu_us": 20.943542689407458,
+      "peak_rss_mib": 16.43359375,
+      "latencies_us": {
+        "mean": 711.4010000000001,
+        "p50": 664.0,
+        "p95": 843.5,
+        "p99": 1094.0,
+        "p999": 18954.5
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "c-adapter-both",
+      "control": "lua-both",
+      "qps_delta_percent": 17.7812427037515,
+      "per_round_qps_delta_percent": [
+        18.466051374378935,
+        17.097748231366026
+      ],
+      "latency_delta_percent": {
+        "mean": -16.836495048690658,
+        "p95": -29.621125143513204,
+        "p99": -35.488665923448536,
+        "p999": -81.79205074833978
+      }
+    },
+    {
+      "candidate": "c-hybrid",
+      "control": "lua-both",
+      "qps_delta_percent": 44.887370523737566,
+      "per_round_qps_delta_percent": [
+        45.703987540540105,
+        44.07232065509463
+      ],
+      "latency_delta_percent": {
+        "mean": -32.59614321213048,
+        "p95": -41.56142365097589,
+        "p99": -45.9184937445807,
+        "p999": -85.26315789473684
+      }
+    },
+    {
+      "candidate": "c-hybrid",
+      "control": "c-adapter-both",
+      "qps_delta_percent": 23.01395977640055,
+      "per_round_qps_delta_percent": [
+        22.992187086647498,
+        23.03594461136114
+      ],
+      "latency_delta_percent": {
+        "mean": -18.950197172024907,
+        "p95": -16.965742251223492,
+        "p99": -16.167434715821816,
+        "p999": -19.06369080021775
+      }
+    },
+    {
+      "candidate": "c-hybrid",
+      "control": "c-no-metrics",
+      "qps_delta_percent": -48.98582760297634,
+      "per_round_qps_delta_percent": [
+        -48.70407988705253,
+        -49.26709793609173
+      ],
+      "latency_delta_percent": {
+        "mean": 85.48005976938462,
+        "p95": 111.20331950207469,
+        "p99": 99.54296160877514,
+        "p999": -80.38988103088977
+      }
+    }
+  ],
+  "rows": [
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "lua-both",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 79600994,
+        "user_usec": 43303348,
+        "system_usec": 36297647,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 79653540,
+        "user_usec": 43340905,
+        "system_usec": 36312635,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.41470796799695,
+      "warmup_requests": 80259,
+      "requests": 1005271,
+      "qps": 16751.93,
+      "workers": [
+        171911
+      ],
+      "worker_cpu_seconds": 59.95,
+      "worker_user_cpu_seconds": 37.54,
+      "worker_system_cpu_seconds": 22.41,
+      "worker_cpu_us_per_request": 59.63566043385316,
+      "rss_start_bytes": 33615872,
+      "rss_end_bytes": 34361344,
+      "rss_peak_bytes": 34467840,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1918.771,
+        "p50": 1739.0,
+        "p95": 3057.0,
+        "p99": 4040.0,
+        "p999": 5684.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1085590.0
+        },
+        "request_histogram_count": 1085590.0,
+        "client_completed_warmup_plus_sample": 1085530,
+        "server_request_excess": 60.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "c-adapter-both",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 82396761,
+        "user_usec": 42443315,
+        "system_usec": 39953446,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 82505082,
+        "user_usec": 42493664,
+        "system_usec": 40011419,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.39912044000084,
+      "warmup_requests": 97913,
+      "requests": 1190812,
+      "qps": 19845.35,
+      "workers": [
+        172033
+      ],
+      "worker_cpu_seconds": 59.91,
+      "worker_user_cpu_seconds": 35.650000000000006,
+      "worker_system_cpu_seconds": 24.26,
+      "worker_cpu_us_per_request": 50.31020849638734,
+      "rss_start_bytes": 20668416,
+      "rss_end_bytes": 21123072,
+      "rss_peak_bytes": 21155840,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1627.049,
+        "p50": 1527.0,
+        "p95": 2116.0,
+        "p99": 2583.0,
+        "p999": 5282.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1288785.0
+        },
+        "request_histogram_count": 1288785.0,
+        "client_completed_warmup_plus_sample": 1288725,
+        "server_request_excess": 60.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "c-hybrid",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 85744021,
+        "user_usec": 41675433,
+        "system_usec": 44068588,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 85936399,
+        "user_usec": 41787077,
+        "system_usec": 44149322,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.36199706900152,
+      "warmup_requests": 127867,
+      "requests": 1466929,
+      "qps": 24408.23,
+      "workers": [
+        172161
+      ],
+      "worker_cpu_seconds": 60.0,
+      "worker_user_cpu_seconds": 34.010000000000005,
+      "worker_system_cpu_seconds": 25.99,
+      "worker_cpu_us_per_request": 40.90177506886836,
+      "rss_start_bytes": 20332544,
+      "rss_end_bytes": 20217856,
+      "rss_peak_bytes": 20443136,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1314.248,
+        "p50": 1233.0,
+        "p95": 1764.0,
+        "p99": 2170.0,
+        "p999": 3981.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1594855.0,
+          "499": 2.0
+        },
+        "request_histogram_count": 1594857.0,
+        "client_completed_warmup_plus_sample": 1594796,
+        "server_request_excess": 61.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 1
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "c-no-metrics",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 104536801,
+        "user_usec": 31910079,
+        "system_usec": 72626722,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 104680099,
+        "user_usec": 31953362,
+        "system_usec": 72726737,
+        "nice_usec": 0,
+        "nr_periods": 602,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.258076136000454,
+      "warmup_requests": 253118,
+      "requests": 2855536,
+      "qps": 47583.18,
+      "workers": [
+        172283
+      ],
+      "worker_cpu_seconds": 59.85000000000001,
+      "worker_user_cpu_seconds": 19.740000000000002,
+      "worker_system_cpu_seconds": 40.11,
+      "worker_cpu_us_per_request": 20.959287503291854,
+      "rss_start_bytes": 17215488,
+      "rss_end_bytes": 17215488,
+      "rss_peak_bytes": 17215488,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 749.453,
+        "p50": 664.0,
+        "p95": 867.0,
+        "p99": 1109.0,
+        "p999": 35268.0
+      },
+      "error_rate": 0,
+      "round": 1
+    },
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "lua-both",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 79205951,
+        "user_usec": 44166881,
+        "system_usec": 35039071,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 79259123,
+        "user_usec": 44193618,
+        "system_usec": 35065504,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.396587819999695,
+      "warmup_requests": 84862,
+      "requests": 1007186,
+      "qps": 16784.14,
+      "workers": [
+        172789
+      ],
+      "worker_cpu_seconds": 59.96999999999999,
+      "worker_user_cpu_seconds": 38.129999999999995,
+      "worker_system_cpu_seconds": 21.84,
+      "worker_cpu_us_per_request": 59.54213025200905,
+      "rss_start_bytes": 34127872,
+      "rss_end_bytes": 34881536,
+      "rss_peak_bytes": 34922496,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1996.456,
+        "p50": 1740.0,
+        "p95": 3040.0,
+        "p99": 4033.0,
+        "p999": 44761.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1092108.0,
+          "499": 2.0
+        },
+        "request_histogram_count": 1092110.0,
+        "client_completed_warmup_plus_sample": 1092048,
+        "server_request_excess": 62.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "c-adapter-both",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 82084906,
+        "user_usec": 42428504,
+        "system_usec": 39656402,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 82212023,
+        "user_usec": 42490147,
+        "system_usec": 39721877,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.38807427000211,
+      "warmup_requests": 101282,
+      "requests": 1179389,
+      "qps": 19653.85,
+      "workers": [
+        172661
+      ],
+      "worker_cpu_seconds": 59.95,
+      "worker_user_cpu_seconds": 35.57,
+      "worker_system_cpu_seconds": 24.38,
+      "worker_cpu_us_per_request": 50.8314050750007,
+      "rss_start_bytes": 20586496,
+      "rss_end_bytes": 21254144,
+      "rss_peak_bytes": 21254144,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1628.991,
+        "p50": 1539.0,
+        "p95": 2175.0,
+        "p99": 2625.0,
+        "p999": 3903.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1280730.0
+        },
+        "request_histogram_count": 1280730.0,
+        "client_completed_warmup_plus_sample": 1280671,
+        "server_request_excess": 59.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "hybrid",
+      "variant": "c-hybrid",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 85309556,
+        "user_usec": 40760586,
+        "system_usec": 44548970,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 85416570,
+        "user_usec": 40820715,
+        "system_usec": 44595855,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.35895304099904,
+      "warmup_requests": 130251,
+      "requests": 1450961,
+      "qps": 24181.3,
+      "workers": [
+        172533
+      ],
+      "worker_cpu_seconds": 59.92,
+      "worker_user_cpu_seconds": 33.370000000000005,
+      "worker_system_cpu_seconds": 26.55,
+      "worker_cpu_us_per_request": 41.29676814194179,
+      "rss_start_bytes": 20897792,
+      "rss_end_bytes": 21213184,
+      "rss_peak_bytes": 21217280,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1324.766,
+        "p50": 1247.0,
+        "p95": 1799.0,
+        "p99": 2196.0,
+        "p999": 3453.0
+      },
+      "error_rate": 0,
+      "metric_validation": {
+        "status_counts": {
+          "200": 1581269.0,
+          "499": 3.0
+        },
+        "request_histogram_count": 1581272.0,
+        "client_completed_warmup_plus_sample": 1581212,
+        "server_request_excess": 60.0,
+        "cutoff_allowance": 128,
+        "metric_errors": [
+          0.0
+        ],
+        "note": "Counters include warmup and requests in flight at wrk cutoffs. Validation after the measured CPU window."
+      },
+      "round": 2
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "c-no-metrics",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {
+        "usage_usec": 106976238,
+        "user_usec": 31128064,
+        "system_usec": 75848174,
+        "nice_usec": 0,
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "host_cgroup_cpu_delta": {
+        "usage_usec": 107031108,
+        "user_usec": 31155822,
+        "system_usec": 75875286,
+        "nice_usec": 0,
+        "nr_periods": 603,
+        "nr_throttled": 0,
+        "throttled_usec": 0,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      },
+      "wall_seconds": 60.25702123500014,
+      "warmup_requests": 254417,
+      "requests": 2864611,
+      "qps": 47663.94,
+      "workers": [
+        172411
+      ],
+      "worker_cpu_seconds": 59.949999999999996,
+      "worker_user_cpu_seconds": 18.91,
+      "worker_system_cpu_seconds": 41.04,
+      "worker_cpu_us_per_request": 20.927797875523062,
+      "rss_start_bytes": 17248256,
+      "rss_end_bytes": 17248256,
+      "rss_peak_bytes": 17248256,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 673.349,
+        "p50": 664.0,
+        "p95": 820.0,
+        "p99": 1079.0,
+        "p999": 2641.0
+      },
+      "error_rate": 0,
+      "round": 2
+    }
+  ],
+  "raw_verification_passed": true,
+  "with_metrics_resources_identical": true,
+  "throttled_samples": [],
+  "limits": "Two reversed-order 60s rounds; no statistical-significance claim. Percentiles averaged per run, not pooled. Closed-loop each at its achieved QPS. Common pinned runtime, not stock stable release image. No-metrics control is cost reference only."
+}

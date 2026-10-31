@@ -5,6 +5,7 @@ static void
 ac_pipeline_cleanup(void *data)
 {
     ac_request_t *ctx = data;
+    if (ctx->table_ref >= 0) { ac_cleanup(ctx); return; }
     /* No Lua refs belong to this request. The watcher owns generation GC. */
     ac_snapshot_release(NULL, ctx);
     ctx->released = 1; ctx->request = NULL;
@@ -14,7 +15,12 @@ static ngx_int_t
 ac_pipeline_log(ngx_http_request_t *r)
 {
     ac_request_t *ctx = ngx_http_get_module_ctx(r, ngx_http_apisix_core_module);
-    if (ctx && ctx->c_pipeline) { ac_upstream_log(NULL, ctx); ctx->log_done = 1; }
+    if (ctx && ctx->c_pipeline) {
+        ac_upstream_log(NULL, ctx);
+        /* Never prevent a Lua log handler that runs later in module order.
+         * Errors retain the GC-only cleanup path instead of recycling aliases. */
+        if (!ctx->main->lua_log_bridge) ctx->log_done = 1;
+    }
     return NGX_OK;
 }
 
@@ -44,7 +50,7 @@ ac_pipeline_access(ngx_http_request_t *r)
     if (rc == NGX_HTTP_NOT_FOUND) ngx_str_set(&body, "{\"error_msg\":\"404 Route Not Found\"}\n");
     if (rc == NGX_OK && ctx->route->key_auth) rc = ac_key_auth_run(ctx, ctx->route->key_auth, &body);
     if (rc == NGX_OK) rc = ac_upstream_prepare_native(ctx);
-    if (rc == NGX_OK) return NGX_DECLINED;
+    if (rc == NGX_OK) { ctx->native_proxied = 1; return NGX_DECLINED; }
     if (!body.data) return rc;
     r->headers_out.status = rc;
     r->headers_out.content_length_n = body.len;
@@ -74,6 +80,8 @@ ac_pipeline_plan(lua_State *L, ac_plan_t *plan, ac_route_t *route)
     ac_call_t *calls = plan->calls.elts;
     ngx_uint_t i;
     for (i = 0; i < plan->calls.nelts; i++) {
+        if (calls[i].plugin->name.len == 10
+            && ngx_memcmp(calls[i].plugin->name.data, "prometheus", 10) == 0) continue;
         if (!route || !calls[i].key_auth || calls[i].pre_ref != LUA_NOREF || calls[i].expression)
             luaL_error(L, "native key-auth experiment requires route-only key-auth without Lua metadata callbacks");
         ac_push(L, calls[i].conf_ref); lua_getfield(L, -1, "_meta");
@@ -95,9 +103,19 @@ ac_pipeline_compile(lua_State *L, ac_main_conf_t *main)
     ngx_uint_t i;
     int top = lua_gettop(L), values, j, value, plugins;
     ac_plugin_t *enabled = main->plugins.elts;
-    if (main->plugins.nelts != 1 || enabled[0].name.len != 8
-        || ngx_memcmp(enabled[0].name.data, "key-auth", 8))
-        luaL_error(L, "native key-auth experiment requires a key-auth-only plugin allowlist");
+    ngx_flag_t found_auth = 0, found_prometheus = 0;
+    for (i = 0; i < main->plugins.nelts; i++) {
+        if (enabled[i].name.len == 8 && ngx_memcmp(enabled[i].name.data, "key-auth", 8) == 0) found_auth = 1;
+        else if (enabled[i].name.len == 10 && ngx_memcmp(enabled[i].name.data, "prometheus", 10) == 0) {
+            found_prometheus = 1;
+            for (ngx_uint_t phase = 0; phase < AC_LOG; phase++)
+                if (enabled[i].callbacks[phase] >= 0)
+                    luaL_error(L, "native Prometheus bridge requires a log-only Lua plugin");
+        } else luaL_error(L, "native key-auth experiment only supports key-auth and log-only Prometheus");
+    }
+    if (!found_auth) luaL_error(L, "native key-auth experiment requires key-auth enabled");
+    if (main->native_pipeline && found_prometheus && !main->lua_log_bridge)
+        luaL_error(L, "native pipeline with Lua Prometheus requires lua_log_bridge on");
     ac_pipeline_plan(L, &main->global, NULL);
     for (i = 0; i < main->routes.nelts; i++) {
         if (routes[i].filter_ref != LUA_NOREF || routes[i].expression)
@@ -138,6 +156,62 @@ ac_pipeline_compile(lua_State *L, ac_main_conf_t *main)
         || main->encoded_slash || main->trusted_ref >= 0))
         luaL_error(L, "native pipeline currently requires no tracing/servlet/encoded-slash/trusted-address extension");
     lua_settop(L, top);
+}
+
+/* Publish a Lua view only at the actual log phase, after native HTTP work.
+ * The ordinary scheduler still owns global/route precedence, metadata filters,
+ * error handling and plugin invocation. No Prometheus business is ported to C. */
+int
+ac_pipeline_log_start(lua_State *L)
+{
+    ngx_http_request_t *r = ngx_http_lua_get_request(L);
+    ac_request_t *ctx = r ? ngx_http_get_module_ctx(r, ngx_http_apisix_core_module) : NULL;
+    int table, matched;
+    if (!ctx || !ctx->c_pipeline || !ctx->main->lua_log_bridge || ctx->lua_log_started || ctx->log_done) {
+        lua_pushboolean(L, 0); return 1;
+    }
+    ac_ngx(L, NULL, "get_phase"); lua_call(L, 0, 1);
+    if (ngx_strcmp(lua_tostring(L, -1), "log") != 0)
+        return luaL_error(L, "native log bridge is restricted to log phase");
+    lua_pop(L, 1);
+    ctx->lua_log_started = ctx->lua_log_active = 1;
+    if (ctx->main->lazy_meta_matches != 1 && ngx_array_init(&ctx->meta_matches, r->pool, 4,
+            sizeof(ac_meta_match_t)) != NGX_OK) return luaL_error(L, "log metadata cache allocation failed");
+    ac_attach_lua_context(L, ctx);
+    ac_key_auth_publish(L, ctx);
+    ac_push(L, ctx->table_ref); table = lua_gettop(L);
+    if (ctx->route) {
+        ac_push(L, ctx->route->wrapper_ref); lua_setfield(L, table, "matched_route");
+        ac_set_string(L, table, "route_id", ctx->route->id);
+        lua_createtable(L, 0, 3); matched = lua_gettop(L);
+        ac_set_string(L, matched, "_path", ctx->path->source);
+        ac_set_string(L, matched, "_method", r->method_name);
+        if (ctx->matched_host.data) ac_set_string(L, matched, "_host", ctx->matched_host);
+        lua_setfield(L, table, "curr_req_matched");
+    }
+    if (ctx->balancer_ip.data) {
+        ac_set_string(L, table, "balancer_ip", ctx->balancer_ip);
+        lua_pushinteger(L, ctx->balancer_port); lua_setfield(L, table, "balancer_port");
+    }
+    if (ctx->native_proxied) { lua_pushboolean(L, 1); lua_setfield(L, table, "_apisix_proxied"); }
+    else { lua_pushliteral(L, "apisix"); lua_setfield(L, table, "_resp_source"); }
+    ac_route_context_at(L, ctx, 0, table);
+    lua_pop(L, 1);
+    /* Preserve the original pre-auth URI view for log labels without another
+     * request preparation pass or any mutation of the C forwarding state. */
+    ngx_str_t uri = ctx->normalized_uri, raw = r->unparsed_uri, combined;
+    u_char *query = ngx_strlchr(raw.data, raw.data + raw.len, '?'), *out;
+    size_t args = query ? raw.len - (query - raw.data) : 0;
+    if (ctx->main->delete_tail_slash && uri.len && uri.data[uri.len - 1] == '/') uri.len--;
+    ac_var_assign(L, ctx, "uri", uri, 0);
+    ac_var_assign(L, ctx, "real_request_uri", raw, 0);
+    combined.data = ngx_pnalloc(r->pool, uri.len + args + 1);
+    if (!combined.data) return luaL_error(L, "log URI view allocation failed");
+    out = ngx_cpymem(combined.data, uri.data, uri.len);
+    if (args) out = ngx_cpymem(out, query, args);
+    combined.len = out - combined.data;
+    ac_var_assign(L, ctx, "request_uri", combined, 0);
+    lua_pushboolean(L, 1); return 1;
 }
 
 ngx_int_t

@@ -1,6 +1,9 @@
 # APISIX next v4 llm：临时研究记录与模型交接
 
-> 最新专项：[key-auth 原生业务与 C 请求闭环](NATIVE_KEY_AUTH_V2.md)。用户已授权重写认证插件，新增C业务/旧适配器与完整C请求路径，默认关闭。
+> 最新混合研究：[C key-auth＋原版 Lua Prometheus](HYBRID_PROMETHEUS_20261031.md)。新增按需log桥接，同功能两轮60秒配对，混合模式相对稳定Lua平均QPS +44.89%，P95/P99分别下降41.56%/45.92%。
+> 原v2纯C结果及以下历史正文保持原值；混合模式启用Lua指标的代价、P99.9逐轮波动和能力范围见新报告。
+
+> 上一专项：[key-auth 原生业务与 C 请求闭环](NATIVE_KEY_AUTH_V2.md)。用户已授权重写认证插件，新增C业务/旧适配器与完整C请求路径，默认关闭。
 > 本轮两轮60秒配对：完整C相对C核心+Lua key-auth均值+82.53%，相对稳定Lua+98.62%；只适用于报告明确的key-auth场景和配置能力，不推广到其他插件。
 > 上一阶段已提交并推送至`apisix-next-v4-llm-core-v1`；专项分支为`apisix-next-v4-llm-native-plugins-v2`。下列旧报告及历史正文保持原结果。
 

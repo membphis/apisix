@@ -577,6 +577,7 @@ ac_match_native(ac_request_t *ctx)
     }
     if (!found) return NGX_HTTP_NOT_FOUND;
     ctx->route = best.route; ctx->path = best.path; ctx->metadata = best.route->metadata;
+    ctx->matched_host = best.host;
     return best.route->resolve_status ? (ngx_int_t) best.route->resolve_status : NGX_OK;
 }
 

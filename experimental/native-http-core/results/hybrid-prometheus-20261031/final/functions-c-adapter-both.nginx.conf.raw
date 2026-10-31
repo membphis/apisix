@@ -1,0 +1,432 @@
+load_module /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so;
+# Configuration File - Nginx Server Configs
+# This is a read-only file, do not try to modify it.
+master_process on;
+
+worker_processes 1;
+
+# main configuration snippet starts
+worker_cpu_affinity 1;
+# main configuration snippet ends
+
+error_log logs/error.log warn;
+pid logs/nginx.pid;
+
+worker_rlimit_nofile 20480;
+
+events {
+    accept_mutex off;
+    worker_connections 10620;
+}
+
+worker_rlimit_core  16G;
+
+worker_shutdown_timeout 240s;
+
+env APISIX_PROFILE;
+env PATH; # for searching external plugin runner's binary
+
+# reserved environment variables for configuration
+env APISIX_DEPLOYMENT_ETCD_HOST;
+env GCP_SERVICE_ACCOUNT;
+
+
+thread_pool grpc-client-nginx-module threads=1;
+
+lua {
+    lua_shared_dict prometheus-cache 10m;
+    lua_shared_dict nacos 64m;
+    lua_shared_dict upstream-healthcheck 10m;
+}
+
+
+
+
+http {
+    apisix_core_native_filters on;
+apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_key_auth on;
+    # X-Forwarded-* sanitization, first half. The second is
+    # `handle_trusted_x_forwarded_headers` in apisix/init.lua.
+    #
+    # Every request is neutralized unconditionally, in the rewrite phase, in C.
+    # That is the case worth optimizing for: with no `apisix.trusted_addresses`
+    # configured no peer is trusted, so it is what every request gets.
+    #
+    # These keep the names the `set` directives they replace used, and hold the
+    # same thing: what X-Forwarded-Host and X-Forwarded-Port are given below.
+    #
+    # the port carried by the Host header, falling back to the listener's own
+    map $http_host $var_x_forwarded_port {
+        default         $server_port;
+        "~:(?<p>\\d+)$" $p;
+    }
+    # `$http_host` rather than `$host`: the port the client connected to belongs
+    # in X-Forwarded-Host, and `$host` drops it
+    map $http_host $var_x_forwarded_host {
+        default $http_host;
+        ""      $host;
+    }
+
+    # put extra_lua_path in front of the builtin path
+    # so user can override the source code
+    lua_package_path  "/tmp/apisix-http-core-demo/native_lua/?.lua;/tmp/apisix-http-core-demo/?.lua;$prefix/deps/share/lua/5.1/?.lua;$prefix/deps/share/lua/5.1/?/init.lua;/tmp/apisix-http-core-demo/?.lua;/tmp/apisix-http-core-demo/?/init.lua;;./?.lua;/usr/local/openresty/luajit/share/luajit-2.1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/local/openresty/luajit/share/lua/5.1/?.lua;/usr/local/openresty/luajit/share/lua/5.1/?/init.lua;;";
+    lua_package_cpath "$prefix/deps/lib64/lua/5.1/?.so;$prefix/deps/lib/lua/5.1/?.so;;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/openresty/luajit/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so;";
+
+    lua_max_pending_timers 16384;
+    lua_max_running_timers 4096;
+
+    lua_shared_dict internal-status 10m;
+    lua_shared_dict worker-events 10m;
+    lua_shared_dict lrucache-lock 10m;
+    lua_shared_dict upstream-slow-start 10m;
+    lua_shared_dict balancer-ewma 10m;
+    lua_shared_dict balancer-ewma-locks 10m;
+    lua_shared_dict balancer-ewma-last-touched-at 10m;
+    lua_shared_dict etcd-cluster-health-check 10m; # etcd health check
+
+    # for discovery shared dict
+
+
+
+    lua_shared_dict plugin-ai-rate-limiting 10m;
+
+    lua_shared_dict plugin-ai-rate-limiting-reset-header 10m;
+
+
+
+
+
+
+
+    lua_shared_dict prometheus-metrics 128m;
+
+
+
+
+
+
+
+
+
+
+
+    # for custom shared dict
+
+
+    lua_ssl_verify_depth 5;
+    ssl_session_timeout 86400;
+
+    underscores_in_headers on;
+
+    lua_socket_log_errors off;
+
+    resolver 172.31.0.45 ipv6=off;
+    resolver_timeout 5;
+
+    lua_http10_buffering off;
+
+    lua_regex_match_limit 100000;
+    lua_regex_cache_max_entries 8192;
+
+    access_log off;
+    open_file_cache  max=1000 inactive=60;
+    client_max_body_size 0;
+    keepalive_timeout 60s;
+    client_header_timeout 60s;
+    client_body_timeout 60s;
+    send_timeout 10s;
+    variables_hash_max_size 2048;
+
+    server_tokens off;
+
+    include mime.types;
+    charset utf-8;
+
+    real_ip_header X-Real-IP;
+
+    real_ip_recursive off;
+
+    set_real_ip_from 127.0.0.1;
+    set_real_ip_from unix:;
+
+    lua_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+    # http configuration snippet starts
+    
+    # http configuration snippet ends
+
+    upstream apisix_backend {
+        server 0.0.0.1;
+
+        keepalive 320;
+        keepalive_requests 1000;
+        keepalive_timeout 60s;
+        # we put the static configuration above so that we can override it in the Lua code
+
+        balancer_by_lua_block {
+            require("apisix.native.runtime").balance()
+        }
+    }
+
+
+    apisix_delay_client_max_body_check on;
+    apisix_mirror_on_demand on;
+
+
+    init_by_lua_block {
+
+        require "resty.core"
+        table.insert(package.loaders, 2, function(name)
+            if name == "apisix" or (name:match("^apisix%.") and not name:match("^apisix%.native%.")
+               and not name:match("^apisix%.plugins%.")) then
+                error("original APISIX core forbidden: " .. name)
+            end
+        end)
+        require("apisix.native.engine").init("/tmp/apisix-http-core-demo/conf/native.json")
+
+    }
+
+    init_worker_by_lua_block {
+
+        require("apisix.native.engine").init_worker()
+        if require("ngx.process").type() == "worker" then
+            local ffi = require("ffi")
+            ffi.cdef[[int ac_function_profile_start(void); int ac_function_profile_stop(const char *);]]
+            ngx.timer.at(2, function() assert(ffi.C.ac_function_profile_start() == 0) end)
+            ngx.timer.at(12, function() assert(ffi.C.ac_function_profile_stop("/tmp/apisix-core-profile-native-hybrid-auth-functions.txt") == 0) end)
+        end
+
+        assert(package.loaded.apisix == nil, "old APISIX initializer loaded")
+        for name, value in pairs(package.loaded) do
+            if type(name) == "string" and name:match("^apisix%.") and not name:match("^apisix%.plugins%.")
+               and type(value) == "table" then
+                for _, method in pairs(value) do
+                    if type(method) == "function" then
+                        local info = debug.getinfo(method, "S")
+                        local path = info.source or ""
+                        assert(not (path:find("/tmp/apisix-http-core-demo/apisix", 1, true) and not path:find("/apisix/plugins/", 1, true)),
+                               "old Lua core function loaded: " .. name .. " " .. path)
+                    end
+                end
+            end
+        end
+
+    }
+
+    exit_worker_by_lua_block {
+        require("apisix.native.engine").shutdown()
+    }
+
+    # the server block for lua-resty-events
+    server {
+        listen unix:/tmp/apisix-http-core-demo/logs/worker_events.sock;
+        access_log off;
+        location / {
+            content_by_lua_block {
+                require("resty.events.compat").run()
+            }
+        }
+    }
+
+
+
+    server {
+        listen 0.0.0.0:9091 reuseport;
+
+        access_log off;
+
+        location / {
+            content_by_lua_block {
+                local prometheus = require("apisix.plugins.prometheus.exporter")
+                prometheus.export_metrics()
+            }
+        }
+
+        location = /apisix/nginx_status {
+            allow 127.0.0.0/24;
+            deny all;
+            stub_status;
+        }
+    }
+
+
+
+
+    server {
+        listen 0.0.0.0:9080 default_server reuseport;
+
+        server_name _;
+
+
+        proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+
+        # opentelemetry_set_ngx_var starts
+        set $opentelemetry_context_traceparent          '';
+        set $opentelemetry_trace_id                     '';
+        set $opentelemetry_span_id                      '';
+        # opentelemetry_set_ngx_var ends
+
+        # zipkin_set_ngx_var starts
+        # zipkin_set_ngx_var ends
+
+        set $rate_limiting_info '';
+
+        # http server configuration snippet starts
+        
+        # http server configuration snippet ends
+
+        location = /apisix/nginx_status {
+            allow 127.0.0.0/24;
+            deny all;
+            access_log off;
+            stub_status;
+        }
+
+
+        proxy_ssl_name $upstream_host;
+        proxy_ssl_server_name on;
+
+        apisix_core_proxy on;
+location / {
+            set $upstream_mirror_host        '';
+            set $upstream_mirror_uri         '';
+            set $upstream_mirror_grpc_path   '';
+            set $upstream_upgrade            '';
+            set $upstream_connection         '';
+
+            set $upstream_scheme             'http';
+            set $upstream_host               $http_host;
+            set $upstream_unresolved_host    '';
+            set $upstream_uri                '';
+            set $request_line                '';
+            set $ctx_ref                     '';
+
+
+            # http server location configuration snippet starts
+            proxy_connect_timeout 100ms; proxy_read_timeout 100ms; proxy_send_timeout 100ms; proxy_next_upstream off;
+            # http server location configuration snippet ends
+
+
+            set $llm_content_risk_level         '';
+            set $apisix_upstream_response_time  $upstream_response_time;
+            set $request_type               'traditional_http';
+            set $request_llm_model              '';
+
+            set $llm_time_to_first_token        '0';
+            set $llm_model                      '';
+            set $llm_prompt_tokens              '0';
+            set $llm_completion_tokens          '0';
+            set $llm_total_tokens               '0';
+            set $llm_stream                     'false';
+            set $llm_has_tool_calls             'false';
+            set $llm_tool_count                 '0';
+            set $llm_end_user_id                '';
+            set $llm_cache_read_input_tokens    '0';
+            set $llm_cache_creation_input_tokens '0';
+            set $llm_reasoning_tokens           '0';
+
+
+            set $apisix_request_id $request_id;
+            lua_error_log_request_id $apisix_request_id;
+
+            access_by_lua_block {
+                require("apisix.native.runtime").run("access")
+            }
+
+            proxy_http_version 1.1;
+            proxy_set_header   Host              $upstream_host;
+            proxy_set_header   Upgrade           $upstream_upgrade;
+            proxy_set_header   Connection        $upstream_connection;
+            proxy_set_header   X-Real-IP         $remote_addr;
+            proxy_pass_header  Date;
+
+            ### the following x-forwarded-* headers is to send to upstream server
+
+            # Take copies before neutralizing, so a trusted peer's own values can
+            # be put back. ngx_rewrite's `set` runs before headers_more's handler,
+            # which is what makes this ordering work -- do not reorder these.
+            #
+            # Reading `$http_x_forwarded_*` here indexes them, so they keep the
+            # client's raw value for the rest of the request. Nothing downstream
+            # derives from them -- the upstream headers come from `r->headers_in`
+            # and Lua's `ctx.var.http_x_forwarded_*` re-reads it through the prefix
+            # handler -- but an access log format that names them logs what the
+            # client sent. `$scheme` / `$var_x_forwarded_host` /
+            # `$var_x_forwarded_port` are the sanitized values.
+            # X-Forwarded-For is the one that cannot be copied here. Unlike
+            # `$http_x_forwarded_proto` and friends, which are prefix variables and
+            # are re-evaluated on every read, `$http_x_forwarded_for` is a dedicated
+            # entry in `ngx_http_core_variables[]`; naming it in the configuration
+            # makes it indexed, and this `set` would then pin the client's value in
+            # `r->variables[]` for the whole request -- surviving the clear below and
+            # feeding it back to route `vars`, rate-limit keys and every other
+            # `ctx.var` reader. Lua fills the slot instead, in the one branch that
+            # destroys the value.
+
+            # X-Forwarded-Proto/Host/Port are not set here: `r->headers_in` already
+            # holds the values this request should carry, and proxy_pass forwards it
+            # as it stands. That is also what lets a plugin rewrite them -- a
+            # `proxy_set_header` would overwrite the plugin's value with whatever the
+            # variable held. X-Forwarded-For is different: the connection address has
+            # to be appended, which only $proxy_add_x_forwarded_for does.
+            proxy_set_header   X-Forwarded-For      $proxy_add_x_forwarded_for;
+
+
+            proxy_pass      $upstream_scheme://apisix_backend$upstream_uri;
+
+
+            
+
+            
+
+            log_by_lua_block {
+                require("apisix.native.runtime").run("log")
+            }
+        }
+
+        location @grpc_pass {
+
+            access_by_lua_block {
+                apisix.grpc_access_phase()
+            }
+
+            # For servers which obey the standard, when `:authority` is missing,
+            # `host` will be used instead. When used with apisix-runtime, we can do
+            # better by setting `:authority` directly
+            grpc_set_header   ":authority" $upstream_host;
+            grpc_set_header   Content-Type application/grpc;
+            grpc_set_header   TE trailers;
+            grpc_socket_keepalive on;
+            # only consulted once upstream.tls.verify turns verification on;
+            # without it the certificate would be checked against "apisix_backend"
+            grpc_ssl_name     $upstream_host;
+            grpc_pass         $upstream_scheme://apisix_backend;
+
+
+            
+
+            
+
+            log_by_lua_block {
+                require("apisix.native.runtime").run("log")
+            }
+        }
+
+
+
+        location @websocket_pass {
+            content_by_lua_block {
+                apisix.websocket_content_phase()
+            }
+
+            log_by_lua_block {
+                apisix.websocket_log_phase()
+            }
+        }
+
+
+    }
+
+    # http end configuration snippet starts
+    
+    # http end configuration snippet ends
+}

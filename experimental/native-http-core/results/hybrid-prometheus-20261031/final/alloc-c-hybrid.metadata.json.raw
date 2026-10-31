@@ -1,0 +1,20 @@
+{
+  "mode": "native",
+  "suite": "hybrid",
+  "prefix": "auth",
+  "sampler": "alloc",
+  "source": "/stable",
+  "diagnostic_seconds": 15,
+  "metrics_scrape": false,
+  "directives": "apisix_core_lazy_rate_json on; apisix_core_batch_vars on; apisix_core_lazy_route_opts on; apisix_core_request_header_flags on; apisix_core_header_scratch on; apisix_core_request_pool_native on; apisix_core_native_pipeline on; apisix_core_lua_log_bridge on;",
+  "note": "Diagnostic run only; not acceptance throughput evidence",
+  "sha256": {
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "6689e26a461d677fa4382489f30e389a9d472a55274ba932a4ce8464c0e65406",
+    "/src/experimental/native-http-core/runtime.lua": "96cf93ad704f7db89c0659bc0a08d1deeba12c0666b83ad45fb821782dd492e4",
+    "/stable/apisix/init.lua": "3cbea3eb74cada6632eeeb42e23c6a63be00dfde644dc670c673f38f735d14ca"
+  },
+  "allocator_sampler_sha256": {
+    "/src/experimental/native-http-core/tools/allocator_sampler.c": "36fb1577609ca504598748e5979a59b85a6ee36f8bd6082fd2b72da40294322e",
+    "/tmp/apisix-allocator-sampler.so": "7896cc4677e5d0aa25fa7e8459da436469f65e80b7fbe0daae376c67726ae1fa"
+  }
+}

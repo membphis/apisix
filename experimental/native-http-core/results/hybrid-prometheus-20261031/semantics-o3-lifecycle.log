@@ -1,0 +1,27 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+PASS lua-both 50 semantic cases, exact global/route status+labels+histograms, bandwidth equals access-log bytes, 128 concurrent auth, 499 abort, keepalive
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS c-adapter-both 50 semantic cases, exact global/route status+labels+histograms, bandwidth equals access-log bytes, 128 concurrent auth, 499 abort, keepalive
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, plugin=legacy-global-metrics, workers=1
+PASS c-hybrid 50 semantic cases, exact global/route status+labels+histograms, bandwidth equals access-log bytes, 128 concurrent auth, 499 abort, keepalive
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, plugin=legacy-global-metrics, workers=1
+Traceback (most recent call last):
+  File "/src/experimental/native-http-core/tests/test_hybrid_prometheus.py", line 206, in <module>
+    for variant in args.variants: lifecycle(variant)
+  File "/src/experimental/native-http-core/tests/test_hybrid_prometheus.py", line 172, in lifecycle
+    else: raise AssertionError("consumer key rotation did not publish")
+AssertionError: consumer key rotation did not publish

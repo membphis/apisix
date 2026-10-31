@@ -144,6 +144,7 @@ typedef struct {
     ngx_flag_t native_filters;
     ngx_flag_t native_key_auth;
     ngx_flag_t native_pipeline;
+    ngx_flag_t lua_log_bridge;
     ac_key_auth_index_t *key_auth_index;
     ngx_flag_t lazy_rate_json;
     ngx_int_t rate_variable_index;
@@ -227,6 +228,10 @@ typedef struct {
     ngx_str_t upstream_uri;
     ngx_str_t routing_uri;
     ngx_str_t normalized_uri;
+    ngx_str_t matched_host;
+    ngx_str_t balancer_ip;
+    ngx_uint_t balancer_port;
+    void *native_consumer;
     unsigned upstream_owned:1;
     ngx_str_t native_variables[64];
     ac_rate_snapshot_t *rate_snapshot;
@@ -244,6 +249,10 @@ typedef struct {
     unsigned script_dispatched:1;
     unsigned script_pending:1;
     unsigned c_pipeline:1;
+    unsigned lua_log_active:1;
+    unsigned lua_log_started:1;
+    unsigned native_proxied:1;
+    unsigned upstream_logged:1;
 } ac_request_t;
 
 void ac_key_auth_prepare(lua_State *L, ac_main_conf_t *main);
@@ -256,6 +265,10 @@ ngx_int_t ac_http_prepare_native(ac_request_t *ctx);
 ngx_int_t ac_upstream_prepare_native(ac_request_t *ctx);
 void ac_upstream_validate_native(lua_State *L, ac_main_conf_t *main, ac_route_t *route);
 char *ac_upstream_native_directive(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
+void ac_attach_lua_context(lua_State *L, ac_request_t *ctx);
+void ac_cleanup(void *data);
+void ac_key_auth_publish(lua_State *L, ac_request_t *ctx);
+int ac_pipeline_log_start(lua_State *L);
 
 extern ngx_module_t ngx_http_apisix_core_module;
 extern const char *ac_phase_names[AC_PHASES];

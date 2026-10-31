@@ -157,13 +157,13 @@ def symbolize(output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["lua", "native"])
-    parser.add_argument("--suite", choices=["historical", "isolated-single"], default="historical")
+    parser.add_argument("--suite", choices=["historical", "isolated-single", "hybrid"], default="historical")
     parser.add_argument("--prefix", choices=["plain", "combined", "prometheus", "metrics", "auth", "limit"],
                         default="plain")
     parser.add_argument("--sampler", choices=["jit", "pc", "functions", "traces", "route", "alloc"], default="jit")
     args = parser.parse_args()
     single_plugin = None
-    if args.suite == "isolated-single":
+    if args.suite in ("isolated-single", "hybrid"):
         plugins = {"prometheus": "prometheus", "metrics": "prometheus",
                    "auth": "key-auth", "limit": "limit-count"}
         if args.prefix not in plugins:
@@ -179,7 +179,7 @@ def main():
     cpu = sorted(os.sched_getaffinity(0))
     stop(UPSTREAM)
     prepare(args.mode, benchmark=True, gateway_cpu=cpu[0], upstream_cpu=cpu[1],
-            single_plugin=single_plugin)
+            single_plugin=single_plugin, with_prometheus=args.suite == "hybrid")
     stop()
     output = f"/tmp/apisix-core-profile-{args.mode}-{args.suite}-{args.prefix}-{args.sampler}.txt"
     # The worker writes the profile, so an earlier worker's file must be removed.

@@ -97,7 +97,8 @@ print(require("cjson.safe").encode(value))
 
 def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
             upstream_address=None, gateway_cpu=None, upstream_cpu=None, native_filters=True,
-            single_plugin=None, plugin_allowlist=None, proxy_retry=False):
+            single_plugin=None, plugin_allowlist=None, proxy_retry=False, with_prometheus=False,
+            prometheus_settings=None, observe_access=False, init_worker_extra=None):
     assert mode in ("lua", "native"), mode
     stop()
     # Retire only the earlier prototype processes in this dedicated demo container.
@@ -114,6 +115,11 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
         snapshot["global_rules"] = []
         if single_plugin != "key-auth":
             snapshot["consumers"] = []
+    if with_prometheus:
+        assert single_plugin == "key-auth" or plugin_allowlist == ["key-auth", "prometheus"]
+        if not snapshot.get("global_rules"):
+            snapshot["global_rules"] = [{"id": "metrics", "plugins": {"prometheus": {}}}]
+        plugin_allowlist = ["key-auth", "prometheus"]
     if upstream_address:
         snapshot["upstream"] = upstream_address
     if benchmark or test_window:
@@ -147,8 +153,15 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
         config["nginx_config"]["http_server_location_configuration_snippet"] = (
             "proxy_connect_timeout 100ms; proxy_read_timeout 100ms; proxy_send_timeout 100ms; "
             "proxy_next_upstream error timeout;")
+    if prometheus_settings:
+        config["plugin_attr"]["prometheus"].update(copy.deepcopy(prometheus_settings))
+    if observe_access:
+        config["nginx_config"]["http_configuration_snippet"] = (
+            'log_format hybrid_check "$http_x_demo_probe|$arg_skip|$status|$request_length|$bytes_sent";')
+        config["nginx_config"]["http_server_location_configuration_snippet"] += (
+            "\naccess_log logs/hybrid-access.log hybrid_check;")
     assert "ai" not in config["plugins"]
-    if (single_plugin and single_plugin != "prometheus") or (plugin_allowlist and "prometheus" not in plugin_allowlist):
+    if not with_prometheus and ((single_plugin and single_plugin != "prometheus") or (plugin_allowlist and "prometheus" not in plugin_allowlist)):
         config.pop("plugin_attr")
     if gateway_cpu is not None:
         config["nginx_config"]["main_configuration_snippet"] = f"worker_cpu_affinity {1 << gateway_cpu:b};"
@@ -229,12 +242,20 @@ def prepare(mode, workers=1, benchmark=False, fixture=None, test_window=None,
         for phase in ("access", "header_filter", "body_filter", "log", "balancer"):
             pattern = r"\b" + phase + r"_by_lua_block\s*\{[^{}]*\}"
             text = re.sub(pattern, "", text)
+        if "apisix_core_lua_log_bridge on;" in os.environ.get("APISIX_CORE_DIRECTIVES", ""):
+            marker = "apisix_core_proxy on;"
+            assert text.count(marker) == 1
+            text = text.replace(marker, marker + '\n            log_by_lua_block { require("apisix.native.runtime").native_log() }', 1)
         marker = "upstream apisix_backend {"
         assert text.count(marker) == 1
         text = text.replace(marker, marker + "\n        apisix_core_native_balancer;", 1)
         # The dynamic Lua pool has no age cutoff. Use the largest representable
         # signed msec interval in the stock C pool (64-bit pinned runtime).
         text = text.replace("keepalive 320;", "keepalive 320;\n        keepalive_time 9223372036854775807ms;", 1)
+    if init_worker_extra:
+        marker = 'require("apisix.native.engine").init_worker()' if mode == "native" else 'apisix.http_init_worker()'
+        assert text.count(marker) == 1
+        text = text.replace(marker, marker + "\n" + init_worker_extra, 1)
     path.write_text(text)
     for entry in [ROOT, *ROOT.rglob("*")]:
         if not entry.is_symlink():
