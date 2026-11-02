@@ -1,0 +1,217 @@
+{
+  "screening_note": "Single-sample exploratory selection; shared flanking controls; not independent causal effects or significance tests.",
+  "screening": [
+    {
+      "flag": "batch_vars",
+      "prefix": "metrics",
+      "qps": 20219.26,
+      "control_before": 19543.74,
+      "control_after": 19889.97,
+      "delta_percent": 2.5480990756385546,
+      "worker_cpu_us_per_request": 49.3943362589704,
+      "rss_peak_bytes": 21061632
+    },
+    {
+      "flag": "http_var_plan",
+      "prefix": "metrics",
+      "qps": 20003.68,
+      "control_before": 19543.74,
+      "control_after": 19889.97,
+      "delta_percent": 1.4547198323464627,
+      "worker_cpu_us_per_request": 49.92569044572403,
+      "rss_peak_bytes": 20684800
+    },
+    {
+      "flag": "lazy_route_opts",
+      "prefix": "metrics",
+      "qps": 20372.69,
+      "control_before": 19543.74,
+      "control_after": 19889.97,
+      "delta_percent": 3.3262657761595094,
+      "worker_cpu_us_per_request": 48.99286090003214,
+      "rss_peak_bytes": 21250048
+    },
+    {
+      "flag": "route_candidates",
+      "prefix": "metrics",
+      "qps": 20137.06,
+      "control_before": 19889.97,
+      "control_after": 20370.0,
+      "delta_percent": 0.03514657363132834,
+      "worker_cpu_us_per_request": 49.62327361326288,
+      "rss_peak_bytes": 20807680
+    },
+    {
+      "flag": "request_pool",
+      "prefix": "metrics",
+      "qps": 20387.22,
+      "control_before": 19889.97,
+      "control_after": 20370.0,
+      "delta_percent": 1.2778698046719938,
+      "worker_cpu_us_per_request": 48.965951905462205,
+      "rss_peak_bytes": 20819968
+    },
+    {
+      "flag": "lazy_meta_matches",
+      "prefix": "metrics",
+      "qps": 19794.21,
+      "control_before": 19889.97,
+      "control_after": 20370.0,
+      "delta_percent": -1.668034029831622,
+      "worker_cpu_us_per_request": 50.404320610879815,
+      "rss_peak_bytes": 21311488
+    },
+    {
+      "flag": "phase_index",
+      "prefix": "metrics",
+      "qps": 20069.92,
+      "control_before": 20370.0,
+      "control_after": 20267.92,
+      "delta_percent": -1.225653281467165,
+      "worker_cpu_us_per_request": 49.75587072773774,
+      "rss_peak_bytes": 21389312
+    },
+    {
+      "flag": "phase_context",
+      "prefix": "metrics",
+      "qps": 20090.8,
+      "control_before": 20370.0,
+      "control_after": 20267.92,
+      "delta_percent": -1.1228921165256533,
+      "worker_cpu_us_per_request": 49.687854098542886,
+      "rss_peak_bytes": 21131264
+    },
+    {
+      "flag": "plain_uri",
+      "prefix": "metrics",
+      "qps": 19750.76,
+      "control_before": 20370.0,
+      "control_after": 20267.92,
+      "delta_percent": -2.7964029655061173,
+      "worker_cpu_us_per_request": 50.49776367046602,
+      "rss_peak_bytes": 20971520
+    },
+    {
+      "flag": "native_var_writes",
+      "prefix": "metrics",
+      "qps": 19848.5,
+      "control_before": 20267.92,
+      "control_after": 19691.81,
+      "delta_percent": -0.6574869249616921,
+      "worker_cpu_us_per_request": 50.317116215494615,
+      "rss_peak_bytes": 21123072
+    },
+    {
+      "flag": "request_header_flags",
+      "prefix": "auth",
+      "qps": 24482.56,
+      "control_before": 23393.09,
+      "control_after": 24018.46,
+      "delta_percent": 3.276775384900943,
+      "worker_cpu_us_per_request": 40.77351232837176,
+      "rss_peak_bytes": 18370560
+    },
+    {
+      "flag": "header_scratch",
+      "prefix": "auth",
+      "qps": 24518.56,
+      "control_before": 23393.09,
+      "control_after": 24018.46,
+      "delta_percent": 3.4286371147958628,
+      "worker_cpu_us_per_request": 40.72149987799184,
+      "rss_peak_bytes": 18374656
+    },
+    {
+      "flag": "sdk_cache_replay",
+      "prefix": "auth",
+      "qps": 23966.34,
+      "control_before": 23393.09,
+      "control_after": 24018.46,
+      "delta_percent": 1.0991625458353527,
+      "worker_cpu_us_per_request": 41.64580551846907,
+      "rss_peak_bytes": 18354176
+    }
+  ],
+  "extra_screening": [
+    {
+      "label": "extra-request_pool_native",
+      "qps": 20532.88,
+      "control_before": 20260.52,
+      "control_after": 19919.63,
+      "delta_percent": 2.2040982923159813,
+      "worker_cpu_us_per_request": 48.63435036374305
+    },
+    {
+      "label": "extra-balancer_peer_plan",
+      "qps": 20300.97,
+      "control_before": 20260.52,
+      "control_after": 19919.63,
+      "delta_percent": 1.049747201043294,
+      "worker_cpu_us_per_request": 49.1809738341786
+    },
+    {
+      "label": "extra-matched_pool",
+      "qps": 20625.35,
+      "control_before": 20402.76,
+      "control_after": 20972.76,
+      "delta_percent": -0.3016759668518998,
+      "worker_cpu_us_per_request": 48.424330620288764
+    }
+  ],
+  "final_pairs": [
+    {
+      "round": "final-round-1",
+      "prefix": "metrics",
+      "lua_qps": 18929.49,
+      "native_qps": 20299.48,
+      "delta_percent": 7.237331803445302,
+      "lua_cpu_us": 52.77604645348489,
+      "native_cpu_us": 49.209560151585805
+    },
+    {
+      "round": "final-round-1",
+      "prefix": "auth",
+      "lua_qps": 24287.5,
+      "native_qps": 25258.4,
+      "delta_percent": 3.9975295934122634,
+      "lua_cpu_us": 41.13645018852777,
+      "native_cpu_us": 39.52916026102046
+    },
+    {
+      "round": "final-round-1",
+      "prefix": "limit",
+      "lua_qps": 23339.54,
+      "native_qps": 24707.44,
+      "delta_percent": 5.860869580120243,
+      "lua_cpu_us": 42.74865192158296,
+      "native_cpu_us": 40.42416708206046
+    },
+    {
+      "round": "final-round-2",
+      "prefix": "metrics",
+      "lua_qps": 19098.09,
+      "native_qps": 20693.48,
+      "delta_percent": 8.353662591390032,
+      "lua_cpu_us": 52.300371234185945,
+      "native_cpu_us": 48.28186623305604
+    },
+    {
+      "round": "final-round-2",
+      "prefix": "auth",
+      "lua_qps": 24901.93,
+      "native_qps": 25884.72,
+      "delta_percent": 3.9466418867935227,
+      "lua_cpu_us": 40.11089127963966,
+      "native_cpu_us": 38.57516790258051
+    },
+    {
+      "round": "final-round-2",
+      "prefix": "limit",
+      "lua_qps": 23183.36,
+      "native_qps": 24985.73,
+      "delta_percent": 7.774412337124548,
+      "lua_cpu_us": 43.086747841888744,
+      "native_cpu_us": 39.976496967748695
+    }
+  ]
+}

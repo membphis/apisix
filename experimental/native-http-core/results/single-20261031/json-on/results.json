@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "native",
+    "prefix": "limit",
+    "duration_seconds": 60,
+    "suite": "single",
+    "variant": "json-on",
+    "plugin": "limit-count",
+    "cgroup_cpu_delta": {
+      "usage_usec": 85135262,
+      "user_usec": 40122082,
+      "system_usec": 45013180,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 85710141,
+      "user_usec": 40340441,
+      "system_usec": 45369700,
+      "nice_usec": 0,
+      "nr_periods": 603,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.242700528999876,
+    "requests": 1389599,
+    "qps": 23158.38,
+    "workers": [
+      29090
+    ],
+    "worker_cpu_seconds": 59.940000000000005,
+    "worker_cpu_us_per_request": 43.134746067030854,
+    "rss_start_bytes": 19574784,
+    "rss_end_bytes": 19505152,
+    "rss_peak_bytes": 19623936,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1334.0,
+      "p95": 1842.0,
+      "p99": 2173.0
+    },
+    "error_rate": 0
+  }
+]

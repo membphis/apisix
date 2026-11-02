@@ -1,0 +1,1 @@
+{"global_rules": [], "consumers": [], "routes": [{"id": "metrics", "uri": "/metrics/*", "plugins": {"prometheus": {}}, "upstream": {"type": "roundrobin", "nodes": {"127.0.0.1:1980": 1}, "retries": 0, "timeout": {"connect": 0.1, "read": 0.1, "send": 0.1}}}]}

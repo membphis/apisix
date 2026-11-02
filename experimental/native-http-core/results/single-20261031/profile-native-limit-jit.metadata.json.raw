@@ -1,0 +1,16 @@
+{
+  "mode": "native",
+  "suite": "isolated-single",
+  "prefix": "limit",
+  "sampler": "jit",
+  "source": "/stable",
+  "diagnostic_seconds": 15,
+  "metrics_scrape": false,
+  "directives": "",
+  "note": "Diagnostic run only; not acceptance throughput evidence",
+  "sha256": {
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "36fac92f9ef321d8e20db4b9555f668240a2b5614f1977a5ca9ed17e660d1b8a",
+    "/src/experimental/native-http-core/runtime.lua": "ecdc800566e74a9060fb687aa9bfadb9ffab1b5c1cd076b69788422da3cc38ca",
+    "/stable/apisix/init.lua": "3cbea3eb74cada6632eeeb42e23c6a63be00dfde644dc670c673f38f735d14ca"
+  }
+}

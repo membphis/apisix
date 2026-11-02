@@ -1,0 +1,162 @@
+--- a/experimental/native-http-core/module/request.c
++++ b/experimental/native-http-core/module/request.c
+@@ -1,5 +1,6 @@
+ /* SPDX-License-Identifier: Apache-2.0 */
+ #include "engine.h"
++#include <math.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+@@ -333,7 +334,7 @@
+         lua_pop(L, 1);
+     }
+     lua_getfield(L, ctx, "headers");
+-    if (lua_isnil(L, -1)) {
++    if (!lua_toboolean(L, -1)) {
+         lua_pop(L, 1);
+         ac_ngx(L, "req", "get_headers");
+         lua_call(L, 0, 1);
+@@ -464,9 +465,13 @@
+ {
+     int ctx;
+     lua_settop(L, 1);
++    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
++        lua_pushnil(L);
++        lua_replace(L, 1);
++    }
+     ctx = ac_arg_context(L, 1);
+     lua_getfield(L, ctx, "req_uri_args");
+-    if (lua_isnil(L, -1)) {
++    if (!lua_toboolean(L, -1)) {
+         lua_pop(L, 1);
+         ac_ngx(L, "req", "get_uri_args");
+         lua_pushinteger(L, 0);
+@@ -482,6 +487,10 @@
+ {
+     int ctx;
+     lua_settop(L, 2);
++    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
++        lua_pushnil(L);
++        lua_replace(L, 1);
++    }
+     ctx = ac_arg_context(L, 1);
+     lua_pushnil(L);
+     lua_setfield(L, ctx, "req_uri_args");
+@@ -494,7 +503,7 @@
+ static int
+ ac_body_too_large(lua_State *L, lua_Number size, lua_Number max)
+ {
+-    if (max < 0 || size <= max) return 0;
++    if (!(size > max)) return 0;
+     lua_pushnil(L);
+     lua_pushfstring(L, "request size %f is greater than the maximum size %f allowed", size, max);
+     lua_pushliteral(L, "too_large");
+@@ -568,7 +577,7 @@
+     mode = (int) lua_tointeger(L, -1);
+     lua_pop(L, 1);
+     lua_getfield(L, state, "max");
+-    max = lua_isnil(L, -1) ? -1 : lua_tonumber(L, -1);
++    max = lua_isnil(L, -1) ? HUGE_VAL : lua_tonumber(L, -1);
+     lua_pop(L, 1);
+     lua_getfield(L, state, "ctx");
+     ctx = lua_gettop(L);
+@@ -663,16 +672,22 @@
+ ac_body_start(lua_State *L)
+ {
+     int mode = (int) lua_tointeger(L, lua_upvalueindex(1));
+-    int ctx, state, maxarg, ctarg, result;
++    int ctx, ctxarg, state, maxarg, ctarg, result;
+     lua_Number max;
+     const char *ct;
+     lua_settop(L, 3);
+-    ctx = ac_arg_context(L, mode == 0 ? 2 : mode == 3 ? 4 : 1);
++    ctxarg = mode == 0 ? 2 : mode == 3 ? 4 : 1;
++    if (lua_isboolean(L, ctxarg) && !lua_toboolean(L, ctxarg)) {
++        lua_pushnil(L);
++        lua_replace(L, ctxarg);
++    }
++    ctx = ac_arg_context(L, ctxarg);
+     maxarg = mode == 0 || mode == 3 ? 1 : 3;
+-    max = lua_isnil(L, maxarg) ? -1 : luaL_checknumber(L, maxarg);
++    /* Only nil/false disable the limit; negative numbers remain limits. */
++    max = !lua_toboolean(L, maxarg) ? HUGE_VAL : luaL_checknumber(L, maxarg);
+     if (mode == 1) {
+         lua_getfield(L, ctx, "req_post_args");
+-        if (!lua_isnil(L, -1)) return ac_done(L, 1);
++        if (lua_toboolean(L, -1)) return ac_done(L, 1);
+         lua_pop(L, 1);
+     }
+     lua_newtable(L);
+@@ -689,7 +704,8 @@
+         ctarg = lua_gettop(L);
+         lua_getfield(L, ctx, "_request_body_table");
+         if (!lua_isnil(L, -1)) {
+-            if (!lua_isnil(L, ctarg)) {
++            /* Unlike the other SDK caches, a false parsed body is a hit. */
++            if (lua_toboolean(L, ctarg)) {
+                 lua_getfield(L, ctx, "_request_body_type");
+                 if (!lua_equal(L, -1, ctarg)) {
+                     lua_pushnil(L);
+@@ -699,10 +715,17 @@
+                 }
+                 lua_pop(L, 1);
+             }
++            if (mode == 3 && !lua_toboolean(L, -1)) {
++                /* The JSON convenience wrapper maps a false cached body to
++                 * nil, { message = nil }, which is an empty error table. */
++                lua_pushnil(L);
++                lua_newtable(L);
++                return ac_done(L, 2);
++            }
+             return ac_done(L, 1);
+         }
+         lua_pop(L, 1);
+-        if (lua_isnil(L, ctarg)) {
++        if (!lua_toboolean(L, ctarg)) {
+             lua_pushcfunction(L, ac_header);
+             lua_pushvalue(L, ctx);
+             lua_pushliteral(L, "Content-Type");
+@@ -720,7 +743,7 @@
+         lua_pushstring(L, ct);
+         lua_setfield(L, state, "ct");
+     }
+-    if (mode != 1 && max >= 0) {
++    if (mode != 1 && lua_toboolean(L, maxarg)) {
+         lua_getfield(L, ctx, "var");
+         lua_getfield(L, -1, "http_content_length");
+         if (lua_isnumber(L, -1) && lua_tonumber(L, -1) > max) {
+@@ -744,11 +767,15 @@
+     int numeric = lua_toboolean(L, lua_upvalueindex(2));
+     int ctx;
+     lua_settop(L, 1);
++    if (lua_isboolean(L, 1) && !lua_toboolean(L, 1)) {
++        lua_pushnil(L);
++        lua_replace(L, 1);
++    }
+     ctx = ac_arg_context(L, 1);
+     lua_getfield(L, ctx, "var");
+     if (ngx_strcmp(name, "realip_remote_addr") == 0) {
+         lua_getfield(L, -1, name);
+-        if (lua_isnil(L, -1)) {
++        if (!lua_toboolean(L, -1)) {
+             lua_pop(L, 1);
+             name = "remote_addr";
+             lua_getfield(L, -1, name);
+@@ -757,7 +784,7 @@
+     if (numeric) {
+         if (lua_isnumber(L, -1)) lua_pushnumber(L, lua_tonumber(L, -1));
+         else lua_pushnil(L);
+-    } else if (lua_isnil(L, -1)) lua_pushliteral(L, "");
++    } else if (!lua_toboolean(L, -1)) lua_pushliteral(L, "");
+     return 1;
+ }
+ 
+@@ -973,7 +1000,7 @@
+     lua_call(L, 3, 1);
+     var = lua_gettop(L);
+     lua_getfield(L, var, "_cache");
+-    if (lua_isnil(L, -1)) {
++    if (!lua_toboolean(L, -1)) {
+         lua_pop(L, 1);
+         lua_newtable(L);
+         lua_setfield(L, var, "_cache");

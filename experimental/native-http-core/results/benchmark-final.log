@@ -1,0 +1,48 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+{"mode": "lua", "prefix": "plain", "duration_seconds": 60, "wall_seconds": 60.40556559899778, "requests": 1074583, "qps": 17908.72, "workers": [5177], "worker_cpu_seconds": 59.959999999999994, "worker_cpu_us_per_request": 55.7983887703416, "rss_start_bytes": 33972224, "rss_end_bytes": 34328576, "rss_peak_bytes": 34406400, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1637.0, "p95": 2770.0, "p99": 3581.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+{"mode": "native", "prefix": "plain", "duration_seconds": 60, "wall_seconds": 60.39720017000218, "requests": 1180605, "qps": 19674.69, "workers": [5277], "worker_cpu_seconds": 59.92999999999999, "worker_cpu_us_per_request": 50.76210925754168, "rss_start_bytes": 21671936, "rss_end_bytes": 22097920, "rss_peak_bytes": 22130688, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1511.0, "p95": 2298.0, "p99": 2827.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+{"mode": "lua", "prefix": "auth", "duration_seconds": 60, "wall_seconds": 60.48980081699847, "requests": 1034406, "qps": 17236.36, "workers": [5377], "worker_cpu_seconds": 59.959999999999994, "worker_cpu_us_per_request": 57.96563438340458, "rss_start_bytes": 34852864, "rss_end_bytes": 35594240, "rss_peak_bytes": 35684352, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1697.0, "p95": 2993.0, "p99": 4053.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+{"mode": "native", "prefix": "auth", "duration_seconds": 60, "wall_seconds": 60.420485727001505, "requests": 1048419, "qps": 17472.1, "workers": [5477], "worker_cpu_seconds": 59.96, "worker_cpu_us_per_request": 57.19087502229547, "rss_start_bytes": 22548480, "rss_end_bytes": 22978560, "rss_peak_bytes": 22986752, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1704.0, "p95": 2581.0, "p99": 3156.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+{"mode": "lua", "prefix": "limit", "duration_seconds": 60, "wall_seconds": 60.436416610999004, "requests": 880516, "qps": 14671.79, "workers": [5577], "worker_cpu_seconds": 59.98, "worker_cpu_us_per_request": 68.11914831757743, "rss_start_bytes": 33705984, "rss_end_bytes": 34451456, "rss_peak_bytes": 34500608, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1960.0, "p95": 3851.0, "p99": 5119.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+{"mode": "native", "prefix": "limit", "duration_seconds": 60, "wall_seconds": 60.43290382899795, "requests": 978198, "qps": 16301.09, "workers": [5677], "worker_cpu_seconds": 59.96999999999999, "worker_cpu_us_per_request": 61.30660663791992, "rss_start_bytes": 22421504, "rss_end_bytes": 22802432, "rss_peak_bytes": 22855680, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 1835.0, "p95": 2790.0, "p99": 3382.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+{"mode": "lua", "prefix": "combined", "duration_seconds": 60, "wall_seconds": 60.52419362300134, "requests": 772586, "qps": 12873.5, "workers": [5777], "worker_cpu_seconds": 59.94, "worker_cpu_us_per_request": 77.58359587152758, "rss_start_bytes": 35024896, "rss_end_bytes": 35856384, "rss_peak_bytes": 35909632, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 2247.0, "p95": 4341.0, "p99": 5876.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+{"mode": "native", "prefix": "combined", "duration_seconds": 60, "wall_seconds": 60.500852221997775, "requests": 843310, "qps": 14053.59, "workers": [5877], "worker_cpu_seconds": 59.94, "worker_cpu_us_per_request": 71.07706537335025, "rss_start_bytes": 23154688, "rss_end_bytes": 23584768, "rss_peak_bytes": 23703552, "latency_method": "wrk closed-loop; each implementation at its own achieved throughput", "latencies_us": {"p50": 2145.0, "p95": 3224.0, "p99": 3884.0}, "error_rate": 0}
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1

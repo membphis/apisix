@@ -1,0 +1,51 @@
+{
+  "id": "lua-loop-1",
+  "mode": "lua",
+  "kind": "loop",
+  "k": 1,
+  "duration_seconds": 60,
+  "requests": 180000,
+  "rate": 3000,
+  "worker_cpu_seconds": 13.12,
+  "cpu_us_per_request": 72.88888888888889,
+  "worker_cpu_utilization": 0.21866666666666665,
+  "rss_end_bytes": 33148928,
+  "load": {
+    "requested_rate": 3000,
+    "duration_seconds": 60,
+    "connections": 32,
+    "target_requests": 180000,
+    "completed": 180000,
+    "wall_seconds": 60.000510674006364,
+    "observed_rps": 2999.9744665170033,
+    "scheduled_latency_us": {
+      "mean": 792.9936471856364,
+      "p50": 732.6820050366223,
+      "p95": 1480.0776698393747,
+      "p99": 1632.807012356352,
+      "max": 7043.426005111542
+    },
+    "wire_latency_us": {
+      "mean": 340.2832545447929,
+      "p50": 312.06300627673045,
+      "p95": 539.5410044002347,
+      "p99": 685.1359939901158,
+      "max": 6143.787002656609
+    },
+    "driver_lateness_us": {
+      "mean": 452.7103926408446,
+      "p50": 392.0263407053426,
+      "p95": 1063.112671545241,
+      "p99": 1092.9390045930631,
+      "max": 4177.802671620157
+    },
+    "errors": [],
+    "all_slots_completed": true,
+    "schedule_drained_within_one_second": true
+  },
+  "error_rate": 0,
+  "one_upstream_per_request": true,
+  "workers": [
+    9269
+  ]
+}

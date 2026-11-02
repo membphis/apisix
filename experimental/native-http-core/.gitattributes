@@ -1,0 +1,3 @@
+# Measurement output retains its original bytes, including trailing spaces.
+results/**/*.raw -whitespace
+results/**/staged-patches/*.patch -whitespace

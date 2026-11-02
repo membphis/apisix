@@ -1,0 +1,281 @@
+[
+  {
+    "query": "sleep=0.03",
+    "wire_seconds": [
+      0.03070361899881391,
+      0.030892021000909153,
+      0.03083280799910426,
+      0.03079162100038957,
+      0.03079913200053852,
+      0.030717661000380758,
+      0.031438726000487804,
+      0.03172955199988792,
+      0.03102472199680051,
+      0.030888624998624437
+    ],
+    "scope": {
+      "accepted": 10,
+      "completed": 10,
+      "sampled_completed": 10,
+      "stride": 1,
+      "invalid": 0,
+      "missing": 0,
+      "pending": 0,
+      "scope_switches": 200,
+      "gc_cpu_samples": 0,
+      "total_cpu_samples": 0,
+      "gc_callback_scope_samples": [
+        0,
+        0,
+        0
+      ],
+      "core_cpu": {
+        "sample_total_ns": 1044274,
+        "mean_ns": 104427.4,
+        "p50_ns": 81302,
+        "p95_ns": 168938,
+        "p99_ns": 168938
+      },
+      "core_active_wall": {
+        "sample_total_ns": 1034444,
+        "mean_ns": 103444.4,
+        "p50_ns": 80591,
+        "p95_ns": 168639,
+        "p99_ns": 168639
+      },
+      "plugin_cpu": {
+        "sample_total_ns": 398824,
+        "mean_ns": 39882.4,
+        "p50_ns": 29403,
+        "p95_ns": 47540,
+        "p99_ns": 47540
+      },
+      "plugin_active_wall": {
+        "sample_total_ns": 398317,
+        "mean_ns": 39831.7,
+        "p50_ns": 29416,
+        "p95_ns": 47469,
+        "p99_ns": 47469
+      },
+      "allocator": [
+        {
+          "calls": 141,
+          "new_calls": 110,
+          "resize_calls": 0,
+          "free_calls": 31,
+          "failed": 0,
+          "requested_new_bytes": 3360,
+          "successful_growth_bytes": 3360
+        },
+        {
+          "calls": 333,
+          "new_calls": 303,
+          "resize_calls": 0,
+          "free_calls": 30,
+          "failed": 0,
+          "requested_new_bytes": 28612,
+          "successful_growth_bytes": 28612
+        },
+        {
+          "calls": 150,
+          "new_calls": 130,
+          "resize_calls": 0,
+          "free_calls": 20,
+          "failed": 0,
+          "requested_new_bytes": 11076,
+          "successful_growth_bytes": 11076
+        }
+      ],
+      "plugin_entries": 10,
+      "sdk_entries": 90,
+      "allocator_restored": true,
+      "gc_sampling_interval_us": 1000
+    }
+  },
+  {
+    "query": "cost_plugin_ns=2000000",
+    "wire_seconds": [
+      0.002512368002498988,
+      0.0023735220020171255,
+      0.0023454199981642887,
+      0.0023755350048304535,
+      0.002559658001700882,
+      0.0023677330027567223,
+      0.0023541629998362623,
+      0.0023527310040662996,
+      0.002378088996920269,
+      0.0025289730037911795
+    ],
+    "scope": {
+      "accepted": 10,
+      "completed": 10,
+      "sampled_completed": 10,
+      "stride": 1,
+      "invalid": 0,
+      "missing": 0,
+      "pending": 0,
+      "scope_switches": 200,
+      "gc_cpu_samples": 0,
+      "total_cpu_samples": 6,
+      "gc_callback_scope_samples": [
+        0,
+        0,
+        0
+      ],
+      "core_cpu": {
+        "sample_total_ns": 564987,
+        "mean_ns": 56498.7,
+        "p50_ns": 49043,
+        "p95_ns": 67414,
+        "p99_ns": 67414
+      },
+      "core_active_wall": {
+        "sample_total_ns": 563117,
+        "mean_ns": 56311.7,
+        "p50_ns": 48904,
+        "p95_ns": 67143,
+        "p99_ns": 67143
+      },
+      "plugin_cpu": {
+        "sample_total_ns": 20230610,
+        "mean_ns": 2023061.0,
+        "p50_ns": 2018185,
+        "p95_ns": 2036771,
+        "p99_ns": 2036771
+      },
+      "plugin_active_wall": {
+        "sample_total_ns": 20230699,
+        "mean_ns": 2023069.9,
+        "p50_ns": 2018163,
+        "p95_ns": 2036753,
+        "p99_ns": 2036753
+      },
+      "allocator": [
+        {
+          "calls": 141,
+          "new_calls": 110,
+          "resize_calls": 0,
+          "free_calls": 31,
+          "failed": 0,
+          "requested_new_bytes": 3360,
+          "successful_growth_bytes": 3360
+        },
+        {
+          "calls": 328,
+          "new_calls": 298,
+          "resize_calls": 0,
+          "free_calls": 30,
+          "failed": 0,
+          "requested_new_bytes": 27332,
+          "successful_growth_bytes": 27332
+        },
+        {
+          "calls": 173,
+          "new_calls": 153,
+          "resize_calls": 0,
+          "free_calls": 20,
+          "failed": 0,
+          "requested_new_bytes": 9868,
+          "successful_growth_bytes": 9868
+        }
+      ],
+      "plugin_entries": 10,
+      "sdk_entries": 90,
+      "allocator_restored": true,
+      "gc_sampling_interval_us": 1000
+    }
+  },
+  {
+    "query": "cost_sdk_ns=2000000",
+    "wire_seconds": [
+      0.002369174995692447,
+      0.0024493349992553703,
+      0.0024418940010946244,
+      0.002468794002197683,
+      0.0023529009995399974,
+      0.002462264004861936,
+      0.002421172997856047,
+      0.0023296059953281656,
+      0.0040462440010742284,
+      0.0024466609975206666
+    ],
+    "scope": {
+      "accepted": 10,
+      "completed": 10,
+      "sampled_completed": 10,
+      "stride": 1,
+      "invalid": 0,
+      "missing": 0,
+      "pending": 0,
+      "scope_switches": 200,
+      "gc_cpu_samples": 0,
+      "total_cpu_samples": 4,
+      "gc_callback_scope_samples": [
+        0,
+        0,
+        0
+      ],
+      "core_cpu": {
+        "sample_total_ns": 20512124,
+        "mean_ns": 2051212.4,
+        "p50_ns": 2046716,
+        "p95_ns": 2057834,
+        "p99_ns": 2057834
+      },
+      "core_active_wall": {
+        "sample_total_ns": 20510764,
+        "mean_ns": 2051076.4,
+        "p50_ns": 2046566,
+        "p95_ns": 2057690,
+        "p99_ns": 2057690
+      },
+      "plugin_cpu": {
+        "sample_total_ns": 219296,
+        "mean_ns": 21929.6,
+        "p50_ns": 15704,
+        "p95_ns": 25888,
+        "p99_ns": 25888
+      },
+      "plugin_active_wall": {
+        "sample_total_ns": 218718,
+        "mean_ns": 21871.8,
+        "p50_ns": 15632,
+        "p95_ns": 25750,
+        "p99_ns": 25750
+      },
+      "allocator": [
+        {
+          "calls": 141,
+          "new_calls": 110,
+          "resize_calls": 0,
+          "free_calls": 31,
+          "failed": 0,
+          "requested_new_bytes": 3360,
+          "successful_growth_bytes": 3360
+        },
+        {
+          "calls": 346,
+          "new_calls": 316,
+          "resize_calls": 0,
+          "free_calls": 30,
+          "failed": 0,
+          "requested_new_bytes": 29404,
+          "successful_growth_bytes": 29404
+        },
+        {
+          "calls": 144,
+          "new_calls": 124,
+          "resize_calls": 0,
+          "free_calls": 20,
+          "failed": 0,
+          "requested_new_bytes": 11404,
+          "successful_growth_bytes": 11404
+        }
+      ],
+      "plugin_entries": 10,
+      "sdk_entries": 90,
+      "allocator_restored": true,
+      "gc_sampling_interval_us": 1000
+    }
+  }
+]

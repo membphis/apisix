@@ -1,0 +1,2 @@
+# Preserve the exact runtime version output, including its trailing space.
+nginx-version.txt -whitespace

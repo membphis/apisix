@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "native",
+    "prefix": "auth",
+    "duration_seconds": 60,
+    "suite": "single",
+    "variant": "balance-on",
+    "plugin": "key-auth",
+    "cgroup_cpu_delta": {
+      "usage_usec": 85345960,
+      "user_usec": 40459323,
+      "system_usec": 44886637,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 85506023,
+      "user_usec": 40532941,
+      "system_usec": 44973082,
+      "nice_usec": 0,
+      "nr_periods": 602,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.24725549599998,
+    "requests": 1429924,
+    "qps": 23831.02,
+    "workers": [
+      28613
+    ],
+    "worker_cpu_seconds": 59.89999999999999,
+    "worker_cpu_us_per_request": 41.890338227765945,
+    "rss_start_bytes": 18296832,
+    "rss_end_bytes": 18313216,
+    "rss_peak_bytes": 18432000,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1304.0,
+      "p95": 1704.0,
+      "p99": 2088.0
+    },
+    "error_rate": 0
+  }
+]

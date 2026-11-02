@@ -1,0 +1,50 @@
+{
+  "id": "native-none-after",
+  "mode": "native",
+  "kind": "none",
+  "duration_seconds": 60,
+  "requests": 180000,
+  "rate": 3000,
+  "worker_cpu_seconds": 9.059999999999999,
+  "cpu_us_per_request": 50.33333333333332,
+  "worker_cpu_utilization": 0.15099999999999997,
+  "rss_end_bytes": 16961536,
+  "load": {
+    "requested_rate": 3000,
+    "duration_seconds": 60,
+    "connections": 32,
+    "target_requests": 180000,
+    "completed": 180000,
+    "wall_seconds": 60.000823351998406,
+    "observed_rps": 2999.9588329649955,
+    "scheduled_latency_us": {
+      "mean": 761.1838533857533,
+      "p50": 697.4420030019246,
+      "p95": 1359.6673306892626,
+      "p99": 1531.649671960622,
+      "max": 7203.198998467997
+    },
+    "wire_latency_us": {
+      "mean": 269.88572323073606,
+      "p50": 242.47999681392685,
+      "p95": 438.2900006021373,
+      "p99": 553.229998331517,
+      "max": 7131.388993002474
+    },
+    "driver_lateness_us": {
+      "mean": 491.2981301550136,
+      "p50": 439.408999227453,
+      "p95": 1064.8566676536575,
+      "p99": 1096.0766667267308,
+      "max": 2750.7513368618675
+    },
+    "errors": [],
+    "all_slots_completed": true,
+    "schedule_drained_within_one_second": true
+  },
+  "error_rate": 0,
+  "one_upstream_per_request": true,
+  "workers": [
+    9577
+  ]
+}

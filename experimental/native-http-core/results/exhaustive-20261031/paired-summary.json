@@ -1,0 +1,32 @@
+[
+  {
+    "prefix": "metrics",
+    "lua_mean_qps": 19013.79,
+    "native_mean_qps": 20496.48,
+    "delta_percent": 7.797971893031308,
+    "paired_deltas_percent": [
+      7.237331803445302,
+      8.353662591390032
+    ]
+  },
+  {
+    "prefix": "auth",
+    "lua_mean_qps": 24594.715,
+    "native_mean_qps": 25571.56,
+    "delta_percent": 3.971767918432878,
+    "paired_deltas_percent": [
+      3.9975295934122634,
+      3.9466418867935227
+    ]
+  },
+  {
+    "prefix": "limit",
+    "lua_mean_qps": 23261.45,
+    "native_mean_qps": 24846.585,
+    "delta_percent": 6.814429023126234,
+    "paired_deltas_percent": [
+      5.860869580120243,
+      7.774412337124548
+    ]
+  }
+]

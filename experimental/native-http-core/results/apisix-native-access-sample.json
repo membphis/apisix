@@ -1,0 +1,23 @@
+{
+  "mode": "native",
+  "prefix": "combined",
+  "duration_seconds": 60,
+  "wall_seconds": 60.46442301500065,
+  "requests": 660346,
+  "qps": 11002.23,
+  "workers": [
+    193017
+  ],
+  "worker_cpu_seconds": 59.99,
+  "worker_cpu_us_per_request": 90.84631390210586,
+  "rss_start_bytes": 23007232,
+  "rss_end_bytes": 23379968,
+  "rss_peak_bytes": 23379968,
+  "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+  "latencies_us": {
+    "p50": 2678.0,
+    "p95": 4053.0,
+    "p99": 5016.0
+  },
+  "error_rate": 0
+}

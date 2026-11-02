@@ -1,0 +1,1 @@
+{"global_rules": [], "consumers": [], "routes": [{"id": "limit", "uri": "/limit/*", "plugins": {"limit-count": {"count": 1000000000, "time_window": 600, "key_type": "constant", "key": "demo", "policy": "local", "rejected_code": 429}}, "upstream": {"type": "roundrobin", "nodes": {"127.0.0.1:1980": 1}, "retries": 0, "timeout": {"connect": 0.1, "read": 0.1, "send": 0.1}}}]}

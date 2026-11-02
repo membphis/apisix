@@ -1,0 +1,16 @@
+{
+  "mode": "native",
+  "suite": "isolated-single",
+  "prefix": "metrics",
+  "sampler": "route",
+  "source": "/stable",
+  "diagnostic_seconds": 15,
+  "metrics_scrape": false,
+  "directives": "apisix_core_lazy_rate_json on;",
+  "note": "Diagnostic run only; not acceptance throughput evidence",
+  "sha256": {
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "166f7bb1b0866e46ab77798614886d2600379b039af4d39a0ad0ca0373167297",
+    "/src/experimental/native-http-core/runtime.lua": "7402e0fbe6294796e82550add0e2e0e978b7773271e526f9387961f80b3b4a41",
+    "/stable/apisix/init.lua": "3cbea3eb74cada6632eeeb42e23c6a63be00dfde644dc670c673f38f735d14ca"
+  }
+}

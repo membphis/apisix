@@ -1,0 +1,27 @@
+{
+  "rounds": 3,
+  "sample_seconds": 60,
+  "enabled_plugins": [
+    "limit-count"
+  ],
+  "global_plugins": [],
+  "prometheus_enabled": false,
+  "metrics_scrape": false,
+  "paired_qps_changes_percent": [
+    14.28108254623548,
+    13.940144754543482,
+    10.278126281008149
+  ],
+  "qps_mean": {
+    "lua": 19741.286666666667,
+    "native": 22269.38333333333
+  },
+  "ratio_of_mean_qps_change_percent": 12.80613928237706,
+  "pooled_cpu_us_per_request": {
+    "lua": 50.61290315319878,
+    "native": 44.853720299563584
+  },
+  "pooled_cpu_change_percent": -11.378882646195743,
+  "all_c_samples_faster": true,
+  "observed_error_rate": 0
+}

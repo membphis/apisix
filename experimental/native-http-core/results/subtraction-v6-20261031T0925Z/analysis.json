@@ -1,0 +1,1313 @@
+{
+  "generated_utc": "2026-10-31T09:47:54.236487+00:00",
+  "analysis_plan": {
+    "recorded_utc": "2026-10-31T09:29:04Z",
+    "registration_scope": "Analysis method fixed while the 18-sample run was in progress; early baseline observations were already visible. This is not a preregistered trial.",
+    "baseline": "Arithmetic mean of before/after worker CPU per completed request for each implementation. Report both endpoints and signed drift.",
+    "addon": "APISIX no-plugin CPU minus pure NGINX CPU. Includes VM entry/exit, dynamic upstream adaptation, normal worker GC and background work; not function self time.",
+    "sensitivity": "Enumerate both NGINX endpoints and both no-plugin endpoints for each implementation. The resulting range is baseline sensitivity, not a confidence interval.",
+    "fit": "Unweighted OLS on positive k=1,2,4,8, separately for Lua and native. Report residuals and leave-one-out prediction errors. k=0 is an independent empty-callback control, not a fit point.",
+    "slope": "Incremental repeated rate-limit path, including SDK, header updates, GC and loop/JIT effects; not pure plugin business CPU. Intercept is an extrapolation, not a direct core measurement.",
+    "injection_check": "Compare loop k=1 against the original unmodified plugin implementation; never assume their costs are identical.",
+    "latency": "Compare actual send-to-body and scheduled-arrival-to-body latency at the same fixed offered rate. Do not subtract percentile latency into components.",
+    "gc": "Normal GC remains on and is included in process CPU. This method cannot uniquely separate core-caused GC CPU or GC pauses.",
+    "diagnostic_thresholds": {
+      "baseline_drift_abs_percent": 5.0,
+      "fit_max_abs_relative_residual_percent": 5.0,
+      "fit_loo_max_abs_relative_prediction_error_percent": 10.0,
+      "loop1_vs_original_abs_percent": 5.0,
+      "worker_utilization_fraction": 0.7
+    },
+    "threshold_scope": "Diagnostic warnings for interpretation, not user acceptance gates or statistical significance tests. No extra samples are selected based on a desired effect size."
+  },
+  "environment": {
+    "started_utc": "2026-10-31T09:24:07.526448+00:00",
+    "source_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
+    "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+    "available_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "rate": 3000,
+    "sample_seconds": 60,
+    "warmup_seconds": 5,
+    "plan": [
+      {
+        "id": "nginx-before",
+        "mode": "nginx",
+        "kind": "pure"
+      },
+      {
+        "id": "lua-none-before",
+        "mode": "lua",
+        "kind": "none"
+      },
+      {
+        "id": "native-none-before",
+        "mode": "native",
+        "kind": "none"
+      },
+      {
+        "id": "native-original",
+        "mode": "native",
+        "kind": "original"
+      },
+      {
+        "id": "lua-original",
+        "mode": "lua",
+        "kind": "original"
+      },
+      {
+        "id": "lua-loop-0",
+        "mode": "lua",
+        "kind": "loop",
+        "k": 0
+      },
+      {
+        "id": "native-loop-0",
+        "mode": "native",
+        "kind": "loop",
+        "k": 0
+      },
+      {
+        "id": "native-loop-1",
+        "mode": "native",
+        "kind": "loop",
+        "k": 1
+      },
+      {
+        "id": "lua-loop-1",
+        "mode": "lua",
+        "kind": "loop",
+        "k": 1
+      },
+      {
+        "id": "lua-loop-2",
+        "mode": "lua",
+        "kind": "loop",
+        "k": 2
+      },
+      {
+        "id": "native-loop-2",
+        "mode": "native",
+        "kind": "loop",
+        "k": 2
+      },
+      {
+        "id": "native-loop-4",
+        "mode": "native",
+        "kind": "loop",
+        "k": 4
+      },
+      {
+        "id": "lua-loop-4",
+        "mode": "lua",
+        "kind": "loop",
+        "k": 4
+      },
+      {
+        "id": "lua-loop-8",
+        "mode": "lua",
+        "kind": "loop",
+        "k": 8
+      },
+      {
+        "id": "native-loop-8",
+        "mode": "native",
+        "kind": "loop",
+        "k": 8
+      },
+      {
+        "id": "native-none-after",
+        "mode": "native",
+        "kind": "none"
+      },
+      {
+        "id": "lua-none-after",
+        "mode": "lua",
+        "kind": "none"
+      },
+      {
+        "id": "nginx-after",
+        "mode": "nginx",
+        "kind": "pure"
+      }
+    ],
+    "runner_sha256": "8a2e7b0b920a80db3660930438d966722dce966401cc4a7d349450b87ebf7a41",
+    "driver_sha256": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb",
+    "original_plugin_sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7",
+    "clock_probes": false,
+    "allocator_probes": false,
+    "gc_probes": false,
+    "normal_gc": true
+  },
+  "total_requests": 3240000,
+  "baselines": {
+    "nginx": {
+      "before_us": 25.5,
+      "after_us": 22.833333333333336,
+      "mean_us": 24.166666666666668,
+      "drift_percent": -11.03448275862068
+    },
+    "lua": {
+      "before_us": 63.5,
+      "after_us": 52.05555555555556,
+      "mean_us": 57.77777777777778,
+      "drift_percent": -19.807692307692303
+    },
+    "native": {
+      "before_us": 52.833333333333336,
+      "after_us": 50.33333333333332,
+      "mean_us": 51.58333333333333,
+      "drift_percent": -4.846526655896636
+    }
+  },
+  "addon_us": {
+    "lua": 33.611111111111114,
+    "native": 27.41666666666666
+  },
+  "addon_cpu_change_percent": -18.429752066115725,
+  "baseline_sensitivity": [
+    {
+      "nginx_us": 25.5,
+      "lua_us": 63.5,
+      "native_us": 52.833333333333336,
+      "lua_addon_us": 38.0,
+      "native_addon_us": 27.333333333333336,
+      "addon_cpu_change_percent": -28.07017543859649
+    },
+    {
+      "nginx_us": 25.5,
+      "lua_us": 63.5,
+      "native_us": 50.33333333333332,
+      "lua_addon_us": 38.0,
+      "native_addon_us": 24.83333333333332,
+      "addon_cpu_change_percent": -34.64912280701758
+    },
+    {
+      "nginx_us": 25.5,
+      "lua_us": 52.05555555555556,
+      "native_us": 52.833333333333336,
+      "lua_addon_us": 26.555555555555557,
+      "native_addon_us": 27.333333333333336,
+      "addon_cpu_change_percent": 2.9288702928870425
+    },
+    {
+      "nginx_us": 25.5,
+      "lua_us": 52.05555555555556,
+      "native_us": 50.33333333333332,
+      "lua_addon_us": 26.555555555555557,
+      "native_addon_us": 24.83333333333332,
+      "addon_cpu_change_percent": -6.485355648535618
+    },
+    {
+      "nginx_us": 22.833333333333336,
+      "lua_us": 63.5,
+      "native_us": 52.833333333333336,
+      "lua_addon_us": 40.666666666666664,
+      "native_addon_us": 30.0,
+      "addon_cpu_change_percent": -26.22950819672131
+    },
+    {
+      "nginx_us": 22.833333333333336,
+      "lua_us": 63.5,
+      "native_us": 50.33333333333332,
+      "lua_addon_us": 40.666666666666664,
+      "native_addon_us": 27.499999999999986,
+      "addon_cpu_change_percent": -32.3770491803279
+    },
+    {
+      "nginx_us": 22.833333333333336,
+      "lua_us": 52.05555555555556,
+      "native_us": 52.833333333333336,
+      "lua_addon_us": 29.22222222222222,
+      "native_addon_us": 30.0,
+      "addon_cpu_change_percent": 2.6615969581749166
+    },
+    {
+      "nginx_us": 22.833333333333336,
+      "lua_us": 52.05555555555556,
+      "native_us": 50.33333333333332,
+      "lua_addon_us": 29.22222222222222,
+      "native_addon_us": 27.499999999999986,
+      "addon_cpu_change_percent": -5.893536121673049
+    }
+  ],
+  "no_plugin_saved_us": 6.19444444444445,
+  "original_saved_us": 7.7777777777777715,
+  "original_cpu_change_percent": -10.510510510510507,
+  "enabled_path_savings_minus_no_plugin_savings_us": 1.5833333333333215,
+  "fits": {
+    "lua": {
+      "intercept_us": 67.39371980676329,
+      "slope_us_per_iteration": 8.157971014492754,
+      "r_squared": 0.9917924035278249,
+      "points": [
+        {
+          "k": 1,
+          "observed_us": 72.88888888888889,
+          "predicted_us": 75.55169082125605,
+          "residual_us": -2.6628019323671595,
+          "relative_residual_percent": -3.6532343584305544
+        },
+        {
+          "k": 2,
+          "observed_us": 85.3888888888889,
+          "predicted_us": 83.70966183574879,
+          "residual_us": 1.6792270531401101,
+          "relative_residual_percent": 1.9665638878674025
+        },
+        {
+          "k": 4,
+          "observed_us": 102.16666666666667,
+          "predicted_us": 100.02560386473431,
+          "residual_us": 2.141062801932364,
+          "relative_residual_percent": 2.0956569023807803
+        },
+        {
+          "k": 8,
+          "observed_us": 131.5,
+          "predicted_us": 132.65748792270531,
+          "residual_us": -1.1574879227053145,
+          "relative_residual_percent": -0.8802189526276156
+        }
+      ],
+      "max_abs_relative_residual_percent": 3.6532343584305544,
+      "leave_one_out": [
+        {
+          "k": 1,
+          "predicted_us": 78.35714285714286,
+          "observed_us": 72.88888888888889,
+          "relative_prediction_error_percent": 7.502177700348442
+        },
+        {
+          "k": 2,
+          "predicted_us": 82.7792792792793,
+          "observed_us": 85.3888888888889,
+          "relative_prediction_error_percent": -3.0561465824966105
+        },
+        {
+          "k": 4,
+          "predicted_us": 99.30361757105943,
+          "observed_us": 102.16666666666667,
+          "relative_prediction_error_percent": -2.8023319043463992
+        },
+        {
+          "k": 8,
+          "predicted_us": 141.0079365079365,
+          "observed_us": 131.5,
+          "relative_prediction_error_percent": 7.230369968012552
+        }
+      ],
+      "loo_max_abs_relative_prediction_error_percent": 7.502177700348442,
+      "passes_linearity_diagnostics": true
+    },
+    "native": {
+      "intercept_us": 61.96135265700484,
+      "slope_us_per_iteration": 5.3695652173913055,
+      "r_squared": 0.9898041774750918,
+      "points": [
+        {
+          "k": 1,
+          "observed_us": 65.38888888888889,
+          "predicted_us": 67.33091787439615,
+          "residual_us": -1.9420289855072639,
+          "relative_residual_percent": -2.969967862288084
+        },
+        {
+          "k": 2,
+          "observed_us": 73.88888888888889,
+          "predicted_us": 72.70048309178745,
+          "residual_us": 1.1884057971014386,
+          "relative_residual_percent": 1.6083687479568343
+        },
+        {
+          "k": 4,
+          "observed_us": 85.05555555555556,
+          "predicted_us": 83.43961352657006,
+          "residual_us": 1.6159420289855007,
+          "relative_residual_percent": 1.8998665265668853
+        },
+        {
+          "k": 8,
+          "observed_us": 104.05555555555556,
+          "predicted_us": 104.91787439613529,
+          "residual_us": -0.8623188405797322,
+          "relative_residual_percent": -0.8287100443371692
+        }
+      ],
+      "max_abs_relative_residual_percent": 2.969967862288084,
+      "leave_one_out": [
+        {
+          "k": 1,
+          "predicted_us": 69.37698412698413,
+          "observed_us": 65.38888888888889,
+          "relative_prediction_error_percent": 6.099041145770122
+        },
+        {
+          "k": 2,
+          "predicted_us": 72.04204204204204,
+          "observed_us": 73.88888888888889,
+          "relative_prediction_error_percent": -2.4994919731761804
+        },
+        {
+          "k": 4,
+          "predicted_us": 82.89470284237726,
+          "observed_us": 85.05555555555556,
+          "relative_prediction_error_percent": -2.5405191925022477
+        },
+        {
+          "k": 8,
+          "predicted_us": 111.13888888888889,
+          "observed_us": 104.05555555555556,
+          "relative_prediction_error_percent": 6.8072610784837115
+        }
+      ],
+      "loo_max_abs_relative_prediction_error_percent": 6.8072610784837115,
+      "passes_linearity_diagnostics": true
+    }
+  },
+  "controls": {
+    "lua": {
+      "original_us": 74.0,
+      "loop1_us": 72.88888888888889,
+      "loop1_vs_original_percent": -1.501501501501501,
+      "empty_callback_us": 59.05555555555554,
+      "original_minus_no_plugin_us": 16.22222222222222,
+      "empty_callback_minus_no_plugin_us": 1.2777777777777644,
+      "fit_intercept_minus_empty_callback_us": 8.338164251207743
+    },
+    "native": {
+      "original_us": 66.22222222222223,
+      "loop1_us": 65.38888888888889,
+      "loop1_vs_original_percent": -1.2583892617449854,
+      "empty_callback_us": 51.111111111111114,
+      "original_minus_no_plugin_us": 14.6388888888889,
+      "empty_callback_minus_no_plugin_us": -0.4722222222222143,
+      "fit_intercept_minus_empty_callback_us": 10.850241545893724
+    }
+  },
+  "slope_cpu_change_percent": -34.180138568129316,
+  "warnings": [
+    "nginx: baseline drift exceeds 5%; subtraction is sensitive to time/order/environment.",
+    "lua: baseline drift exceeds 5%; subtraction is sensitive to time/order/environment."
+  ],
+  "rows": [
+    {
+      "id": "nginx-before",
+      "mode": "nginx",
+      "kind": "pure",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 4.59,
+      "cpu_us_per_request": 25.5,
+      "worker_cpu_utilization": 0.0765,
+      "rss_end_bytes": 11677696,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 59.99998434300505,
+        "observed_rps": 3000.0007828499515,
+        "scheduled_latency_us": {
+          "mean": 731.210967706773,
+          "p50": 680.5703378631733,
+          "p95": 1291.5340048493817,
+          "p99": 1379.4713304378092,
+          "max": 8229.172672145069
+        },
+        "wire_latency_us": {
+          "mean": 207.38744372542288,
+          "p50": 195.5599946086295,
+          "p95": 290.94099591020495,
+          "p99": 445.56499778991565,
+          "max": 5021.653996664099
+        },
+        "driver_lateness_us": {
+          "mean": 523.8235239813397,
+          "p50": 466.4463340304792,
+          "p95": 1062.398667272646,
+          "p99": 1100.944667996373,
+          "max": 4727.073333924636
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        8920
+      ]
+    },
+    {
+      "id": "lua-none-before",
+      "mode": "lua",
+      "kind": "none",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 11.43,
+      "cpu_us_per_request": 63.5,
+      "worker_cpu_utilization": 0.1905,
+      "rss_end_bytes": 30851072,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00072144200385,
+        "observed_rps": 2999.9639283335346,
+        "scheduled_latency_us": {
+          "mean": 800.7021538567685,
+          "p50": 728.3280065166764,
+          "p95": 1494.2003399482928,
+          "p99": 1591.389998793602,
+          "max": 24909.69000791665
+        },
+        "wire_latency_us": {
+          "mean": 322.5768537769496,
+          "p50": 279.8650020849891,
+          "p95": 489.55599777400494,
+          "p99": 624.756001343485,
+          "max": 17043.29700442031
+        },
+        "driver_lateness_us": {
+          "mean": 478.1253000798145,
+          "p50": 423.47233829787,
+          "p95": 1069.965335773304,
+          "p99": 1095.161002012901,
+          "max": 17015.225006616674
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        8961
+      ]
+    },
+    {
+      "id": "native-none-before",
+      "mode": "native",
+      "kind": "none",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 9.51,
+      "cpu_us_per_request": 52.833333333333336,
+      "worker_cpu_utilization": 0.1585,
+      "rss_end_bytes": 17022976,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00003226000263,
+        "observed_rps": 2999.998387000736,
+        "scheduled_latency_us": {
+          "mean": 773.6008692402199,
+          "p50": 702.1510100457817,
+          "p95": 1374.5746691711247,
+          "p99": 1538.5666702059098,
+          "max": 27673.069002048578
+        },
+        "wire_latency_us": {
+          "mean": 283.5245475758655,
+          "p50": 251.1830025468953,
+          "p95": 448.2650037971325,
+          "p99": 555.6640026043169,
+          "max": 26945.087003696244
+        },
+        "driver_lateness_us": {
+          "mean": 490.07632166435354,
+          "p50": 434.225337812677,
+          "p95": 1065.2133423718624,
+          "p99": 1100.293331546709,
+          "max": 17883.974338474218
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9005
+      ]
+    },
+    {
+      "id": "native-original",
+      "mode": "native",
+      "kind": "original",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 11.92,
+      "cpu_us_per_request": 66.22222222222223,
+      "worker_cpu_utilization": 0.19866666666666666,
+      "rss_end_bytes": 19603456,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00065649500175,
+        "observed_rps": 2999.9671756090634,
+        "scheduled_latency_us": {
+          "mean": 794.6156130396291,
+          "p50": 735.2346656261943,
+          "p95": 1459.653336496558,
+          "p99": 1619.2003386095166,
+          "max": 23269.3450016086
+        },
+        "wire_latency_us": {
+          "mean": 329.0186576989462,
+          "p50": 299.38400257378817,
+          "p95": 510.23699779761955,
+          "p99": 686.859006236773,
+          "max": 13882.763996662106
+        },
+        "driver_lateness_us": {
+          "mean": 465.5969553406793,
+          "p50": 409.09233212005347,
+          "p95": 1068.6733294278383,
+          "p99": 1096.2916712742299,
+          "max": 12788.351334165782
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9049
+      ]
+    },
+    {
+      "id": "lua-original",
+      "mode": "lua",
+      "kind": "original",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 13.32,
+      "cpu_us_per_request": 74.0,
+      "worker_cpu_utilization": 0.222,
+      "rss_end_bytes": 32292864,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00005477700324,
+        "observed_rps": 2999.9972611523385,
+        "scheduled_latency_us": {
+          "mean": 799.8632735905038,
+          "p50": 744.2063360940665,
+          "p95": 1484.0619987808168,
+          "p99": 1640.714668610599,
+          "max": 7352.618333243299
+        },
+        "wire_latency_us": {
+          "mean": 346.6719899309962,
+          "p50": 323.13999690813944,
+          "p95": 544.8080046335235,
+          "p99": 713.0779995350167,
+          "max": 6487.883001682349
+        },
+        "driver_lateness_us": {
+          "mean": 453.1912836595037,
+          "p50": 399.4336657342501,
+          "p95": 1065.405667759478,
+          "p99": 1091.8806656263769,
+          "max": 5708.363001758698
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9093
+      ]
+    },
+    {
+      "id": "lua-loop-0",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 0,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 10.629999999999999,
+      "cpu_us_per_request": 59.05555555555554,
+      "worker_cpu_utilization": 0.17716666666666664,
+      "rss_end_bytes": 32006144,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00103397800558,
+        "observed_rps": 2999.948301990631,
+        "scheduled_latency_us": {
+          "mean": 794.0871631325164,
+          "p50": 718.2190020103008,
+          "p95": 1467.9113373858854,
+          "p99": 1705.0340029527433,
+          "max": 16644.995666865725
+        },
+        "wire_latency_us": {
+          "mean": 311.42322968241797,
+          "p50": 260.7669957797043,
+          "p95": 490.56699936045334,
+          "p99": 866.0039966343902,
+          "max": 11665.161997370888
+        },
+        "driver_lateness_us": {
+          "mean": 482.66393345010397,
+          "p50": 424.9593330314383,
+          "p95": 1066.5166701073758,
+          "p99": 1095.8710045088083,
+          "max": 8356.755002751015
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9137
+      ]
+    },
+    {
+      "id": "native-loop-0",
+      "mode": "native",
+      "kind": "loop",
+      "k": 0,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 9.2,
+      "cpu_us_per_request": 51.111111111111114,
+      "worker_cpu_utilization": 0.15333333333333332,
+      "rss_end_bytes": 18804736,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 59.999996858001396,
+        "observed_rps": 3000.0001570999384,
+        "scheduled_latency_us": {
+          "mean": 851.7235151723615,
+          "p50": 707.5520043144934,
+          "p95": 1395.9229981992394,
+          "p99": 1559.9896723870188,
+          "max": 83018.78200290957
+        },
+        "wire_latency_us": {
+          "mean": 294.01756282257145,
+          "p50": 242.28900292655453,
+          "p95": 451.3300009421073,
+          "p99": 580.1610022899695,
+          "max": 70686.13899900811
+        },
+        "driver_lateness_us": {
+          "mean": 557.7059523497974,
+          "p50": 438.75433766515926,
+          "p95": 1069.9710037442856,
+          "p99": 1095.968997105956,
+          "max": 72356.14133242052
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9181
+      ]
+    },
+    {
+      "id": "native-loop-1",
+      "mode": "native",
+      "kind": "loop",
+      "k": 1,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 11.77,
+      "cpu_us_per_request": 65.38888888888889,
+      "worker_cpu_utilization": 0.19616666666666666,
+      "rss_end_bytes": 19550208,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00080378999701,
+        "observed_rps": 2999.959811038541,
+        "scheduled_latency_us": {
+          "mean": 779.56671710214,
+          "p50": 717.0609969762154,
+          "p95": 1437.7916668308899,
+          "p99": 1612.8249990288168,
+          "max": 5853.791000845376
+        },
+        "wire_latency_us": {
+          "mean": 317.03750379985826,
+          "p50": 293.3350042439997,
+          "p95": 504.5590005465783,
+          "p99": 693.7090001883917,
+          "max": 5323.438002960756
+        },
+        "driver_lateness_us": {
+          "mean": 462.5292133022899,
+          "p50": 403.70499482378364,
+          "p95": 1060.610666172579,
+          "p99": 1095.539664675016,
+          "max": 4678.478668211028
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9225
+      ]
+    },
+    {
+      "id": "lua-loop-1",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 1,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 13.12,
+      "cpu_us_per_request": 72.88888888888889,
+      "worker_cpu_utilization": 0.21866666666666665,
+      "rss_end_bytes": 33148928,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.000510674006364,
+        "observed_rps": 2999.9744665170033,
+        "scheduled_latency_us": {
+          "mean": 792.9936471856364,
+          "p50": 732.6820050366223,
+          "p95": 1480.0776698393747,
+          "p99": 1632.807012356352,
+          "max": 7043.426005111542
+        },
+        "wire_latency_us": {
+          "mean": 340.2832545447929,
+          "p50": 312.06300627673045,
+          "p95": 539.5410044002347,
+          "p99": 685.1359939901158,
+          "max": 6143.787002656609
+        },
+        "driver_lateness_us": {
+          "mean": 452.7103926408446,
+          "p50": 392.0263407053426,
+          "p95": 1063.112671545241,
+          "p99": 1092.9390045930631,
+          "max": 4177.802671620157
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9269
+      ]
+    },
+    {
+      "id": "lua-loop-2",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 2,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 15.370000000000001,
+      "cpu_us_per_request": 85.3888888888889,
+      "worker_cpu_utilization": 0.2561666666666667,
+      "rss_end_bytes": 32325632,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00025686700246,
+        "observed_rps": 2999.9871567048604,
+        "scheduled_latency_us": {
+          "mean": 814.7066919978387,
+          "p50": 759.1263347421773,
+          "p95": 1518.7173412414268,
+          "p99": 1717.5256652990356,
+          "max": 20131.98100758018
+        },
+        "wire_latency_us": {
+          "mean": 374.93078127654525,
+          "p50": 350.79100052826107,
+          "p95": 590.5059952056035,
+          "p99": 814.4879975588992,
+          "max": 12738.931996864267
+        },
+        "driver_lateness_us": {
+          "mean": 439.77591072127206,
+          "p50": 375.78900082735345,
+          "p95": 1062.460672983434,
+          "p99": 1094.0380016108975,
+          "max": 9466.045339650009
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9313
+      ]
+    },
+    {
+      "id": "native-loop-2",
+      "mode": "native",
+      "kind": "loop",
+      "k": 2,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 13.3,
+      "cpu_us_per_request": 73.88888888888889,
+      "worker_cpu_utilization": 0.22166666666666668,
+      "rss_end_bytes": 19816448,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00026795500162,
+        "observed_rps": 2999.986602309752,
+        "scheduled_latency_us": {
+          "mean": 799.1016446908709,
+          "p50": 739.3280102405697,
+          "p95": 1482.0893411524594,
+          "p99": 1668.5966693330556,
+          "max": 6152.942340122536
+        },
+        "wire_latency_us": {
+          "mean": 347.5537112840404,
+          "p50": 324.27100086351857,
+          "p95": 547.5500001921318,
+          "p99": 763.8000024599023,
+          "max": 5779.838997113984
+        },
+        "driver_lateness_us": {
+          "mean": 451.54793340682215,
+          "p50": 391.5396737284027,
+          "p95": 1061.2420010147616,
+          "p99": 1091.5343373198994,
+          "max": 4424.284343258478
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9357
+      ]
+    },
+    {
+      "id": "native-loop-4",
+      "mode": "native",
+      "kind": "loop",
+      "k": 4,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 15.31,
+      "cpu_us_per_request": 85.05555555555556,
+      "worker_cpu_utilization": 0.25516666666666665,
+      "rss_end_bytes": 19976192,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00110868499905,
+        "observed_rps": 2999.944566774347,
+        "scheduled_latency_us": {
+          "mean": 848.1791780439431,
+          "p50": 779.9606682965532,
+          "p95": 1525.8569983416237,
+          "p99": 1726.7250004806556,
+          "max": 56189.633665781
+        },
+        "wire_latency_us": {
+          "mean": 391.151672681691,
+          "p50": 371.8510051839985,
+          "p95": 584.1649981448427,
+          "p99": 850.4690049448982,
+          "max": 55897.56299741566
+        },
+        "driver_lateness_us": {
+          "mean": 457.0275053622451,
+          "p50": 382.3836668743752,
+          "p95": 1057.3319959803484,
+          "p99": 1091.2396683124825,
+          "max": 45525.30999353621
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9401
+      ]
+    },
+    {
+      "id": "lua-loop-4",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 4,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 18.39,
+      "cpu_us_per_request": 102.16666666666667,
+      "worker_cpu_utilization": 0.3065,
+      "rss_end_bytes": 32215040,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00088857299852,
+        "observed_rps": 2999.9555720080325,
+        "scheduled_latency_us": {
+          "mean": 868.9535880265329,
+          "p50": 803.6520011955872,
+          "p95": 1571.5179979451932,
+          "p99": 1812.9163363482803,
+          "max": 45399.04000557726
+        },
+        "wire_latency_us": {
+          "mean": 429.7241867877613,
+          "p50": 411.2490059924312,
+          "p95": 672.5660059601068,
+          "p99": 974.1429967107251,
+          "max": 45137.345005059615
+        },
+        "driver_lateness_us": {
+          "mean": 439.2294012387675,
+          "p50": 361.67033977108076,
+          "p95": 1063.358002284076,
+          "p99": 1095.6093319691718,
+          "max": 34737.21033515176
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9445
+      ]
+    },
+    {
+      "id": "lua-loop-8",
+      "mode": "lua",
+      "kind": "loop",
+      "k": 8,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 23.67,
+      "cpu_us_per_request": 131.5,
+      "worker_cpu_utilization": 0.3945,
+      "rss_end_bytes": 32411648,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 59.999982302004355,
+        "observed_rps": 3000.0008849000433,
+        "scheduled_latency_us": {
+          "mean": 921.4247738081457,
+          "p50": 829.5933366753161,
+          "p95": 1738.0543431499973,
+          "p99": 2578.6346741369925,
+          "max": 19608.68833702989
+        },
+        "wire_latency_us": {
+          "mean": 517.9787218622309,
+          "p50": 493.7699995934963,
+          "p95": 828.1970003736205,
+          "p99": 2058.589998341631,
+          "max": 19188.072998076677
+        },
+        "driver_lateness_us": {
+          "mean": 403.4460519459022,
+          "p50": 255.94767066650093,
+          "p95": 1071.2843359215185,
+          "p99": 1101.9046723959036,
+          "max": 13146.053664968349
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9489
+      ]
+    },
+    {
+      "id": "native-loop-8",
+      "mode": "native",
+      "kind": "loop",
+      "k": 8,
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 18.73,
+      "cpu_us_per_request": 104.05555555555556,
+      "worker_cpu_utilization": 0.31216666666666665,
+      "rss_end_bytes": 19460096,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.00062871400587,
+        "observed_rps": 2999.968564629104,
+        "scheduled_latency_us": {
+          "mean": 923.9493534752983,
+          "p50": 822.7323341998272,
+          "p95": 1602.5823351810686,
+          "p99": 1904.099335661158,
+          "max": 68529.84367287718
+        },
+        "wire_latency_us": {
+          "mean": 452.2751422023729,
+          "p50": 435.63499639276415,
+          "p95": 689.8719948367216,
+          "p99": 1017.8930024267174,
+          "max": 65649.55799694872
+        },
+        "driver_lateness_us": {
+          "mean": 471.6742112729399,
+          "p50": 358.6120074032806,
+          "p95": 1064.8280076566152,
+          "p99": 1104.0056779165752,
+          "max": 57867.48400714714
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9533
+      ]
+    },
+    {
+      "id": "native-none-after",
+      "mode": "native",
+      "kind": "none",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 9.059999999999999,
+      "cpu_us_per_request": 50.33333333333332,
+      "worker_cpu_utilization": 0.15099999999999997,
+      "rss_end_bytes": 16961536,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.000823351998406,
+        "observed_rps": 2999.9588329649955,
+        "scheduled_latency_us": {
+          "mean": 761.1838533857533,
+          "p50": 697.4420030019246,
+          "p95": 1359.6673306892626,
+          "p99": 1531.649671960622,
+          "max": 7203.198998467997
+        },
+        "wire_latency_us": {
+          "mean": 269.88572323073606,
+          "p50": 242.47999681392685,
+          "p95": 438.2900006021373,
+          "p99": 553.229998331517,
+          "max": 7131.388993002474
+        },
+        "driver_lateness_us": {
+          "mean": 491.2981301550136,
+          "p50": 439.408999227453,
+          "p95": 1064.8566676536575,
+          "p99": 1096.0766667267308,
+          "max": 2750.7513368618675
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9577
+      ]
+    },
+    {
+      "id": "lua-none-after",
+      "mode": "lua",
+      "kind": "none",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 9.37,
+      "cpu_us_per_request": 52.05555555555556,
+      "worker_cpu_utilization": 0.15616666666666665,
+      "rss_end_bytes": 31059968,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.000745482007915,
+        "observed_rps": 2999.962726362718,
+        "scheduled_latency_us": {
+          "mean": 773.4994181181196,
+          "p50": 702.5196755421348,
+          "p95": 1369.3843357032165,
+          "p99": 1549.7726781177334,
+          "max": 23238.84767247364
+        },
+        "wire_latency_us": {
+          "mean": 278.12906226050677,
+          "p50": 241.23799812514335,
+          "p95": 454.1730013443157,
+          "p99": 550.9059992618859,
+          "max": 22655.305998341646
+        },
+        "driver_lateness_us": {
+          "mean": 495.3703558576126,
+          "p50": 436.92767212633044,
+          "p95": 1071.116334060207,
+          "p99": 1094.7106711682864,
+          "max": 12573.202009662054
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9621
+      ]
+    },
+    {
+      "id": "nginx-after",
+      "mode": "nginx",
+      "kind": "pure",
+      "duration_seconds": 60,
+      "requests": 180000,
+      "rate": 3000,
+      "worker_cpu_seconds": 4.11,
+      "cpu_us_per_request": 22.833333333333336,
+      "worker_cpu_utilization": 0.0685,
+      "rss_end_bytes": 11714560,
+      "load": {
+        "requested_rate": 3000,
+        "duration_seconds": 60,
+        "connections": 32,
+        "target_requests": 180000,
+        "completed": 180000,
+        "wall_seconds": 60.000955244999204,
+        "observed_rps": 2999.9522385104387,
+        "scheduled_latency_us": {
+          "mean": 718.8087223981662,
+          "p50": 682.086669257842,
+          "p95": 1265.2746663661674,
+          "p99": 1374.4509997195564,
+          "max": 17828.46066635102
+        },
+        "wire_latency_us": {
+          "mean": 196.68502423066604,
+          "p50": 182.58999625686556,
+          "p95": 268.2670019567013,
+          "p99": 455.8060027193278,
+          "max": 16812.388006655965
+        },
+        "driver_lateness_us": {
+          "mean": 522.1236981675052,
+          "p50": 466.1686689360067,
+          "p95": 1053.1933294259943,
+          "p99": 1093.6796679743566,
+          "max": 14595.495333196595
+        },
+        "errors": [],
+        "all_slots_completed": true,
+        "schedule_drained_within_one_second": true
+      },
+      "error_rate": 0,
+      "one_upstream_per_request": true,
+      "workers": [
+        9633
+      ]
+    }
+  ],
+  "pure_core_self_time_established": false,
+  "core_caused_gc_separately_identified": false,
+  "statistical_confidence_intervals_established": false
+}

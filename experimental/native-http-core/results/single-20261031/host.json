@@ -1,0 +1,15 @@
+{
+  "kernel": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "cpu_models": [
+    "AMD EPYC 9V74 80-Core Processor"
+  ],
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "cpu.max": "400000 100000",
+  "branch_head": "cd0fb07a1c5970ebcb6e0e3c073639c8e8c256a0"
+}

@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-10-31T09:44:26.060572+00:00",
+  "mode": "native",
+  "enabled_plugins": [
+    "limit-count"
+  ],
+  "global_rules": [],
+  "quota_count": 5,
+  "quota_time_window_seconds": 60,
+  "prometheus_port_closed": true,
+  "ld_preload_absent": true,
+  "timing_allocator_gc_probes_absent": true,
+  "module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "original_plugin_sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7",
+  "runtime_plugin_sha256": "62177c78205eeaed155cd99072f7b6a85dc549f7ae8ad663272a3f50ddfa92f7",
+  "plain_http_200_and_body_ok": true,
+  "module_mappings": [
+    "7fd8a0c31000-7fd8a0c39000 r--p 00000000 00:1b 1779818                    /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so",
+    "7fd8a0c39000-7fd8a0c60000 r-xp 00008000 00:1b 1779818                    /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so",
+    "7fd8a0c60000-7fd8a0c77000 r--p 0002f000 00:1b 1779818                    /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so",
+    "7fd8a0c77000-7fd8a0c79000 r--p 00045000 00:1b 1779818                    /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so",
+    "7fd8a0c79000-7fd8a0c7a000 rw-p 00047000 00:1b 1779818                    /opt/apisix-core-module/lib/ngx_http_apisix_core_module.so"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "mode": "lua",
+  "profile": false,
+  "rate": 8000,
+  "duration_seconds": 60,
+  "workers": [
+    7699
+  ],
+  "requests": 480000,
+  "worker_cpu_seconds": 32.949999999999996,
+  "worker_cpu_us_per_request": 68.64583333333333,
+  "module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "source_commit": "a3770f02b3adc2c295e993b8234da3e49f26864c",
+  "artifact_sha256": {
+    "/tmp/core-cost-run.py": "13781ebd3cd075ab69603d475fcef36a94d31f7b3b68c44fc2e21822408de926",
+    "/tmp/core-cost-load.py": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb",
+    "/tmp/core_cost_hooks.lua": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e",
+    "/tmp/core-cost-sampler.so": "fb14def79ee86484021ab85bfa183ca0bd956b18e4e5f55555a76f126bbbf244",
+    "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+    "/tmp/native-core-cost.so": "f1496abcb2944af9cba5a81aff489197bb7fd8248086c50bd5a607d346f76a6c"
+  },
+  "load": {
+    "requested_rate": 8000,
+    "duration_seconds": 60,
+    "connections": 32,
+    "target_requests": 480000,
+    "completed": 480000,
+    "wall_seconds": 60.00015806200099,
+    "observed_rps": 7999.978925122054,
+    "scheduled_latency_us": {
+      "mean": 315.2697234149179,
+      "p50": 189.07999765360728,
+      "p95": 1038.1500032963231,
+      "p99": 1905.6360033573583,
+      "max": 20563.88400524156
+    },
+    "wire_latency_us": {
+      "mean": 222.45117712830736,
+      "p50": 154.27900507347658,
+      "p95": 576.4939996879548,
+      "p99": 1279.0640030289069,
+      "max": 15396.69799967669
+    },
+    "driver_lateness_us": {
+      "mean": 92.8185462866014,
+      "p50": 26.460002118255943,
+      "p95": 335.76600253582,
+      "p99": 1032.695006870199,
+      "max": 16564.976001973264
+    },
+    "errors": [],
+    "all_slots_completed": true,
+    "schedule_drained_within_one_second": true
+  }
+}

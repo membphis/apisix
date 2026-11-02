@@ -1,0 +1,30 @@
+61%  C code
+  -- 40%  access_by_lua(nginx.conf:313):0
+  -- 32%  log_by_lua(nginx.conf:376):0
+  -- 15%  header_filter_by_lua(nginx.conf:368):0
+  --  5%  balancer_by_lua(nginx.conf:162):0
+  --  4%  body_filter_by_lua(nginx.conf:372):0
+22%  Compiled
+  -- 18%  incr
+  -- 16%  __index
+  -- 11%  lookup_or_create
+  --  6%  get_var
+  --  6%  re_match_compile
+  --  4%  set_current_peer
+  --  4%  __newindex
+  --  3%  observe
+ 9%  Interpreted
+  -- 19%  http_access_phase
+  --  8%  match_route
+  --  7%  gen_arr
+  --  5%  dispatch
+  --  5%  __index
+  --  4%  re_match
+  --  4%  match
+  --  4%  fetch_latest_conf
+  --  3%  __newindex
+ 7%  Garbage Collector
+  -- 82%  observe
+  --  4%  lookup_or_create
+  --  4%  set_vars_meta
+  --  3%  incr

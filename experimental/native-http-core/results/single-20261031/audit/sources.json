@@ -1,0 +1,14 @@
+{
+  "native-ngxvar-http-v052.lua": {
+    "url": "https://raw.githubusercontent.com/api7/lua-var-nginx-module/v0.5.2/lib/resty/ngxvar/http.lua",
+    "sha256": "28ed9377412d7fc256dc958b66de7300014db38165aa0e68e77c82b81fa0fcca"
+  },
+  "native-ngxvar.c": {
+    "url": "https://raw.githubusercontent.com/api7/lua-var-nginx-module/v0.5.3/src/ngx_http_lua_var_module.c",
+    "sha256": "435d55e11fca82150ddc9107f44682104fd155566b5372a560a28befd0c721ea"
+  },
+  "native-nginx-variables.c": {
+    "url": "https://raw.githubusercontent.com/nginx/nginx/release-1.27.1/src/http/ngx_http_variables.c",
+    "sha256": "68edfa4e4e02fc9fae07c7fa73dd541998de15aaaf766b1b4833c9d0745211a9"
+  }
+}

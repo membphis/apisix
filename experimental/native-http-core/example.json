@@ -1,0 +1,19 @@
+{
+  "upstream": "127.0.0.1:1980",
+  "global_rules": [{"id": "metrics", "plugins": {"prometheus": {}}}],
+  "consumers": [
+    {"username": "demo-user", "plugins": {"key-auth": {"key": "demo-key"}}},
+    {"username": "second-user", "plugins": {"key-auth": {"key": "second-key"}}}
+  ],
+  "routes": [
+    {"id": "plain", "uri": "/plain/*", "plugins": {}},
+    {"id": "auth", "uri": "/auth/*", "plugins": {"key-auth": {"hide_credentials": true}}},
+    {"id": "limit", "uri": "/limit/*", "plugins": {
+      "limit-count": {"count": 5, "time_window": 60, "key_type": "constant", "key": "demo", "policy": "local", "rejected_code": 429}
+    }},
+    {"id": "combined", "uri": "/combined/*", "plugins": {
+      "key-auth": {"hide_credentials": true},
+      "limit-count": {"count": 5, "time_window": 60, "key_type": "var", "key": "consumer_name", "policy": "local", "rejected_code": 429}
+    }}
+  ]
+}

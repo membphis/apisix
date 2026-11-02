@@ -1,0 +1,2 @@
+PASS exact linear arithmetic, decomposition, sensitivity, nonlinearity diagnostics, and incomplete-matrix rejection
+PASS all 18 configurations, quotas, identical upstream headers, original plugin and runner/driver/module hashes, CPU normalization, clean logs and restored demo

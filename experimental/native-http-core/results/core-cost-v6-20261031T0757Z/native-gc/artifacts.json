@@ -1,0 +1,8 @@
+{
+  "/tmp/core-cost-run.py": "08d9d0f743728a5de3594734d1343946cbe37cca5d712b1b157398b1f21ddf5a",
+  "/tmp/core-cost-load.py": "2d52bccf5472cf2ba98976e55777183a25429cc6316ed83298a82a394772edfb",
+  "/tmp/core_cost_hooks.lua": "2fdfdb03234f1acb8b4df09e453d41ecc6b05b9c8c0f2d3d486d38991f039a3e",
+  "/tmp/core-cost-sampler.so": "3dcbe446fe45ad764e432aad8c70dc762e9ce07c93b544feb91184281e18b5e7",
+  "/opt/apisix-core-module/lib/ngx_http_apisix_core_module.so": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8",
+  "/tmp/native-core-cost.so": "f1496abcb2944af9cba5a81aff489197bb7fd8248086c50bd5a607d346f76a6c"
+}

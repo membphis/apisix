@@ -1,0 +1,30 @@
+{
+  "case": {
+    "id": "nginx-before",
+    "mode": "nginx",
+    "kind": "pure"
+  },
+  "enabled_plugins": [],
+  "global_plugins": [],
+  "prometheus": false,
+  "key_auth": false,
+  "ai": false,
+  "validated_iterations_per_request": 0,
+  "response_headers": [
+    {
+      "content-type": "text/plain",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "date": "Sat, 31 Oct 2026 09:24:07 GMT",
+      "server": "APISIX/3.19.0"
+    },
+    {
+      "content-type": "text/plain",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "date": "Sat, 31 Oct 2026 09:24:07 GMT",
+      "server": "APISIX/3.19.0"
+    }
+  ],
+  "original_module_sha256": "6e8e9df0057dccfab6a34785a7bb9fc836c8ab71fdcbf2424beefdaacb2687a8"
+}

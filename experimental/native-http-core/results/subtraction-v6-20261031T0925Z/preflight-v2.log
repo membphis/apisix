@@ -1,0 +1,68 @@
+nginx: the configuration file /tmp/apisix-subtraction-nginx/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-subtraction-nginx/conf/nginx.conf test is successful
+PASS preflight nginx-before
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+PASS preflight lua-none-before
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS preflight native-none-before
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS preflight native-original
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+{"requested_rate": 3000, "duration_seconds": 5, "connections": 32, "target_requests": 15000, "completed": 15000, "wall_seconds": 5.0003091910039075, "observed_rps": 2999.8144968688352, "scheduled_latency_us": {"mean": 1031.8833641285887, "p50": 847.413670271635, "p95": 1773.1663392623886, "p99": 3652.7440024656244, "max": 29194.520000601187}, "wire_latency_us": {"mean": 588.7433473733821, "p50": 522.4440028541721, "p95": 938.9119950355962, "p99": 2613.4029976674356, "max": 28094.44200102007}, "driver_lateness_us": {"mean": 443.1400167552043, "p50": 259.37400641851127, "p95": 1065.7380043994635, "p99": 1112.0583367301151, "max": 18530.1573437755}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS slow-case headroom lua-loop-8 0.378
+PASS preflight lua-loop-8
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+{"requested_rate": 3000, "duration_seconds": 5, "connections": 32, "target_requests": 15000, "completed": 15000, "wall_seconds": 5.000445630001195, "observed_rps": 2999.732645827491, "scheduled_latency_us": {"mean": 1142.5354019365268, "p50": 811.659665487241, "p95": 1669.8026665835641, "p99": 12176.218668173533, "max": 42893.57500238111}, "wire_latency_us": {"mean": 578.1973126727576, "p50": 461.3540004356764, "p95": 778.8209986756556, "p99": 3670.9749983856454, "max": 42874.08600066556}, "driver_lateness_us": {"mean": 564.3380892637667, "p50": 257.29966728249565, "p95": 1074.7496635303833, "p99": 2177.7170040877536, "max": 32228.911339188926}, "errors": [], "all_slots_completed": true, "schedule_drained_within_one_second": true}
+PASS slow-case headroom native-loop-8 0.33799999999999997
+PASS preflight native-loop-8
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+Started lua: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+nginx: [warn] [lua] config_yaml.lua:241: read_apisix_config(): config file /tmp/apisix-http-core-demo/conf/apisix.json reloaded.
+PASS preflight lua-loop-0
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+PASS preflight native-loop-0
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+PASS completed subtraction preflight
+PASS exact upstream header equality across pure NGINX/Lua/C

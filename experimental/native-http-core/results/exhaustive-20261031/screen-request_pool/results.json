@@ -1,0 +1,52 @@
+[
+  {
+    "mode": "native",
+    "prefix": "metrics",
+    "duration_seconds": 60,
+    "suite": "single",
+    "variant": "screen-request_pool",
+    "plugin": "prometheus",
+    "cgroup_cpu_delta": {
+      "usage_usec": 83055605,
+      "user_usec": 41310038,
+      "system_usec": 41745567,
+      "nice_usec": 0,
+      "nr_periods": 0,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "host_cgroup_cpu_delta": {
+      "usage_usec": 84256554,
+      "user_usec": 41781314,
+      "system_usec": 42475240,
+      "nice_usec": 0,
+      "nr_periods": 603,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "wall_seconds": 60.377628946000186,
+    "requests": 1223299,
+    "qps": 20387.22,
+    "workers": [
+      59523
+    ],
+    "worker_cpu_seconds": 59.900000000000006,
+    "worker_user_cpu_seconds": 34.21,
+    "worker_system_cpu_seconds": 25.689999999999998,
+    "worker_cpu_us_per_request": 48.965951905462205,
+    "rss_start_bytes": 20484096,
+    "rss_end_bytes": 20783104,
+    "rss_peak_bytes": 20819968,
+    "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+    "latencies_us": {
+      "p50": 1477.0,
+      "p95": 2101.0,
+      "p99": 2575.0
+    },
+    "error_rate": 0
+  }
+]

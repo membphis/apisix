@@ -1,0 +1,16 @@
+{
+  "initial_flags": [
+    "lazy_rate_json",
+    "batch_vars",
+    "lazy_route_opts",
+    "request_header_flags",
+    "header_scratch"
+  ],
+  "rule": "Exploratory candidates must exceed both flanking control QPS values and their mean by at least 2 percent. Smaller changes remain available but are excluded from the initial final combination. This is a selection rule, not a statistical test. Extra candidates use the same rule; matched_pool controls also enable lazy_route_opts. Compiler choice requires at least 2 percent vs post O2 control plus consistency with the nearby pre-compiler O2 controls; otherwise retain O2. Report final independent paired runs without selecting a best round.",
+  "screening_revision": "screen-module-source",
+  "extra_revision": "candidate-module-source",
+  "recorded_before_inspecting_extra_results": true,
+  "recorded_utc": "2026-10-31T05:13:16.869765+00:00",
+  "compiler_threshold_detail": "Before inspecting compiler samples: require QPS > both BASE extra controls and post compiler O2 control, and >= 1.02 * post compiler O2 control. If both O3 variants qualify choose higher observed QPS for independent final validation; otherwise O2.",
+  "additional_compiler_variant": "O3-lto-local adds -fno-semantic-interposition to the same shared-module compiler experiment; no more runtime candidates. It gets full core checks plus stable single-plugin checks and its own 60s post O2 control. Apply the same 2 percent rule before inspecting its QPS."
+}

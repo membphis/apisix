@@ -1,0 +1,46 @@
+/usr/local/openresty//luajit/bin/luajit ./apisix/cli/apisix.lua init
+nginx: the configuration file /tmp/apisix-http-core-demo/conf/nginx.conf syntax is ok
+nginx: configuration file /tmp/apisix-http-core-demo/conf/nginx.conf test is successful
+Started native: :9080, global Prometheus :9091, workers=1
+67%  C code
+  -- 21%  access_by_lua(nginx.conf:334):0
+  -- 20%  log_by_lua(nginx.conf:388):0
+  -- 10%  header_filter_by_lua(nginx.conf:380):0
+  -- 10%  base.lua:76
+  --  9%  __index
+  --  6%  var.lua:108
+  --  5%  runtime.lua:22
+  --  3%  run
+  --  3%  http.lua:196
+  --  3%  body_filter_by_lua(nginx.conf:384):0
+14%  Interpreted
+  -- 24%  pack
+  -- 18%  __index
+  --  6%  runtime.lua:22
+  --  6%  http.lua:196
+  --  6%  run
+  --  5%  base.lua:76
+  --  5%  exporter.lua:800
+  --  3%  gen_arr
+  --  3%  get_request
+10%  Garbage Collector
+  -- 40%  observe
+  -- 11%  var.lua:108
+  -- 10%  base.lua:76
+  --  7%  lookup_or_create
+  --  7%  pack
+  --  4%  __index
+  --  3%  http.lua:128
+  --  3%  get_request
+  --  3%  exporter.lua:800
+  --  3%  body_filter_by_lua(nginx.conf:384):0
+ 9%  Compiled
+  -- 25%  incr
+  -- 15%  lookup_or_create
+  -- 13%  observe
+  --  9%  base.lua:76
+  --  6%  var.lua:108
+  --  5%  exporter.lua:800
+  --  3%  response.lua:103
+  --  3%  set_req_header
+
