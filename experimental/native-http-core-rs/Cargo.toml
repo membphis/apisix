@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: Apache-2.0
+[workspace]
+resolver = "2"
+members = ["core", "module"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+
+# Release profile used for every measured build. Recorded in build.json.
+# panic = "unwind" is required: every FFI entry contains panics with catch_unwind.
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = "fat"
+panic = "unwind"
+debug = false

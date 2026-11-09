@@ -1,0 +1,2 @@
+# Measurement output retains its original bytes, including trailing spaces.
+results/** -whitespace

@@ -1,0 +1,170 @@
+{
+  "core": {
+    "files": {
+      "core/src/balancer.rs": {
+        "lines": 280,
+        "code": 242,
+        "tests": 80,
+        "non_test_code": 162,
+        "unsafe_code": 0
+      },
+      "core/src/config.rs": {
+        "lines": 766,
+        "code": 692,
+        "tests": 87,
+        "non_test_code": 605,
+        "unsafe_code": 0
+      },
+      "core/src/keyindex.rs": {
+        "lines": 97,
+        "code": 81,
+        "tests": 25,
+        "non_test_code": 56,
+        "unsafe_code": 0
+      },
+      "core/src/lib.rs": {
+        "lines": 16,
+        "code": 7,
+        "tests": 0,
+        "non_test_code": 7,
+        "unsafe_code": 0
+      },
+      "core/src/router.rs": {
+        "lines": 332,
+        "code": 284,
+        "tests": 73,
+        "non_test_code": 211,
+        "unsafe_code": 0
+      },
+      "core/src/uri.rs": {
+        "lines": 93,
+        "code": 74,
+        "tests": 24,
+        "non_test_code": 50,
+        "unsafe_code": 0
+      }
+    },
+    "total": {
+      "lines": 1584,
+      "code": 1380,
+      "tests": 289,
+      "non_test_code": 1091,
+      "unsafe_code": 0,
+      "unsafe_share_of_non_test_code": 0.0
+    }
+  },
+  "module": {
+    "files": {
+      "module/src/filters.rs": {
+        "lines": 82,
+        "code": 61,
+        "tests": 0,
+        "non_test_code": 61,
+        "unsafe_code": 55
+      },
+      "module/src/guard.rs": {
+        "lines": 59,
+        "code": 44,
+        "tests": 0,
+        "non_test_code": 44,
+        "unsafe_code": 1
+      },
+      "module/src/http.rs": {
+        "lines": 249,
+        "code": 210,
+        "tests": 0,
+        "non_test_code": 210,
+        "unsafe_code": 164
+      },
+      "module/src/keyauth.rs": {
+        "lines": 187,
+        "code": 164,
+        "tests": 0,
+        "non_test_code": 164,
+        "unsafe_code": 143
+      },
+      "module/src/lib.rs": {
+        "lines": 210,
+        "code": 167,
+        "tests": 0,
+        "non_test_code": 167,
+        "unsafe_code": 76
+      },
+      "module/src/lua.rs": {
+        "lines": 388,
+        "code": 320,
+        "tests": 0,
+        "non_test_code": 320,
+        "unsafe_code": 152
+      },
+      "module/src/peer.rs": {
+        "lines": 124,
+        "code": 107,
+        "tests": 0,
+        "non_test_code": 107,
+        "unsafe_code": 97
+      },
+      "module/src/pipeline.rs": {
+        "lines": 283,
+        "code": 248,
+        "tests": 0,
+        "non_test_code": 248,
+        "unsafe_code": 187
+      },
+      "module/src/runtime.rs": {
+        "lines": 251,
+        "code": 209,
+        "tests": 0,
+        "non_test_code": 209,
+        "unsafe_code": 116
+      },
+      "module/src/sdk.rs": {
+        "lines": 1384,
+        "code": 1267,
+        "tests": 0,
+        "non_test_code": 1267,
+        "unsafe_code": 1176
+      },
+      "module/src/step1.rs": {
+        "lines": 2489,
+        "code": 2260,
+        "tests": 0,
+        "non_test_code": 2260,
+        "unsafe_code": 2000
+      },
+      "module/src/vars.rs": {
+        "lines": 126,
+        "code": 102,
+        "tests": 0,
+        "non_test_code": 102,
+        "unsafe_code": 52
+      }
+    },
+    "total": {
+      "lines": 5832,
+      "code": 5159,
+      "tests": 0,
+      "non_test_code": 5159,
+      "unsafe_code": 4219,
+      "unsafe_share_of_non_test_code": 0.818
+    }
+  },
+  "groups": {
+    "step1_lua_adapter": {
+      "lines": 4261,
+      "code": 3847,
+      "tests": 0,
+      "non_test_code": 3847,
+      "unsafe_code": 3328,
+      "unsafe_share_of_non_test_code": 0.865
+    },
+    "nginx_glue_shared_and_v2": {
+      "lines": 1571,
+      "code": 1312,
+      "tests": 0,
+      "non_test_code": 1312,
+      "unsafe_code": 891,
+      "unsafe_share_of_non_test_code": 0.679
+    }
+  }
+}

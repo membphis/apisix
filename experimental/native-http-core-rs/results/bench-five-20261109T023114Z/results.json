@@ -1,0 +1,760 @@
+{
+  "rates": [
+    13300,
+    29500
+  ],
+  "samples": [
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.33913434400165,
+      "warmup_requests": 79897,
+      "requests": 968921,
+      "qps": 16140.82,
+      "workers": [
+        10149
+      ],
+      "worker_cpu_seconds": 59.28999999999999,
+      "worker_user_cpu_seconds": 39.5,
+      "worker_system_cpu_seconds": 19.79,
+      "worker_cpu_us_per_request": 61.191779309149034,
+      "rss_start_bytes": 30564352,
+      "rss_end_bytes": 31002624,
+      "rss_peak_bytes": 31047680,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1984.12,
+        "p50": 1849.0,
+        "p95": 2681.0,
+        "p99": 3544.0,
+        "p999": 6852.0
+      },
+      "error_rate": 0,
+      "variant_name": "lua-core",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.116125992999514,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 110289,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 3757.8,
+            "p50": 154.0,
+            "p90": 5456.0,
+            "p99": 82785.0,
+            "p999": 130615.0,
+            "max": 138513.0
+          },
+          "worker_cpu_seconds": 51.74000000000001,
+          "worker_cpu_us_per_request": 64.83701148244177,
+          "worker_cpu_utilization": 0.8606675687323082,
+          "rss_end_bytes": 30720000,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-native-c-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.336142174001,
+      "warmup_requests": 86546,
+      "requests": 975480,
+      "qps": 16250.89,
+      "workers": [
+        10254
+      ],
+      "worker_cpu_seconds": 59.13999999999999,
+      "worker_user_cpu_seconds": 39.580000000000005,
+      "worker_system_cpu_seconds": 19.56,
+      "worker_cpu_us_per_request": 60.62656333292327,
+      "rss_start_bytes": 17260544,
+      "rss_end_bytes": 17326080,
+      "rss_peak_bytes": 17330176,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1979.217,
+        "p50": 1815.0,
+        "p95": 2672.0,
+        "p99": 3641.0,
+        "p999": 7526.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-lua-key-auth",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.1129042900011,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 40744,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 909.7,
+            "p50": 139.0,
+            "p90": 1307.0,
+            "p99": 19952.0,
+            "p999": 47465.0,
+            "max": 52670.0
+          },
+          "worker_cpu_seconds": 50.0,
+          "worker_cpu_us_per_request": 62.65656308701367,
+          "worker_cpu_utilization": 0.8317681634343654,
+          "rss_end_bytes": 17002496,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "rust-lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-native-rust-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.33195130000058,
+      "warmup_requests": 84618,
+      "requests": 1002763,
+      "qps": 16704.06,
+      "workers": [
+        10367
+      ],
+      "worker_cpu_seconds": 59.28,
+      "worker_user_cpu_seconds": 39.24,
+      "worker_system_cpu_seconds": 20.04,
+      "worker_cpu_us_per_request": 59.11666066657824,
+      "rss_start_bytes": 17326080,
+      "rss_end_bytes": 17276928,
+      "rss_peak_bytes": 17354752,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1915.627,
+        "p50": 1762.0,
+        "p95": 2619.0,
+        "p99": 3382.0,
+        "p999": 6235.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-rust-lua-key-auth",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.117537916999936,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 73299,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 1900.7,
+            "p50": 150.0,
+            "p90": 2909.0,
+            "p99": 41987.0,
+            "p999": 67110.0,
+            "max": 82925.0
+          },
+          "worker_cpu_seconds": 51.33999999999999,
+          "worker_cpu_us_per_request": 64.33575897774563,
+          "worker_cpu_utilization": 0.8539937226118861,
+          "rss_end_bytes": 17272832,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-native-c-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.35543658899951,
+      "warmup_requests": 140011,
+      "requests": 2053030,
+      "qps": 34215.43,
+      "workers": [
+        10472
+      ],
+      "worker_cpu_seconds": 59.120000000000005,
+      "worker_user_cpu_seconds": 27.04,
+      "worker_system_cpu_seconds": 32.08,
+      "worker_cpu_us_per_request": 28.796461814975917,
+      "rss_start_bytes": 16371712,
+      "rss_end_bytes": 16371712,
+      "rss_peak_bytes": 16371712,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 943.919,
+        "p50": 870.0,
+        "p95": 1364.0,
+        "p99": 1981.0,
+        "p999": 5919.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-pipeline",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11775685499924,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 4057,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 175.0,
+            "p50": 82.0,
+            "p90": 106.0,
+            "p99": 1002.0,
+            "p999": 31735.0,
+            "max": 53626.0
+          },
+          "worker_cpu_seconds": 33.30999999999999,
+          "worker_cpu_us_per_request": 41.7418023285685,
+          "worker_cpu_utilization": 0.5540792228882041,
+          "rss_end_bytes": 16371712,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        },
+        {
+          "label": "fixed-high",
+          "rate": 29500,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11430534000101,
+          "achieved_rps": 29500.0,
+          "requests": 1770002,
+          "late_sends": 694091,
+          "reconnects": 1760,
+          "latency_us": {
+            "mean": 9402.8,
+            "p50": 1233.0,
+            "p90": 32786.0,
+            "p99": 81182.0,
+            "p999": 91639.0,
+            "max": 96973.0
+          },
+          "worker_cpu_seconds": 57.379999999999995,
+          "worker_cpu_us_per_request": 32.41804246548873,
+          "worker_cpu_utilization": 0.9545148975017504,
+          "rss_end_bytes": 16375808,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "rust",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-native-rust-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.36263662700003,
+      "warmup_requests": 174138,
+      "requests": 2105178,
+      "qps": 35082.87,
+      "workers": [
+        10595
+      ],
+      "worker_cpu_seconds": 59.18000000000001,
+      "worker_user_cpu_seconds": 27.03,
+      "worker_system_cpu_seconds": 32.15,
+      "worker_cpu_us_per_request": 28.111637115721333,
+      "rss_start_bytes": 15716352,
+      "rss_end_bytes": 15720448,
+      "rss_peak_bytes": 15720448,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 919.57,
+        "p50": 837.0,
+        "p95": 1359.0,
+        "p99": 1941.0,
+        "p999": 5086.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-rust-pipeline",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.116984101001435,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 9155,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 241.5,
+            "p50": 77.0,
+            "p90": 107.0,
+            "p99": 3598.0,
+            "p999": 32674.0,
+            "max": 56519.0
+          },
+          "worker_cpu_seconds": 31.810000000000002,
+          "worker_cpu_us_per_request": 39.86210543595811,
+          "worker_cpu_utilization": 0.5291349936410085,
+          "rss_end_bytes": 15720448,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        },
+        {
+          "label": "fixed-high",
+          "rate": 29500,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11788510599945,
+          "achieved_rps": 29500.0,
+          "requests": 1770002,
+          "late_sends": 347059,
+          "reconnects": 1760,
+          "latency_us": {
+            "mean": 2449.9,
+            "p50": 87.0,
+            "p90": 7597.0,
+            "p99": 35745.0,
+            "p999": 44945.0,
+            "max": 53844.0
+          },
+          "worker_cpu_seconds": 54.16999999999999,
+          "worker_cpu_us_per_request": 30.60448519267209,
+          "worker_cpu_utilization": 0.9010629682745461,
+          "rss_end_bytes": 15720448,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "rust",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-native-rust-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.34807827399891,
+      "warmup_requests": 191010,
+      "requests": 2164002,
+      "qps": 36063.74,
+      "workers": [
+        10711
+      ],
+      "worker_cpu_seconds": 59.25000000000001,
+      "worker_user_cpu_seconds": 26.79,
+      "worker_system_cpu_seconds": 32.46,
+      "worker_cpu_us_per_request": 27.379826820862462,
+      "rss_start_bytes": 15568896,
+      "rss_end_bytes": 15572992,
+      "rss_peak_bytes": 15572992,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 891.711,
+        "p50": 823.0,
+        "p95": 1321.0,
+        "p99": 1713.0,
+        "p999": 4628.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-rust-pipeline",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11363296499985,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 2825,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 107.3,
+            "p50": 72.0,
+            "p90": 95.0,
+            "p99": 837.0,
+            "p999": 5219.0,
+            "max": 20411.0
+          },
+          "worker_cpu_seconds": 30.159999999999997,
+          "worker_cpu_us_per_request": 37.79443885408664,
+          "worker_cpu_utilization": 0.5017164744902399,
+          "rss_end_bytes": 15572992,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        },
+        {
+          "label": "fixed-high",
+          "rate": 29500,
+          "duration_seconds": 60,
+          "wall_seconds": 60.113122786999156,
+          "achieved_rps": 29500.0,
+          "requests": 1770002,
+          "late_sends": 497003,
+          "reconnects": 1760,
+          "latency_us": {
+            "mean": 2892.6,
+            "p50": 189.0,
+            "p90": 10549.0,
+            "p99": 23641.0,
+            "p999": 30553.0,
+            "max": 35895.0
+          },
+          "worker_cpu_seconds": 55.329999999999984,
+          "worker_cpu_us_per_request": 31.2598516837834,
+          "worker_cpu_utilization": 0.9204313040939934,
+          "rss_end_bytes": 15577088,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-native-c-pipeline",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.342514097001185,
+      "warmup_requests": 194845,
+      "requests": 2213499,
+      "qps": 36889.55,
+      "workers": [
+        10819
+      ],
+      "worker_cpu_seconds": 59.21000000000001,
+      "worker_user_cpu_seconds": 27.419999999999998,
+      "worker_system_cpu_seconds": 31.790000000000003,
+      "worker_cpu_us_per_request": 26.749503839848135,
+      "rss_start_bytes": 16494592,
+      "rss_end_bytes": 16502784,
+      "rss_peak_bytes": 16502784,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 870.667,
+        "p50": 814.0,
+        "p95": 1322.0,
+        "p99": 1673.0,
+        "p999": 4129.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-pipeline",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.116145119000066,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 3458,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 109.8,
+            "p50": 71.0,
+            "p90": 95.0,
+            "p99": 1100.0,
+            "p999": 4865.0,
+            "max": 16253.0
+          },
+          "worker_cpu_seconds": 29.97999999999999,
+          "worker_cpu_us_per_request": 37.56887522697338,
+          "worker_cpu_utilization": 0.498701304627143,
+          "rss_end_bytes": 16502784,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        },
+        {
+          "label": "fixed-high",
+          "rate": 29500,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11661568399904,
+          "achieved_rps": 29500.0,
+          "requests": 1770002,
+          "late_sends": 400424,
+          "reconnects": 1760,
+          "latency_us": {
+            "mean": 3809.4,
+            "p50": 104.0,
+            "p90": 8896.0,
+            "p99": 62425.0,
+            "p999": 111984.0,
+            "max": 123308.0
+          },
+          "worker_cpu_seconds": 54.890000000000015,
+          "worker_cpu_us_per_request": 31.01126439405154,
+          "worker_cpu_utilization": 0.9130587172193365,
+          "rss_end_bytes": 16519168,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "rust-lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-native-rust-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.32018609999977,
+      "warmup_requests": 84639,
+      "requests": 1078205,
+      "qps": 17961.76,
+      "workers": [
+        10937
+      ],
+      "worker_cpu_seconds": 59.14,
+      "worker_user_cpu_seconds": 39.23,
+      "worker_system_cpu_seconds": 19.91,
+      "worker_cpu_us_per_request": 54.85042269327261,
+      "rss_start_bytes": 17223680,
+      "rss_end_bytes": 17383424,
+      "rss_peak_bytes": 17387520,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1784.042,
+        "p50": 1682.0,
+        "p95": 2456.0,
+        "p99": 3189.0,
+        "p999": 6565.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-rust-lua-key-auth",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11456798600011,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 39165,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 798.3,
+            "p50": 100.0,
+            "p90": 1185.0,
+            "p99": 19989.0,
+            "p999": 37834.0,
+            "max": 46526.0
+          },
+          "worker_cpu_seconds": 48.75999999999999,
+          "worker_cpu_us_per_request": 61.102680322455726,
+          "worker_cpu_utilization": 0.8111178643312474,
+          "rss_end_bytes": 17047552,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-native-c-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.335718559999805,
+      "warmup_requests": 79802,
+      "requests": 1024402,
+      "qps": 17064.69,
+      "workers": [
+        11042
+      ],
+      "worker_cpu_seconds": 59.07999999999999,
+      "worker_user_cpu_seconds": 38.839999999999996,
+      "worker_system_cpu_seconds": 20.24,
+      "worker_cpu_us_per_request": 57.672671470770254,
+      "rss_start_bytes": 17252352,
+      "rss_end_bytes": 17178624,
+      "rss_peak_bytes": 17264640,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1890.104,
+        "p50": 1738.0,
+        "p95": 2608.0,
+        "p99": 3516.0,
+        "p999": 9345.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-lua-key-auth",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11512311799925,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 28140,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 505.3,
+            "p50": 98.0,
+            "p90": 978.0,
+            "p99": 7226.0,
+            "p999": 27487.0,
+            "max": 45243.0
+          },
+          "worker_cpu_seconds": 48.13000000000001,
+          "worker_cpu_us_per_request": 60.31320762755937,
+          "worker_cpu_utilization": 0.8006304820423675,
+          "rss_end_bytes": 16916480,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.32010313699902,
+      "warmup_requests": 83150,
+      "requests": 974113,
+      "qps": 16221.59,
+      "workers": [
+        11147
+      ],
+      "worker_cpu_seconds": 59.16,
+      "worker_user_cpu_seconds": 39.839999999999996,
+      "worker_system_cpu_seconds": 19.32,
+      "worker_cpu_us_per_request": 60.7321737827131,
+      "rss_start_bytes": 30535680,
+      "rss_end_bytes": 31207424,
+      "rss_peak_bytes": 31289344,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1977.604,
+        "p50": 1823.0,
+        "p95": 2730.0,
+        "p99": 3659.0,
+        "p999": 7242.0
+      },
+      "error_rate": 0,
+      "variant_name": "lua-core",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11777467600041,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 111263,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 2272.9,
+            "p50": 153.0,
+            "p90": 5779.0,
+            "p99": 37533.0,
+            "p999": 57142.0,
+            "max": 63638.0
+          },
+          "worker_cpu_seconds": 52.02000000000001,
+          "worker_cpu_us_per_request": 65.18788823572903,
+          "worker_cpu_utilization": 0.8653014899562956,
+          "rss_end_bytes": 31240192,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    }
+  ]
+}
