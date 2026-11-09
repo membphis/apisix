@@ -1,0 +1,272 @@
+{
+  "rates": [
+    13300,
+    29500
+  ],
+  "samples": [
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.31789507599933,
+      "warmup_requests": 83627,
+      "requests": 1011779,
+      "qps": 16851.61,
+      "workers": [
+        7490
+      ],
+      "worker_cpu_seconds": 59.41,
+      "worker_user_cpu_seconds": 39.379999999999995,
+      "worker_system_cpu_seconds": 20.03,
+      "worker_cpu_us_per_request": 58.71835647903347,
+      "rss_start_bytes": 30138368,
+      "rss_end_bytes": 30543872,
+      "rss_peak_bytes": 30543872,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1903.654,
+        "p50": 1760.0,
+        "p95": 2657.0,
+        "p99": 3384.0,
+        "p999": 7433.0
+      },
+      "error_rate": 0,
+      "variant_name": "lua-core",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11318660300003,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 91132,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 1597.8,
+            "p50": 147.0,
+            "p90": 3975.0,
+            "p99": 24086.0,
+            "p999": 45727.0,
+            "max": 50137.0
+          },
+          "worker_cpu_seconds": 51.11,
+          "worker_cpu_us_per_request": 64.04753878754538,
+          "worker_cpu_utilization": 0.850229423662749,
+          "rss_end_bytes": 30228480,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-1-native-c-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.31213843899968,
+      "warmup_requests": 92700,
+      "requests": 1119274,
+      "qps": 18647.02,
+      "workers": [
+        7595
+      ],
+      "worker_cpu_seconds": 59.54,
+      "worker_user_cpu_seconds": 39.15,
+      "worker_system_cpu_seconds": 20.39,
+      "worker_cpu_us_per_request": 53.19519617180422,
+      "rss_start_bytes": 17481728,
+      "rss_end_bytes": 17317888,
+      "rss_peak_bytes": 17514496,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1711.694,
+        "p50": 1637.0,
+        "p95": 2367.0,
+        "p99": 2805.0,
+        "p999": 4509.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-lua-key-auth",
+      "round": 1,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11430076299985,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 21339,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 422.3,
+            "p50": 90.0,
+            "p90": 347.0,
+            "p99": 8366.0,
+            "p999": 23535.0,
+            "max": 36241.0
+          },
+          "worker_cpu_seconds": 45.55,
+          "worker_cpu_us_per_request": 57.080128972269456,
+          "worker_cpu_utilization": 0.7577231943457267,
+          "rss_end_bytes": 17326080,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "native",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-native-c-lua-key-auth",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.30150548100028,
+      "warmup_requests": 90582,
+      "requests": 1075124,
+      "qps": 17911.13,
+      "workers": [
+        7700
+      ],
+      "worker_cpu_seconds": 59.32,
+      "worker_user_cpu_seconds": 38.69,
+      "worker_system_cpu_seconds": 20.630000000000003,
+      "worker_cpu_us_per_request": 55.17503097317147,
+      "rss_start_bytes": 17207296,
+      "rss_end_bytes": 17379328,
+      "rss_peak_bytes": 17379328,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1785.146,
+        "p50": 1668.0,
+        "p95": 2515.0,
+        "p99": 3083.0,
+        "p999": 5636.0
+      },
+      "error_rate": 0,
+      "variant_name": "native-c-lua-key-auth",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.1124022060003,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 36379,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 738.0,
+            "p50": 95.0,
+            "p90": 970.0,
+            "p99": 16111.0,
+            "p999": 39454.0,
+            "max": 50882.0
+          },
+          "worker_cpu_seconds": 47.0,
+          "worker_cpu_us_per_request": 58.89716930179286,
+          "worker_cpu_utilization": 0.7818686040683391,
+          "rss_end_bytes": 17051648,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    },
+    {
+      "mode": "lua",
+      "prefix": "auth",
+      "duration_seconds": 60,
+      "suite": "single",
+      "variant": "round-2-lua-core",
+      "plugin": "key-auth",
+      "cgroup_cpu_delta": {},
+      "host_cgroup_cpu_delta": {
+        "nr_periods": 0,
+        "nr_throttled": 0,
+        "throttled_time": 0,
+        "nr_bursts": 0,
+        "burst_time": 0
+      },
+      "wall_seconds": 60.322490554999604,
+      "warmup_requests": 90818,
+      "requests": 1021270,
+      "qps": 17012.17,
+      "workers": [
+        7805
+      ],
+      "worker_cpu_seconds": 59.300000000000004,
+      "worker_user_cpu_seconds": 39.620000000000005,
+      "worker_system_cpu_seconds": 19.68,
+      "worker_cpu_us_per_request": 58.064958336189264,
+      "rss_start_bytes": 31297536,
+      "rss_end_bytes": 31911936,
+      "rss_peak_bytes": 32104448,
+      "latency_method": "wrk closed-loop; each implementation at its own achieved throughput",
+      "latencies_us": {
+        "mean": 1881.325,
+        "p50": 1734.0,
+        "p95": 2625.0,
+        "p99": 3326.0,
+        "p999": 6193.0
+      },
+      "error_rate": 0,
+      "variant_name": "lua-core",
+      "round": 2,
+      "fixed_rate": [
+        {
+          "label": "fixed-low",
+          "rate": 13300,
+          "duration_seconds": 60,
+          "wall_seconds": 60.11346811700059,
+          "achieved_rps": 13300.0,
+          "requests": 798001,
+          "late_sends": 50890,
+          "reconnects": 768,
+          "latency_us": {
+            "mean": 1312.9,
+            "p50": 134.0,
+            "p90": 1737.0,
+            "p99": 35649.0,
+            "p999": 61986.0,
+            "max": 67281.0
+          },
+          "worker_cpu_seconds": 48.94,
+          "worker_cpu_us_per_request": 61.328243949568986,
+          "worker_cpu_utilization": 0.8141270422918646,
+          "rss_end_bytes": 31961088,
+          "latency_method": "open-loop fixed rate, latency from intended send time (coordinated-omission corrected)"
+        }
+      ]
+    }
+  ]
+}

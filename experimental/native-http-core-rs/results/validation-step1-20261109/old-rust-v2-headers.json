@@ -1,0 +1,2 @@
+{"mode": "rust", "module": "/opt/apisix-rs-old/ngx_http_apisix_rs_module.so", "headers": [["/auth/item", 200, "openresty", null], ["/auth/item", 401, "openresty", null], ["/outside-route", 404, "openresty", null], ["/no-retry/item", 502, "openresty", null]]}
+{"mode": "native", "module": "C", "headers": [["/auth/item", 200, "APISIX/3.19.0", null], ["/auth/item", 401, "APISIX/3.19.0", null], ["/outside-route", 404, "APISIX/3.19.0", null], ["/no-retry/item", 502, "APISIX/3.19.0", "502"]]}
