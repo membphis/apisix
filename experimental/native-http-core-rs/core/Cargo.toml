@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: Apache-2.0
+[package]
+name = "apisix-rs-core"
+description = "NGINX-independent logic of the Rust APISIX key-auth pipeline research port"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+serde_json = "1"

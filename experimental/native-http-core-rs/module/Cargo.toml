@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: Apache-2.0
+[package]
+name = "ngx_http_apisix_rs_module"
+description = "NGINX dynamic module: Rust port of the APISIX v2 native key-auth request pipeline"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+# Test-only build: adds a route that panics inside the access handler to
+# prove panic containment. Never enabled for measured builds.
+panic-test = []
+
+[dependencies]
+apisix-rs-core = { path = "../core" }
+ngx = { version = "=0.5.1", default-features = false, features = ["std"] }
+serde_json = "1"
